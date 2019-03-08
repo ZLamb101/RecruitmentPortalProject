@@ -1,0 +1,20 @@
+{
+  "name": "bjz/portal",
+  "version": "0.0.1",
+  "description": "Recruitment Portal Group Project, Zane/Jordan/Ben ",
+  "require": {
+    "dannyvankooten/php-router":"dev-master"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*",
+    "phpdocumentor/phpdocumentor": "2.*",
+    "phpmailer/phpmailer": "~6.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "bjz\\portal\\": "src/"
+    }
+  }
+}
