@@ -8,7 +8,8 @@ use mysqli;
  *
  * Base class for all Models, establishes link to the database.
  *
- */
+ * @package bjz/portal
+ **/
 class Model
 {
     /**
