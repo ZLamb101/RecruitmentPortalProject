@@ -11,5 +11,9 @@ namespace bjz\portal\controller;
 
 class EmployerController extends Controller
 {
-
+    public function employerHomePageAction()
+    {
+        $view = new View('employerHomePage');
+        echo $view->render();
+    }
 }
