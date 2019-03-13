@@ -1,6 +1,5 @@
 <?php
 namespace bjz\portal\model;
-use Exception;
 /**
  * Class UserModel
  *
@@ -22,6 +21,14 @@ class UserModel extends Model
      * @var string, the password of the user (will be hashed)
      */
     private $password;
+    /**
+     * @var string, the email address of the user
+     */
+    private $email;
+    /**
+     * @var string, the phone number of the user
+     */
+    private $phone_number;
     /**
      * @return int $this->id, the id of the user
      */
@@ -57,7 +64,32 @@ class UserModel extends Model
     {
         $this->password = $password;
     }
-
+    /**
+     * @return string $this->email, the email address of the user
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    /**
+     * @param string $email, the new email address of the user
+     */
+    public function setEmail($email){
+        $this->email = $email;
+    }
+    /**
+     * @return string $this->phone_number, the phone number of the user
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
+    }
+    /**
+     * @param string $phone_number, the new phone number for the user
+     */
+    public function setPhoneNumber($phone_number){
+        $this->phone_number = $phone_number;
+    }
     /**
      * Loads user information from the database
      *
@@ -76,6 +108,8 @@ class UserModel extends Model
         $result = $result->fetch_assoc();
         $this->username = $result['username'];
         $this->password = $result['password'];
+        $this->email = $result['email'];
+        $this->phone_number = $result['phone_number'];
         $this->id = $id;
         return $this;
     }
@@ -92,16 +126,20 @@ class UserModel extends Model
         $username = $this->db->real_escape_string($username);
         $password = $this->password ?? "NULL";
         $password = $this->db->real_escape_string($password);
+        $email = $this->email ?? "NULL";
+        $email = $this->db->real_escape_string($email);
+        $phone = $this->phone_number ?? "NULL";
+        $phone = $this->db->real_escape_string($phone);
         if (!isset($this->id)) {
             // New user - Perform INSERT
             $password = password_hash($password, PASSWORD_BCRYPT);
-            if (!$result = $this->db->query("INSERT INTO `user` VALUES (NULL,'$username','$password');")) {
+            if (!$result = $this->db->query("INSERT INTO `user` VALUES (NULL,'$username','$password','$email','$phone');")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // saving existing user - perform UPDATE
-            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password' WHERE `id` = $this->id;")) {
+            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
             }
         }
