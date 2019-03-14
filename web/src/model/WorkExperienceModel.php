@@ -160,7 +160,7 @@ class WorkExperienceModel extends Model
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer' 
+            if (!$result = $this->db->query("UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer' 
                                               `duration` = '$duration' WHERE `id` = $this->id;")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
