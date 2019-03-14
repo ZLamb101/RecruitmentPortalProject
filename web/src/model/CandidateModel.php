@@ -186,7 +186,7 @@ class CandidateModel extends UserModel
     /**
      * Loads candidate information from the database
      *
-     * @param int $id, the id of the user to load
+     * @param int $id, the id of the candidate to load
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
@@ -212,7 +212,7 @@ class CandidateModel extends UserModel
     }
 
     /**
-     * Saves user information to the database
+     * Saves candidate information to the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
