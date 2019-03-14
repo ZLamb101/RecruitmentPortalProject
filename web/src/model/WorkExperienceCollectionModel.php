@@ -37,9 +37,9 @@ class WorkExperienceCollectionModel
     public function __construct($id)
     {
         if (!$result = $this->db->query("SELECT * FROM `work_experience` LEFT JOIN
-                                         ON `work_experience`.`id` = `candidate`.`id`
+                                         ON `work_experience`.`owner_id` = `candidate`.`id`
                                          WHERE `work_experience`.`owner_id` = '$id';")){
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListCollectConstruct");
+            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpCollectConstruct");
         }
         $this->instance_ids = array_column($result->fetch_all(), 0);
         $this->N = $result->num_rows;
