@@ -55,7 +55,7 @@ class Model
             throw new \Exception($this->db->connect_error, $this->db->connect_errno);
         }
 
-        generateDummyData();
+        //generateDummyData();
     }
 
     public function generateDummyData(){
