@@ -173,6 +173,7 @@ class EmployerModel extends UserModel
         $this->url = $result['url'];
         $this->short_lists = new ShortListCollectionModel($id);
         $this->id = $id;
+        parent::load($this->user_id);
         return $this;
     }
 
@@ -204,11 +205,11 @@ class EmployerModel extends UserModel
             $this->id = $this->db->insert_id;
         } else {
             // existing employer, update information
-            if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = $this->id);")) {
+            if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
+                                              `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = $this->id);")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
             }
         }
         return $this;
     }
-
 }

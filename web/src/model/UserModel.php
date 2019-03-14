@@ -139,7 +139,8 @@ class UserModel extends Model
             $this->id = $this->db->insert_id;
         } else {
             // saving existing user - perform UPDATE
-            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
+            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', 
+                                              `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
             }
         }
@@ -155,6 +156,7 @@ class UserModel extends Model
      */
     public function delete()
     {
+        //Not sure if this should be allowed. Will not currently delete children?
         if (!$result = $this->db->query("DELETE FROM `user` WHERE `user`.`id` = $this->id;")) {
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
         }
