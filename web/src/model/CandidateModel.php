@@ -205,8 +205,10 @@ class CandidateModel extends UserModel
         $this->location = $result['location'];
         $this->availability = $result['availability'];
         $this->skills = $result['skills'];
-        $this->workExperiences = new WorkExperienceCollectionModel($this->id); // ARRAY OF W.E.
-        $this->qualifications = new QualificationCollectionModel($this->id);
+        $workExp = new WorkExperienceCollectionModel($this->id);
+        $this->workExperiences = $workExp->getWorkExperiences();
+        $qualifications = new QualificationCollectionModel($this->id);
+        $this->qualifications = $qualifications->getQualifications();
         $this->id = $id;
         parent::load($this->user_id);
         return $this;
@@ -249,5 +251,4 @@ class CandidateModel extends UserModel
         }
         return $this;
     }
-
 }

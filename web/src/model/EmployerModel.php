@@ -171,7 +171,8 @@ class EmployerModel extends UserModel
         $this->company_name = $result['company_name'];
         $this->contact_name = $result['contact_name'];
         $this->url = $result['url'];
-        $this->short_lists = new ShortListCollectionModel($id);
+        $shortlists = new ShortListCollectionModel($id);
+        $this->short_lists = $shortlists->getShortLists();
         $this->id = $id;
         parent::load($this->user_id);
         return $this;
