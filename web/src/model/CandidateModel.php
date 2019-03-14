@@ -34,6 +34,19 @@ class CandidateModel extends UserModel
      */
     private $availability;
     /**
+     * @var array, an array of SkillModel objects, the skills the candidate has
+     */
+    private $skills;
+    /**
+     * @var array, an array of the candidates instances of work experience
+     */
+    private $workExperiences;
+    /**
+     * @var array, the array of the candidates qualifications
+     */
+    private $qualifications;
+
+    /**
      * @return int $this->id, the ID of the candidate
      */
     public function getId()
@@ -123,6 +136,53 @@ class CandidateModel extends UserModel
     {
         $this->availability = $availability;
     }
+
+    /**
+     * @return array $this->skills, the array of the candidates skills
+     */
+    public function getSkills(){
+        return $this->skills;
+    }
+
+    /**
+     * @param string $skills, the new set of skills of the candidate
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
+    }
+
+    /**
+     * @return array $this->workExperiences, the array of the candidates work experience instances
+     */
+    public function getWorkExperience(){
+        return $this->workExperiences;
+    }
+
+    /**
+     * @param array $workExperiences, the new set of work experience of the candidate.
+     */
+    public function setWorkExperiences($workExperiences)
+    {
+        $this->workExperiences = $workExperiences;
+    }
+
+    /**
+     * @return array $this->qualifications, the array of a candidates qualifications
+     */
+    public function getQualifications()
+    {
+        return $this->qualifications;
+    }
+
+    /**
+     * @param array $qualifications, the new array of candidate qualifications
+     */
+    public function setQualifications($qualifications)
+    {
+        $this->qualifications = $qualifications;
+    }
+
     /**
      * Loads candidate information from the database
      *
@@ -144,9 +204,13 @@ class CandidateModel extends UserModel
         $this->g_name = $result['g_name'];
         $this->location = $result['location'];
         $this->availability = $result['availability'];
+        $this->skills = new SkillCollectionModel($this->id); // ARRAY OF SKILLS
+        $this->workExperiences = new WorkExperienceCollectionModel($this->id); // ARRAY OF W.E.
+        $this->qualifications = new QualificationCollectionModel($this->id);
         $this->id = $id;
         return $this;
     }
+
     /**
      * Saves user information to the database
      *
@@ -155,6 +219,9 @@ class CandidateModel extends UserModel
      * @return $this CandidateModel
      */
     public function save(){
+        // DOES NOT CURRENTLY SAVE SKILLS.
+        // DOES NOT CURRENTLY SAVE W.E.
+        // DOES NOT CURRENTLY SAVE QUALIFICATIONS
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
         $given = $this->f_name ?? "NULL";
