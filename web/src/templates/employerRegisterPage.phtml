@@ -12,6 +12,8 @@ include "header.phtml"
 			<div class = "title">
 				<h2>Employer Registration Form</h2>
 			</div>
+            <p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p> 
+
 		<div id="registration">
         <form method="POST" name="registration" action="<?= $linkTo('registrationConfirmationPage'); ?>" >
             <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only" ></p>
