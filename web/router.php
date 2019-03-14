@@ -10,15 +10,122 @@ $collection->attachRoute(
     new Route(
         '/',
         array(
-            '_controller' => 'bjz\portal\controller\AccountController::indexAction',
+            '_controller' => 'bjz\portal\controller\HomeController::indexAction',
             'methods' => 'GET',
             'name' => 'home'
         )
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/EmployerHome',
+        array(
+            '_controller' => 'bjz\portal\controller\EmployerController::indexAction',
+            'methods' => 'GET',
+            'name' => 'employerHomePage'
+        )
+    )
+);
 
+$collection->attachRoute(
+    new Route(
+        '/CandidateHome',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::indexAction',
+            'methods' => 'GET',
+            'name' => 'candidateHomePage'
+        )
+    )
+);
 
+$collection->attachRoute(
+    new Route(
+        '/Search',
+        array(
+            '_controller' => 'bjz\portal\controller\SearchController::indexAction',
+            'methods' => 'GET',
+            'name' => 'searchPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Pre-Register',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::preRegisterPageAction',
+            'methods' => 'GET',
+            'name' => 'preRegisterPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Employer-Register',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::employerRegisterPageAction',
+            'methods' => 'GET',
+            'name' => 'employerRegisterPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Candidate-Register',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::candidateRegisterPageAction',
+            'methods' => 'GET',
+            'name' => 'candidateRegisterPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Registration-Confirmed',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::registrationConfirmationPageAction',
+            'methods' => 'GET',
+            'name' => 'registrationConfirmationPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Password-Recovery',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::passwordRecoveryPageAction',
+            'methods' => 'GET',
+            'name' => 'passwordRecoveryPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Password-Recovery-Confirmation',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::passwordRecoveryConfirmationPageAction',
+            'methods' => 'GET',
+            'name' => 'passwordRecoveryConfirmationPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Error',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::errorPageAction',
+            'methods' => 'GET',
+            'name' => 'errorPage'
+        )
+    )
+);
 
 $router = new Router($collection);
 $router->setBasePath('/');

@@ -11,9 +11,19 @@ namespace bjz\portal\controller;
 
 class CandidateController extends Controller
 {
-    public function candidateHomeAction()
+    public function indexAction()
     {
         $view = new View('candidateHomePage');
         echo $view->render();
+    }
+
+    public function createAccountAction()
+    {
+        //To complete
+    }
+
+    public function loginAction()
+    {
+        //To complete
     }
 }
