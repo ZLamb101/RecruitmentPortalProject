@@ -11,6 +11,9 @@ include "header.phtml"
 			<div class = "title">
 			<h2>Candidate Registration Form</h2>
 			</div>
+                  <p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p> 
+
+
 		   <div id="registration">
         <form method="POST" name="registration" action="<?= $linkTo('registrationConfirmPage'); ?>" >
             <p>Name: <input type="text" placeholder="Name" name="name" size="40" pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only"> </p>
