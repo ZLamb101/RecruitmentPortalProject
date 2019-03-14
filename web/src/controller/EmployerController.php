@@ -7,7 +7,7 @@
  */
 
 namespace bjz\portal\controller;
-
+use bjz\portal\view\View;
 
 /**
  * Class EmployerController

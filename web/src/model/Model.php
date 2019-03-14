@@ -19,7 +19,7 @@ class Model
     /**
      * @var string, the host of the database
      */
-    const DB_HOST = 'mysql';
+    const DB_HOST = 'bjzportal12.cu206ku2npcs.us-east-2.rds.amazonaws.com';
     /**
      * @var string, the username of the mysql admin account
      */
@@ -27,11 +27,15 @@ class Model
     /**
      * @var string, the password of the mysql admin account
      */
-    const DB_PASS = '_k?,<!eXMUvRmk3,';
+    const DB_PASS = 'rootroot';
     /**
      * @var string, the name of the database
      */
     const DB_NAME = 'bjzPortal12';
+
+    //Temporary
+    const DB_PORT = 3306;
+
 
     /**
      * Model constructor.
@@ -48,7 +52,9 @@ class Model
             Model::DB_HOST,
             Model::DB_USER,
             Model::DB_PASS,
-            Model::DB_NAME
+            Model::DB_NAME,
+            Model::DB_PORT,
+            'mysql'         //Temporary
         );
 
         if (!$this->db) {
