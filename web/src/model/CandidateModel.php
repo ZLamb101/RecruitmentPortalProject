@@ -240,7 +240,7 @@ class CandidateModel extends UserModel
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
-            if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id;")) {
+            if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id);")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }

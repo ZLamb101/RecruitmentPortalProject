@@ -161,7 +161,18 @@ class EmployerModel extends UserModel
      */
     public function load($id)
     {
-        //TODO write this.
+        $id = $this->db->real_escape_string($id);
+        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `id` = $id;")) {
+            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerLoad");
+        }
+        $result = $result->fetch_assoc();
+        $this->user_id = $result['user_id'];
+        $this->address = $result['address'];
+        $this->company_name = $result['company_name'];
+        $this->contact_name = $result['contact_name'];
+        $this->url = $result['url'];
+        $this->short_lists = new ShortListCollectionModel($id);
+        $this->id = $id;
         return $this;
     }
 
@@ -174,7 +185,30 @@ class EmployerModel extends UserModel
      */
     public function save()
     {
-        //TODO write this.
+        //SHORT LIST SAVE NOT WRITTEN
+        $uid = $this->user_id ?? "NULL";
+        $uid = $this->db->real_escape_string($uid);
+        $address = $this->address ?? "NULL";
+        $address = $this->db->real_escape_string($address);
+        $comp_name = $this->company_name ?? "NULL";
+        $comp_name = $this->db->real_escape_string($comp_name);
+        $contact_name = $this->contact_name ?? "NULL";
+        $contact_name = $this->db->real_escape_string($contact_name);
+        $url = $this->url ?? "NULL";
+        $url = $this->db->real_escape_string($url);
+        if(!isset($this->id)){
+            // new employer
+            if(!$result = $this->db-query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){
+                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
+            }
+            $this->id = $this->db->insert_id;
+        } else {
+            // existing employer, update information
+            if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = $this->id);")) {
+                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
+            }
+        }
+        return $this;
     }
 
 }
