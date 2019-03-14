@@ -7,7 +7,7 @@ namespace bjz\portal\model;
  *
  * @package bjz/portal
  */
-class ShortListModel
+class ShortListModel extends Model
 {
     /**
      * @var int, the ID of the Short List
@@ -141,5 +141,6 @@ class ShortListModel
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
+        return $this;
     }
 }
