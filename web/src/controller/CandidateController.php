@@ -9,21 +9,30 @@
 namespace bjz\portal\controller;
 
 
-class CandidateController extends Controller
+/**
+ * Class CandidateController
+ *
+ * Class controls all actions relevant to the Candidate Model
+ *
+ * @package bjz\portal\controller
+ */
+class CandidateController extends UserController
 {
+    /**
+     * Action to load the candidateHomePage
+     */
     public function indexAction()
     {
         $view = new View('candidateHomePage');
         echo $view->render();
     }
 
+    /**
+     * Function to create a Candidate account
+     */
     public function createAccountAction()
     {
         //To complete
-    }
-
-    public function loginAction()
-    {
-        //To complete
+        //Call super first
     }
 }

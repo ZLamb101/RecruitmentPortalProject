@@ -9,21 +9,30 @@
 namespace bjz\portal\controller;
 
 
-class EmployerController extends Controller
+/**
+ * Class EmployerController
+ *
+ * Class controls all actions relevant to the Employer Model
+ *
+ * @package bjz\portal\controller
+ */
+class EmployerController extends UserController
 {
+    /**
+     * Action to load the employerHomePage
+     */
     public function indexAction()
     {
         $view = new View('employerHomePage');
         echo $view->render();
     }
 
+    /**
+     * Action to create an Employer account
+     */
     public function createAccountAction()
     {
         //To complete
-    }
-
-    public function loginAction()
-    {
-        //To complete
+        //Call super
     }
 }

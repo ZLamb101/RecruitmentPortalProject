@@ -4,7 +4,8 @@ namespace bjz\portal\controller;
 
 /**
  * Class Controller
- *
+ * Base class to all Controller classes which implements functions
+ * utilized by each of them
  */
 class Controller
 {

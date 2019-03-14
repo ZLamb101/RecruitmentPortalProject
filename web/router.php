@@ -127,5 +127,27 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/login-submit',
+        array(
+            '_controller' => 'bjz\portal\controller\UserController:loginAction',
+            'methods' => 'POST',
+            'name' => 'LoginSubmit'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/logout',
+        array(
+            '_controller' => 'bjz\portal\controller\UserController:logoutAction',
+            'methods' => 'POST',
+            'name' => 'logout'
+        )
+    )
+);
+
 $router = new Router($collection);
 $router->setBasePath('/');
