@@ -1,0 +1,35 @@
+<?php 
+session_start();
+include "header.phtml"
+ ?>
+ 
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content" class="container">
+			<div class = "title">
+				<h2>Search Menu</h2>
+			</div>
+			<p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return home
+            <form>
+            	<div id="search-bar">
+					<p> Search:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+				</div>
+				<br>
+
+				<div id = "search">
+                	<p><b>Search Results</b></p>
+                	<div id="livesearch" > </div>
+                </div>
+              
+            </form>
+			<br>
+		</div>
+	</div>
+	<!--- Content Ends here ----------->
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

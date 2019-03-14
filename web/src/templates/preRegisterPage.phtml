@@ -1,0 +1,34 @@
+
+<?php 
+session_start();
+include "header.phtml"
+ ?>
+
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div class = "title">
+			<h2>Pre Register Page</h2>
+			</div>
+			<div class="partition">
+				 <br>
+				 <p>Please choose which type of account you want to create</p>
+				
+					<p><a href="<?= $linkTo('home'); ?>">Candidate</a> </p>
+					<p><a href="<?= $linkTo('home'); ?>">Employer</a></p>
+			
+			</div>
+			<br>
+			<p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p>
+		</div>
+	</div>
+	<!--- Content Ends here ----------->
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

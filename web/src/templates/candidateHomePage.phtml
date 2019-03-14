@@ -1,0 +1,32 @@
+
+<?php 
+include "header.phtml"
+ ?>
+
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div class = "title">
+			<h2>Welcome <?= $candidate->getUsername() ?>.</h2>
+			</div>
+			<div class="partition">
+				 <br>
+				 	<p>Click <a href="<?= $linkTo('#'); ?>">Here</a> to edit info</p>
+					<p>Click <a href="<?= $linkTo('#'); ?>">Here</a> to view invites</p>
+					<p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p>
+			</div>
+			<br>
+			<br>
+			
+		</div>
+	</div>
+	<!--- Content Ends here ----------->
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>
