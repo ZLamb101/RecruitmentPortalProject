@@ -133,7 +133,7 @@ $collection->attachRoute(
         array(
             '_controller' => 'bjz\portal\controller\UserController:loginAction',
             'methods' => 'POST',
-            'name' => 'LoginSubmit'
+            'name' => 'loginSubmit'
         )
     )
 );

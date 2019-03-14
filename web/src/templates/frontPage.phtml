@@ -11,7 +11,7 @@
 		
 		<div id = "content">
 			<div class = "title">
-				<h2>Welcome to ToolStocker</h2>
+				<h2>test skiddy pang</h2>
 			</div>
 
 
@@ -19,7 +19,7 @@
             <div id = "login">
               
 
-		      	<form action = "<?= $linkTo('loginAttempt'); ?>" method="post">
+		      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
 		       		<p>Username: <input type="text" name="username_input" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only"></p>
 		       		<p>Password: <input type="password" name="password_input" required pattern="^(?=.*[A-Z])([a-zA-Z0-9]{7,15})$" title="Must contain at least one uppercase letter, and be between 7-15 characters"  ></p>
  					<input id="login-button" type="submit" value="Login">
