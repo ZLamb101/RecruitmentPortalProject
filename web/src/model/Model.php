@@ -48,7 +48,7 @@ class Model
         $this->db = new mysqli(
             Model::DB_HOST,
             Model::DB_USER,
-            Model::DB_PASS,
+            Model::DB_PASS
             // Model::DB_NAME
         );
 
@@ -56,10 +56,18 @@ class Model
             throw new \Exception($this->db->connect_error, $this->db->connect_errno);
         }
 
+
+        $this->db->query("CREATE DATABASE IF NOT EXISTS " . Model::DB_NAME . ";");
+        if (!$this->db->select_db(Model::DB_NAME)) {
+            error_log("Mysql database not available!", 0);
+            throw new \mysqli_sql_exception();
+        }
+
         //generateDummyData();
     }
 
     public function generateDummyData(){
         //TODO Write dummy data and creation
+
     }
 }
