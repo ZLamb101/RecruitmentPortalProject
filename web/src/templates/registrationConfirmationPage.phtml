@@ -1,0 +1,36 @@
+
+<?php 
+session_start();
+include "header.phtml"
+ ?>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div class = "title">
+			<h2>Account <?= $account->getUsername() ?> created successfully.</h2>
+			</div>
+			<div class="partition">
+				 <br>
+				 <p>You should receive an email confirming account creation</p>
+					<p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p>
+			</div>
+			<br>
+			<br>
+			
+		</div>
+	</div>
+	<!--- Content Ends here ----------->
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>
