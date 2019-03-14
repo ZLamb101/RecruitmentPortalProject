@@ -37,7 +37,7 @@ class ShortListCollectionModel extends Model
     public function __construct($id)
     {
         if (!$result = $this->db->query("SELECT * FROM `short_list` LEFT JOIN
-                                         ON `employer`.`id` = `short_list`.`owner_id`
+                                         ON `short_list`.`owner_id` = `employer`.`id`
                                          WHERE `short_list`.`owner_id` = '$id';")){
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListCollectConstruct");
         }
@@ -50,7 +50,7 @@ class ShortListCollectionModel extends Model
      * Get the short lists in the collection
      * @return \Generator|ShortListModel[]
      */
-    public function getCandidates()
+    public function getShortLists()
     {
         foreach ($this->shortlists_ids as $id) {
             // Use a generator to save on memory/resources
