@@ -13,9 +13,14 @@ use bjz\portal\view\View;
 
 class SearchController extends Controller
 {
-    public function searchPageAction()
+    public function indexAction()
     {
         $view = new View('searchPage');
         echo $view->render();
+    }
+
+    public function searchAction()
+    {
+        //To complete
     }
 }
