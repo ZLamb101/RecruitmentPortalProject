@@ -34,7 +34,7 @@ class CandidateModel extends UserModel
      */
     private $availability;
     /**
-     * @var array, an array of SkillModel objects, the skills the candidate has
+     * @var string, the skills the candidate has
      */
     private $skills;
     /**
@@ -138,7 +138,7 @@ class CandidateModel extends UserModel
     }
 
     /**
-     * @return array $this->skills, the array of the candidates skills
+     * @return string, the candidates skills
      */
     public function getSkills(){
         return $this->skills;
@@ -204,7 +204,7 @@ class CandidateModel extends UserModel
         $this->g_name = $result['g_name'];
         $this->location = $result['location'];
         $this->availability = $result['availability'];
-        $this->skills = new SkillCollectionModel($this->id); // ARRAY OF SKILLS
+        $this->skills = $result['skills'];
         $this->workExperiences = new WorkExperienceCollectionModel($this->id); // ARRAY OF W.E.
         $this->qualifications = new QualificationCollectionModel($this->id);
         $this->id = $id;
@@ -220,7 +220,6 @@ class CandidateModel extends UserModel
      * @return $this CandidateModel
      */
     public function save(){
-        // DOES NOT CURRENTLY SAVE SKILLS.
         // DOES NOT CURRENTLY SAVE W.E.
         // DOES NOT CURRENTLY SAVE QUALIFICATIONS
         $uid = $this->user_id ?? "NULL";
@@ -233,16 +232,18 @@ class CandidateModel extends UserModel
         $location = $this->db->real_escape_string($location);
         $avail = $this->availability ?? "NULL";
         $avail = $this->db->real_escape_string($avail);
+        $skills = $this->skills ?? "NULL";
+        $skills = $this->db->real_escape_string($skills);
         if(!isset($this->id)){
             // new candidate
-            if(!$result = $this->db-query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$given', '$family', '$location', '$avail');")){
+            if(!$result = $this->db-query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$given', '$family', '$location', '$avail', '$skills');")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
             if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', 
-                                              `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id);")) {
+                                              `location` = '$location', `availability` = '$avail', `skills` = '$skills' WHERE `id` = $this->id);")) {
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }
