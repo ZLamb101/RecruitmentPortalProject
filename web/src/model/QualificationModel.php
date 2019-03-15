@@ -130,14 +130,14 @@ class QualificationModel
         $name = $this->db->real_escape_string($name);
         $year = $this->year ?? "NULL";
         $year = $this->db->real_escape_string($year);
-        if (!isset($this->id)) {
+        if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$name', '$year');")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `name` = '$name', `year` = '$year' 
-                                              WHERE `id` = $this->id;")){
+                                              WHERE `id` = $id;")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
         }
