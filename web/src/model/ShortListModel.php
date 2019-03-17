@@ -104,7 +104,7 @@ class ShortListModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = $id;")){
+        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$id';")){
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListLoad");
         }
         $result = $result->fetch_assoc();

@@ -122,7 +122,7 @@ class WorkExperienceModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `work_experience` WHERE `id` = $id;")){
+        if (!$result = $this->db->query("SELECT * FROM `work_experience` WHERE `id` = '$id';")){
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExperienceLoad");
         }
         $result = $result->fetch_assoc();
