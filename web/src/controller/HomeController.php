@@ -30,7 +30,7 @@ class HomeController extends Controller
         try {
             new Model();
         } catch (\Exception $e){
-            $e->getMessage();
+            error_log($e->getMessage());
         }
         $view = new View('frontPage');
         echo $view->render();
