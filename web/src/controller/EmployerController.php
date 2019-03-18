@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 1burg
- * Date: 3/13/2019
- * Time: 10:59 PM
- */
 
 namespace bjz\portal\controller;
 use bjz\portal\view\View;
+session_start();
 
 /**
  * Class EmployerController
@@ -20,11 +15,16 @@ class EmployerController extends UserController
 {
     /**
      * Action to load the employerHomePage
+     * Checks if the user is logged in as an Employer and if so grants them access to this page
      */
     public function indexAction()
     {
-        $view = new View('employerHomePage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == 2) {
+            $view = new View('employerHomePage');
+            echo $view->render();
+        } else {
+            $this->redirect('home');
+        }
     }
 
     /**

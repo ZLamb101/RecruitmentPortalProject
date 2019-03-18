@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jordan
- * Date: 15/03/2019
- * Time: 9:07 AM
- */
 
 namespace bjz\portal\controller;
 

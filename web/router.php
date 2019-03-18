@@ -19,7 +19,7 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/EmployerHome',
+        '/Employer-Home',
         array(
             '_controller' => 'bjz\portal\controller\EmployerController::indexAction',
             'methods' => 'GET',
@@ -30,7 +30,7 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/CandidateHome',
+        '/Candidate-Home',
         array(
             '_controller' => 'bjz\portal\controller\CandidateController::indexAction',
             'methods' => 'GET',
