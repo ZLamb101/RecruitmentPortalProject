@@ -22,6 +22,8 @@ class CandidateController extends UserController
         if($_SESSION["loginStatus"] == 1) {
             $view = new View('candidateHomePage');
             echo $view->render();
+        } else if($_SESSION["loginStatus"] == 2){
+            $this->redirect('employerHomePage');
         } else {
             $this->redirect('home');
         }

@@ -24,6 +24,8 @@ class SearchController extends Controller
         if($_SESSION["loginStatus"] == 2) {
             $view = new View('searchPage');
             echo $view->render();
+        } else if($_SESSION["loginStatus"] == 1){
+            $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');
         }
