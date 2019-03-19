@@ -2,6 +2,8 @@
 
 namespace bjz\portal\controller;
 use bjz\portal\view\View;
+use Symfony\Component\Config\ConfigCache;
+
 session_start();
 
 /**
@@ -19,10 +21,10 @@ class EmployerController extends UserController
      */
     public function indexAction()
     {
-        if($_SESSION["loginStatus"] == 2) {
+        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $view = new View('employerHomePage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == 1){
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
             $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');

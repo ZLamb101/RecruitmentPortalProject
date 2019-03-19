@@ -21,10 +21,10 @@ class SearchController extends Controller
      */
     public function indexAction()
     {
-        if($_SESSION["loginStatus"] == 2) {
+        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $view = new View('searchPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == 1){
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
             $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');

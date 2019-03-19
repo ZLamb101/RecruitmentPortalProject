@@ -86,7 +86,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: user", 0);
             }
         }
 
@@ -108,7 +107,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: employer", 0);
             }
         }
 
@@ -131,7 +129,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: candidate", 0);
             }
         }
 
@@ -151,7 +148,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: qualification", 0);
             }
         }
         // W.E
@@ -173,7 +169,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: work_experience", 0);
             }
         }
 
@@ -194,7 +189,6 @@ class Model
 
             if (!$result) {
                 throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-                error_log("Failed creating table: short_list", 0);
             }
         }
 
@@ -208,8 +202,7 @@ class Model
                                                     (3, 'zlamb', 'zlamb987', 'zanelamb@live.com', '0274929473'),
                                                     (4, 'tharris', 'tharris11', 'tim@gmail.com', '0210867283');")){
             // handle appropriately
-            error_log("Failed creating sample data for user!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`, `skills`) VALUES 
@@ -217,15 +210,13 @@ class Model
                                                     ('2', '2', 'Benjamin', 'Upton', 'Glenfield', 'Part-time', 'HTML, CSS, JS'),
                                                     ('3', '3', 'Zane', 'Lamb', 'Albany', 'Part-time', 'N/A');")){
             // handle appropriately
-            error_log("Failed creating sample data for candidate!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`) VALUES 
                                                     (1, '4', '227 Dairy Flat Hwy, Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com');")){
             // handle appropriately
-            error_log("Failed creating sample data for employer!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `name`, `year`) VALUES 
@@ -234,8 +225,7 @@ class Model
                                                     (NULL, '2', 'Health Science', '1804'),
                                                     (NULL, '3', 'Arts', '2020');")){
             // handle appropriately
-            error_log("Failed creating sample data for qualification!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `work_experience` (`id`, `owner_id`, `role`, `employer`, `duration`) VALUES 
@@ -245,15 +235,13 @@ class Model
                                                     (NULL, '3', 'Physio', 'Torbay Physio', '8'),
                                                     (NULL, '3', 'Stock Broker', 'Easy Cash', '12');")){
             // handle appropriately
-            error_log("Failed creating sample data for work_experience!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`) VALUES 
                                                     (NULL, '1', 'Junior Developer');")){
             // handle appropriately
-            error_log("Failed creating sample data for short_list!", 0);
-            throw new \mysqli_sql_exception();
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
     }
 

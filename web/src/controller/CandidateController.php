@@ -19,10 +19,10 @@ class CandidateController extends UserController
      */
     public function indexAction()
     {
-        if($_SESSION["loginStatus"] == 1) {
+        if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $view = new View('candidateHomePage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == 2){
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER){
             $this->redirect('employerHomePage');
         } else {
             $this->redirect('home');
