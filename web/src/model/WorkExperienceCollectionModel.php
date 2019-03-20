@@ -1,5 +1,8 @@
 <?php
 namespace bjz\portal\model;
+use bjz\portal\model\Model;
+use bjz\portal\model\WorkExperienceModel;
+
 /**
  * Class WorkExperienceCollectionModel
  *
@@ -7,7 +10,7 @@ namespace bjz\portal\model;
  *
  * @package bjz/portal
  */
-class WorkExperienceCollectionModel
+class WorkExperienceCollectionModel extends Model
 {
     /**
      * @var array, the ID's of the work experience instances
@@ -36,10 +39,11 @@ class WorkExperienceCollectionModel
      */
     public function __construct($id)
     {
-        if (!$result = $this->db->query("SELECT * FROM `work_experience` LEFT JOIN
+        parent::__construct();
+        if (!$result = $this->db->query("SELECT * FROM `work_experience` LEFT JOIN `candidate`
                                          ON `work_experience`.`owner_id` = `candidate`.`id`
                                          WHERE `work_experience`.`owner_id` = '$id';")){
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpCollectConstruct");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpCollectConstruct");
         }
         $this->instance_ids = array_column($result->fetch_all(), 0);
         $this->N = $result->num_rows;

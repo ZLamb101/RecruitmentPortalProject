@@ -103,8 +103,8 @@ class UserModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `id` = $id;")) {
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userLoad");
+        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `id` = '$id';")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userLoad");
         }
         $result = $result->fetch_assoc();
         $this->username = $result['username'];
@@ -135,14 +135,14 @@ class UserModel extends Model
             // New user - Perform INSERT
             $password = password_hash($password, PASSWORD_BCRYPT);
             if (!$result = $this->db->query("INSERT INTO `user` VALUES (NULL,'$username','$password','$email','$phone');")) {
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveNew");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // saving existing user - perform UPDATE
             if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', 
                                               `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
             }
         }
         return $this;
@@ -159,7 +159,7 @@ class UserModel extends Model
     {
         //Not sure if this should be allowed. Will not currently delete children?
         if (!$result = $this->db->query("DELETE FROM `user` WHERE `user`.`id` = $this->id;")) {
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
         }
         return $this;
     }

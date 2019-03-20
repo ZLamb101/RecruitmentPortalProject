@@ -1,5 +1,8 @@
 <?php
 namespace bjz\portal\model;
+
+use bjz\portal\model\Model;
+use bjz\portal\model\QualificationModel;
 /**
  * Class QualificationCollectionModel
  *
@@ -7,7 +10,7 @@ namespace bjz\portal\model;
  *
  * @package bjz/portal
  */
-class QualificationCollectionModel
+class QualificationCollectionModel extends Model
 {
     /**
      * @var array, the ID's of the work experience instances
@@ -36,10 +39,11 @@ class QualificationCollectionModel
      */
     public function __construct($id)
     {
-        if (!$result = $this->db->query("SELECT * FROM `qualification` LEFT JOIN
+        parent::__construct();
+        if (!$result = $this->db->query("SELECT * FROM `qualification` LEFT JOIN `candidate`
                                          ON `qualification`.`owner_id` = `candidate`.`id`
                                          WHERE `qualification`.`owner_id` = '$id';")){
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualCollectConstruct");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualCollectConstruct");
         }
         $this->qualification_ids = array_column($result->fetch_all(), 0);
         $this->N = $result->num_rows;

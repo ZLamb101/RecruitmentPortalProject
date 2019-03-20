@@ -1,5 +1,6 @@
 <?php
 namespace bjz\portal\model;
+use bjz\portal\model\UserModel;
 /**
  * Class CandidateModel
  *
@@ -196,7 +197,7 @@ class CandidateModel extends UserModel
     {
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `candidate` WHERE `id` = $id;")) {
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candidateLoad");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candidateLoad");
         }
         $result = $result->fetch_assoc();
         $this->user_id = $result['user_id'];
@@ -238,15 +239,15 @@ class CandidateModel extends UserModel
         $skills = $this->db->real_escape_string($skills);
         if(!isset($this->id)){
             // new candidate
-            if(!$result = $this->db-query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$given', '$family', '$location', '$avail', '$skills');")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
+            if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail', '$skills');")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
             if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', 
                                               `location` = '$location', `availability` = '$avail', `skills` = '$skills' WHERE `id` = $this->id);")) {
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }
         return $this;
