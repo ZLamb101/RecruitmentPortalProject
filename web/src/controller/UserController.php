@@ -34,7 +34,7 @@ class UserController extends Controller
         $username = $_GET["q"];
         try {
             $a = new UserModel();
-           // echo $a->findName($username);
+            echo $a->findName($username);
         } catch (\Exception $e) {
             $this->redirect('error');
         }

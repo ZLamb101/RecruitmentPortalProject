@@ -189,4 +189,28 @@ class UserModel extends Model
             return 1;
         }
     }
+
+     /***
+     * Checks whether an account with the submitted username already exists.
+     *
+     * @param $username string, the username to look for in the database
+     * @return string, really a boolean, but read as a string for use in Javascript, Returns true
+     *         if there are no existing accounts with the submitted username meaning a user can register
+     *         that name.
+     *
+     * @throws \mysqli_sql_exception, if the SQL query fails
+     */
+    public function findName($username)
+    {
+        $username = mysqli_real_escape_string($this->db, $username);
+        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+        }
+        if ($result->num_rows == 0) {
+            return 'true'; // If no other user exists with this username, return true
+        } else {
+            return 'false';
+        }
+    }
+
 }
