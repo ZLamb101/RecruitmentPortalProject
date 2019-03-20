@@ -10,6 +10,20 @@ namespace bjz\portal\controller;
 class Controller
 {
     /**
+     * A constant value for an Employer status allowing for quick equivalency checking and good readability
+     */
+    const EMPLOYER = 2;
+    /**
+     * A constant value for an Candidate status allowing for quick equivalency checking and good readability
+     */
+    const CANDIDATE = 1;
+    /**
+     * A constant value for an Guest status allowing for quick equivalency checking and good readability
+     */
+    const GUEST = 0;
+
+
+    /**
      * Redirect to another route
      *
      * @param $route

@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 1burg
- * Date: 3/13/2019
- * Time: 10:59 PM
- */
 
 namespace bjz\portal\controller;
 use bjz\portal\view\View;
+session_start();
 
 /**
  * Class CandidateController
@@ -20,11 +15,18 @@ class CandidateController extends UserController
 {
     /**
      * Action to load the candidateHomePage
+     * Checks if the user is logged in as a candidate and if so grants them access to this page
      */
     public function indexAction()
     {
-        $view = new View('candidateHomePage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $view = new View('candidateHomePage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER){
+            $this->redirect('employerHomePage');
+        } else {
+            $this->redirect('home');
+        }
     }
 
     /**

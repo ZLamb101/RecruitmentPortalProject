@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 1burg
- * Date: 3/13/2019
- * Time: 10:58 PM
- */
 
 namespace bjz\portal\controller;
 use bjz\portal\model\Model;
 use bjz\portal\view\View;
+session_start();
 
 
 /**
@@ -30,7 +25,7 @@ class HomeController extends Controller
         try {
             new Model();
         } catch (\Exception $e){
-            $e->getMessage();
+            error_log($e->getMessage());
         }
         $view = new View('frontPage');
         echo $view->render();
@@ -41,8 +36,14 @@ class HomeController extends Controller
      */
     public function preRegisterPageAction()
     {
-        $view = new View('preRegisterPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('preRegisterPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -50,8 +51,14 @@ class HomeController extends Controller
      */
     public function employerRegisterPageAction()
     {
-        $view = new View('employerRegisterPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('employerRegisterPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -59,8 +66,14 @@ class HomeController extends Controller
      */
     public function candidateRegisterPageAction()
     {
-        $view = new View('candidateRegisterPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('candidateRegisterPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -68,8 +81,14 @@ class HomeController extends Controller
      */
     public function registrationConfirmationPageAction()
     {
-        $view = new View('registrationConfirmationPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('registrationConfirmationPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -77,8 +96,14 @@ class HomeController extends Controller
      */
     public function passwordRecoveryPageAction()
     {
-        $view = new View('passwordRecoveryPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('passwordRecoveryPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -86,8 +111,14 @@ class HomeController extends Controller
      */
     public function passwordRecoveryConfirmationPageAction()
     {
-        $view = new View('passwordRecoveryConfirmationPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('passwordRecoveryConfirmationPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 
     /**
@@ -95,7 +126,13 @@ class HomeController extends Controller
      */
     public function errorPageAction()
     {
-        $view = new View('errorPage');
-        echo $view->render();
+        if($_SESSION["loginStatus"] == Controller::GUEST) {
+            $view = new View('errorPage');
+            echo $view->render();
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            $this->redirect('candidateHomePage');
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            $this->redirect('employerHomePage');
+        }
     }
 }

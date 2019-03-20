@@ -104,7 +104,7 @@ class ShortListModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = $id;")){
+        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$id';")){
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListLoad");
         }
         $result = $result->fetch_assoc();
@@ -131,13 +131,13 @@ class ShortListModel extends Model
         $owner_id = $this->db->real_escape_string($owner_id);
         $name = $this->name ?? "NULL";
         $name = $this->db->real_escape_string($name);
-        if (!isset($this->id)) {
+        if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name');")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name' WHERE `id` = $this->id;")){
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name' WHERE `id` = $id;")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
