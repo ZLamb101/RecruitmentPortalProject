@@ -173,12 +173,19 @@ class UserModel extends Model
         if(!$result){
             throw new \mysqli_sql_exception("Failed");
         }
-        $result = $result['password'];
-        error_log("$result");
-        if(password_verify($password, $result)){
-            return true;
+        $resultPassword = $result['password'];
+        if(password_verify($password, $resultPassword)){
+            return $result['id'];
         } else {
             throw new \mysqli_sql_exception("Password doesn't match");     //CHANGE
+        }
+    }
+
+    public function determineType($userID){
+        if($result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'")){
+            return 2;
+        } else {
+            return 1;
         }
     }
 }

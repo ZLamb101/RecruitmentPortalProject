@@ -38,11 +38,17 @@ class UserController extends Controller
     {
         try{
             $user = new UserModel();
-            $user->validateLogin($_POST['username_input'], $_POST['password_input']);
-            $_SESSION["loginStatus"] = 1;   //need to discern when it is an employer or candidate
-            //$_SESSION["id"] = $user->getId();
+            $userID = $user->validateLogin($_POST['username_input'], $_POST['password_input']);
 
-            $this->redirect("candidateHomePage");
+            $userType = $user->determineType($userID);
+            $_SESSION["loginStatus"] = $userType;
+
+            //$_SESSION["id"] = $user->getId();
+            if($userType == 1) {
+                $this->redirect("candidateHomePage");
+            } else {
+                $this->redirect("employerHomePage");
+            }
         } catch (\Exception $e) {
             error_log($e->getMessage());
             error_log("BELOW");
