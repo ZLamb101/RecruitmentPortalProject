@@ -1,5 +1,6 @@
 <?php
 namespace bjz\portal\model;
+use bjz\portal\model\Model;
 /**
  * Class UserModel
  *
@@ -161,5 +162,31 @@ class UserModel extends Model
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
         }
         return $this;
+    }
+
+    public function validateLogin($username, $password){
+        error_log("$username $password");
+        if(!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")){
+            throw new \mysqli_sql_exception("An account with that username doesn't exist");
+        }
+        $result = $result->fetch_assoc();
+        error_log("$result");
+        if(!$result){
+            throw new \mysqli_sql_exception("Failed");
+        }
+        $resultPassword = $result['password'];
+        if(password_verify($password, $resultPassword)){
+            return $result['id'];
+        } else {
+            throw new \mysqli_sql_exception("Password doesn't match");     //CHANGE
+        }
+    }
+
+    public function determineType($userID){
+        if($result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'")){
+            return 2;
+        } else {
+            return 1;
+        }
     }
 }

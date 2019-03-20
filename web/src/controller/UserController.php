@@ -1,6 +1,9 @@
 <?php
 
 namespace bjz\portal\controller;
+use bjz\portal\model\UserModel;
+use bjz\portal\view\View;
+session_start();
 
 
 /**
@@ -17,7 +20,8 @@ class UserController extends Controller
      */
     public function logoutAction()
     {
-        //To implement
+        unset($_SESSION['loginStatus']);
+        $this->redirect("home");
     }
 
  
@@ -41,7 +45,26 @@ class UserController extends Controller
      */
     public function loginAction()
     {
-        //To complete
+        try{
+            $user = new UserModel();
+            $userID = $user->validateLogin($_POST['username_input'], $_POST['password_input']);
+
+            $userType = $user->determineType($userID);
+            $_SESSION["loginStatus"] = $userType;
+            //Currently just saves the UserID however will be modified to save more data later to make searching easier
+            $_SESSION["UserID"] = $userID;
+
+            if($userType == 1) {
+                $this->redirect("candidateHomePage");
+            } else {
+                $this->redirect("employerHomePage");
+            }
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            error_log("BELOW");
+            $_SESSION["loginStatus"] = 0;
+            $this->redirect("home");
+        }
     }
 
     /**

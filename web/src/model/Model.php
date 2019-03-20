@@ -62,8 +62,8 @@ class Model
             error_log("Mysql database not available!", 0);
             throw new \mysqli_sql_exception();
         }
-        $this->generateDatabase();
-        $this->generateDummyData();
+        //$this->generateDatabase();
+        //$this->generateDummyData();
     }
 
     public function generateDatabase(){
@@ -196,13 +196,17 @@ class Model
 
     public function generateDummyData(){
         //TODO Write dummy data and creation
+        $pw1 = password_hash("Jdrumm12", PASSWORD_BCRYPT);
+        $pw2 = password_hash("Bupton12", PASSWORD_BCRYPT);
+        $pw3 = password_hash("Zlamb987", PASSWORD_BCRYPT);
+        $pw4 = password_hash("Tharris11", PASSWORD_BCRYPT);
         if(!$this->db->query("INSERT INTO `user` (`id`, `username`, `password`, `email`, `phone_number`) VALUES
-                                                    (1, 'jdrumm', 'jdrumm12', 'jordan.b.drumm@gmail.com', '0210220342'),
-                                                    (2, 'bupton', 'bupton12', 'bupton@hotmail.co.nz', '0220413672'),
-                                                    (3, 'zlamb', 'zlamb987', 'zanelamb@live.com', '0274929473'),
-                                                    (4, 'tharris', 'tharris11', 'tim@gmail.com', '0210867283');")){
+                                                    (1, 'jdrumm', '$pw1', 'jordan.b.drumm@gmail.com', '0210220342'),
+                                                    (2, 'bupton', '$pw2', 'bupton@hotmail.co.nz', '0220413672'),
+                                                    (3, 'zlamb', '$pw3', 'zanelamb@live.com', '0274929473'),
+                                                    (4, 'tharris', '$pw4', 'tim@gmail.com', '0210867283');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy user data.", $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`, `skills`) VALUES 
@@ -210,13 +214,13 @@ class Model
                                                     ('2', '2', 'Benjamin', 'Upton', 'Glenfield', 'Part-time', 'HTML, CSS, JS'),
                                                     ('3', '3', 'Zane', 'Lamb', 'Albany', 'Part-time', 'N/A');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy candidate data.", $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`) VALUES 
                                                     (1, '4', '227 Dairy Flat Hwy, Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy employer data.", $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `name`, `year`) VALUES 
@@ -225,7 +229,7 @@ class Model
                                                     (NULL, '2', 'Health Science', '1804'),
                                                     (NULL, '3', 'Arts', '2020');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `work_experience` (`id`, `owner_id`, `role`, `employer`, `duration`) VALUES 
@@ -235,13 +239,13 @@ class Model
                                                     (NULL, '3', 'Physio', 'Torbay Physio', '8'),
                                                     (NULL, '3', 'Stock Broker', 'Easy Cash', '12');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy work_experience data.", $this->db->errno);
         }
 
         if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`) VALUES 
                                                     (NULL, '1', 'Junior Developer');")){
             // handle appropriately
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+            throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
         }
     }
 
