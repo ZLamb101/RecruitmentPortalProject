@@ -62,7 +62,7 @@ class Model
             error_log("Mysql database not available!", 0);
             throw new \mysqli_sql_exception();
         }
-        $this->generateDatabase();
+        //$this->generateDatabase();
         //$this->generateDummyData();
     }
 

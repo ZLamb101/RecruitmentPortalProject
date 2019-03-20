@@ -1,5 +1,6 @@
 <?php
 namespace bjz\portal\model;
+use bjz\portal\model\Model;
 /**
  * Class UserModel
  *
