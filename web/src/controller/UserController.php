@@ -1,6 +1,9 @@
 <?php
 
 namespace bjz\portal\controller;
+use bjz\portal\model\UserModel;
+use bjz\portal\view\View;
+session_start();
 
 
 /**
@@ -33,7 +36,19 @@ class UserController extends Controller
      */
     public function loginAction()
     {
-        //To complete
+        try{
+            $user = new UserModel();
+            $user->validateLogin($_POST['username_input'], $_POST['password_input']);
+            $_SESSION["loginStatus"] = 1;   //need to discern when it is an employer or candidate
+            //$_SESSION["id"] = $user->getId();
+
+            $this->redirect("candidateHomePage");
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            error_log("BELOW");
+            $_SESSION["loginStatus"] = 0;
+            $this->redirect("home");
+        }
     }
 
     /**

@@ -131,7 +131,7 @@ $collection->attachRoute(
     new Route(
         '/login-submit',
         array(
-            '_controller' => 'bjz\portal\controller\UserController:loginAction',
+            '_controller' => 'bjz\portal\controller\UserController::loginAction',
             'methods' => 'POST',
             'name' => 'loginSubmit'
         )
@@ -142,7 +142,7 @@ $collection->attachRoute(
     new Route(
         '/logout',
         array(
-            '_controller' => 'bjz\portal\controller\UserController:logoutAction',
+            '_controller' => 'bjz\portal\controller\UserController::logoutAction',
             'methods' => 'POST',
             'name' => 'logout'
         )

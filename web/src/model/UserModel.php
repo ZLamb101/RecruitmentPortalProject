@@ -162,4 +162,23 @@ class UserModel extends Model
         }
         return $this;
     }
+
+    public function validateLogin($username, $password){
+        error_log("$username $password");
+        if(!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")){
+            throw new \mysqli_sql_exception("An account with that username doesn't exist");
+        }
+        $result = $result->fetch_assoc();
+        error_log("$result");
+        if(!$result){
+            throw new \mysqli_sql_exception("Failed");
+        }
+        $result = $result['password'];
+        error_log("$result");
+        if(password_verify($password, $result)){
+            return true;
+        } else {
+            throw new \mysqli_sql_exception("Password doesn't match");     //CHANGE
+        }
+    }
 }
