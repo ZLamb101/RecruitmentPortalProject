@@ -20,7 +20,8 @@ class UserController extends Controller
      */
     public function logoutAction()
     {
-        //To implement
+        unset($_SESSION['loginStatus']);
+        $this->redirect("home");
     }
 
     /**
@@ -42,8 +43,9 @@ class UserController extends Controller
 
             $userType = $user->determineType($userID);
             $_SESSION["loginStatus"] = $userType;
+            //Currently just saves the UserID however will be modified to save more data later to make searching easier
+            $_SESSION["UserID"] = $userID;
 
-            //$_SESSION["id"] = $user->getId();
             if($userType == 1) {
                 $this->redirect("candidateHomePage");
             } else {
