@@ -23,7 +23,6 @@ function validateForm()
         return false;
 }
 
-
 function get(callback)
 {
     xmlhttp = new XMLHttpRequest();
@@ -38,5 +37,4 @@ function get(callback)
             }
         }
     };
-        xmlhttp.send();
-}
+ 

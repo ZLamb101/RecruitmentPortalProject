@@ -20,12 +20,20 @@ class UserController extends Controller
         //To implement
     }
 
+ 
+
     /**
-     * Action to validate a username
-     */
+    * Manages a request to register a user, checks if the username already exists in the database.
+    */
     public function validateUsernameAction()
     {
-        //To implement
+        $username = $_GET["q"];
+        try {
+            $a = new UserModel();
+           // echo $a->findName($username);
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
     }
 
     /**

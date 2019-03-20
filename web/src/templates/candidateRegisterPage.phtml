@@ -1,6 +1,8 @@
 <?php 
 include "header.phtml"
  ?>
+ <script type = "text/javascript" src="src/js/validateForm.js"></script>
+ <script type = "text/javascript" src="src/js/addRegistration.js"></script>
 <!---------- Body starts --------------->
 
 
@@ -26,19 +28,33 @@ include "header.phtml"
             <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
             <p>Skill: <input type=text name="skill" size="40" required pattern="^[a-zA-Z,]+$" title="Comma separated list"> </p> <!-- Need to expand this for list of skills -->
 
-            <p>Work Experience</p>
-            <p>Duration: <input type=text name="duration" size="40"> </p>       <!-- Drop down -->
-            <p>Role: <input type=text name="role" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
-            <p>Employer: <input type=text name="employer" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only"> </p>
+            <div id="work-experience">
+                  <p>Work Experience</p>
+                  <p>Duration: <input type=text name="duration" size="40"> </p>       <!-- Drop down -->
+                  <p>Role: <input type=text name="role" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
+                  <p>Employer: <input type=text name="employer" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only"> </p>
+            </div>
+            <button id="add-work-experience" value="Add" onclick="addWorkExperience()">Add</button>
 
+            <div id="qualifications">
 
-            <p>Qualifications</p>
-            <p>Year: <input type=text name="year" size="40"> </p>       <!-- Drop down -->
-            <p>Major: <input type=text name="major" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
+                  <p>Qualifications</p> 
+                  <p>Year: <input type=text name="year" size="40"> </p>       <!-- Drop down -->
+                  <p>Name: <input type=text name="name" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
+            </div>
+            <button id="add-qualification" value="Add" onclick="addQualification()">Add</button>
+
+            <p>Availability</p>
+            <select>
+              <option value="fullTime">Full-time</option>
+              <option value="partTime">Part-time</option>
+              <option value="casual">Casual</option>
+              <option value="contractor">Contractor</option>
+            </select>
 
             </div>
 
-            
+
             <p type="hidden" id="validate"></p>
            <!-- <button id="submit-registration" value="Register" onclick="return validateForm()">Register</button> -->
             <input id="submit-handle" type="submit" style="display: none">

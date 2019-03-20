@@ -151,7 +151,7 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/candidateValidation.php',
+        '/registrationValidation.php',
         array(
             '_controller' => 'bjz\portal\controller\CandidateController::createAccountAction',
             'methods' => 'GET',
@@ -160,16 +160,7 @@ $collection->attachRoute(
     )
 );
 
-$collection->attachRoute(
-    new Route(
-        '/employerValidation.php',
-        array(
-            '_controller' => 'bjz\portal\controller\EmployerController::createAccountAction',
-            'methods' => 'GET',
-            'name' => 'registration'
-        )
-    )
-);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');
