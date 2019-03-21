@@ -36,6 +36,22 @@ class EmployerController extends UserController
      */
     public function createAccountAction()
     {
+        try {
+            $account = new EmployerModel();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $account->setCompanyName($_POST['name']);
+        $account->setUrl($_POST['username']);
+        $account->setContactName($_POST['email']);
+        $account->setAddress($_POST['password']);
+        try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $view = new View('accountCreated');
+        echo $view->addData('account', $account)->render();
         //To complete
         //Call super
     }

@@ -34,6 +34,25 @@ class CandidateController extends UserController
      */
     public function createAccountAction()
     {
+         try {
+            $account = new CandidateModel();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $account->setFName($_POST['first_name']);
+        $account->setLName($_POST['last_name']);
+        $account->setLocation($_POST['location']);
+        $account->setAvailability($_POST['avilability']);
+        $account->setSkills($_POST['skills']);
+        
+        try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $view = new View('accountCreated');
+        echo $view->addData('account', $account)->render();
+
         //To complete
         //Call super first
     }
