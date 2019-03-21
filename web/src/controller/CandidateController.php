@@ -38,10 +38,13 @@ class CandidateController extends UserController
         $doc->loadHTML($x);
         $xpath = new DOMXpath($doc);
         $divs = $xpath->query("//div");
-        
+
         super();
-         try {
+        try {
             $account = new CandidateModel();
+            $accountId = $account->UserModel::findID($_POST['username']);
+            $account->load($accountId);
+            
         } catch (\Exception $e) {
             $this->redirect('error');
         }

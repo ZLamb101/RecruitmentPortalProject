@@ -81,6 +81,7 @@ class UserController extends Controller
         $account->setUsername($_POST['username']);
         $account->setEmail($_POST['email']);
         $account->setPassword($_POST['password']);
+        $account->setPhoneNumber($_POST['phone-number']);
        
           try {
             $account->save();
