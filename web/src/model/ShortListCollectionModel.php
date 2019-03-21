@@ -1,5 +1,8 @@
 <?php
 namespace bjz\portal\model;
+
+use bjz\portal\model\ShortListModel;
+use bjz\portal\model\Model;
 /**
  * Class ShortListCollectionModel
  *
@@ -36,7 +39,8 @@ class ShortListCollectionModel extends Model
      */
     public function __construct($id)
     {
-        if (!$result = $this->db->query("SELECT * FROM `short_list` LEFT JOIN
+        parent::__construct();
+        if (!$result = $this->db->query("SELECT * FROM `short_list` LEFT JOIN `employer`
                                          ON `short_list`.`owner_id` = `employer`.`id`
                                          WHERE `short_list`.`owner_id` = '$id';")){
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListCollectConstruct");

@@ -3,10 +3,13 @@
 namespace bjz\portal\controller;
 use bjz\portal\model\UserModel;
 use bjz\portal\model\CandidateModel;
+use bjz\portal\model\EmployerModel;
 use bjz\portal\model\WorkExperienceModel;
 use bjz\portal\model\WorkExperienceCollectionModel;
 use bjz\portal\model\QualificationCollectionModel;
 use bjz\portal\model\QualificationModel;
+use bjz\portal\model\ShortListCollectionModel;
+use bjz\portal\model\ShortListModel;
 use bjz\portal\view\View;
 session_start();
 

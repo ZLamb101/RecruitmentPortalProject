@@ -200,7 +200,7 @@ class EmployerModel extends UserModel
         $url = $this->db->real_escape_string($url);
         if(!isset($this->id)){
             // new employer
-            if(!$result = $this->db-query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){
+            if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){
                 throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
             }
             $this->id = $this->db->insert_id;
