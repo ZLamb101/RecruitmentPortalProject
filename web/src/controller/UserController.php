@@ -82,7 +82,11 @@ class UserController extends Controller
         $account->setEmail($_POST['email']);
         $account->setPassword($_POST['password']);
        
-        return $account;
+          try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
         //To complete
         //Generic to both users
     }

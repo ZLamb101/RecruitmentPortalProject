@@ -36,6 +36,7 @@ class EmployerController extends UserController
      */
     public function createAccountAction()
     {
+        super();
         try {
             $account = new EmployerModel();
         } catch (\Exception $e) {

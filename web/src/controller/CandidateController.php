@@ -34,6 +34,12 @@ class CandidateController extends UserController
      */
     public function createAccountAction()
     {
+        $doc = new DOMDocument();
+        $doc->loadHTML($x);
+        $xpath = new DOMXpath($doc);
+        $divs = $xpath->query("//div");
+        
+        super();
          try {
             $account = new CandidateModel();
         } catch (\Exception $e) {
@@ -44,7 +50,8 @@ class CandidateController extends UserController
         $account->setLocation($_POST['location']);
         $account->setAvailability($_POST['avilability']);
         $account->setSkills($_POST['skills']);
-        
+
+
         try {
             $account->save();
         } catch (\Exception $e) {
