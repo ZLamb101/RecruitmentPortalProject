@@ -1,4 +1,4 @@
-function addQualification{
+function addQualification(){
 	
 	var qual = document.createElement("div");                       // Create a <div> node
 	var yearP = document.createElement("p");
@@ -30,7 +30,7 @@ function addQualification{
 
 
 
-function addWorkExperience{
+function addWorkExperience(){
 
 	var workex = document.createElement("div");                       // Create a <div> node
 
@@ -41,8 +41,8 @@ function addWorkExperience{
 	role.setAttribute("type","text");
 
 	roleP.appendChild(roleLabel);
-	qual.appendChild(roleP);
-	qual.appendChild(role);
+	workex.appendChild(roleP);
+	workex.appendChild(role);
 
 	var durationP = document.createElement("p");
 	var durationLabel = document.createTextNode("Duration.");      // Create a text node
@@ -51,8 +51,8 @@ function addWorkExperience{
 	duration.setAttribute("type","text");
 
 	durationP.appendChild(durationLabel);
-	qual.appendChild(durationP);
-	qual.appendChild(duration);
+	workex.appendChild(durationP);
+	workex.appendChild(duration);
 
 	var employerP = document.createElement("p");
 	var employerLabel = document.createTextNode("Employer.");      // Create a text node
@@ -61,9 +61,9 @@ function addWorkExperience{
 	employer.setAttribute("type","text");
 
 	employerP.appendChild(employerLabel);
-	qual.appendChild(employerP);
-	qual.appendChild(employer);
+	workex.appendChild(employerP);
+	workex.appendChild(employer);
 
-	document.getElementById("work-experience")
+	document.getElementById("work-experience").appendChild(workex);
 
 }

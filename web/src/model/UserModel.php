@@ -198,7 +198,8 @@ class UserModel extends Model
      * @return int either 1 or 2 corresponding to the type of user being logged in
      */
     public function determineType($userID){
-        if($result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'")){
+        $result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'");
+        if($result->num_rows == 1){
             return 2;       //2 represents employer
         } else {
             return 1;       //1 represents candidate
@@ -226,6 +227,28 @@ class UserModel extends Model
         } else {
             return 'false';
         }
+    }
+
+
+     /***
+     * Searches for the user_id of an explicit username
+     *
+     * @param $username string, the username to look for in the database
+     * @return string, the user_id for the associated username
+     *
+     * @throws \mysqli_sql_exception, if the SQL query fails
+     */
+    public function findID($username){
+         if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+        }
+      
+        $result = $result->fetch_assoc();
+        if(!$result){
+            throw new \mysqli_sql_exception("Failed");
+        }
+        return = $result['user_id'];
+
     }
 
 }

@@ -72,6 +72,22 @@ class UserController extends Controller
      */
     public function createAccountAction()
     {
+        try {
+            $account = new UserModel();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $account->setName($_POST['name']);
+        $account->setUsername($_POST['username']);
+        $account->setEmail($_POST['email']);
+        $account->setPassword($_POST['password']);
+        $account->setPhoneNumber($_POST['phone-number']);
+       
+          try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
         //To complete
         //Generic to both users
     }
