@@ -129,7 +129,7 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/login-submit',
+        '/Login-Submit',
         array(
             '_controller' => 'bjz\portal\controller\UserController::loginAction',
             'methods' => 'POST',
@@ -151,7 +151,7 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/registrationValidation.php',
+        '/Registration-Validation.php',
         array(
             '_controller' => 'bjz\portal\controller\CandidateController::validateUsernameAction',
             'methods' => 'GET',
