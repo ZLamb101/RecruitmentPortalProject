@@ -247,7 +247,7 @@ class UserModel extends Model
         if(!$result){
             throw new \mysqli_sql_exception("Failed");
         }
-        return = $result['user_id'];
+        return $result['user_id'];
 
     }
 

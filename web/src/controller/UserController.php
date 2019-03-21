@@ -77,7 +77,6 @@ class UserController extends Controller
         } catch (\Exception $e) {
             $this->redirect('error');
         }
-        $account->setName($_POST['name']);
         $account->setUsername($_POST['username']);
         $account->setEmail($_POST['email']);
         $account->setPassword($_POST['password']);

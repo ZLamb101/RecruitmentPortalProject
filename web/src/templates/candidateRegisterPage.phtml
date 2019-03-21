@@ -17,7 +17,7 @@ include "header.phtml"
 
 
 		   <div id="registration">
-        <form method="POST" name="registration" action="<?= $linkTo('registrationConfirmationPage'); ?>" >
+        <form method="POST" name="registration" action="<?= $linkTo('submitRegistration'); ?>" >
             <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only"> </p>
              <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only"> </p>
             <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only" ></p>

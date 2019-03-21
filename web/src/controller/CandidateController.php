@@ -2,6 +2,8 @@
 
 namespace bjz\portal\controller;
 use bjz\portal\view\View;
+use bjz\portal\model\CandidateModel;
+use bjz\portal\model\UserModel;
 session_start();
 
 /**
@@ -34,25 +36,34 @@ class CandidateController extends UserController
      */
     public function createAccountAction()
     {
-        $doc = new DOMDocument();
-        $doc->loadHTML($x);
-        $xpath = new DOMXpath($doc);
-        $divs = $xpath->query("//div");
-
-        super();
+        error_log("test1");
+        parent::createAccountAction();
         try {
             $account = new CandidateModel();
-            $accountId = $account->UserModel::findID($_POST['username']);
+            $accountId = $account->findID($_POST['username']);
             $account->load($accountId);
             
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
+        error_log("test2");
         $account->setFName($_POST['first_name']);
         $account->setLName($_POST['last_name']);
         $account->setLocation($_POST['location']);
         $account->setAvailability($_POST['avilability']);
         $account->setSkills($_POST['skills']);
+
+        $it = 0;
+        error_log("start");
+        do{
+            $qualification = new QualificationModel();
+            $qualification->setYear($_POST['year'][$it]);
+            $qualification->setName($_POST['name'][$it]);
+            error_log($it."number of loop\n");
+        }while ($_POST['name'][++$it]);
+        error_log("stop");
+
+
 
 
         try {

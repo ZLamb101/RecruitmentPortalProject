@@ -96,6 +96,17 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
+        '/test',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::createAccountAction',
+            'methods' => 'POST',
+            'name' => 'submitRegistration'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
         '/Password-Recovery',
         array(
             '_controller' => 'bjz\portal\controller\HomeController::passwordRecoveryPageAction',
