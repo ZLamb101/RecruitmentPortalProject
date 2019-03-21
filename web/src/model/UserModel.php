@@ -164,13 +164,21 @@ class UserModel extends Model
         return $this;
     }
 
+    /**
+     * Validates that the supplied login is correct.
+     *
+     * @param $username the username as entered by the user
+     * @param $password the password as entered by the user
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return $result['id'] the ID of the successfully validated user
+     */
     public function validateLogin($username, $password){
-        error_log("$username $password");
         if(!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")){
             throw new \mysqli_sql_exception("An account with that username doesn't exist");
         }
         $result = $result->fetch_assoc();
-        error_log("$result");
         if(!$result){
             throw new \mysqli_sql_exception("Failed");
         }
@@ -178,15 +186,22 @@ class UserModel extends Model
         if(password_verify($password, $resultPassword)){
             return $result['id'];
         } else {
-            throw new \mysqli_sql_exception("Password doesn't match");     //CHANGE
+            throw new \mysqli_sql_exception("Password doesn't match");
         }
     }
 
+    /**
+     * Checks whether the logging in user is a candidate or employer
+     *
+     * @param $userID the ID of the user being checked
+     *
+     * @return int either 1 or 2 corresponding to the type of user being logged in
+     */
     public function determineType($userID){
         if($result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'")){
-            return 2;
+            return 2;       //2 represents employer
         } else {
-            return 1;
+            return 1;       //1 represents candidate
         }
     }
 }

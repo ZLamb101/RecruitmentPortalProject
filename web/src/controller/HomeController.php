@@ -1,6 +1,7 @@
 <?php
 
 namespace bjz\portal\controller;
+use bjz\portal\model\Model;
 use bjz\portal\model\UserModel;
 use bjz\portal\model\CandidateModel;
 use bjz\portal\model\WorkExperienceModel;
