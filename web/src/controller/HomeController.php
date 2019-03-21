@@ -4,6 +4,7 @@ namespace bjz\portal\controller;
 use bjz\portal\model\Model;
 use bjz\portal\model\UserModel;
 use bjz\portal\model\CandidateModel;
+use bjz\portal\model\CandidateListCollectionModel;
 use bjz\portal\model\EmployerModel;
 use bjz\portal\model\WorkExperienceModel;
 use bjz\portal\model\WorkExperienceCollectionModel;
