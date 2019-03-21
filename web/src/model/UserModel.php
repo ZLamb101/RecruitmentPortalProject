@@ -198,7 +198,8 @@ class UserModel extends Model
      * @return int either 1 or 2 corresponding to the type of user being logged in
      */
     public function determineType($userID){
-        if($result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'")){
+        $result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'");
+        if($result->num_rows == 1){
             return 2;       //2 represents employer
         } else {
             return 1;       //1 represents candidate
