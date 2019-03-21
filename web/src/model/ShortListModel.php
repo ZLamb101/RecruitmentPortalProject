@@ -75,24 +75,6 @@ class ShortListModel extends Model
     }
 
     /**
-     * @return array $this->candidates, the list of candidates on the Short List
-     */
-    public function getCandidates()
-    {
-        return $this->candidates;
-    }
-
-    /**
-     * @param array $candidates, the new list of candidates on the Short List
-     */
-    public function setCandidates($candidates)
-    {
-        $this->candidates = $candidates;
-    }
-
-
-
-    /**
      * Loads short list information from the database
      *
      * @param int $id, the id of the short list to load
@@ -111,7 +93,8 @@ class ShortListModel extends Model
         $this->id = $id;
         $this->owner_id = $result['owner_id'];
         $this->name = $result['name'];
-        $this->candidates = new CandidateCollectionModel($id); // Must write to collect for short list and to collect for search
+        $candString = $result['candidates'];
+        $this->candidates = explode(",", $candString);
         return $this;
     }
 
@@ -124,23 +107,51 @@ class ShortListModel extends Model
      */
     public function save()
     {
-        // DOES NOT CURRENTLY SAVE CANDIDATES
-        $id = $this->id ?? "NULL";
-        $id = $this->db->real_escape_string($id);
         $owner_id = $this->owner_id ?? "NULL";
         $owner_id = $this->db->real_escape_string($owner_id);
         $name = $this->name ?? "NULL";
         $name = $this->db->real_escape_string($name);
-        if (!isset($id)) {
-            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name');")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
+        $cand = $this->candidates ?? "NULL";
+        $cand = $this->db->real_escape_string($cand);
+        if (!isset($this->id)) {
+            error_log("new SL");
+            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand');")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name' WHERE `id` = $id;")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
+            error_log("update SL");
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand' WHERE `id` = '$id';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
         return $this;
+    }
+
+    /**
+     * Converts the candidate ID's from the database into CandidateModels as required.
+     * @return \Generator|CandidateModel[]
+     */
+    public function getCandidates()
+    {
+        foreach ($this->candidates as $id) {
+            error_log("candidate= ".$id." END");
+            // Use a generator to save on memory/resources
+            // load accounts from DB one at a time only when required
+            yield (new CandidateModel())->load($id);
+        }
+    }
+
+    /**
+     * Adds a candidate to the short list
+     * @param $candId, the ID of the candidate to add
+     */
+    public function addCandidate($candId)
+    {
+        if($this->candidates == ""){
+            $this->candidates.=$candId;
+        } else {
+            $this->candidates .= "," . $candId;
+        }
     }
 }

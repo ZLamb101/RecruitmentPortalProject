@@ -228,6 +228,7 @@ class Model
                                                     `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
                                                     `owner_id` int (8) unsigned NOT NULL,
                                                     `name` varchar(256) DEFAULT NULL,
+                                                    `candidates` varchar(800) DEFAULT NULL,
                                                     PRIMARY KEY (`id`),
                                                     FOREIGN KEY (`owner_id`) REFERENCES `employer`(`id`)
                                                     );");
@@ -236,8 +237,8 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create short_list table");
             }
 
-            if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`) VALUES 
-                                                    (NULL, '1', 'Junior Developer');")){
+            if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`) VALUES 
+                                                    (NULL, '1', 'Junior Developer', '1,2,3');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
             }
