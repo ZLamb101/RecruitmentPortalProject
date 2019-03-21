@@ -143,7 +143,7 @@ $collection->attachRoute(
         '/logout',
         array(
             '_controller' => 'bjz\portal\controller\UserController::logoutAction',
-            'methods' => 'POST',
+            'methods' => 'GET',
             'name' => 'logout'
         )
     )
