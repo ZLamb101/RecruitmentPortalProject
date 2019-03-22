@@ -1,10 +1,16 @@
 function addQualification(){
-	
+	var count = document.getElementById("qualification-count");
+	var temp = count.getAttribute("value");
+	count.setAttribute("value", ++temp);
+
+	alert("hello there sir");
 	var qual = document.createElement("div");                       // Create a <div> node
 	var yearP = document.createElement("p");
 	var yearLabel = document.createTextNode("Year.");      // Create a text node
 	var year = document.createElement("input");
-	year.setAttribute("name","year");
+	var yearString = "year";
+	yearString = yearString.concat(temp.toString(10));
+	year.setAttribute("name",yearString);
 	year.setAttribute("type","text");
 
 	yearP.appendChild(yearLabel);
@@ -16,12 +22,17 @@ function addQualification(){
 	var nameP = document.createElement("p");
 	var nameLabel = document.createTextNode("Name");
 	var name = document.createElement("input");
-	name.setAttribute("name","name");
+	var nameString = "name";
+	nameString = nameString.concat(temp.toString(10));
 	name.setAttribute("type","text");
+	name.setAttribute("name", nameString);
 
 	nameP.appendChild(nameLabel);
 	qual.appendChild(nameP);
 	qual.appendChild(name);
+
+
+	
 
 	                                          // Append the text to <p>
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
