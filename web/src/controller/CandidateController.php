@@ -44,23 +44,36 @@ class CandidateController extends UserController
         try {
             $account = new CandidateModel();
             $accountId = $account->findID($_POST['username']);
-            $account = $account->load($accountId);
+            //$account = $account->load($accountId);
             
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-        
-        $account->setGName($_POST['first_name']);
-        $account->setFName($_POST['last_name']);
+
+        $account->setUserId($accountId);
+        $temp = $account->getUserId();
+        error_log("$accountId");
+        $account->setGName($_POST['first-name']);
+        $temp = $account->getGName();
+        error_log("$temp");
+        $account->setFName($_POST['last-name']);
+        $temp = $account->getFName();
+        error_log("$temp");
         $account->setLocation($_POST['location']);
+        $temp = $account->getLocation();
+        error_log("$temp");
         $account->setAvailability($_POST['availability']);
-        $account->setSkills($_POST['skills']);
+        $temp = $account->getAvailability();
+        error_log("$temp");
+        $account->setSkills($_POST['skill']);
+        $temp = $account->getSkills();
+        error_log("$temp");
 
         error_log("test 12");
         try {
             $account->save();
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
 
         //seperate to qual create func
@@ -71,16 +84,19 @@ class CandidateController extends UserController
             $qualification = new QualificationModel();
             $yearInput = 'year'.$qualificationCount;
             $nameInput = 'name'.$qualificationCount;
+            $qualification->setOwnerId($accountId);
             $qualification->setYear($_POST["yearInput"]);
             $qualification->setName($_POST["nameInput"]);
             $qualificationCount--;
+
+            try {
+                $qualification->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
         }while ($qualificationCount >= 0);
 
-        try {
-            $qualification->save();
-        } catch (\Exception $e) {
-            $this->redirect('error');
-        }
+       
 
 
         //seperate to workexp create func
@@ -92,10 +108,17 @@ class CandidateController extends UserController
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
+            $workExperience->setOwnerId($accountId);
             $workExperience->setRole($_POST["roleInput"]);
             $workExperience->setDuration($_POST["durationInput"]);
             $workExperience->setEmployer($_POST["employerInput"]);
             $workExperienceCount--;
+
+            try {
+                $workExperience->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
         }  while($workExperienceCount >= 0);
 
     
@@ -103,11 +126,7 @@ class CandidateController extends UserController
        
 
         error_log("the end");
-        try {
-            $workExperience->save();
-        } catch (\Exception $e) {
-            $this->redirect('error');
-        }
+    
         $view = new View('accountCreated');
         echo $view->render();
 

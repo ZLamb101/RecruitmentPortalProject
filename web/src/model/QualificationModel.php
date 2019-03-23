@@ -123,7 +123,7 @@ class QualificationModel
     public function save()
     {
         $id = $this->id ?? "NULL";
-        $id = $this->db->real_escape_string($id);
+       // $id = $this->db->real_escape_string($id);
         $owner_id = $this->owner_id ?? "NULL";
         $owner_id = $this->db->real_escape_string($owner_id);
         $name = $this->name ?? "NULL";

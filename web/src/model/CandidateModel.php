@@ -228,16 +228,22 @@ class CandidateModel extends UserModel
         
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
+        error_log("$uid");
         $given = $this->f_name ?? "NULL";
         $given = $this->db->real_escape_string($given);
+        error_log("$given");
         $family = $this->g_name ?? "NULL";
         $family = $this->db->real_escape_string($family);
+        error_log("$family");
         $location = $this->location ?? "NULL";
         $location = $this->db->real_escape_string($location);
+        error_log("$location");
         $avail = $this->availability ?? "NULL";
         $avail = $this->db->real_escape_string($avail);
+        error_log("$avail");
         $skills = $this->skills ?? "NULL";
         $skills = $this->db->real_escape_string($skills);
+        error_log("$skills");
         if(!isset($this->id)){
             // new candidate
             if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail', '$skills');")){
