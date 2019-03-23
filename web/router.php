@@ -164,7 +164,7 @@ $collection->attachRoute(
     new Route(
         '/Registration-Validation.php',
         array(
-            '_controller' => 'bjz\portal\controller\CandidateController::validateUsernameAction',
+            '_controller' => 'bjz\portal\controller\UserController::validateUsernameAction',
             'methods' => 'GET',
             'name' => 'registration'
         )
