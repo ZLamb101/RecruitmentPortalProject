@@ -225,6 +225,7 @@ class CandidateModel extends UserModel
     public function save(){
         // DOES NOT CURRENTLY SAVE W.E.
         // DOES NOT CURRENTLY SAVE QUALIFICATIONS
+        
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
         $given = $this->f_name ?? "NULL";
@@ -240,6 +241,7 @@ class CandidateModel extends UserModel
         if(!isset($this->id)){
             // new candidate
             if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail', '$skills');")){
+                error_log("error ## 1");
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
             }
             $this->id = $this->db->insert_id;
@@ -247,6 +249,7 @@ class CandidateModel extends UserModel
             // existing candidate, update information
             if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', 
                                               `location` = '$location', `availability` = '$avail', `skills` = '$skills' WHERE `id` = $this->id);")) {
+                error_log("error ## 2");
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }

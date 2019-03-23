@@ -3,7 +3,6 @@ function addQualification(){
 	var temp = count.getAttribute("value");
 	count.setAttribute("value", ++temp);
 
-	alert("hello there sir");
 	var qual = document.createElement("div");                       // Create a <div> node
 	var yearP = document.createElement("p");
 	var yearLabel = document.createTextNode("Year.");      // Create a text node
@@ -42,14 +41,19 @@ function addQualification(){
 
 
 function addWorkExperience(){
+	var count = document.getElementById("work-experience-count");
+	var it = count.getAttribute("value");
+	count.setAttribute("value", ++it);
 
 	var workex = document.createElement("div");                       // Create a <div> node
 
 	var roleP = document.createElement("p");
 	var roleLabel = document.createTextNode("Role.");      // Create a text node
 	var role = document.createElement("input");
-	role.setAttribute("name","role");
-	role.setAttribute("type","text");
+	var roleString = "role";
+	roleString = roleString.concat(it.toString(10));
+	role.setAttribute("name", roleString);
+	role.setAttribute("type", "text");
 
 	roleP.appendChild(roleLabel);
 	workex.appendChild(roleP);
@@ -58,7 +62,9 @@ function addWorkExperience(){
 	var durationP = document.createElement("p");
 	var durationLabel = document.createTextNode("Duration.");      // Create a text node
 	var duration = document.createElement("input");
-	duration.setAttribute("name","duration");
+	var durationString = "duration";
+	durationString = durationString.concat(it.toString(10));
+	duration.setAttribute("name", durationString);
 	duration.setAttribute("type","text");
 
 	durationP.appendChild(durationLabel);
@@ -68,7 +74,9 @@ function addWorkExperience(){
 	var employerP = document.createElement("p");
 	var employerLabel = document.createTextNode("Employer.");      // Create a text node
 	var employer = document.createElement("input");
-	employer.setAttribute("name","employer");
+	var employerString = "employer";
+	employerString = employerString.concat(it.toString(10));
+	employer.setAttribute("name", employerString);
 	employer.setAttribute("type","text");
 
 	employerP.appendChild(employerLabel);
