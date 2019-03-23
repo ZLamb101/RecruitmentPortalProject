@@ -44,7 +44,7 @@ class CandidateController extends UserController
         try {
             $account = new CandidateModel();
             $accountId = $account->findID($_POST['username']);
-            $account->load($accountId);
+            $account = $account->load($accountId);
             
         } catch (\Exception $e) {
             $this->redirect('errorPage');
@@ -56,12 +56,19 @@ class CandidateController extends UserController
         $account->setAvailability($_POST['availability']);
         $account->setSkills($_POST['skills']);
 
-        $it = 0;
-        $qualificationCount = $_POST['qualification-count'];
-error_log("test 12");
-        do{
-            $qualification = new QualificationModel();
+        error_log("test 12");
+        try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
 
+        //seperate to qual create func
+
+        $qualificationCount = $_POST['qualification-count'];
+
+        do{   //implement case for empty fielsd
+            $qualification = new QualificationModel();
             $yearInput = 'year'.$qualificationCount;
             $nameInput = 'name'.$qualificationCount;
             $qualification->setYear($_POST["yearInput"]);
@@ -69,13 +76,19 @@ error_log("test 12");
             $qualificationCount--;
         }while ($qualificationCount >= 0);
 
+        try {
+            $qualification->save();
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+
+
+        //seperate to workexp create func
         error_log("test 14");
-        $it = 0;
         $workExperienceCount = $_POST['work-experience-count'];
 
-        while($workExperienceCount >= 0){
+        do{     //implement case for empty fields
             $workExperience = new WorkExperienceModel();
-
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
@@ -83,15 +96,15 @@ error_log("test 12");
             $workExperience->setDuration($_POST["durationInput"]);
             $workExperience->setEmployer($_POST["employerInput"]);
             $workExperienceCount--;
+        }  while($workExperienceCount >= 0);
 
+    
 
-        }
+       
 
-
-
-        error_log("test 10");
+        error_log("the end");
         try {
-            $account->save();
+            $workExperience->save();
         } catch (\Exception $e) {
             $this->redirect('error');
         }
