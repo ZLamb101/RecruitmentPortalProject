@@ -84,7 +84,11 @@ class CandidateController extends UserController
             $qualification = new QualificationModel();
             $yearInput = 'year'.$qualificationCount;
             $nameInput = 'name'.$qualificationCount;
+            error_log("Saving qual");
+            error_log("$accountId");
             $qualification->setOwnerId($accountId);
+            $temp = $qualification->getOwnerId();
+            error_log("$temp");
             $qualification->setYear($_POST["yearInput"]);
             $qualification->setName($_POST["nameInput"]);
             $qualificationCount--;
@@ -109,9 +113,11 @@ class CandidateController extends UserController
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
             $workExperience->setOwnerId($accountId);
-            $workExperience->setRole($_POST["roleInput"]);
-            $workExperience->setDuration($_POST["durationInput"]);
-            $workExperience->setEmployer($_POST["employerInput"]);
+            $workExperience->setRole($_POST["$roleInput"]);
+            $workExperience->setDuration($_POST["$durationInput"]);
+            $workExperience->setEmployer($_POST["$employerInput"]);
+            $temp = $_POST["$roleInput"];
+            error_log("$temp");
             $workExperienceCount--;
 
             try {

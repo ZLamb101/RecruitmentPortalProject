@@ -145,14 +145,17 @@ class WorkExperienceModel extends Model
     public function save()
     {
 
-        $id = $this->id ?? "NULL";
-        $id = $this->db->real_escape_string($id);
+        $id = $this->id ?? NULL;
+      //  $id = $this->db->real_escape_string($id);
+        error_log("$id");
         $owner_id = $this->owner_id ?? "NULL";
-        $owner_id = $this->db->real_escape_string($owner_id);
+       // $owner_id = $this->db->real_escape_string($owner_id);
         $role = $this->role ?? "NULL";
         $role = $this->db->real_escape_string($role);
+        error_log("$role");
         $employer = $this->employer ?? "NULL";
         $employer = $this->db->real_escape_string($employer);
+        error_log("$employer");
         $duration = $this->duration ?? "NULL";
         $duration = $this->db->real_escape_string($duration);
         if (!isset($id)) {
