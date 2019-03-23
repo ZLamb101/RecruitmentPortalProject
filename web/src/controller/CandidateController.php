@@ -89,8 +89,8 @@ class CandidateController extends UserController
             $qualification->setOwnerId($accountId);
             $temp = $qualification->getOwnerId();
             error_log("$temp");
-            $qualification->setYear($_POST["yearInput"]);
-            $qualification->setName($_POST["nameInput"]);
+            $qualification->setYear($_POST["$yearInput"]);
+            $qualification->setName($_POST["$nameInput"]);
             $qualificationCount--;
 
             try {
@@ -133,9 +133,7 @@ class CandidateController extends UserController
 
         error_log("the end");
     
-        $view = new View('accountCreated');
-        echo $view->render();
-
+        $this->redirect('registrationConfirmationPage');
         //To complete
         //Call super first
     }
