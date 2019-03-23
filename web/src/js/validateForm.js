@@ -1,6 +1,5 @@
 function validateForm()
 {
-       
         var password = document.forms["registration"]["password"].value;
         var password_confirm = document.forms["registration"]["password_confirm"].value;
 
@@ -23,8 +22,7 @@ function validateForm()
         return false;
 }
 
-function get(callback)
-{
+function get(callback) {
     xmlhttp = new XMLHttpRequest();
     var username = document.forms["registration"]["username"].value;
     xmlhttp.open("GET", "registrationValidation.php?q=" + username, true);
@@ -37,4 +35,4 @@ function get(callback)
             }
         }
     };
- 
+}
