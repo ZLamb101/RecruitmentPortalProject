@@ -18,8 +18,8 @@ function addQualification(){
 	year.setAttribute("name",yearString);
 	year.setAttribute("type","text");
 	year.setAttribute("size",40);
-	year.setAttribute("pattern", "^\d{4}$");
-	year.setAttribute("title", "Alphabetic characters only");
+	year.setAttribute("pattern", "^[0-9]{4}$");
+	year.setAttribute("title", "Numeric characters only");
 
 	yearP.appendChild(yearLabel);
 	qual.appendChild(yearP);
