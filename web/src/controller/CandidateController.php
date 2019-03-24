@@ -66,7 +66,7 @@ class CandidateController extends UserController
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-
+        $candidateID = $account->getId();
         error_log("7");
         $qualificationCount = $_POST['qualification-count'];
         do{
@@ -77,7 +77,7 @@ class CandidateController extends UserController
             $nameInput = 'name'.$qualificationCount;
             if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
             error_log("10");
-            $qualification->setOwnerId($accountId);
+            $qualification->setOwnerId($candidateID);
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setName($_POST["$nameInput"]);
             $qualificationCount--;
@@ -102,7 +102,7 @@ class CandidateController extends UserController
             error_log("15");
             if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
             error_log("16");
-            $workExperience->setOwnerId($accountId);
+            $workExperience->setOwnerId($candidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);

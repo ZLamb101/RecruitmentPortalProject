@@ -132,13 +132,13 @@ class QualificationModel extends Model
         $year = $this->db->real_escape_string($year);
         if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$name', '$year');")){
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `name` = '$name', `year` = '$year' 
                                               WHERE `id` = '$id';")){
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");
             }
         }
         return $this;
