@@ -2,6 +2,7 @@
 
 namespace bjz\portal\controller;
 use bjz\portal\view\View;
+use bjz\portal\model\EmployerModel;
 use Symfony\Component\Config\ConfigCache;
 
 session_start();
@@ -54,8 +55,7 @@ class EmployerController extends UserController
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-        $view = new View('accountCreated');
-        echo $view->render();
+        $this->redirect('registrationConfirmationPage');
         //To complete
         //Call super
     }
