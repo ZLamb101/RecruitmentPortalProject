@@ -124,7 +124,7 @@ class WorkExperienceModel extends Model
     {
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `work_experience` WHERE `id` = '$id';")){
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExperienceLoad");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExperienceLoad");
         }
         $result = $result->fetch_assoc();
         $this->id = $id;
@@ -160,13 +160,13 @@ class WorkExperienceModel extends Model
         $duration = $this->db->real_escape_string($duration);
         if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `work_experience` VALUES (NULL, '$owner_id', '$role', '$employer', '$duration');")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer' 
                                               `duration` = '$duration' WHERE `id` = $id;")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
         }
         return $this;

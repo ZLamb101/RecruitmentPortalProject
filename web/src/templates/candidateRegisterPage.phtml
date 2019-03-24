@@ -1,7 +1,7 @@
 <?php 
 include "header.phtml"
  ?>
- <script type = "text/javascript" src="src/js/validateForm.js"></script>
+ <!--<script type = "text/javascript" src="src/js/validateForm.js"></script>-->
  <script type = "text/javascript" src="src/js/addRegistration.js"></script>
 <!---------- Body starts --------------->
 
@@ -59,7 +59,7 @@ include "header.phtml"
 
 
             <p type="hidden" id="validate"></p>
-          <button id="submit-registration" value="Register" onclick="return validateForm()">Register</button> 
+          <button id="submit-registration" value="Register" onsubmit="return validateForm();">Register</button>
             <input id="submit-handle" type="submit" style="display: none">
         </form>
 		    <br>
