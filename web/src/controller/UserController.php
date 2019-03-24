@@ -36,7 +36,7 @@ class UserController extends Controller
             $a = new UserModel();
             echo $a->findName($username);
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
     }
 

@@ -35,4 +35,5 @@ function get(callback) {
             }
         }
     };
+    xmlhttp.send();
 }
