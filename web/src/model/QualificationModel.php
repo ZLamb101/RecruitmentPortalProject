@@ -103,7 +103,7 @@ class QualificationModel extends Model
     {
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `qualification` WHERE `id` = '$id';")){
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
         }
         $result = $result->fetch_assoc();
         $this->id = $id;
@@ -122,7 +122,7 @@ class QualificationModel extends Model
      */
     public function save()
     {
-        $id = $this->id ?? "NULL";
+       // $id = $this->id ?? "NULL";
        // $id = $this->db->real_escape_string($id);
         $owner_id = $this->owner_id ?? "NULL";
        // $owner_id = $this->db->real_escape_string($owner_id);
@@ -132,13 +132,13 @@ class QualificationModel extends Model
         $year = $this->db->real_escape_string($year);
         if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$name', '$year');")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `name` = '$name', `year` = '$year' 
-                                              WHERE `id` = $id;")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
+                                              WHERE `id` = '$id';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
         }
         return $this;
