@@ -1,3 +1,9 @@
+
+/**
+ * Create a <div> node with input fields "year" and "name"
+ * increment the names of the inputs for each invokation.
+ * append new <div> to qualification in phtml
+ */
 function addQualification(){
 	var count = document.getElementById("qualification-count");
 	var temp = count.getAttribute("value");
@@ -5,7 +11,7 @@ function addQualification(){
 
 	var qual = document.createElement("div");                       // Create a <div> node
 	var yearP = document.createElement("p");
-	var yearLabel = document.createTextNode("Year.");      // Create a text node
+	var yearLabel = document.createTextNode("Year.");      
 	var year = document.createElement("input");
 	var yearString = "year";
 	yearString = yearString.concat(temp.toString(10));
@@ -31,15 +37,17 @@ function addQualification(){
 	qual.appendChild(name);
 
 
-	
-
-	                                          // Append the text to <p>
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
 
 }
 
 
 
+/**
+ * Create a <div> node with input fields "role","duration" and "employer"
+ * increment the names of the inputs for each invokation.
+ * append new <div> to work experience in phtml
+ */
 function addWorkExperience(){
 	var count = document.getElementById("work-experience-count");
 	var it = count.getAttribute("value");

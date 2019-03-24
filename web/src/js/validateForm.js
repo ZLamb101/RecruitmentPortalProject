@@ -1,3 +1,9 @@
+
+/**
+ * Compares passwords to make sure they match. Call a php function to search rdb for duplicates of username. 
+ *
+ * @return {Boolean}      Whether validation fails or passes
+ */
 function validateForm()
 {
         var password = document.forms["registration"]["password"].value;

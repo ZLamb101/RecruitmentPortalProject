@@ -34,6 +34,9 @@ class CandidateController extends UserController
 
     /**
      * Function to create a Candidate account
+     * Takes the inputs from post request and creates a Candidate account
+     * creates any Qualifications and work experiences attached to the account.
+     *
      */
     public function createAccountAction()
     {
@@ -59,23 +62,16 @@ class CandidateController extends UserController
             $this->redirect('errorPage');
         }
 
-        //seperate to qual create func
-
         $qualificationCount = $_POST['qualification-count'];
-
-        do{   //implement case for empty fielsd
+        do{
             $qualification = new QualificationModel();
             $yearInput = 'year'.$qualificationCount;
             $nameInput = 'name'.$qualificationCount;
-            error_log("Saving qual");
-            error_log("$accountId");
+            if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
             $qualification->setOwnerId($accountId);
-            $temp = $qualification->getOwnerId();
-            error_log("$temp");
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setName($_POST["$nameInput"]);
             $qualificationCount--;
-
             try {
                 $qualification->save();
             } catch (\Exception $e) {
@@ -83,26 +79,19 @@ class CandidateController extends UserController
             }
         }while ($qualificationCount >= 0);
 
-       
 
-
-        //seperate to workexp create func
-        error_log("test 14");
         $workExperienceCount = $_POST['work-experience-count'];
-
-        do{     //implement case for empty fields
+        do{
             $workExperience = new WorkExperienceModel();
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
+            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["employerInput"] == NULL) break;
             $workExperience->setOwnerId($accountId);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
-            $temp = $_POST["$roleInput"];
-            error_log("$temp");
             $workExperienceCount--;
-
             try {
                 $workExperience->save();
             } catch (\Exception $e) {
@@ -110,14 +99,6 @@ class CandidateController extends UserController
             }
         }  while($workExperienceCount >= 0);
 
-    
-
-       
-
-        error_log("the end");
-    
         $this->redirect('registrationConfirmationPage');
-        //To complete
-        //Call super first
     }
 }

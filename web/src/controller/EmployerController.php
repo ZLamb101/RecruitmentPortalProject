@@ -34,12 +34,12 @@ class EmployerController extends UserController
 
     /**
      * Action to create an Employer account
+     * Retreives employer information from post request and saves to account, redirects to confirmation page.
      */
     public function createAccountAction()
     {
         parent::createAccountAction();
         try {
-
             $account = new EmployerModel();
             $accountId = $account->findID($_POST['username']);
         } catch (\Exception $e) {

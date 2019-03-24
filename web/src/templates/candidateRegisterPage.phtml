@@ -27,21 +27,20 @@ include "header.phtml"
 
             <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+]+$" title="Numeric characters only"> </p>
             <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
-            <p>Skill: <input type=text name="skill" size="40" required pattern="^[a-zA-Z,]+$" title="Comma separated list"> </p> <!-- Need to expand this for list of skills -->
+            <p>Skill: <input type=text name="skill" size="100" required pattern="^[a-zA-Z,]+$" title="Comma separated list"> </p> <!-- Need to expand this for list of skills -->
 
             <div id="work-experience">
-                  <p>Work Experience</p>
-                  <p>Duration: <input type=text name="duration0" size="40"> </p>       <!-- Drop down -->
-                  <p>Role: <input type=text name="role0" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
-                  <p>Employer: <input type=text name="employer0" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only"> </p>
-                  <input type="hidden" value="0" name="work-experience-count" id="work-experience-count">
+                <p>Work Experience</p>
+                <p>Role: <input type=text name="role0" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
+                <p>Duration: <input type=text name="duration0" size="40"> </p>
+                <p>Employer: <input type=text name="employer0" size="40" required pattern="^[a-zA-Z0-9]+$" title="Alphanumeric characters only"> </p>
+                <input type="hidden" value="0" name="work-experience-count" id="work-experience-count">
             </div>
             <input type="button" id="add-work-experience" value="Add" onclick="addWorkExperience()">
 
             <div id="qualifications">
-
                   <p>Qualifications</p> 
-                  <p>Year: <input type=text name="year0" size="40"> </p>       <!-- Drop down -->
+                  <p>Year: <input type=text name="year0" size="40"> </p>
                   <p>Name: <input type=text name="name0" size="40" required pattern="^[a-zA-Z]+$" title="Alphabetic characters only"> </p>
                   <input type="hidden" value="0" name="qualification-count" id="qualification-count">
             </div>
@@ -63,7 +62,6 @@ include "header.phtml"
             <input id="submit-handle" type="submit" style="display: none">
         </form>
 		    <br>
-                <p>Click <a href="<?= $linkTo('registrationConfirmationPage'); ?>">Here</a> to go to the next page(temp)</p> 	
 			
 		</div>
 	</div>

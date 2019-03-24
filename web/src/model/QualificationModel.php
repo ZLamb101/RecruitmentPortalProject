@@ -143,4 +143,6 @@ class QualificationModel extends Model
         }
         return $this;
     }
+
+
 }
