@@ -17,6 +17,9 @@ function addQualification(){
 	yearString = yearString.concat(temp.toString(10));
 	year.setAttribute("name",yearString);
 	year.setAttribute("type","text");
+	year.setAttribute("size",40);
+	year.setAttribute("pattern", "^\d{4}$");
+	year.setAttribute("title", "Alphabetic characters only");
 
 	yearP.appendChild(yearLabel);
 	qual.appendChild(yearP);
@@ -31,6 +34,9 @@ function addQualification(){
 	nameString = nameString.concat(temp.toString(10));
 	name.setAttribute("type","text");
 	name.setAttribute("name", nameString);
+	name.setAttribute("size",40);
+	name.setAttribute("pattern", "^[a-zA-Z\s-]+$");
+	name.setAttribute("title", "Alphabetic characters only");
 
 	nameP.appendChild(nameLabel);
 	qual.appendChild(nameP);
@@ -62,6 +68,9 @@ function addWorkExperience(){
 	roleString = roleString.concat(it.toString(10));
 	role.setAttribute("name", roleString);
 	role.setAttribute("type", "text");
+	role.setAttribute("size",40);
+	role.setAttribute("pattern", "^[a-zA-Z\s-]+$");
+	role.setAttribute("title", "Alphabetic characters only");
 
 	roleP.appendChild(roleLabel);
 	workex.appendChild(roleP);
@@ -74,6 +83,9 @@ function addWorkExperience(){
 	durationString = durationString.concat(it.toString(10));
 	duration.setAttribute("name", durationString);
 	duration.setAttribute("type","text");
+	duration.setAttribute("size",40);
+	duration.setAttribute("pattern", "^[0-9]+$");
+	duration.setAttribute("title", "Numeric characters only");
 
 	durationP.appendChild(durationLabel);
 	workex.appendChild(durationP);
@@ -86,6 +98,9 @@ function addWorkExperience(){
 	employerString = employerString.concat(it.toString(10));
 	employer.setAttribute("name", employerString);
 	employer.setAttribute("type","text");
+	employer.setAttribute("size",40);
+	employer.setAttribute("pattern", "^[a-zA-Z0-9\s-]+$");
+	employer.setAttribute("title", "Alphanumeric characters only");
 
 	employerP.appendChild(employerLabel);
 	workex.appendChild(employerP);
