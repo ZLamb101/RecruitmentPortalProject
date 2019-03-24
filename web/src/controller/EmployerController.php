@@ -36,16 +36,15 @@ class EmployerController extends UserController
      */
     public function createAccountAction()
     {
-        super();
-
+        parent::createAccountAction();
         try {
 
             $account = new EmployerModel();
-            $accountId = $account->UserModel::findID($_POST['username']);
-            $account->load($accountId);
+            $accountId = $account->findID($_POST['username']);
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
+        $account->setUserId($accountId);
         $account->setCompanyName($_POST['company-name']);
         $account->setUrl($_POST['url']);
         $account->setContactName($_POST['contact-name']);
@@ -53,10 +52,10 @@ class EmployerController extends UserController
         try {
             $account->save();
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
         $view = new View('accountCreated');
-        echo $view->addData('account', $account)->render();
+        echo $view->render();
         //To complete
         //Call super
     }

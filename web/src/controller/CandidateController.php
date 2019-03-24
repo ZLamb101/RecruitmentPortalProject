@@ -37,39 +37,22 @@ class CandidateController extends UserController
      */
     public function createAccountAction()
     {
-        error_log("test 10");
-
-        
         parent::createAccountAction();
         try {
             $account = new CandidateModel();
             $accountId = $account->findID($_POST['username']);
-            //$account = $account->load($accountId);
             
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
 
         $account->setUserId($accountId);
-        $temp = $account->getUserId();
-        error_log("$accountId");
         $account->setGName($_POST['first-name']);
-        $temp = $account->getGName();
-        error_log("$temp");
         $account->setFName($_POST['last-name']);
-        $temp = $account->getFName();
-        error_log("$temp");
         $account->setLocation($_POST['location']);
-        $temp = $account->getLocation();
-        error_log("$temp");
         $account->setAvailability($_POST['availability']);
-        $temp = $account->getAvailability();
-        error_log("$temp");
         $account->setSkills($_POST['skill']);
-        $temp = $account->getSkills();
-        error_log("$temp");
 
-        error_log("test 12");
         try {
             $account->save();
         } catch (\Exception $e) {

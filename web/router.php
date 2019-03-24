@@ -96,11 +96,22 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/test',
+        '/Candidate-Registration',
         array(
             '_controller' => 'bjz\portal\controller\CandidateController::createAccountAction',
             'methods' => 'POST',
-            'name' => 'submitRegistration'
+            'name' => 'submitCandidateRegistration'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/Employer-Registration',
+        array(
+            '_controller' => 'bjz\portal\controller\EmployerController::createAccountAction',
+            'methods' => 'POST',
+            'name' => 'submitEmployerRegistration'
         )
     )
 );
