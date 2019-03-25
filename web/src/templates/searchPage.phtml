@@ -13,8 +13,28 @@ include "header.phtml"
 			</div>
 			<p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home
             <form>
-            	<div id="search-bar">
-					<p> Search:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+                <p>All Categories</p>
+                <select>
+                    <option value="IT">IT</option>
+                    <option value="Health">Health</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Architecture">Architecture</option>
+                </select>
+
+                <p>All Sub-Categories</p>
+                <select>
+                    <option value="Testing">Testing</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Architect">Architect</option>
+                    <option value="Security">Security</option>
+                </select>
+
+                <div id="location-search-bar">
+                    <p> Search Location:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+                </div>
+
+            	<div id="skills-search-bar">
+					<p> Search Skills:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
 				</div>
 				<br>
 
