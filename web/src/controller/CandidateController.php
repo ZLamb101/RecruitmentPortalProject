@@ -23,8 +23,15 @@ class CandidateController extends UserController
     public function indexAction()
     {
         if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
-            $view = new View('candidateHomePage');
-            echo $view->render();
+            try{
+                $account = new CandidateModel();
+                $account->load($_SESSION[UserID]);
+                $view = new View('candidateHomePage');
+                echo $view->addData('candidateInfo', $account)->render();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
         } else if($_SESSION["loginStatus"] == Controller::EMPLOYER){
             $this->redirect('employerHomePage');
         } else {
