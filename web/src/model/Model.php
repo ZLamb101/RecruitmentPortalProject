@@ -56,7 +56,6 @@ class Model
             throw new \Exception($this->db->connect_error, $this->db->connect_errno);
         }
 
-
         $this->db->query("CREATE DATABASE IF NOT EXISTS " . Model::DB_NAME . ";");
         if (!$this->db->select_db(Model::DB_NAME)) {
             error_log("Mysql database not available!", 0);
@@ -244,5 +243,256 @@ class Model
             }
         }
 
+        //Field Table
+        $result = $this->db->query("SHOW TABLES LIKE 'field';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `field` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `field` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create field table");
+            }
+
+            if(!$this->db->query("INSERT INTO `field` (`id`, `field`) VALUES 
+                                                    (NULL, 'Accounting'),
+                                                    (NULL, 'Agriculture, fishing and forestry'),
+                                                    (NULL, 'Architecture'),
+                                                    (NULL, 'Automotive'),
+                                                    (NULL, 'Banking, finance & insurance'),
+                                                    (NULL, 'Construction & roading'),
+                                                    (NULL, 'Customer service'),
+                                                    (NULL, 'Education'),
+                                                    (NULL, 'Engineering'),
+                                                    (NULL, 'Executive & general management'),
+                                                    (NULL, 'Government & council'),
+                                                    (NULL, 'Healthcare'),
+                                                    (NULL, 'Hospitality & tourism'),
+                                                    (NULL, 'HR & recruitment'),
+                                                    (NULL, 'IT'),
+                                                    (NULL, 'Legal'),
+                                                    (NULL, 'Manufacturing & operations'),
+                                                    (NULL, 'Marketing, media & communications'),
+                                                    (NULL, 'Office & administration'),
+                                                    (NULL, 'Property'),
+                                                    (NULL, 'Retail'),
+                                                    (NULL, 'Sales'),
+                                                    (NULL, 'Science & technology'),
+                                                    (NULL, 'Trades & services'),
+                                                    (NULL, 'Transport & logistics')
+                                                    ;")){
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy field data.", $this->db->errno);
+            }
+        }
+
+        //Sub Field Table
+        $result = $this->db->query("SHOW TABLES LIKE 'sub_field';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `sub_field` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `field_id` int (8) unsigned NOT NULL,
+                                                    `sub_field` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`),
+                                                    FOREIGN KEY (`field_id`) REFERENCES `field`(`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create sub_field table");
+            }
+
+            if(!$this->db->query("INSERT INTO `sub_field` (`id`, `field_id`, `sub_field`) VALUES
+                                                    (NULL, 1, 'Accountancy'),
+                                                    (NULL, 1, 'Accounts administration'),
+                                                    (NULL, 1, 'Accounts payable'),
+                                                    (NULL, 1, 'Accounts receivable'),
+                                                    (NULL, 1, 'Analysts'),
+                                                    (NULL, 1, 'Finance management & control'),
+                                                    (NULL, 1, 'Management'),
+                                                    (NULL, 1, 'Payroll'),
+                                                    (NULL, 2, 'Farming'),
+                                                    (NULL, 2, 'Fishing'),
+                                                    (NULL, 2, 'Forestry'),
+                                                    (NULL, 2, 'Horticulture'),
+                                                    (NULL, 3, 'Architecture'),
+                                                    (NULL, 3, 'Drafting'),
+                                                    (NULL, 3, 'Interior design'),
+                                                    (NULL, 4, 'Automotive technician'),
+                                                    (NULL, 4, 'Diesel mechanic'),
+                                                    (NULL, 4, 'Management'),
+                                                    (NULL, 4, 'Panel & paint'),
+                                                    (NULL, 4, 'Sales, operations & parts'),
+                                                    (NULL, 5, 'Analysis'),
+                                                    (NULL, 5, 'Client Interaction'),
+                                                    (NULL, 5, 'Corporate & institutional banking'),
+                                                    (NULL, 5, 'Credit & lending'),
+                                                    (NULL, 5, 'Financial planning & investment'),
+                                                    (NULL, 5, 'Insurance'),
+                                                    (NULL, 5, 'Management'),
+                                                    (NULL, 5, 'Risk & compliance'),
+                                                    (NULL, 5, 'Settlements'),
+                                                    (NULL, 5, 'Clerical skills'),
+                                                    (NULL, 6, 'Estimation'),
+                                                    (NULL, 6, 'Health & safety'),
+                                                    (NULL, 6, 'Labouring'),
+                                                    (NULL, 6, 'Machine operation'),
+                                                    (NULL, 6, 'Planning'),
+                                                    (NULL, 6, 'Project & contracts management'),
+                                                    (NULL, 6, 'Quantity surveying'),
+                                                    (NULL, 6, 'Traffic management'),
+                                                    (NULL, 6, 'Site management'),
+                                                    (NULL, 6, 'Supervision'),
+                                                    (NULL, 6, 'Surveying'),
+                                                    (NULL, 7, 'Call centre'),
+                                                    (NULL, 7, 'Customer interaction'),
+                                                    (NULL, 7, 'Management'),
+                                                    (NULL, 8, 'Nannying'),
+                                                    (NULL, 8, 'Early childhood'),
+                                                    (NULL, 8, 'Primary'),
+                                                    (NULL, 8, 'Secondary'),
+                                                    (NULL, 8, 'Tertiary'),
+                                                    (NULL, 8, 'Tutoring'),
+                                                    (NULL, 8, 'Training'),
+                                                    (NULL, 9, 'Building services'),
+                                                    (NULL, 9, 'Civil & structural'),
+                                                    (NULL, 9, 'Drafting'),
+                                                    (NULL, 9, 'Electrical'),
+                                                    (NULL, 9, 'Energy'),
+                                                    (NULL, 9, 'Environmental'),
+                                                    (NULL, 9, 'Geotechnical'),
+                                                    (NULL, 9, 'Industrial'),
+                                                    (NULL, 9, 'Maintenance'),
+                                                    (NULL, 9, 'Management'),
+                                                    (NULL, 9, 'Mechanical'),
+                                                    (NULL, 9, 'Project management'),
+                                                    (NULL, 9, 'Water & waste'),
+                                                    (NULL, 10, 'Executive management'),
+                                                    (NULL, 10, 'General management'),
+                                                    (NULL, 11, 'Central government'),
+                                                    (NULL, 11, 'Defence'),
+                                                    (NULL, 11, 'Local and regional council'),
+                                                    (NULL, 12, 'Administration'),
+                                                    (NULL, 12, 'Caregiving'),
+                                                    (NULL, 12, 'Community & social services'),
+                                                    (NULL, 12, 'Dentistry'),
+                                                    (NULL, 12, 'Doctors & specialists'),
+                                                    (NULL, 12, 'Fitness & wellbeing'),
+                                                    (NULL, 12, 'Management'),
+                                                    (NULL, 12, 'Nursing & midwifery'),
+                                                    (NULL, 12, 'Occupational therapy'),
+                                                    (NULL, 12, 'Pharmacy'),
+                                                    (NULL, 12, 'Physiotherapy'),
+                                                    (NULL, 12, 'Psychology & counselling'),
+                                                    (NULL, 12, 'Radiography & sonography'),
+                                                    (NULL, 12, 'Veterinary'),
+                                                    (NULL, 13, 'Barkeeping & baristing'),
+                                                    (NULL, 13, 'Culinary'),
+                                                    (NULL, 13, 'Housekeeping'),
+                                                    (NULL, 13, 'Kitchen skills'),
+                                                    (NULL, 13, 'Management'),
+                                                    (NULL, 13, 'Reception & clerical'),
+                                                    (NULL, 13, 'Tourism'),
+                                                    (NULL, 13, 'Travel consultancy'),
+                                                    (NULL, 13, 'Waiting skills'),
+                                                    (NULL, 14, 'Health & safety'),
+                                                    (NULL, 14, 'Human Resources'),
+                                                    (NULL, 14, 'Recruitment'),
+                                                    (NULL, 15, 'Architecture'),
+                                                    (NULL, 15, 'Business & system analysis'),
+                                                    (NULL, 15, 'Data Warehousing'),
+                                                    (NULL, 15, 'Business intelligence'),
+                                                    (NULL, 15, 'Database'),
+                                                    (NULL, 15, 'Functional consultants'),
+                                                    (NULL, 15, 'Management'),
+                                                    (NULL, 15, 'Networking & storage'),
+                                                    (NULL, 15, 'Programming & development'),
+                                                    (NULL, 15, 'Project management'),
+                                                    (NULL, 15, 'Sales '),
+                                                    (NULL, 15, 'Security'),
+                                                    (NULL, 15, 'System engineering'),
+                                                    (NULL, 15, 'Telecommunications'),
+                                                    (NULL, 15, 'Testing'),
+                                                    (NULL, 15, 'Training'),
+                                                    (NULL, 15, 'User experience'),
+                                                    (NULL, 16, 'In-house counsel'),
+                                                    (NULL, 16, 'Private practice'),
+                                                    (NULL, 16, 'Secretarial'),
+                                                    (NULL, 17, 'Fitting & machining'),
+                                                    (NULL, 17, 'Machine operation'),
+                                                    (NULL, 17, 'Management'),
+                                                    (NULL, 17, 'Process & assembly'),
+                                                    (NULL, 17, 'Purchasing & inventory'),
+                                                    (NULL, 17, 'Quality assurance'),
+                                                    (NULL, 17, 'Warehousing'),
+                                                    (NULL, 17, 'Supervision'),
+                                                    (NULL, 18, 'Advertising'),
+                                                    (NULL, 18, 'Brand & product management'),
+                                                    (NULL, 18, 'Communications & PR'),
+                                                    (NULL, 18, 'Design'),
+                                                    (NULL, 18, 'Digital marketing'),
+                                                    (NULL, 18, 'Direct marketing'),
+                                                    (NULL, 18, 'Journalism'),
+                                                    (NULL, 18, 'Management'),
+                                                    (NULL, 18, 'Market research & analysis'),
+                                                    (NULL, 19, 'Administration'),
+                                                    (NULL, 19, 'Data entry'),
+                                                    (NULL, 19, 'EA, PA & secretarial skills'),
+                                                    (NULL, 19, 'Office management'),
+                                                    (NULL, 19, 'Reception'),
+                                                    (NULL, 20, 'Commercial sales & leasing'),
+                                                    (NULL, 20, 'Consultancy & valuation'),
+                                                    (NULL, 20, 'Facilities & commercial property management'),
+                                                    (NULL, 20, 'Residential sales & management'),
+                                                    (NULL, 21, 'Buying'),
+                                                    (NULL, 21, 'Management'),
+                                                    (NULL, 21, 'Merchandising'),
+                                                    (NULL, 21, 'Retail assistant'),
+                                                    (NULL, 22, 'Account management'),
+                                                    (NULL, 22, 'Business development'),
+                                                    (NULL, 22, 'Sales management'),
+                                                    (NULL, 22, 'Sales'),
+                                                    (NULL, 22, 'Telesales'),
+                                                    (NULL, 23, 'Research'),
+                                                    (NULL, 24, 'Air conditioning & refrigeration'),
+                                                    (NULL, 24, 'Beauty therapy'),
+                                                    (NULL, 24, 'Boat building'),
+                                                    (NULL, 24, 'Building & carpentry'),
+                                                    (NULL, 24, 'Butchery'),
+                                                    (NULL, 24, 'Baking'),
+                                                    (NULL, 24, 'Cleaning'),
+                                                    (NULL, 24, 'Electrical'),
+                                                    (NULL, 24, 'Flooring'),
+                                                    (NULL, 24, 'Gardening & landscaping'),
+                                                    (NULL, 24, 'Glazier skills'),
+                                                    (NULL, 24, 'Hairdressing'),
+                                                    (NULL, 24, 'Labouring'),
+                                                    (NULL, 24, 'Painting'),
+                                                    (NULL, 24, 'Plumbing'),
+                                                    (NULL, 24, 'Printing'),
+                                                    (NULL, 24, 'Roofing'),
+                                                    (NULL, 24, 'Security'),
+                                                    (NULL, 24, 'Sign Writers'),
+                                                    (NULL, 24, 'Technicians'),
+                                                    (NULL, 24, 'Welding'),
+                                                    (NULL, 25, 'Driving & courier skills'),
+                                                    (NULL, 25, 'Freighting'),
+                                                    (NULL, 25, 'Import & export'),
+                                                    (NULL, 25, 'Management'),
+                                                    (NULL, 25, 'Operations'),
+                                                    (NULL, 25, 'Supply chain & planning'),
+                                                    (NULL, 25, 'Warehouse & distribution')                                              
+                                                    ;")){
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy sub_field data.", $this->db->errno);
+            }
+        }
     }
 }
