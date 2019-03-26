@@ -11,11 +11,33 @@ include "header.phtml"
 		
 		<div id = "content">
 			<div class = "title">
-				<h2>Welcome <?= $candidateInfo->getGName() ?>.</h2>
+				<h2>Welcome <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
 			</div>
 			<div class="test">
 				<br>
-				<p> test </p>
+
+                <p>First Name: <?= $candidateInfo->getGName()?> </p>
+                <p>Last Name: <?= $candidateInfo->getFName() ?> </p>
+                <p>Username: <?= $candidateInfo->getUserName() ?></p>
+                <p>Email: <?= $candidateInfo->getEmail() ?></p>
+                <p>Phone number: <?= $candidateInfo->getPhoneNumber() ?></p>
+                <p>Location: <?= $candidateInfo->getLocation() ?> </p>
+
+                <div id="work-experience">
+                    <p>Work Experience</p>
+                    <p>Role:  </p>
+                    <p>Duration (in months): </p>
+                    <p>Employer:  </p>
+                </div>
+
+                <div id="qualifications">
+                    <p>Qualifications</p>
+                    <p>Year: </p>
+                    <p>Name: </p>
+                </div>
+
+                <p>Availability: </p>
+
 				<p>Click <a>Here</a> to edit info</p>
 				<p>Click <a>Here</a> to view invites</p>
                 <p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p>

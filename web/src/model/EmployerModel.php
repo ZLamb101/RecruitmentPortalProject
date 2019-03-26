@@ -162,12 +162,16 @@ class EmployerModel extends UserModel
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `id` = $id;")) {
+        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = $id;")) {
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerLoad");
         }
+        error_log("HERE");
+        error_log($id);
         $result = $result->fetch_assoc();
         $this->user_id = $result['user_id'];
+        error_log($this->getUserId());
         $this->address = $result['address'];
+        error_log($this->getAddress());
         $this->company_name = $result['company_name'];
         $this->contact_name = $result['contact_name'];
         $this->url = $result['url'];
