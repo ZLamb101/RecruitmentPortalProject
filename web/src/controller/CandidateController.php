@@ -19,6 +19,7 @@ class CandidateController extends UserController
     /**
      * Action to load the candidateHomePage
      * Checks if the user is logged in as a candidate and if so grants them access to this page
+     * Passes a candidate object through the view so that account specific information can be accessed
      */
     public function indexAction()
     {
@@ -27,6 +28,30 @@ class CandidateController extends UserController
                 $account = new CandidateModel();
                 $account->load($_SESSION[UserID]);
                 $view = new View('candidateHomePage');
+                echo $view->addData('candidateInfo', $account)->render();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
+        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER){
+            $this->redirect('employerHomePage');
+        } else {
+            $this->redirect('home');
+        }
+    }
+
+    /**
+     * Action to load the candidateEditInfoPage
+     * Checks if the user is logged in as a candidate and if so grants them access to this page
+     * Passes a candidate object through the view so that account specific information can be accessed
+     */
+    public function editInfoPageAction()
+    {
+        if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            try{
+                $account = new CandidateModel();
+                $account->load($_SESSION[UserID]);
+                $view = new View('candidateEditInfoPage');
                 echo $view->addData('candidateInfo', $account)->render();
             } catch (\Exception $e){
                 error_log($e->getMessage());

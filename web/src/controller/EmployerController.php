@@ -18,6 +18,7 @@ class EmployerController extends UserController
     /**
      * Action to load the employerHomePage
      * Checks if the user is logged in as an Employer and if so grants them access to this page
+     * Passes an employer object through the view so that account specific information can be accessed
      */
     public function indexAction()
     {
@@ -26,6 +27,30 @@ class EmployerController extends UserController
                 $account = new EmployerModel();
                 $account->load($_SESSION[UserID]);
                 $view = new View('employerHomePage');
+                echo $view->addData('employerInfo', $account)->render();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
+        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
+            $this->redirect('candidateHomePage');
+        } else {
+            $this->redirect('home');
+        }
+    }
+
+    /**
+     * Action to load the employerEditInfoPage
+     * Checks if the user is logged in as an Employer and if so grants them access to this page
+     * Passes an employer object through the view so that account specific information can be accessed
+     */
+    public function editInfoPageAction()
+    {
+        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            try{
+                $account = new EmployerModel();
+                $account->load($_SESSION[UserID]);
+                $view = new View('employerEditInfoPage');
                 echo $view->addData('employerInfo', $account)->render();
             } catch (\Exception $e){
                 error_log($e->getMessage());

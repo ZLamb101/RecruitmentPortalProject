@@ -1,0 +1,68 @@
+<?php 
+include "header.phtml"
+ ?>
+ <script type = "text/javascript" src="src/js/validateForm.js"></script>
+ <script type = "text/javascript" src="src/js/addRegistration.js"></script>
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div class = "title">
+			<h2>Edit your information here:</h2>
+			</div>
+
+		   <div id="registration">
+            <form method="POST" name="registration" action="<?= $linkTo('candidateHomePage'); ?>" >
+            <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
+            <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
+            <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>"></p>
+            <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
+
+            <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
+            <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
+
+            <div id="work-experience">
+                <p>Work Experience</p>
+                <p>Role: <input type=text name="role0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
+                <p>Duration (in months): <input type=text name="duration0" size="40" pattern="^[0-9]+$" title="Numeric characters only"> </p>
+                <p>Employer: <input type=text name="employer0" size="40" pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only"> </p>
+            </div>
+            <input type="button" id="add-work-experience" value="Add" onclick="addWorkExperience()">
+
+            <div id="qualifications">
+                  <p>Qualifications</p> 
+                  <p>Year: <input type=text name="year0" size="40" pattern="^\d{4}$" title="YYYY format. Numeric characters only"> </p>
+                  <p>Name: <input type=text name="name0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
+            </div>
+            <input type="button" id="add-qualification" value="Add" onclick="addQualification()">
+
+            <p>Availability</p>
+            <select name="availability">
+              <option value="fullTime">Full-time</option>
+              <option value="partTime">Part-time</option>
+              <option value="casual">Casual</option>
+              <option value="contractor">Contractor</option>
+            </select>
+
+            </div>
+
+
+            <p type="hidden" id="validate"></p>
+          <button id="submit-registration" value="Update" onclick="return validateForm()">Update</button>
+            <input id="submit-handle" type="submit" style="display: none">
+        </form>
+		    <br>
+			
+		</div>
+        <p>Click <a href="<?= $linkTo('candidateHomePage'); ?>">Here</a> to return home.</p>
+    </div>
+	<!--- Content Ends here ----------->
+
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

@@ -1,0 +1,47 @@
+
+<?php 
+include "header.phtml"
+ ?>
+
+<script type = "text/javascript" src="src/js/validateForm.js"></script>
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div class = "title">
+				<h2>Employer Registration Form</h2>
+			</div>
+
+
+		<div id="registration">
+        <form method="POST" name="registration" action="<?= $linkTo('submitEmployerRegistration'); ?>" >
+            <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $employerInfo->getUserName() ?>"></p>
+            <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>"></p>
+
+            <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>"> </p>
+            <p>Address: <input type=text name="address" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only" value="<?= $employerInfo->getAddress() ?>"> </p>
+
+            <p>Company Name: <input type=text name="company-name" size="40" required pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only" value="<?= $employerInfo->getCompanyName() ?>"> </p>
+            <p>URL: <input type=text name="url" size="40" value="<?= $employerInfo->getURL() ?>"> </p>
+            <p>Contact Name: <input type=text name="contact-name" size="40" required pattern="^[a-zA-Z\s]+$" title="Alphabetic characters and spaces only" value="<?= $employerInfo->getContactName() ?>"> </p>
+
+            </div>
+            <button id="submit-registration" value="Update" onclick="return validateForm()">Update</button>
+            <input id="submit-handle" type="submit" style="display: none">
+        </form>
+
+		    <br> 	
+			
+		</div>
+        <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home.</p>
+    </div>
+	<!--- Content Ends here ----------->
+
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

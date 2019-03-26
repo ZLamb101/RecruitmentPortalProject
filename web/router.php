@@ -182,6 +182,27 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/edit-candidate-information',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::editInfoPageAction',
+            'methods' => 'GET',
+            'name' => 'editCandidateInfoPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/edit-employer-information',
+        array(
+            '_controller' => 'bjz\portal\controller\EmployerController::editInfoPageAction',
+            'methods' => 'GET',
+            'name' => 'editEmployerInfoPage'
+        )
+    )
+);
 
 
 $router = new Router($collection);

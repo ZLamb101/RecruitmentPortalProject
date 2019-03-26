@@ -20,7 +20,7 @@ include "header.phtml"
                 <p>Address: <?= $employerInfo->getAddress() ?></p>
                 <p>URL: <?= $employerInfo->getURL() ?></p>
 
-                <p>Click <a>Here</a> to edit info</p>
+                <p>Click <a href="<?= $linkTo('editEmployerInfoPage'); ?>">Here</a> to edit info</p>
 				<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to Search</p>
                 <p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p>
 			</div>
