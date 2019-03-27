@@ -135,12 +135,17 @@ class SkillModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `skill` WHERE `id` = '$id';")){
+        if (!$result = $this->db->query("SELECT field, sub_field, contents FROM skill 
+                                         LEFT JOIN field ON skill.`field_id` = field.`id`
+                                         LEFT JOIN sub_field ON skill.`sub_field_id` = sub_field.`id`
+                                         LEFT JOIN candidate ON skill.`owner_id` = candidate.`id`
+                                         WHERE skill.`id` = '$id';")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
         }
+
         $result = $result->fetch_assoc();
         $this->id = $id;
-        $this->owner_id = $result['owner_id'];
+        //$this->owner_id = $result['owner_id'];
         $this->field = $result['field'];
         $this->sub_field = $result['sub_field'];
         $this->contents = $result['contents'];
