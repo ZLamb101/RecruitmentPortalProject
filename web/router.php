@@ -204,6 +204,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/populateSubFields.php',
+        array(
+            '_controller' => 'bjz\portal\controller\searchController::updateSubFieldsAction',
+            'methods' => 'GET',
+            'name' => 'subfields'
+        )
+    )
+);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');
