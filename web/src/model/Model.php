@@ -494,5 +494,36 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create dummy sub_field data.", $this->db->errno);
             }
         }
+
+        //Skill Table
+        $result = $this->db->query("SHOW TABLES LIKE 'skill';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `skill` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `owner_id` int (8) unsigned NOT NULL,
+                                                    `field_id` int (8) unsigned NOT NULL,
+                                                    `sub_field_id` int (8) unsigned NOT NULL, 
+                                                    `contents` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`),
+                                                    FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`),
+                                                    FOREIGN KEY (`field_id`) REFERENCES `field`(`id`),
+                                                    FOREIGN KEY (`sub_field_id`) REFERENCES `sub_field`(`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create skill table");
+            }
+
+            if (!$this->db->query("INSERT INTO `skill` (`id`, `owner_id`, `field_id`, `sub_field_id`, `contents`) VALUES
+                                                    (NULL, 1, 1, 1, 'Counting money'),
+                                                    (NULL, 1, 1, 2, 'Doing the books')
+                                                    ;")) {
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy skill data.", $this->db->errno);
+            }
+        }
     }
 }
