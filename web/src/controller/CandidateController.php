@@ -5,6 +5,7 @@ use bjz\portal\view\View;
 use bjz\portal\model\CandidateModel;
 use bjz\portal\model\QualificationModel;
 use bjz\portal\model\WorkExperienceModel;
+use bjz\portal\model\SkillModel;
 session_start();
 
 /**
@@ -150,4 +151,34 @@ class CandidateController extends UserController
         }  while($workExperienceCount >= 0);
 
     }
+
+    /**
+     * Function to create a Work Experience
+     * Takes the inputs from post request and creates a Work Experience
+     */
+    public function createSkillAction($candidateID){
+        $skillCount = $_POST['skill-count'];
+        do{
+            $skill = new SkillModel();
+            $fieldInput = 'field'.$skillCount;
+            $subFieldInput = 'sub-field'.$skillCount;
+            $contentsInput = 'contents'.$skillCount;
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL)break;
+            $skill->setOwnerId($candidateID);
+            $skill->setContents($_POST["$contentsInput"]);
+            $skill->setField(); //need to implement a way to get the string
+            $skill->setSubField(); // need to implement a way to get the string
+
+            $skillCount--;
+            try {
+                $skill->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+        }while($skillCount >= 0);
+
+    }
+
+
+
 }
