@@ -179,4 +179,32 @@ class SkillModel extends Model
         return $this;
     }
 
+    /**
+     * Function to get all the fields within the database
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function getFields(){
+        if(!$result = $this->db->query("SELECT * FROM `field`")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
+        }
+        return $result;
+    }
+
+    /**
+     * Function to get all the sub_fields based on a field id
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @param $id the id of the parent field
+     * @return bool|\mysqli_result all sub-fields of the specified field
+     */
+    public function getSubFields($id){
+        if(!$result = $this->db->query("SELECT * FROM `sub_field` WHERE `field_id` = '$id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetSubFields");
+        }
+        return $result;
+    }
 }
