@@ -109,7 +109,7 @@ class QualificationModel extends Model
         $this->id = $id;
         $this->owner_id = $result['owner_id'];
         $this->name = $result['name'];
-        $this->year = $result['$year'];
+        $this->year = $result['year'];
         return $this;
     }
 

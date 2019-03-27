@@ -2,6 +2,7 @@
 session_start();
 include "header.phtml"
  ?>
+    <script type = "text/javascript" src="src/js/populateSubFields.js"></script>
  
 
 	<!--- Content Start -->
@@ -13,8 +14,25 @@ include "header.phtml"
 			</div>
 			<p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home
             <form>
-            	<div id="search-bar">
-					<p> Search:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+                <p>All Categories</p>
+                <select onclick="updateFields()">
+                    <?php foreach ($Fields as $field){
+                        echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
+                    }
+                    ?>
+                </select>
+
+                <p>All Sub-Categories</p>
+                <select disabled>
+                    <option value="blank">All Sub-Categories</option>
+                </select>
+
+                <div id="location-search-bar">
+                    <p> Search Location:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+                </div>
+
+            	<div id="skills-search-bar">
+					<p> Search Skills:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
 				</div>
 				<br>
 

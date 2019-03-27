@@ -3,6 +3,7 @@
 namespace bjz\portal\controller;
 
 
+use bjz\portal\model\SkillModel;
 use bjz\portal\view\View;
 session_start();
 
@@ -22,8 +23,15 @@ class SearchController extends Controller
     public function indexAction()
     {
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            $view = new View('searchPage');
-            echo $view->render();
+            try{
+                $skill = new SkillModel();
+                $fields = $skill->getFields();
+                $view = new View('searchPage');
+                echo $view->addData('Fields', $fields)->render();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
         } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
             $this->redirect('candidateHomePage');
         } else {
@@ -37,5 +45,16 @@ class SearchController extends Controller
     public function searchAction()
     {
         //To complete
+    }
+
+    public function updateSubFieldsAction(){
+        $id = $_GET["q"];
+        try {
+            $skill = new SkillModel();
+            return $skill->getSubFields($id);
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 }

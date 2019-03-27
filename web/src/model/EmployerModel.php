@@ -162,7 +162,7 @@ class EmployerModel extends UserModel
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `id` = $id;")) {
+        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = $id;")) {
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerLoad");
         }
         $result = $result->fetch_assoc();
@@ -171,9 +171,9 @@ class EmployerModel extends UserModel
         $this->company_name = $result['company_name'];
         $this->contact_name = $result['contact_name'];
         $this->url = $result['url'];
-        $shortlists = new ShortListCollectionModel($id);
+        $shortlists = new ShortListCollectionModel($result['id']);
         $this->short_lists = $shortlists->getShortLists();
-        $this->id = $id;
+        $this->id = $result['id'];
         parent::load($this->user_id);
         return $this;
     }

@@ -182,6 +182,38 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/edit-candidate-information',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::editInfoPageAction',
+            'methods' => 'GET',
+            'name' => 'editCandidateInfoPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/edit-employer-information',
+        array(
+            '_controller' => 'bjz\portal\controller\EmployerController::editInfoPageAction',
+            'methods' => 'GET',
+            'name' => 'editEmployerInfoPage'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/populateSubFields.php',
+        array(
+            '_controller' => 'bjz\portal\controller\searchController::updateSubFieldsAction',
+            'methods' => 'GET',
+            'name' => 'subfields'
+        )
+    )
+);
 
 
 $router = new Router($collection);

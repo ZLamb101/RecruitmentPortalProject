@@ -19,7 +19,7 @@ function addQualification(){
 	year.setAttribute("type","text");
 	year.setAttribute("size",40);
 	year.setAttribute("pattern", "^[0-9]{4}$");
-	year.setAttribute("title", "Numeric characters only");
+	year.setAttribute("title", "YYYY format. Numeric characters only");
 
 	yearP.appendChild(yearLabel);
 	qual.appendChild(yearP);
@@ -35,8 +35,8 @@ function addQualification(){
 	name.setAttribute("type","text");
 	name.setAttribute("name", nameString);
 	name.setAttribute("size",40);
-	name.setAttribute("pattern", "^[a-zA-Z\s-]+$");
-	name.setAttribute("title", "Alphabetic characters only");
+	name.setAttribute("pattern", "^[a-zA-Z\\s-]+$");
+	name.setAttribute("title", "Alphabetic, '-' and space characters only");
 
 	nameP.appendChild(nameLabel);
 	qual.appendChild(nameP);
@@ -69,8 +69,8 @@ function addWorkExperience(){
 	role.setAttribute("name", roleString);
 	role.setAttribute("type", "text");
 	role.setAttribute("size",40);
-	role.setAttribute("pattern", "^[a-zA-Z\s-]+$");
-	role.setAttribute("title", "Alphabetic characters only");
+	role.setAttribute("pattern", "^[a-zA-Z\\s-]+$");
+	role.setAttribute("title", "Alphabetic, '-' and space characters only");
 
 	roleP.appendChild(roleLabel);
 	workex.appendChild(roleP);
@@ -99,8 +99,8 @@ function addWorkExperience(){
 	employer.setAttribute("name", employerString);
 	employer.setAttribute("type","text");
 	employer.setAttribute("size",40);
-	employer.setAttribute("pattern", "^[a-zA-Z0-9\s-]+$");
-	employer.setAttribute("title", "Alphanumeric characters only");
+	employer.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
+	employer.setAttribute("title", "Alphanumeric, '-' and space characters only");
 
 	employerP.appendChild(employerLabel);
 	workex.appendChild(employerP);
