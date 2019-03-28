@@ -144,13 +144,7 @@ class HomeController extends Controller
      */
     public function errorPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
-            $view = new View('errorPage');
-            echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
-            $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            $this->redirect('employerHomePage');
-        }
+        $view = new View('errorPage');
+        echo $view->render();
     }
 }
