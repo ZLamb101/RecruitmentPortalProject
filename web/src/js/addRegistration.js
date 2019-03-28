@@ -123,9 +123,10 @@ function addSkill(){
 	var field = document.createElement("select");
 	var fieldString = "field";
 	fieldString = fieldString.concat(it.toString(10));
+
 	field.setAttribute("name", fieldString);
+	field.setAttribute("onclick", "updateFields()")
 	field.setAttribute("id", fieldString);
-	
 
 	fieldP.appendChild(fieldLabel);
 	skill.appendChild(fieldP);
@@ -135,16 +136,13 @@ function addSkill(){
 	var subFieldLabel = document.createTextNode("Sub-Field:");
 	var subField = document.createElement("select");
 	var subFieldString = "sub_field";
-	var subFieldOption = document.createElement("option");
-	var subFieldOptionLabel = document.createTextNode("Sub-Categorys");
-	subFieldOption.setAttribute("value", "blank");
 
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
-
+	subField.setAttribute("id", subFieldString);
+	
 	subFieldP.appendChild(subFieldLabel);
-	subFieldOption.appendChild(subFieldOptionLabel);
-	subField.append(subFieldOption);
+
 	skill.appendChild(subFieldP);
 	skill.appendChild(subField);
 
@@ -177,7 +175,7 @@ function get(callback) {
     xmlhttp = new XMLHttpRequest();
     
     xmlhttp.open("GET", "populateFields.php?q=" , true);
-    alert("this");
+
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

@@ -48,13 +48,12 @@ class SearchController extends Controller
     }
 
      public function updateFieldsAction(){
-        error_log("test1");
         try {
 
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
+            echo"<option>all categories</option>";
             foreach ($toConvert as $item){
-                error_log("test1");
                 echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
             }
         } catch (\Exception $e) {
@@ -64,12 +63,14 @@ class SearchController extends Controller
     }
 
     public function updateSubFieldsAction(){
-        error_log("HERE");
+
         $id = $_GET["q"];
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);
+            echo"<option>all subcategories</option>";
             foreach ($toConvert as $item){
+                error_log($item['sub_field']);
                 echo "<option value=\"".$item['id']."\">".$item['sub_field']."</option>";
             }
         } catch (\Exception $e) {
