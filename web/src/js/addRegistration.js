@@ -109,3 +109,42 @@ function addWorkExperience(){
 	document.getElementById("work-experience").appendChild(workex);
 
 }
+
+
+
+function addSkill(){
+	var count = document.getElementById("work-experience-count");
+	var it = count.getAttribute("value");
+	count.setAttribute("value", ++it);
+
+	var skill = document.createElement("div");                       // Create a <div> node
+	var fieldP = document.createElement("p");
+	var fieldLabel = document.createTextNode("All Categories.");      
+	var field = document.createElement("input");
+	var fieldString = "field";
+
+	fieldP.appendChild(fieldLabel);
+	skill.appendChild(fieldP);
+	skill.appendChild(field);
+
+	var subFieldP = document.createElement("p");
+	var subFieldLabel = document.createTextNode("All Sub-Categories.");
+	var subField = document.createElement("input");
+	var subFieldString = "sub_field";
+
+	subFieldP.appendChild(subFieldLabel);
+	skill.appendChild(subFieldP);
+	skill.appendChild(subField);
+
+	var contentsP = document.createElement("p");
+	var contentsLabel = document.createTextNode("Skills.");      
+	var contents = document.createElement("input");
+	var contentsString = "contents";
+
+	contentsP.appendChild(contentsLabel);
+	skill.appendChild(contentsP);
+	skill.appendChild(contents);
+
+	document.getElementById("skill").appendChild(skill);
+
+}

@@ -163,11 +163,11 @@ class CandidateController extends UserController
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
-            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL)break;
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
             $skill->setOwnerId($candidateID);
             $skill->setContents($_POST["$contentsInput"]);
-            $skill->setField(); //need to implement a way to get the string
-            $skill->setSubField(); // need to implement a way to get the string
+            $skill->setField($skill->findField($_POST["$fieldInput"])); 
+            $skill->setSubField($skill->findSubField($_POST["$subFieldInput"])); 
 
             $skillCount--;
             try {

@@ -192,7 +192,7 @@ class SkillModel extends Model
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function getFields(){
-        if(!$result = $this->db->query("SELECT * FROM `field`")){
+        if(!$result = $this->db->query("SELECT * FROM `field`;")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
         }
         return $result;
@@ -212,4 +212,41 @@ class SkillModel extends Model
         }
         return $result;
     }
+
+    /**
+     * Function to get all the fields associated to id
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function findField($id){
+        if(!$result = $this->db->query("SELECT `field` FROM `field` WHERE `id` = '$id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetField");
+        }
+        $result = $result->fetch_assoc();
+        $result = $result['field'];
+        return $result;
+    }
+
+    /**
+     * Function to get all the sub_field associated to id
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @param $id the id of the parent field
+     * @return bool|\mysqli_result all sub-fields of the specified field
+     */
+    public function findSubField($id){
+        if(!$result = $this->db->query("SELECT `sub_field` FROM `sub_field` WHERE `field_id` = '$id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetSubField");
+
+        }
+        $result = $result->fetch_assoc();
+        $result = $result['sub_field'];
+        return $result;
+    }
+
+
+
 }
