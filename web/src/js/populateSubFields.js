@@ -6,6 +6,7 @@ function updateFields()
         return false;
 }
 
+
 function get(callback) {
     xmlhttp = new XMLHttpRequest();
     var id = document.getElementById("fields").value;

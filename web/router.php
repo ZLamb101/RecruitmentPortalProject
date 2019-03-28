@@ -215,6 +215,20 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/populateFields.php',
+        array(
+            '_controller' => 'bjz\portal\controller\SearchController::updateFieldsAction',
+            'methods' => 'GET',
+            'name' => 'fields'
+        )
+    )
+);
+
+
+
+
 
 $router = new Router($collection);
 $router->setBasePath('/');

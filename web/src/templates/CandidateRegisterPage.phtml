@@ -3,6 +3,7 @@ include "header.phtml"
 ?>
     <script type = "text/javascript" src="src/js/validateForm.js"></script>
     <script type = "text/javascript" src="src/js/addRegistration.js"></script>
+
     <!---------- Body starts --------------->
 
 
@@ -49,23 +50,22 @@ include "header.phtml"
                      <div id="skills">
                         <p>Skills</p>
                         <p>Field: </p> 
-                        <select name="field0">
-<<<<<<< HEAD
-                           <option value="1">test</option>
-=======
+                        <select name="field0" >
+
                             <?php foreach ($Fields as $field){
                                 echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
-                            }
-                            ?>
->>>>>>> 605b0f62436f463cc312e3faa703737ec6c05813
+                            } ?>
+
                         </select>
                         <p>Sub-Field:  </p>
                         <select name="sub_field0">
-                            
+                            <option value="blank">Sub-Categories</option>
                         </select>
+
                         <p>About: <input type=text name="contents0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only">
                         <input type="hidden" value="0" name="skill-count" id="skill-count">
                     </div>
+
                     <input type="button" id="add-skill" value="Add" onclick="addSkill()">
 
 

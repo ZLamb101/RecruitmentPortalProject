@@ -119,29 +119,37 @@ function addSkill(){
 
 	var skill = document.createElement("div");                       // Create a <div> node
 	var fieldP = document.createElement("p");
-	var fieldLabel = document.createTextNode("Field.");      
+	var fieldLabel = document.createTextNode("Field:");      
 	var field = document.createElement("select");
 	var fieldString = "field";
 	fieldString = fieldString.concat(it.toString(10));
 	field.setAttribute("name", fieldString);
+	field.setAttribute("id", fieldString);
+	
 
 	fieldP.appendChild(fieldLabel);
 	skill.appendChild(fieldP);
 	skill.appendChild(field);
 
 	var subFieldP = document.createElement("p");
-	var subFieldLabel = document.createTextNode("Sub-Field.");
+	var subFieldLabel = document.createTextNode("Sub-Field:");
 	var subField = document.createElement("select");
 	var subFieldString = "sub_field";
+	var subFieldOption = document.createElement("option");
+	var subFieldOptionLabel = document.createTextNode("Sub-Categorys");
+	subFieldOption.setAttribute("value", "blank");
+
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
 
 	subFieldP.appendChild(subFieldLabel);
+	subFieldOption.appendChild(subFieldOptionLabel);
+	subField.append(subFieldOption);
 	skill.appendChild(subFieldP);
 	skill.appendChild(subField);
 
 	var contentsP = document.createElement("p");
-	var contentsLabel = document.createTextNode("Skills.");      
+	var contentsLabel = document.createTextNode("About:");      
 	var contents = document.createElement("input");
 	var contentsString = "contents";
 	contentsString = contentsString.concat(it.toString(10));
@@ -155,4 +163,31 @@ function addSkill(){
 
 	document.getElementById("skills").appendChild(skill);
 
+	get(function () {
+        document.getElementById(fieldString).innerHTML = this.responseText;
+    })
+    return false;
+
+}
+
+
+
+function get(callback) {
+ 
+    xmlhttp = new XMLHttpRequest();
+    
+    xmlhttp.open("GET", "populateFields.php?q=" , true);
+    alert("this");
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // defensive check
+            if (typeof callback === "function") {
+                // apply() sets the meaning of "this" in the callback
+                callback.apply(xmlhttp);
+            }
+        }
+    };
+ 
+    xmlhttp.send();
+  
 }

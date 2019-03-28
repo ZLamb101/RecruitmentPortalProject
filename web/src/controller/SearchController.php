@@ -47,6 +47,22 @@ class SearchController extends Controller
         //To complete
     }
 
+     public function updateFieldsAction(){
+        error_log("test1");
+        try {
+
+            $skill = new SkillModel();
+            $toConvert = $skill->getFields();
+            foreach ($toConvert as $item){
+                error_log("test1")
+                echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
+            }
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
+    }
+
     public function updateSubFieldsAction(){
         error_log("HERE");
         $id = $_GET["q"];
@@ -61,4 +77,6 @@ class SearchController extends Controller
             $this->redirect('errorPage');
         }
     }
+
+   
 }
