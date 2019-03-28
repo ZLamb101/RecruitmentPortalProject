@@ -142,7 +142,7 @@ function addSkill(){
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
 	subField.setAttribute("id", subFieldString);
-	subField.setAttribute("disabled", true);
+	//subField.setAttribute("disabled", true);
 
 	subFieldP.appendChild(subFieldLabel);
 	subFieldOption.appendChild(subFieldOptionLabel);
@@ -158,7 +158,7 @@ function addSkill(){
 	contents.setAttribute("name", contentsString);
 	contents.setAttribute("type","text");
 	contents.setAttribute("size",100);
-	contents.setAttribute("disable", true);
+	//contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);
 	skill.appendChild(contentsP);

@@ -51,7 +51,7 @@ class UserController extends Controller
             $userID = $user->validateLogin($_POST['username_input'], $_POST['password_input']);
 
             $userType = $user->determineType($userID);
-            error_log(" Hey i am a  $userType");
+
             $_SESSION["loginStatus"] = $userType;
             //Currently just saves the UserID however will be modified to save more data later to make searching easier
             $_SESSION["UserID"] = $userID;
@@ -63,7 +63,6 @@ class UserController extends Controller
             }
         } catch (\Exception $e) {
             error_log($e->getMessage());
-            error_log("BELOW");
             $_SESSION["loginStatus"] = 0;
             $this->redirect("home");
         }
