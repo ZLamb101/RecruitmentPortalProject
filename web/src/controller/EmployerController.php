@@ -22,21 +22,33 @@ class EmployerController extends UserController
      */
     public function indexAction()
     {
+        error_log("entered");
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            error_log("i am an employer");
             try{
                 $account = new EmployerModel();
-                $account->load($_SESSION[UserID]);
+                $account->load($_SESSION["UserID"]);
+
                 $view = new View('employerHomePage');
+                error_log("I am Here");
+                error_log($_SESSION['']);
                 echo $view->addData('employerInfo', $account)->render();
+
             } catch (\Exception $e){
+                error_log("do I get here?");
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
+
         } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
+            error_log("i am a candidate");
             $this->redirect('candidateHomePage');
         } else {
+
             $this->redirect('home');
         }
+
+
     }
 
     /**

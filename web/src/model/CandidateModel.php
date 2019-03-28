@@ -195,6 +195,7 @@ class CandidateModel extends UserModel
      */
     public function load($id)
     {
+
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `candidate` WHERE `user_id` = $id;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candidateLoad");

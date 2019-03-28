@@ -20,7 +20,8 @@ class UserController extends Controller
      */
     public function logoutAction()
     {
-        unset($_SESSION['loginStatus']);
+        //unset($_SESSION['loginStatus']);
+        session_unset();
         $this->redirect("home");
     }
 
@@ -50,6 +51,7 @@ class UserController extends Controller
             $userID = $user->validateLogin($_POST['username_input'], $_POST['password_input']);
 
             $userType = $user->determineType($userID);
+            error_log(" Hey i am a  $userType");
             $_SESSION["loginStatus"] = $userType;
             //Currently just saves the UserID however will be modified to save more data later to make searching easier
             $_SESSION["UserID"] = $userID;

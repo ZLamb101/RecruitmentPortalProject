@@ -20,7 +20,6 @@ include "header.phtml"
                 <p>Address: <?= $employerInfo->getAddress() ?></p>
                 <p>URL: <?= $employerInfo->getURL() ?></p>
 
-
                 <?php $shortLists = $employerInfo->getShortLists();
                 echo "<p>Short Lists:</p>";
                 foreach ($shortLists as $list){
@@ -30,6 +29,7 @@ include "header.phtml"
                         echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()."</p>";
                     }
                 } ?>
+
 
                 <p>Click <a href="<?= $linkTo('editEmployerInfoPage'); ?>">Here</a> to edit info</p>
 				<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to Search</p>
