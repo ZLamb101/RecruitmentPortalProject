@@ -3,7 +3,7 @@ session_start();
 include "header.phtml"
  ?>
     <script type = "text/javascript" src="src/js/populateSubFields.js"></script>
- 
+    <script type = "text/javascript" src="src/js/livesearch.js"></script>
 
 	<!--- Content Start -->
 	<div id= "page">
@@ -27,18 +27,16 @@ include "header.phtml"
                     <option value="blank">All Sub-Categories</option>
                 </select>
 
-                <div id="location-search-bar">
-                    <p> Search Location:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
-                </div>
-
             	<div id="skills-search-bar">
-					<p> Search Skills:  <input type="text" size="50" onkeyup="showResult(this.value)"></p>
+					<p> Search Skills:  <input id="skill-search" type="text" size="50"></p>
 				</div>
+
+                <input id="submit-search" type="button" value="Search" onclick="showResult()"></input>
 				<br>
 
 				<div id = "search">
                 	<p><b>Search Results</b></p>
-                	<div id="livesearch" > </div>
+                	<div id="livesearch"> </div>
                 </div>
               
             </form>

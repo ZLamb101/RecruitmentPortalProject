@@ -237,7 +237,8 @@ class Model
             }
 
             if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`) VALUES 
-                                                    (NULL, '1', 'Junior Developer', '1,2,3');")){
+                                                    (NULL, '1', 'Junior Developer', '1,2,3'),
+                                                    (NULL, '1', 'Tester', '3,2');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
             }

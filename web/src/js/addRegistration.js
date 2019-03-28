@@ -140,7 +140,7 @@ function addSkill(){
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
 	subField.setAttribute("id", subFieldString);
-	
+
 	subFieldP.appendChild(subFieldLabel);
 
 	skill.appendChild(subFieldP);

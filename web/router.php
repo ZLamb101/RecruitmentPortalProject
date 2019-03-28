@@ -226,6 +226,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/livesearch.php',
+        array(
+            '_controller' => 'bjz\portal\controller\SearchController::liveSearchAction',
+            'methods' => 'GET',
+            'name' => 'liveSearch'
+        )
+    )
+);
+
 
 
 
