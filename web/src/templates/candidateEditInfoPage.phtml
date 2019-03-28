@@ -26,16 +26,22 @@ include "header.phtml"
 
             <div id="work-experience">
                 <p>Work Experience</p>
-                <p>Role: <input type=text name="role0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
-                <p>Duration (in months): <input type=text name="duration0" size="40" pattern="^[0-9]+$" title="Numeric characters only"> </p>
-                <p>Employer: <input type=text name="employer0" size="40" pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only"> </p>
+                <?php $workExperience = $candidateInfo->getWorkExperience();
+                foreach ($workExperience as $work){
+                    echo "<p>Role: <input type=text name=\"role0\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value =\"".$work->getRole() ."\"> </p>";
+                    echo "<p>Duration (in months): <input type=text name=\"duration0\" size=\"40\" pattern=\"^[0-9]+$\" title=\"Numeric characters only\" value=\"".$work->getDuration()."\"> </p>";
+                    echo "<p>Employer: <input type=text name=\"employer0\" size=\"40\" pattern=\"^[a-zA-Z0-9\s-]+$\" title=\"Alphanumeric, '-' and space characters only\" value= \"".$work->getEmployer()."\"> </p>";
+                } ?>
             </div>
             <input type="button" id="add-work-experience" value="Add" onclick="addWorkExperience()">
 
             <div id="qualifications">
-                  <p>Qualifications</p> 
-                  <p>Year: <input type=text name="year0" size="40" pattern="^\d{4}$" title="YYYY format. Numeric characters only"> </p>
-                  <p>Name: <input type=text name="name0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
+                <p>Qualifications</p>
+                <?php $qualifications = $candidateInfo->getQualifications();
+                foreach ($qualifications as $qual){
+                    echo "<p>Year: <input type=text name=\"year0\" size=\"40\" pattern=\"^\d{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"> </p>";
+                    echo "<p>Name: <input type=text name=\"name0\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value=\"".$qual->getName()."\"> </p>";
+                } ?>
             </div>
             <input type="button" id="add-qualification" value="Add" onclick="addQualification()">
 
@@ -51,11 +57,11 @@ include "header.phtml"
 
 
             <p type="hidden" id="validate"></p>
-          <button id="submit-registration" value="Update" onclick="return validateForm()">Update</button>
-            <input id="submit-handle" type="submit" style="display: none">
+
+            <input id="submit-handle" type="submit" >
         </form>
 		    <br>
-			
+
 		</div>
         <p>Click <a href="<?= $linkTo('candidateHomePage'); ?>">Here</a> to return home.</p>
     </div>
