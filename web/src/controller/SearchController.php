@@ -5,6 +5,7 @@ namespace bjz\portal\controller;
 
 use bjz\portal\model\SkillModel;
 use bjz\portal\view\View;
+use bjz\portal\model\SearchCandidateCollectionModel;
 session_start();
 
 /**
@@ -40,14 +41,49 @@ class SearchController extends Controller
     }
 
     /**
-     * Function to search through all candidates
+     * Function to search for candidates based on a search query
+     * This function is called asynchronously to display search results.
      */
-    public function searchAction()
+    public function liveSearchAction()
     {
-        //To complete
+        $query = $_GET["query"];
+        $field_id = $_GET["field"];
+        $sub_field_id = $_GET["sub_field"];
+        if(strlen($query) > 0){
+            try {
+                $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id);
+                $candidates = $livesearch->getCandidates();
+                if ($livesearch->getN() == 0) {
+                    echo "No matches found";
+                } else {
+                    $result = $this->formatSearch($candidates);
+                    echo $result;
+                }
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
+        } else {
+            echo "";
+        }
     }
 
-     public function updateFieldsAction(){
+    /**
+     * Formats the search results to be displayed in HTML
+     * @param $candidates, the list of candidates who were found in the search query
+     * @return string, the formatted HTML Table element displaying the search results.
+     */
+    public function formatSearch($candidates){
+        $response = "<table><tr><th>First Name</th><th>Last Name</th></tr>";
+        foreach($candidates as $candidate){
+            $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td></tr>";
+        }
+        $response = $response . '</table>';
+        return $response;
+    }
+
+
+    public function updateFieldsAction(){
         error_log("test1");
         try {
 
