@@ -113,24 +113,28 @@ function addWorkExperience(){
 
 
 function addSkill(){
-	var count = document.getElementById("work-experience-count");
+	var count = document.getElementById("skill-count");
 	var it = count.getAttribute("value");
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
 	var fieldP = document.createElement("p");
-	var fieldLabel = document.createTextNode("All Categories.");      
-	var field = document.createElement("input");
+	var fieldLabel = document.createTextNode("Field.");      
+	var field = document.createElement("select");
 	var fieldString = "field";
+	fieldString = fieldString.concat(it.toString(10));
+	field.setAttribute("name", fieldString);
 
 	fieldP.appendChild(fieldLabel);
 	skill.appendChild(fieldP);
 	skill.appendChild(field);
 
 	var subFieldP = document.createElement("p");
-	var subFieldLabel = document.createTextNode("All Sub-Categories.");
-	var subField = document.createElement("input");
+	var subFieldLabel = document.createTextNode("Sub-Field.");
+	var subField = document.createElement("select");
 	var subFieldString = "sub_field";
+	subFieldString = subFieldString.concat(it.toString(10));
+	subField.setAttribute("name", subFieldString);
 
 	subFieldP.appendChild(subFieldLabel);
 	skill.appendChild(subFieldP);
@@ -140,11 +144,15 @@ function addSkill(){
 	var contentsLabel = document.createTextNode("Skills.");      
 	var contents = document.createElement("input");
 	var contentsString = "contents";
+	contentsString = contentsString.concat(it.toString(10));
+	contents.setAttribute("name", contentsString);
+	contents.setAttribute("type","text");
+	contents.setAttribute("size",100);
 
 	contentsP.appendChild(contentsLabel);
 	skill.appendChild(contentsP);
 	skill.appendChild(contents);
 
-	document.getElementById("skill").appendChild(skill);
+	document.getElementById("skills").appendChild(skill);
 
 }
