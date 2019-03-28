@@ -68,9 +68,7 @@ class SearchController extends Controller
         }
     }
 
-<<<<<<< HEAD
-     public function updateFieldsAction(){
-=======
+
     /**
      * Formats the search results to be displayed in HTML
      * @param $candidates, the list of candidates who were found in the search query
@@ -87,10 +85,7 @@ class SearchController extends Controller
 
 
     public function updateFieldsAction(){
-        error_log("test1");
->>>>>>> 539e253fda2404c34513937dde9c40b88fe29fd5
         try {
-
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
             echo"<option>all categories</option>";
@@ -104,7 +99,6 @@ class SearchController extends Controller
     }
 
     public function updateSubFieldsAction(){
-
         $id = $_GET["q"];
         try {
             $skill = new SkillModel();

@@ -135,14 +135,18 @@ function addSkill(){
 	var subFieldP = document.createElement("p");
 	var subFieldLabel = document.createTextNode("Sub-Field:");
 	var subField = document.createElement("select");
-	var subFieldString = "sub_field";
-
+	var subFieldString = "sub-field";
+	var subFieldOption = document.createElement("option");
+	var subFieldOptionLabel = document.createTextNode("all subcategories");
+	subFieldOption.setAttribute("value", "blank");
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
 	subField.setAttribute("id", subFieldString);
+	subField.setAttribute("disabled", true);
 
 	subFieldP.appendChild(subFieldLabel);
-
+	subFieldOption.appendChild(subFieldOptionLabel);
+	subField.append(subFieldOption);
 	skill.appendChild(subFieldP);
 	skill.appendChild(subField);
 
@@ -154,6 +158,7 @@ function addSkill(){
 	contents.setAttribute("name", contentsString);
 	contents.setAttribute("type","text");
 	contents.setAttribute("size",100);
+	contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);
 	skill.appendChild(contentsP);

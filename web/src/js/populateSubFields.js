@@ -5,7 +5,7 @@ function updateFields()
     var count = document.getElementById("skill-count");
     count = count.getAttribute("value");
 
-    var subFieldString = "sub_field";
+    var subFieldString = "sub-field";
     subFieldString = subFieldString.concat(count.toString(10));
 
         get2(function () {
