@@ -135,7 +135,6 @@ class ShortListModel extends Model
     public function getCandidates()
     {
         foreach ($this->candidates as $id) {
-            error_log("candidate= ".$id." END");
             // Use a generator to save on memory/resources
             // load accounts from DB one at a time only when required
             yield (new CandidateModel())->load($id);
