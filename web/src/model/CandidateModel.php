@@ -210,6 +210,8 @@ class CandidateModel extends UserModel
         $this->workExperiences = $workExp->getWorkExperiences();
         $qualifications = new QualificationCollectionModel($result['id']);
         $this->qualifications = $qualifications->getQualifications();
+        $skills = new SkillCollectionModel($result['id']);
+        $this->skills = $skills->getSkills();
         $this->id = $result['id'];
         parent::load($this->user_id);
         return $this;

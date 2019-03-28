@@ -56,7 +56,7 @@ class ShortListCollectionModel extends Model
      */
     public function getShortLists()
     {
-        foreach ($this->shortlists_ids as $id) {
+        foreach ($this->shortlist_ids as $id) {
             // Use a generator to save on memory/resources
             // load accounts from DB one at a time only when required
             yield (new ShortListModel())->load($id);
