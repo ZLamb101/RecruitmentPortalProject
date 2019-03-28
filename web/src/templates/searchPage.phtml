@@ -15,7 +15,7 @@ include "header.phtml"
 			<p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home
             <form>
                 <p>All Categories</p>
-                <select onclick="updateFields()">
+                <select id = "fields" onclick="updateFields()">
                     <?php foreach ($Fields as $field){
                         echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
                     }
@@ -23,7 +23,7 @@ include "header.phtml"
                 </select>
 
                 <p>All Sub-Categories</p>
-                <select disabled>
+                <select id ="sub-fields">
                     <option value="blank">All Sub-Categories</option>
                 </select>
 

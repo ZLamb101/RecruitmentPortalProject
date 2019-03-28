@@ -48,10 +48,14 @@ class SearchController extends Controller
     }
 
     public function updateSubFieldsAction(){
+        error_log("HERE");
         $id = $_GET["q"];
         try {
             $skill = new SkillModel();
-            return $skill->getSubFields($id);
+            $toConvert = $skill->getSubFields($id);
+            foreach ($toConvert as $item){
+                echo "<option value=\"".$item['id']."\">".$item['sub_field']."</option>";
+            }
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');

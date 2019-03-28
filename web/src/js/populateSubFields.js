@@ -1,31 +1,15 @@
 function updateFields()
 {
-    //     var password = document.forms["registration"]["password"].value;
-    //     var password_confirm = document.forms["registration"]["password_confirm"].value;
-    //
-    //     var submitButton = document.getElementById('submit-handle');
-    //
-    //
-    // if (password !== password_confirm) {
-    //     alert("Passwords do not match!");
-    //     return false;
-    // }
-    //
-    //     get(function () {
-    //         myVar = this.responseText;
-    //         if (myVar === 'true') {
-    //             submitButton.click();
-    //         } else {
-    //             alert("Username already exists");
-    //         }
-    //     })
-    //     return false;
+        get(function () {
+            document.getElementById("sub-fields").innerHTML = this.responseText;
+        })
+        return false;
 }
 
 function get(callback) {
     xmlhttp = new XMLHttpRequest();
-    var username = document.forms["registration"]["username"].value;
-    xmlhttp.open("GET", "populateSubFields.php?q=" + username, true);
+    var id = document.getElementById("fields").value;
+    xmlhttp.open("GET", "populateSubFields.php?q=" + id, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
