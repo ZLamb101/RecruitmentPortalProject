@@ -54,7 +54,7 @@ class SearchController extends Controller
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
             foreach ($toConvert as $item){
-                error_log("test1")
+                error_log("test1");
                 echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
             }
         } catch (\Exception $e) {
