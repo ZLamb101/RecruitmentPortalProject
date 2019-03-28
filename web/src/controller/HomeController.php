@@ -12,6 +12,7 @@ use bjz\portal\model\QualificationCollectionModel;
 use bjz\portal\model\QualificationModel;
 use bjz\portal\model\ShortListCollectionModel;
 use bjz\portal\model\ShortListModel;
+use bjz\portal\model\SkillModel;
 use bjz\portal\view\View;
 session_start();
 
@@ -77,8 +78,15 @@ class HomeController extends Controller
     public function candidateRegisterPageAction()
     {
         if($_SESSION["loginStatus"] == Controller::GUEST) {
-            $view = new View('candidateRegisterPage');
-            echo $view->render();
+            try{
+                $skill = new SkillModel();
+                $fields = $skill->getFields();
+                $view = new View('candidateRegisterPage');
+                echo $view->addData('Fields', $fields)->render();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
         } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
         } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
