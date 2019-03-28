@@ -49,23 +49,22 @@ class SearchController extends Controller
         $query = $_GET["query"];
         $field_id = $_GET["field"];
         $sub_field_id = $_GET["sub_field"];
-        if(strlen($query) > 0){
-            try {
-                $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id);
-                $candidates = $livesearch->getCandidates();
-                if ($livesearch->getN() == 0) {
-                    echo "No matches found";
-                } else {
-                    $result = $this->formatSearch($candidates);
-                    echo $result;
-                }
-            } catch (\Exception $e){
-                error_log($e->getMessage());
-                $this->redirect('errorPage');
+        try {
+            $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id);
+            $candidates = $livesearch->getCandidates();
+            if ($livesearch->getN() == 0) {
+                echo "No matches found";
+            } else {
+                $result = $this->formatSearch($candidates);
+                echo $result;
+                return;
             }
-        } else {
-            echo "";
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
+        echo "";
+        return;
     }
 
 

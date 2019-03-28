@@ -7,7 +7,7 @@ function showResult() {
     var field = document.getElementById("fields").value;
     var sub_field = document.getElementById("sub-fields").value;
 
-    if (str.length==0) {
+    if ((str.length==0) && (sub_field != "all")) {
         document.getElementById("livesearch").innerHTML="";
         document.getElementById("livesearch").style.border="0px";
         return;
