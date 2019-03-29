@@ -15,7 +15,7 @@ include "header.phtml"
 			<p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home
             <form>
                 <p>All Categories</p>
-                <select id = "fields" onclick="updateFields()">
+                <select id = "field0" onclick="updateFields()">
                     <?php
                     echo "<option value=\"all\">all categories</option>";
                     foreach ($Fields as $field){
@@ -25,7 +25,7 @@ include "header.phtml"
                 </select>
 
                 <p>All Sub-Categories</p>
-                <select id ="sub-field0">
+                <select id ="sub-field0" name="sub-field0">
                     <option value="all">All Sub-Categories</option>
                 </select>
                 <input type="hidden" value="0" name="skill-count" id="skill-count">
