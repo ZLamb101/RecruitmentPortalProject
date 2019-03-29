@@ -71,11 +71,17 @@ include "header.phtml"
                     <input type="button" id="add-skill" value="Add" onclick="addSkill()">
 
 
-                    <p>Availability</p>
-                    <input type="checkbox" value="fullTime">
-                    <input type="checkbox" value="">
-                    <input type="checkbox" value="">
-                    <input type="checkbox" value="">
+                    <div id="availability">
+                        <p>Availability</p>
+                        <input type="checkbox" value="fullTime" id="fullTime" checked>
+                        <label for="fullTime">Full Time</label>
+                        <input type="checkbox" value="partTime" id="partTime">
+                        <label for="partTime">Part Time</label>
+                        <input type="checkbox" value="casual" id="casual">
+                        <label for="casual">Casual</label>
+                        <input type="checkbox" value="contractor" id="contractor">
+                        <label for="contractor">Contractor</label>
+                    </div>
 
                     <select name="availability">
 
