@@ -87,7 +87,7 @@ class SearchController extends Controller
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
-            echo"<option value='all'>all categories</option>";
+            echo"<option value=\"all\">all categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
             }
@@ -102,9 +102,8 @@ class SearchController extends Controller
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);
-            echo"<option value='all'>all subcategories</option>";
+            echo"<option value=\"all\">all subcategories</option>";
             foreach ($toConvert as $item){
-                error_log($item['sub_field']);
                 echo "<option value=\"".$item['id']."\">".$item['sub_field']."</option>";
             }
         } catch (\Exception $e) {
