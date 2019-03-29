@@ -41,6 +41,8 @@ class SearchCandidateCollectionModel extends Model
      */
     public function __construct($query, $field_id, $sub_field_id)
     {
+        error_log("Next line is query");
+        error_log($query);
         parent::__construct();
         if($sub_field_id == "all"){
             // Case for searching all subfields in a field
@@ -48,6 +50,17 @@ class SearchCandidateCollectionModel extends Model
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
+                                         ;")) {
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+            }
+        } else if(strlen($query) == 0){
+            // Case for searching a subfield without a specific string
+            error_log("Trying to search a subfield without a string");
+            if (!$result = $this->db->query("SELECT DISTINCT `user_id`
+                                         FROM `candidate` 
+                                         LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
+                                         WHERE `skill`.`field_id` = '$field_id'
+                                         AND `skill`.`sub_field_id` = '$sub_field_id'
                                          ;")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
             }

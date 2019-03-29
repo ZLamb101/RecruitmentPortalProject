@@ -2,16 +2,9 @@
  * Processes a search request and generates the output
  */
 function showResult() {
-
     var str = document.getElementById("skill-search").value;
-    var field = document.getElementById("fields").value;
+    var field = document.getElementById("field0").value;
     var sub_field = document.getElementById("sub-field0").value;
-
-    if ((str.length==0) && (sub_field != "all")) {
-        document.getElementById("livesearch").innerHTML="";
-        document.getElementById("livesearch").style.border="0px";
-        return;
-    }
 
     xmlhttp=new XMLHttpRequest();
 
