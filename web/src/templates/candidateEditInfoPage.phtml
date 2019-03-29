@@ -18,7 +18,7 @@ include "header.phtml"
             <form method="POST" name="registration" action="<?= $linkTo('candidateHomePage'); ?>" >
             <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
             <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
-            <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>"></p>
+            <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
             <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
 
             <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
@@ -49,6 +49,55 @@ include "header.phtml"
                 echo "<input type=\"hidden\" value=\"".$i."\" name=\"qualification-count\" id=\"qualification-count\">"?>
             </div>
             <input type="button" id="add-qualification" value="Add" onclick="addQualification()">
+
+            <div id="skills">
+                <p>Skills</p>
+                <p>Field: </p>
+                <select id="field0" name="field0" onclick="updateFields()">
+                    <option>All Categories</option>
+                    <?php foreach ($Fields as $field){
+                        echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
+                    } ?>
+                </select>
+                <p>Sub-Field:  </p>
+                <select name="sub-field0" id="sub_field0">
+                    <option>all subcategories</option>
+                </select>
+
+                <p>About: <input type=text name="contents0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only">
+                <input type="hidden" value="0" name="skill-count" id="skill-count">
+
+                <?php $skills = $candidateInfo->getSkills();
+                $i = 0;
+
+                foreach ($skills as $skill){
+                    echo "<p>Field</p>";
+                    $Fields = $skill->getFields();
+                    echo "<select id=\"field".$i."\" name=\"field".$i."\" onclick=\"updateFields()\" selected = \"".$skill->getField()."\">";
+
+                    foreach ($Fields as $field) {
+                        echo "<option value=\"" . $field['id'] . "\">" . $field['field'] . "</option>";
+                    }
+                    echo "</select>";
+                    $id = $skill->getFieldID($skill->getField());
+                    $subFields = $skill->getSubFields($id);
+
+                    echo "<p>Sub-Field:  </p>";
+                    echo "<select name=\"sub-field".$i."\" id=\"sub_field".$i."\">";
+                    foreach ($subFields as $sub) {
+                        echo "<option value=\"" . $sub['id'] . "\">" . $sub['sub_field'] . "</option>";
+                    }
+                    echo "</select>";
+
+                    echo "<p>About: <input type=text name=\"contents".$i."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value=\"".$skill->getContents()."\">";
+                    echo "<br>";
+                }
+                echo "<input type=\"hidden\" value=\"".$i."\" name=\"skill-count\" id=\"skill-count\">";
+                ?>
+
+            </div>
+
+            <input type="button" id="add-skill" value="Add" onclick="addSkill()">
 
             <p>Availability</p>
             <select name="availability">

@@ -185,6 +185,21 @@ class SkillModel extends Model
     }
 
     /**
+     * Function to get the ID associated with a field
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function getFieldID($name){
+        if(!$result = $this->db->query("SELECT `id` FROM `field` WHERE `field` = '$name';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
+        }
+        $result = $result->fetch_assoc();
+        return $result['id'];
+    }
+
+    /**
      * Function to get all the fields within the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
