@@ -25,7 +25,6 @@ function get2(callback) {
     xmlhttp = new XMLHttpRequest();
     var id = document.getElementById(fieldString).value;
     xmlhttp.open("GET", "populateSubFields.php?q=" + id, true);
-
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
