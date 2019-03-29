@@ -44,7 +44,7 @@ class SearchCandidateCollectionModel extends Model
         parent::__construct();
         if($sub_field_id == "all"){
             // Case for searching all subfields in a field
-            if (!$result = $this->db->query("SELECT `user_id`
+            if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
