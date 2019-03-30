@@ -53,7 +53,24 @@ include "header.phtml"
                 </div>
 
                 <?php
-                echo "<p>Availability: ".$candidateInfo->getAvailability()."</p>";
+                $availability = $candidateInfo->getAvailability();
+                $availabilityString = "";
+                if($availability - 8 >= 0) {
+                    $availability -= 8;
+                    $availabilityString = $availabilityString."Contractor ";
+                }
+                if($availability - 4 >= 0) {
+                    $availability -= 4;
+                    $availabilityString = $availabilityString."Casual ";
+                }
+                if($availability - 2 >= 0) {
+                    $availability -= 2;
+                    $availabilityString = $availabilityString."Part Time ";
+                }
+                if($availability - 1 >= 0) {
+                    $availabilityString = $availabilityString."Full Time";
+                }
+                echo "<p>Availability: ".$availabilityString."</p>";
                 ?>
 
 				<p>Click <a href="<?= $linkTo('editCandidateInfoPage'); ?>">Here</a> to edit info</p>

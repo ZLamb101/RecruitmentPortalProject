@@ -218,6 +218,7 @@ class UserModel extends Model
      */
     public function findName($username)
     {
+
         $username = mysqli_real_escape_string($this->db, $username);
         if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
             throw new \mysqli_sql_exception($this->db->error, $this->db->errno);

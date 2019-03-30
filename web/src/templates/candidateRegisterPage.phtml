@@ -2,8 +2,8 @@
 include "header.phtml"
 ?>
     <script type = "text/javascript" src="src/js/validateForm.js"></script>
-    <script type = "text/javascript" src="src/js/addRegistration.js"></script>
-    <script type="text/javascript" src="src/js/populateSubFields.js"></script>
+  <!--  <script type = "text/javascript" src="src/js/addRegistration.js"></script>
+    <script type="text/javascript" src="src/js/populateSubFields.js"></script> -->
 
 
     <!---------- Body starts --------------->
@@ -30,8 +30,8 @@ include "header.phtml"
 
                     <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only"> </p>
                     <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only"> </p>
-                    <p>Skill: <input type=text name="skill" size="100" required pattern="^[a-zA-Z,\s]+$" title="Comma separated list"> </p> <!-- Need to expand this for list of skills -->
 
+<!--
                     <div id="work-experience">
                         <p>Work Experience</p>
                         <p>Role: <input type=text name="role0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
@@ -69,20 +69,21 @@ include "header.phtml"
                     </div>
 
                     <input type="button" id="add-skill" value="Add" onclick="addSkill()">
+-->
 
-
-                    <div id="availability">
+                    <div id="availability" name="availability">
                         <p>Availability</p>
-                        <input type="checkbox" value="fullTime" id="fullTime" checked>
+                        <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
                         <label for="fullTime">Full Time</label>
-                        <input type="checkbox" value="partTime" id="partTime">
+                        <input type="checkbox" value="partTime" name="part-time" id="part-time">
                         <label for="partTime">Part Time</label>
-                        <input type="checkbox" value="casual" id="casual">
+                        <input type="checkbox" value="casual" name="casual" id="casual">
                         <label for="casual">Casual</label>
-                        <input type="checkbox" value="contractor" id="contractor">
+                        <input type="checkbox" value="contractor" name="contractor" id="contractor">
                         <label for="contractor">Contractor</label>
                     </div>
 
+                    <!--
                     <select name="availability">
 
                         <option value="fullTime">Full-time</option>
@@ -90,7 +91,7 @@ include "header.phtml"
                         <option value="casual">Casual</option>
                         <option value="contractor">Contractor</option>
                     </select>
-
+-->
             </div>
 
 

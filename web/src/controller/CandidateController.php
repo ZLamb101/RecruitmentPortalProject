@@ -86,8 +86,13 @@ class CandidateController extends UserController
         $account->setGName($_POST['first-name']);
         $account->setFName($_POST['last-name']);
         $account->setLocation($_POST['location']);
-        $account->setAvailability($_POST['availability']);
         $account->setSkills($_POST['skill']);
+        $availability = 0;
+        if(isset($_POST['full-time'])) $availability += 1;
+        if(isset($_POST['part-time'])) $availability +=2;
+        if(isset($_POST['casual'])) $availability +=4;
+        if(isset($_POST['contractor'])) $availability +=8;
+        $account->setAvailability($availability);
         try {
             $account->save();
         } catch (\Exception $e) {
@@ -96,6 +101,7 @@ class CandidateController extends UserController
         $candidateID = $account->getId();
         $this->createQualificationAction($candidateID);
         $this->createWorkExperienceAction($candidateID);
+
 
 
 
