@@ -1,12 +1,15 @@
-function updateFields()
+function updateFields(button)
 {
 
 
-    var count = document.getElementById("skill-count");
-    count = count.getAttribute("value");
+    //var count = document.getElementById("skill-count");
+   // count = count.getAttribute("value");
 
     var subFieldString = "sub-field";
-    subFieldString = subFieldString.concat(count.toString(10));
+    var temp = button.id;
+
+    subFieldString = subFieldString.concat(temp[5]);
+   // subFieldString = subFieldString.concat(count.toString(10));
 
         get2(function () {
             document.getElementById(subFieldString).innerHTML = this.responseText;

@@ -125,7 +125,7 @@ function addSkill(){
 	fieldString = fieldString.concat(it.toString(10));
 
 	field.setAttribute("name", fieldString);
-	field.setAttribute("onclick", "updateFields()")
+	field.setAttribute("onclick", "updateFields(this)")
 	field.setAttribute("id", fieldString);
 
 	fieldP.appendChild(fieldLabel);
