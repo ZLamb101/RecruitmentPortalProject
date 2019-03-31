@@ -136,7 +136,7 @@ class QualificationModel extends Model
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `qualification` SET  `name` = '$name', `year` = '$year' 
+            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `name` = '$name', `year` = '$year' 
                                               WHERE `id` = '$id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");
             }

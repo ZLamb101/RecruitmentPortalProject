@@ -97,10 +97,10 @@ class CandidateController extends UserController
             } catch (\Exception $e) {
                 $this->redirect('errorPage');
             }
-
-            $this->updateQualificationAction();
-            $this->updateWorkExperienceAction();
-            $this->updateSkillAction();
+            $candidateID = $account->getId();
+            $this->updateQualificationAction($candidateID);
+            $this->updateWorkExperienceAction($candidateID);
+            $this->updateSkillAction($candidateID);
 
             $this->redirect('candidateHomePage');
         }
@@ -162,7 +162,7 @@ class CandidateController extends UserController
      * Function to load and update a Qualification
      * Takes the inputs from post request and updates a Qualification
      */
-    public function updateQualificationAction(){
+    public function updateQualificationAction($candidateID){
         $qualificationCount = $_POST['qualification-count'];
         do{
             $qualification = new QualificationModel();
@@ -172,6 +172,7 @@ class CandidateController extends UserController
             $yearInput = 'year'.$qualificationCount;
             $nameInput = 'name'.$qualificationCount;
             if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
+            $qualification->setOwnerId($candidateID);
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setName($_POST["$nameInput"]);
             $qualificationCount--;
@@ -212,7 +213,7 @@ class CandidateController extends UserController
      * Function to load and update a Work Experience
      * Takes the inputs from post request and updates a Work Experience
      */
-    public function updateWorkExperienceAction(){
+    public function updateWorkExperienceAction($CandidateID){
         $workExperienceCount = $_POST['work-experience-count'];
         do{
             $workExperience = new WorkExperienceModel();
@@ -222,6 +223,7 @@ class CandidateController extends UserController
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
             if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
+            $workExperience->setOwnerId($candidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
@@ -268,16 +270,18 @@ class CandidateController extends UserController
      * Function to load and update a SKill
      * Takes the inputs from post request and updates a Skill
      */
-    public function updateSkillAction(){
+    public function updateSkillAction($candidateID){
         $skillCount = $_POST['skill-count'];
         do{
             $skill = new SkillModel();
             $skillId = 'id'.$skillCount;
             $skill->load($_POST["$skillId"]);
+
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
             if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
+            $skill->setOwnerId($candidateID);
             $skill->setContents($_POST["$contentsInput"]);
             $skill->setField($_POST["$fieldInput"]);
             $skill->setSubField($_POST["$subFieldInput"]);
