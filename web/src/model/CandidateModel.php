@@ -1,6 +1,9 @@
 <?php
 namespace bjz\portal\model;
 use bjz\portal\model\UserModel;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 /**
  * Class CandidateModel
  *
@@ -255,5 +258,39 @@ class CandidateModel extends UserModel
             }
         }
         return $this;
+    }
+
+
+
+    /**
+     * This function sends a confirmation to users email when account has been created.
+     * To be completed
+     */
+    public function sendConfirmationEmail()
+    {
+
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        error_log("email attempt");
+            //Server settings
+            $mail->SMTPDebug = false;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'Toolstocker@gmail.com';                 // SMTP username
+            $mail->Password = 'Bobtool22';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 587;                                    // TCP port to connect to
+            //Recipients
+            $mail->setFrom('Toolstocker@gmail.com', 'Toolstocker');
+            $mail->addAddress($this->email, $this->g_name);     // Add a recipient
+            $mail->addBCC('Toolstocker@gmail.com');
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Vesta Recruit Account Confirmation';
+            $mail->Body = 'Welcome to Vesta Recruit, ' . $this->username . ' we have confirmed your details and your account has been registered. To begin using Toolstocker, head back to our website and login!';
+            $mail->AltBody = 'Welcome to Vesta Recruit, ' . $this->username . ' we have confirmed your details and your account has been registered. To begin using Toolstocker, head back to our website and login!';
+            $mail->send();
+            // echo 'Message has been sent';
+        error_log("email sent");
     }
 }

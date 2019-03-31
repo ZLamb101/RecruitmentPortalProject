@@ -102,9 +102,12 @@ class CandidateController extends UserController
         $this->createQualificationAction($candidateID);
         $this->createWorkExperienceAction($candidateID);
 
+        try {
 
-
-
+          //  $account->sendConfirmationEmail();
+        } catch (\Exception $e) {
+            $this->redirect('errorPage');
+        }
         $this->redirect('registrationConfirmationPage');
     }
 

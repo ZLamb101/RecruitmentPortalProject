@@ -11,19 +11,21 @@ function updateFields(button)
     subFieldString = subFieldString.concat(temp[5]);
    // subFieldString = subFieldString.concat(count.toString(10));
 
-        get2(function () {
+        get2(button , function () {
             document.getElementById(subFieldString).innerHTML = this.responseText;
         })
         return false;
 }
 
 
-function get2(callback) {
+function get2(button, callback) {
 
-    var count = document.getElementById("skill-count");
-    count = count.getAttribute("value");
+    //var count = document.getElementById("skill-count");
+    //count = count.getAttribute("value");
     var fieldString = "field";
-    fieldString = fieldString.concat(count.toString(10));
+    var temp = button.id;
+
+    fieldString = fieldString.concat(temp[5]);
 
     xmlhttp = new XMLHttpRequest();
     var id = document.getElementById(fieldString).value;
