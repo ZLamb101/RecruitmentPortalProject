@@ -121,7 +121,7 @@ class Model
             }
 
             if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`) VALUES 
-                                                    (1, '4', '227 Dairy Flat Hwy, Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com');")){
+                                                    (1, '4', 'Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy employer data.", $this->db->errno);
             }
@@ -139,7 +139,6 @@ class Model
                                                 `g_name` varchar(256) DEFAULT NULL,
                                                 `location` varchar(256) DEFAULT NULL,
                                                 `availability` int(8) DEFAULT NULL,
-                                                `skills` varchar(256) DEFAULT NULL,
                                                 PRIMARY KEY (`id`),
                                                 FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
                                                 );");
@@ -148,10 +147,10 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create candidate table");
             }
 
-            if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`, `skills`) VALUES 
-                                                    ('1', '1', 'Drumm', 'Jordan', 'Torbay', '1', 'Haskell, Prolog'), 
-                                                    ('2', '2', 'Upton', 'Benjamin', 'Glenfield', '3', 'HTML, CSS, JS'),
-                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7', 'N/A');")){
+            if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`) VALUES 
+                                                    ('1', '1', 'Drumm', 'Jordan', 'Torbay', '1'), 
+                                                    ('2', '2', 'Upton', 'Benjamin', 'Glenfield'),
+                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy candidate data.", $this->db->errno);
             }

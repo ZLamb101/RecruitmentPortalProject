@@ -18,7 +18,7 @@ include "header.phtml"
 
 		<div id="registration">
         <form method="POST" name="registration" action="<?= $linkTo('submitEmployerRegistration'); ?>" >
-            <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $employerInfo->getUserName() ?>"></p>
+            <input type="text" placeholder="Username"  name="username" size="40" hidden value="<?= $employerInfo->getUserName() ?>">
             <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>"></p>
 
             <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>"> </p>
@@ -33,7 +33,7 @@ include "header.phtml"
             <input id="submit-handle" type="submit" style="display: none">
         </form>
 
-		    <br> 	
+		    <br>
 			
 		</div>
 
@@ -45,7 +45,7 @@ include "header.phtml"
                 echo "<p>".$list->getName()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
-                    echo "<p>".$candidate->getGName()." ".$candidate->getFName()."</p>";
+                    echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()." <a href=\"\">Delete</a></p> ";
                 }
             }
             ?>
