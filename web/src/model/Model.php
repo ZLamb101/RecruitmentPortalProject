@@ -149,7 +149,7 @@ class Model
 
             if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`) VALUES 
                                                     ('1', '1', 'Drumm', 'Jordan', 'Torbay', '1'), 
-                                                    ('2', '2', 'Upton', 'Benjamin', 'Glenfield'),
+                                                    ('2', '2', 'Upton', 'Benjamin', 'Glenfield','3'),
                                                     ('3', '3', 'Lamb', 'Zane', 'Albany', '7');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy candidate data.", $this->db->errno);
