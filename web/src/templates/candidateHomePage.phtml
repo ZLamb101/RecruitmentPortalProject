@@ -57,18 +57,18 @@ include "header.phtml"
                 $availabilityString = "";
                 if($availability - 8 >= 0) {
                     $availability -= 8;
-                    $availabilityString = $availabilityString."Contractor ";
+                    $availabilityString = $availabilityString."Full Time ";
                 }
                 if($availability - 4 >= 0) {
                     $availability -= 4;
-                    $availabilityString = $availabilityString."Casual ";
+                    $availabilityString = $availabilityString."Part Time ";
                 }
                 if($availability - 2 >= 0) {
                     $availability -= 2;
-                    $availabilityString = $availabilityString."Part Time ";
+                    $availabilityString = $availabilityString."Casual ";
                 }
                 if($availability - 1 >= 0) {
-                    $availabilityString = $availabilityString."Full Time";
+                    $availabilityString = $availabilityString."Contractor";
                 }
                 echo "<p>Availability: ".$availabilityString."</p>";
                 ?>

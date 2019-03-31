@@ -68,6 +68,28 @@ class UserController extends Controller
         }
     }
 
+
+    /**
+     * Function to update an account
+     */
+    public function updateAccountAction(){
+        try {
+            $account = new UserModel();
+            $account->load($_SESSION['UserID']);
+        } catch (\Exception $e) {
+            $this->redirect('error');
+        }
+        $account->setPhoneNumber($_POST['phone-number']);
+        $account->setEmail($_POST['email']);
+
+        try {
+            $account->save();
+        } catch (\Exception $e) {
+            $this->redirect('errorPage');
+        }
+    }
+
+
     /**
      * Function to create an account
      */
@@ -83,10 +105,10 @@ class UserController extends Controller
         $account->setPassword($_POST['password']);
         $account->setPhoneNumber($_POST['phone-number']);
        
-          try {
+        try {
             $account->save();
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
         //To complete
         //Generic to both users

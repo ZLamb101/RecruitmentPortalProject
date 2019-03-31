@@ -65,6 +65,50 @@ class CandidateController extends UserController
         }
     }
 
+
+
+    /**
+     * Too be completed
+     *
+     */
+    public function updateAccountAction(){
+        if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+            parent::updateAccountAction();
+            try {
+                $account = new CandidateModel();
+                $account->load($_SESSION['UserID']);
+            }catch(\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
+            $account->setGName($_POST['first-name']);
+            $account->setFName($_POST['last-name']);
+            $account->setLocation($_POST['location']);
+            $availability = 0;
+            if(isset($_POST['full-time'])) $availability += 8;
+            if(isset($_POST['part-time'])) $availability +=4;
+            if(isset($_POST['casual'])) $availability +=2;
+            if(isset($_POST['contractor'])) $availability +=1;
+            $account->setAvailability($availability);
+            try {
+                $account->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+
+            $this->updateQualificationAction();
+            $this->updateWorkExperienceAction();
+            $this->updateSkillAction();
+
+            $this->redirect('candidateHomePage');
+        }
+    }
+
+
+
+
+
+
     /**
      * Function to create a Candidate account
      * Takes the inputs from post request and creates a Candidate account
@@ -111,6 +155,29 @@ class CandidateController extends UserController
         $this->redirect('registrationConfirmationPage');
     }
 
+
+    public function updateQualificationAction(){
+        $qualificationCount = $_POST['qualification-count'];
+        do{
+            $qualification = new QualificationModel();
+
+            $idInput = 'id'.$qualificationCount;
+            $qualification->load($_POST["$idInput"]);
+            $yearInput = 'year'.$qualificationCount;
+            $nameInput = 'name'.$qualificationCount;
+            if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
+            $qualification->setYear($_POST["$yearInput"]);
+            $qualification->setName($_POST["$nameInput"]);
+            $qualificationCount--;
+            try {
+                $qualification->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+        }while ($qualificationCount >= 0);
+    }
+
+
     /**
      * Function to create a Qualification
      * Takes the inputs from post request and creates a Qualification
@@ -134,6 +201,30 @@ class CandidateController extends UserController
         }while ($qualificationCount >= 0);
 
     }
+
+    public function updateWorkExperienceAction(){
+        $workExperienceCount = $_POST['work-experience-count'];
+        do{
+            $workExperience = new WorkExperienceModel();
+            $idInput = 'id'.$workExperienceCount;
+            $workExperience->load($_POST["$idInput"]);
+            $roleInput = 'role'.$workExperienceCount;
+            $durationInput = 'duration'.$workExperienceCount;
+            $employerInput = 'employer'.$workExperienceCount;
+            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
+            $workExperience->setRole($_POST["$roleInput"]);
+            $workExperience->setDuration($_POST["$durationInput"]);
+            $workExperience->setEmployer($_POST["$employerInput"]);
+            $workExperienceCount--;
+            try {
+                $workExperience->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+        }  while($workExperienceCount >= 0);
+
+    }
+
 
     /**
      * Function to create a Work Experience
@@ -160,6 +251,32 @@ class CandidateController extends UserController
         }  while($workExperienceCount >= 0);
 
     }
+
+    public function updateSkillAction(){
+        $skillCount = $_POST['skill-count'];
+        do{
+            $skill = new SkillModel();
+            $skillId = 'id'.$skillCount;
+            $skill->load($_POST["$skillId"]);
+            $fieldInput = 'field'.$skillCount;
+            $subFieldInput = 'sub-field'.$skillCount;
+            $contentsInput = 'contents'.$skillCount;
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
+            $skill->setContents($_POST["$contentsInput"]);
+            $skill->setField($skill->findField($_POST["$fieldInput"]));
+            $skill->setSubField($skill->findSubField($_POST["$subFieldInput"]));
+
+            $skillCount--;
+            try {
+                $skill->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+        }while($skillCount >= 0);
+
+
+    }
+
 
     /**
      * Function to create a Work Experience

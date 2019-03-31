@@ -190,25 +190,33 @@ class EmployerModel extends UserModel
         //SHORT LIST SAVE NOT WRITTEN
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
+        error_log($uid);
         $address = $this->address ?? "NULL";
         $address = $this->db->real_escape_string($address);
+        error_log($address);
         $comp_name = $this->company_name ?? "NULL";
         $comp_name = $this->db->real_escape_string($comp_name);
+        error_log($comp_name);
         $contact_name = $this->contact_name ?? "NULL";
         $contact_name = $this->db->real_escape_string($contact_name);
+        error_log($contact_name);
         $url = $this->url ?? "NULL";
         $url = $this->db->real_escape_string($url);
+        error_log($url);
+        error_log($this->id);
         if(!isset($this->id)){
             // new employer
             if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
+            error_log("updating");
             // existing employer, update information
             if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
-                                              `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = $this->id);")) {
-                throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
+                                              `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = '$this->id';")) {
+                error_log("throw");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
             }
         }
         return $this;

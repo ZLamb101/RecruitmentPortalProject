@@ -68,8 +68,13 @@ class EmployerController extends UserController
     }
 
 
+    /**
+     * Too be completed
+     *
+     */
     public function updateAccountAction(){
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            parent::updateAccountAction();
             try {
                 $account = new EmployerModel();
                 $account->load($_SESSION['UserID']);
@@ -77,6 +82,16 @@ class EmployerController extends UserController
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
+            $account->setCompanyName($_POST['company-name']);
+            $account->setUrl($_POST['url']);
+            $account->setContactName($_POST['contact-name']);
+            $account->setAddress($_POST['address']);
+            try {
+                $account->save();
+            } catch (\Exception $e) {
+                $this->redirect('errorPage');
+            }
+            $this->redirect('employerHomePage');
         }
     }
 
@@ -106,7 +121,7 @@ class EmployerController extends UserController
             $this->redirect('errorPage');
         }
         $this->redirect('registrationConfirmationPage');
-        //To complete
+        //To complete`
         //Call super
     }
 }

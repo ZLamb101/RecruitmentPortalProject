@@ -248,6 +248,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/Update-Candidate-Data',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::updateAccountAction',
+            'methods' => 'POST',
+            'name' => 'updateCandidateData'
+        )
+    )
+);
+
 
 
 
