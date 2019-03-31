@@ -15,7 +15,7 @@ include "header.phtml"
 			<p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home
             <form>
                 <p>All Categories</p>
-                <select id="field0" onclick="updateFields()">
+                <select id="field0" name="field0" onclick="updateFields(this)">
                     <?php
                     echo "<option value=\"all\">all categories</option>";
                     foreach ($Fields as $field){

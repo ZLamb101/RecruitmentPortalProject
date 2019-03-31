@@ -209,7 +209,6 @@ class CandidateModel extends UserModel
         $this->g_name = $result['g_name'];
         $this->location = $result['location'];
         $this->availability = $result['availability'];
-        $this->skills = $result['skills'];
         $workExp = new WorkExperienceCollectionModel($result['id']);
         $this->workExperiences = $workExp->getWorkExperiences();
         $qualifications = new QualificationCollectionModel($result['id']);
@@ -242,18 +241,16 @@ class CandidateModel extends UserModel
         $location = $this->db->real_escape_string($location);
         $avail = $this->availability ?? "NULL";
         $avail = $this->db->real_escape_string($avail);
-        $skills = $this->skills ?? "NULL";
-        $skills = $this->db->real_escape_string($skills);
         if(!isset($this->id)){
             // new candidate
-            if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail', '$skills');")){
+            if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
             if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', 
-                                              `location` = '$location', `availability` = '$avail', `skills` = '$skills' WHERE `id` = $this->id);")) {
+                                              `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id);")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }
