@@ -163,12 +163,16 @@ class SkillModel extends Model
     {
 
         $owner_id = $this->owner_id ?? "NULL";
+        error_log($owner_id);
         $field = $this->field ?? "NULL";
         $field = $this->db->real_escape_string($field);
+        error_log($field);
         $sub_field = $this->sub_field ?? "NULL";
         $sub_field = $this->db->real_escape_string($sub_field);
+        error_log($sub_field);
         $contents = $this->contents ?? "NULL";
         $contents = $this->db->real_escape_string($contents);
+        error_log($contents);
 
         if (!isset($id)) {
             if (!$result = $this->db->query("INSERT INTO `skill` VALUES (NULL, '$owner_id', '$field', '$sub_field', '$contents');")){

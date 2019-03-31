@@ -279,8 +279,8 @@ class CandidateController extends UserController
             $contentsInput = 'contents'.$skillCount;
             if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
             $skill->setContents($_POST["$contentsInput"]);
-            $skill->setField($skill->findField($_POST["$fieldInput"]));
-            $skill->setSubField($skill->findSubField($_POST["$subFieldInput"]));
+            $skill->setField($_POST["$fieldInput"]);
+            $skill->setSubField($_POST["$subFieldInput"]);
 
             $skillCount--;
             try {
@@ -308,8 +308,8 @@ class CandidateController extends UserController
             if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
             $skill->setOwnerId($candidateID);
             $skill->setContents($_POST["$contentsInput"]);
-            $skill->setField($skill->findField($_POST["$fieldInput"])); 
-            $skill->setSubField($skill->findSubField($_POST["$subFieldInput"])); 
+            $skill->setField($_POST["$fieldInput"]);
+            $skill->setSubField($_POST["$subFieldInput"]);
 
             $skillCount--;
             try {
