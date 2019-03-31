@@ -53,7 +53,7 @@ class EmployerController extends UserController
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             try{
                 $account = new EmployerModel();
-                $account->load($_SESSION[UserID]);
+                $account->load($_SESSION['UserID']);
                 $view = new View('employerEditInfoPage');
                 echo $view->addData('employerInfo', $account)->render();
             } catch (\Exception $e){
