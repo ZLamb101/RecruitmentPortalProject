@@ -103,8 +103,7 @@ class CandidateController extends UserController
         $this->createSkillAction($candidateID);
 
         try {
-
-          //  $account->sendConfirmationEmail();
+            $account->sendConfirmationEmail();
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }

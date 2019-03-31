@@ -17,20 +17,23 @@ function validateForm()
         return false;
     }
 
-        get(function () {
+        get1(function () {
             myVar = this.responseText;
             if (myVar === 'true') {
                 submitButton.click();
             } else {
+               // alert(myVar);
                 alert("Username already exists");
             }
         })
         return false;
 }
 
-function get(callback) {
+function get1(callback) {
     xmlhttp = new XMLHttpRequest();
+
     var username = document.forms["registration"]["username"].value;
+
     xmlhttp.open("GET", "registrationValidation.php?q=" + username, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
