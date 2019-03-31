@@ -36,6 +36,20 @@ include "header.phtml"
 		    <br> 	
 			
 		</div>
+
+        <div id="short-lists">
+            <p>Short Lists</p>
+            <?php
+            $shortLists = $employerInfo->getShortLists();
+            foreach ($shortLists as $list){
+                echo "<p>".$list->getName()."</p>";
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate){
+                    echo "<p>".$candidate->getGName()." ".$candidate->getFName()."</p>";
+                }
+            }
+            ?>
+        </div>
         <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home.</p>
     </div>
 	<!--- Content Ends here ----------->
