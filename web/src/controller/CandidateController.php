@@ -68,8 +68,10 @@ class CandidateController extends UserController
 
 
     /**
-     * Too be completed
-     *
+     * Function to update a Candidate account
+     * Takes the inputs from post request and loads a Candidate account
+     * loads any Qualifications and work experiences attached to the account.
+     * Then updates any changed data
      */
     public function updateAccountAction(){
         if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
@@ -156,6 +158,10 @@ class CandidateController extends UserController
     }
 
 
+   /**
+     * Function to load and update a Qualification
+     * Takes the inputs from post request and updates a Qualification
+     */
     public function updateQualificationAction(){
         $qualificationCount = $_POST['qualification-count'];
         do{
@@ -202,6 +208,10 @@ class CandidateController extends UserController
 
     }
 
+   /**
+     * Function to load and update a Work Experience
+     * Takes the inputs from post request and updates a Work Experience
+     */
     public function updateWorkExperienceAction(){
         $workExperienceCount = $_POST['work-experience-count'];
         do{
@@ -252,6 +262,12 @@ class CandidateController extends UserController
 
     }
 
+
+
+    /**
+     * Function to load and update a SKill
+     * Takes the inputs from post request and updates a Skill
+     */
     public function updateSkillAction(){
         $skillCount = $_POST['skill-count'];
         do{
@@ -279,8 +295,8 @@ class CandidateController extends UserController
 
 
     /**
-     * Function to create a Work Experience
-     * Takes the inputs from post request and creates a Work Experience
+     * Function to create a Skill
+     * Takes the inputs from post request and creates a Skill
      */
     public function createSkillAction($candidateID){
         $skillCount = $_POST['skill-count'];

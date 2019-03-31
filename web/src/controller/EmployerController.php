@@ -69,8 +69,9 @@ class EmployerController extends UserController
 
 
     /**
-     * Too be completed
-     *
+     * Function to update a Employer account
+     * Takes the inputs from post request and loads an Employer account
+     * Then updates any changed data
      */
     public function updateAccountAction(){
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {

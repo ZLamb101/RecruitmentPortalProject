@@ -70,7 +70,9 @@ class UserController extends Controller
 
 
     /**
-     * Function to update an account
+     * Function to update a User account
+     * Takes the inputs from post request and loads a User account
+     * Then updates any changed data
      */
     public function updateAccountAction(){
         try {
