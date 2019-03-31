@@ -237,6 +237,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/Update-Employer-Data',
+        array(
+            '_controller' => 'bjz\portal\controller\EmployerController::updateAccountAction',
+            'methods' => 'POST',
+            'name' => 'updateEmployerData'
+        )
+    )
+);
+
 
 
 

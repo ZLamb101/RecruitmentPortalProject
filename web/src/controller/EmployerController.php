@@ -53,7 +53,7 @@ class EmployerController extends UserController
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             try{
                 $account = new EmployerModel();
-                $account->load($_SESSION[UserID]);
+                $account->load($_SESSION['UserID']);
                 $view = new View('employerEditInfoPage');
                 echo $view->addData('employerInfo', $account)->render();
             } catch (\Exception $e){
@@ -66,6 +66,21 @@ class EmployerController extends UserController
             $this->redirect('home');
         }
     }
+
+
+    public function updateAccountAction(){
+        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            try {
+                $account = new EmployerModel();
+                $account->load($_SESSION['UserID']);
+            }catch(\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
+        }
+    }
+
+
 
     /**
      * Action to create an Employer account

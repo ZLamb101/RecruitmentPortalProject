@@ -87,10 +87,10 @@ class CandidateController extends UserController
         $account->setFName($_POST['last-name']);
         $account->setLocation($_POST['location']);
         $availability = 0;
-        if(isset($_POST['full-time'])) $availability += 1;
-        if(isset($_POST['part-time'])) $availability +=2;
-        if(isset($_POST['casual'])) $availability +=4;
-        if(isset($_POST['contractor'])) $availability +=8;
+        if(isset($_POST['full-time'])) $availability += 8;
+        if(isset($_POST['part-time'])) $availability +=4;
+        if(isset($_POST['casual'])) $availability +=2;
+        if(isset($_POST['contractor'])) $availability +=1;
         $account->setAvailability($availability);
         try {
             $account->save();
