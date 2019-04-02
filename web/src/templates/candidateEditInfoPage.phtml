@@ -3,6 +3,7 @@ include "header.phtml"
  ?>
  <script type = "text/javascript" src="src/js/addRegistration.js"></script>
  <script type = "text/javascript" src="src/js/populateSubFields.js"></script>
+ <script type = "text/javascript" src="src/js/candidateDelete.js"></script>
 <!---------- Body starts --------------->
 
 
@@ -30,6 +31,8 @@ include "header.phtml"
                     $i = 0;
 
                     foreach ($workExperience as $work){
+                        $id = $work->getID();
+                        echo "<input type=\"button\" id=\"delete-work-experience\"".$i." value = \"Delete\" onclick=\"deleteWorkExperience(this, ".$id.")\">";
                         $role = "role".$i;
                         $duration = "duration".$i;
                         $employer = "employer".$i;
@@ -50,6 +53,8 @@ include "header.phtml"
                     <?php $qualifications = $candidateInfo->getQualifications();
                     $i = 0;
                     foreach ($qualifications as $qual){
+                        $id = $qual->getID();
+                        echo "<input type=\"button\" id=\"delete-qualification\"".$i." value = \"Delete\" onclick=\"deleteQualification(this, ".$id.")\">";
                         $year = "year".$i;
                         $name = "name".$i;
                         $qualId = "id".$i;
@@ -68,6 +73,8 @@ include "header.phtml"
                     $i = 0;
 
                     foreach ($skills as $skill){
+                        $id = $skill->getID();
+                        echo "<input type=\"button\" id=\"delete-skill\"".$i." value = \"Delete\" onclick=\"deleteSkill(this, ".$id.")\">";
                         echo "<p>Field</p>";
                         $Fields = $skill->getFields();
                         $skillId = "id".$i;

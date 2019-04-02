@@ -325,6 +325,7 @@ class CandidateController extends UserController
 
     }
 
+<<<<<<< HEAD
     /**
      * Function to send a calendar invite
 
@@ -343,6 +344,24 @@ class CandidateController extends UserController
     }
 
 
+=======
+    public function deleteWorkExperienceAction(){
+        $id = $_GET["q"];
+        $model = new WorkExperienceModel();
+        $model->delete($id);
+    }
 
+    public function deleteSkillAction(){
+        $id = $_GET["q"];
+        $model = new SkillModel();
+        $model->delete($id);
+    }
+>>>>>>> d46c80dc19223a82037931a8c2f3e43e7495cde1
+
+    public function deleteQualificationAction(){
+        $id = $_GET["q"];
+        $model = new QualificationModel();
+        $model->delete($id);
+    }
 
 }
