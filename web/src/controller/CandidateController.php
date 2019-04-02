@@ -325,7 +325,7 @@ class CandidateController extends UserController
 
     }
 
-<<<<<<< HEAD
+
     /**
      * Function to send a calendar invite
 
@@ -344,7 +344,7 @@ class CandidateController extends UserController
     }
 
 
-=======
+
     public function deleteWorkExperienceAction(){
         $id = $_GET["q"];
         $model = new WorkExperienceModel();
