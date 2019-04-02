@@ -167,4 +167,10 @@ class WorkExperienceModel extends Model
         }
         return $this;
     }
+
+    public function delete($id){
+        if(!$result = $this->db->query("DELETE from `work_experience` WHERE `id` = '$id'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpDelete");
+        }
+    }
 }

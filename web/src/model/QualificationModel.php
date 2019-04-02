@@ -144,5 +144,11 @@ class QualificationModel extends Model
         return $this;
     }
 
+    public function delete($id){
+        if(!$result = $this->db->query("DELETE from `qualification` WHERE `id` = '$id'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualDelete");
+        }
+    }
+
 
 }

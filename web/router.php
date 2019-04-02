@@ -260,7 +260,38 @@ $collection->attachRoute(
 );
 
 
+$collection->attachRoute(
+    new Route(
+        '/deleteWorkExperience.php',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::deleteWorkExperienceAction',
+            'methods' => 'GET',
+            'name' => 'deleteWorkExperience'
+        )
+    )
+);
 
+$collection->attachRoute(
+    new Route(
+        '/deleteSkill.php',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::deleteSkillAction',
+            'methods' => 'GET',
+            'name' => 'deleteSkill'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/deleteQualification.php',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::deleteQualificationAction',
+            'methods' => 'GET',
+            'name' => 'deleteQualification'
+        )
+    )
+);
 
 
 $router = new Router($collection);

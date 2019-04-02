@@ -325,6 +325,22 @@ class CandidateController extends UserController
 
     }
 
+    public function deleteWorkExperienceAction(){
+        $id = $_GET["q"];
+        $model = new WorkExperienceModel();
+        $model->delete($id);
+    }
 
+    public function deleteSkillAction(){
+        $id = $_GET["q"];
+        $model = new SkillModel();
+        $model->delete($id);
+    }
+
+    public function deleteQualificationAction(){
+        $id = $_GET["q"];
+        $model = new QualificationModel();
+        $model->delete($id);
+    }
 
 }

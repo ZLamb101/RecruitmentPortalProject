@@ -262,6 +262,10 @@ class SkillModel extends Model
         return $result;
     }
 
-
+    public function delete($id){
+        if(!$result = $this->db->query("DELETE from `skill` WHERE `id` = '$id'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillDelete");
+        }
+    }
 
 }
