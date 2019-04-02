@@ -100,7 +100,7 @@ class UserController extends Controller
         try {
             $account = new UserModel();
         } catch (\Exception $e) {
-            $this->redirect('error');
+            $this->redirect('errorPage');
         }
         $account->setUsername($_POST['username']);
         $account->setEmail($_POST['email']);
@@ -115,4 +115,36 @@ class UserController extends Controller
         //To complete
         //Generic to both users
     }
+
+
+    /**
+     * Function to create an account
+     */
+    public function passwordRecoveryAction()
+    {
+        try {
+            $account = new UserModel();
+            $username = $_POST['username'];
+            if($account->findName($username)){
+                $id = $account->findId($username);
+                $account->load($id);
+                $account->sendPasswordRecoveryEmail();
+
+            }
+
+            $this->redirect('passwordRecoveryConfirmationPage');
+        } catch (\Exception $e) {
+            $this->redirect('errorPage');
+        }
+
+
+
+
+
+
+        //To complete
+        //Generic to both users
+    }
+
+
 }

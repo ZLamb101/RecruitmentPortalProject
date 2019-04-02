@@ -118,6 +118,7 @@ class EmployerController extends UserController
         $account->setAddress($_POST['address']);
         try {
             $account->save();
+            $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }

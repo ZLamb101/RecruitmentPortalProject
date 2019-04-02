@@ -149,7 +149,7 @@ class CandidateController extends UserController
         $this->createSkillAction($candidateID);
 
         try {
-            $account->sendConfirmationEmail($_POST['email'], $_POST['username']);
+            $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
@@ -324,6 +324,24 @@ class CandidateController extends UserController
         }while($skillCount >= 0);
 
     }
+
+    /**
+     * Function to send a calendar invite
+
+     */
+    public function sendInviteAction(){
+        try {
+            $account = new CandidateModel();
+            $accountId = $account->findID($_POST['username']);
+            $account->load($accountId);
+            $email = $account->getEmail();
+            $account->sendInviteEmail($email);
+        } catch (\Exception $e) {
+            $this->redirect('errorPage');
+        }
+
+    }
+
 
 
 

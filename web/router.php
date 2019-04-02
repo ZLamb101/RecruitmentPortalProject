@@ -259,6 +259,28 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/Password-Recovery',
+        array(
+            '_controller' => 'bjz\portal\controller\UserController::passwordRecoveryAction',
+            'methods' => 'POST',
+            'name' => 'passwordRecovery'
+        )
+    )
+);
+
+
+$collection->attachRoute(
+    new Route(
+        '/Send-Invite',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::sendInviteAction',
+            'methods' => 'POST',
+            'name' => 'sendInvite'
+        )
+    )
+);
 
 
 
