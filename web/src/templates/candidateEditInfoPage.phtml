@@ -43,7 +43,7 @@ include "header.phtml"
                         echo "<p>Role: <input type=text name=\"".$role."\" id=\"".$role."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value =\"".$work->getRole() ."\"> </p>";
                         echo "<p>Duration (in months): <input type=text name=\"".$duration."\" id=\"".$duration."\" size=\"40\" pattern=\"^[0-9]+$\" title=\"Numeric characters only\" value=\"".$work->getDuration()."\"> </p>";
                         echo "<p>Employer: <input type=text name=\"".$employer."\" id=\"".$employer."\" size=\"40\" pattern=\"^[a-zA-Z0-9\s-]+$\" title=\"Alphanumeric, '-' and space characters only\" value= \"".$work->getEmployer()."\"> </p>";
-                        echo "<input type = \"hidden\" name=\"".$workId."\" id=\"".$workId2."\" value=\"".$work->getId()."\">";
+                        echo "<input type = \"hidden\" name=\"".$workId."\" id=\"".$workId2."\" value=\"".$id."\">";
                         $i++;
                         echo "</div>";
                     }
@@ -60,13 +60,31 @@ include "header.phtml"
                         echo "<div id = \"qualification".$i."\">";
                         $id = $qual->getID();
                         echo "<input type=\"button\" id=\"delete-qualification\"".$i." value = \"Delete\" onclick=\"deleteQualification(".$i.", ".$id.")\">";
+                        $allLevels = $qual->getLevels();
+                        $allTypes = $qual->getTypes();
                         $year = "year".$i;
-                        $name = "name".$i;
+                        $level = "level".$i;
+                        $type = "type".$i;
                         $qualId = "id".$i;
                         $qualId2 = "qualId".$i;
-                        echo "<p>Name: <input type=text name=\"".$name."\" id=\"".$name."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value=\"".$qual->getName()."\"> </p>";
+
+                        echo "<select id=\"".$level."\" name=\"".$level."\"  selected = \"".$qual->findLevel($qual->getLevelId())."\">";
+
+                        foreach ($allLevels as $Level) {
+                            echo "<option value=\"" . $Level['id'] . "\">" . $Level['level'] . "</option>";
+                        }
+                        echo "</select>";
+
+
+                        echo "<select id=\"".$type."\" name=\"".$type."\"  selected = \"".$qual->findType($qual->getTypeId())."\">";
+
+                        foreach ($allTypes as $Type) {
+                            echo "<option value=\"" . $Type['id'] . "\">" . $Type['type'] . "</option>";
+                        }
+                        echo "</select>";
+
                         echo "<p>Year: <input type=text name=\"".$year."\" id=\"".$year."\" size=\"40\" pattern=\"^\d{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"> </p>";
-                        echo "<input type = \"hidden\" name=\"".$qualId."\" name=\"".$qualId2."\" value=\"".$qual->getId()."\">";
+                        echo "<input type = \"hidden\" name=\"".$qualId."\"  value=\"".$id."\">";
                         $i++;
                         echo "</div>";
                     }
@@ -106,7 +124,7 @@ include "header.phtml"
                         $name = "contents".$i;
                         echo "<p>About: <input type=text name=\"".$name."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value=\"".$skill->getContents()."\">";
                         echo "<br>";
-                        echo "<input type = \"hidden\" name=\"".$skillId."\" id=\"".$skillId2."\" value=\"".$skill->getId()."\">";
+                        echo "<input type = \"hidden\" name=\"".$skillId."\" value=\"".$id."\">";
                         $i++;
                         echo "</div>";
                     }

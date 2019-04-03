@@ -157,33 +157,7 @@ class Model
             }
         }
 
-        $result = $this->db->query("SHOW TABLES LIKE 'qualification';");
-        if ($result->num_rows == 0) {
-            // table doesn't exist
-            // create it and populate with sample data
-            $result = $this->db->query(
-                "CREATE TABLE `qualification` (
-                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
-                                                    `owner_id` int (8) unsigned NOT NULL,
-                                                    `name` varchar(256) DEFAULT NULL,
-                                                    `year` varchar(256) DEFAULT NULL,
-                                                    PRIMARY KEY (`id`),
-                                                    FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`)
-                                                    );");
 
-            if (!$result) {
-                throw new \mysqli_sql_exception("Failed to create qualification table");
-            }
-            include 'qualDummyData.php';
-            if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `name`, `year`) VALUES 
-                                                    (NULL, '1', 'Computer Science', '2019'),
-                                                    (NULL, '1', 'Business', '2024'),
-                                                    (NULL, '2', 'Health Science', '1804'),
-                                                    (NULL, '3', 'Arts', '2020')," . $qualDummy . ";")){
-                // handle appropriately
-                throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
-            }
-        }
         // W.E
 
         $result = $this->db->query("SHOW TABLES LIKE 'work_experience';");
@@ -241,6 +215,115 @@ class Model
                                                     (NULL, '1', 'Tester', '3,2');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
+            }
+        }
+
+
+        //Qual Type
+        $result = $this->db->query("SHOW TABLES LIKE 'qual_type';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `qual_type` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `type` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create qual_type table");
+            }
+
+            if(!$this->db->query("INSERT INTO `qual_type` (`id`, `type`) VALUES 
+                                                    (NULL, 'Accountancy'),
+                                                     (NULL, 'AgriCommerce'),
+                                                     (NULL, 'Agricultural Science'),
+                                                     (NULL, 'Applied Economics'),
+                                                     (NULL, 'Arts'),
+                                                     (NULL, 'Aviation'), 
+                                                     (NULL, 'Aviation Management'), 
+                                                     (NULL, 'Business'), 
+                                                     (NULL, 'Commercial Music'), 
+                                                     (NULL, 'Communication'), 
+                                                     (NULL, 'Construction'), 
+                                                     (NULL, 'Creative Media Production'), 
+                                                     (NULL, 'Education'), 
+                                                     (NULL, 'Health Science'), 
+                                                     (NULL, 'Horticultural Science'), 
+                                                     (NULL, 'Information Sciences'), 
+                                                     (NULL, 'Maori Visual Arts'), 
+                                                     (NULL, 'Nursing'), 
+                                                     (NULL, 'Resource and Environmental Planning'), 
+                                                     (NULL, 'Retail and Business Management'), 
+                                                     (NULL, 'Science'), 
+                                                     (NULL, 'Social Work'), 
+                                                     (NULL, 'Sport and Exercise'), 
+                                                     (NULL, 'Sport Management'), 
+                                                     (NULL, 'Veterinary Science'), 
+                                                     (NULL, 'Veterinary Technology');")){
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy qual_type data.", $this->db->errno);
+            }
+        }
+
+        //Qual Level
+        $result = $this->db->query("SHOW TABLES LIKE 'qual_level';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `qual_level` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `level` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create qual_level table");
+            }
+
+            if(!$this->db->query("INSERT INTO `qual_level` (`id`, `level`) VALUES 
+                                                    (NULL, 'Certificate'),
+                                                    (NULL, 'Diploma'),
+                                                    (NULL, 'Bachelors'),
+                                                    (NULL, 'Masters'),
+                                                    (NULL, 'Doctorates');")){
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy qual_level data.", $this->db->errno);
+            }
+        }
+
+
+        $result = $this->db->query("SHOW TABLES LIKE 'qualification';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `qualification` (
+                                                    `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                    `owner_id` int (8) unsigned NOT NULL,
+                                                    `level_id` int (8) unsigned NOT NULL,
+                                                    `type_id` int (8) unsigned NOT NULL,
+                                                    `year` varchar(256) DEFAULT NULL,
+                                                    PRIMARY KEY (`id`),
+                                                    FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`),
+                                                    FOREIGN KEY (`level_id`) REFERENCES `qual_level`(`id`),
+                                                    FOREIGN KEY (`type_id`) REFERENCES `qual_type`(`id`)
+                                                    );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create qualification table");
+            }
+            include 'qualDummyData.php';
+            if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `level_id`,`type_id`, `year`) VALUES 
+                                                    (NULL, '1', '3','4', '2019'),
+                                                    (NULL, '1', '2','6', '2024'),
+                                                    (NULL, '2', '1','3', '1804'),
+                                                    (NULL, '3', '2','1', '2020');")){
+                //(NULL, '3', '2','1', '2020')," . $qualDummy . ";")){
+                // handle appropriately
+                throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
             }
         }
 

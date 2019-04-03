@@ -17,10 +17,17 @@ class QualificationModel extends Model
      * @var int, the ID of the candidate the qualifications belongs to
      */
     private $owner_id;
+
     /**
-     * @var string, the name of the qualification
+     * @var int, the ID of the level the qualifications contains
      */
-    private $name;
+    private $level_id;
+
+    /**
+     * @var int, the ID of the type the qualifications contains
+     */
+    private $type_id;
+
     /**
      * @var int, the year the qualification was achieved
      */
@@ -59,19 +66,35 @@ class QualificationModel extends Model
     }
 
     /**
-     * @return string, the name of the qualification
+     * @return int, the ID of the level the qualifications contains
      */
-    public function getName()
+    public function getLevelId()
     {
-        return $this->name;
+        return $this->level_id;
     }
 
     /**
-     * @param string $name, the new name of the qualification
+     * @param int $level_id, the new ID of the level the qualifications contains
      */
-    public function setName($name)
+    public function setLevelId($level_id)
     {
-        $this->name = $name;
+        $this->level_id = $level_id;
+    }
+
+    /**
+     * @return int, the ID of the type the qualifications contains
+     */
+    public function getTypeId()
+    {
+        return $this->type_id;
+    }
+
+    /**
+     * @param int $type_id, the new ID of the type the qualifications contains
+     */
+    public function setTypeId($type_id)
+    {
+        $this->type_id = $type_id;
     }
 
     /**
@@ -108,7 +131,8 @@ class QualificationModel extends Model
         $result = $result->fetch_assoc();
         $this->id = $id;
         $this->owner_id = $result['owner_id'];
-        $this->name = $result['name'];
+        $this->level_id = $result['level_id'];
+        $this->type_id = $result['type_id'];
         $this->year = $result['year'];
         return $this;
     }
@@ -122,21 +146,22 @@ class QualificationModel extends Model
      */
     public function save()
     {
-       // $id = $this->id ?? "NULL";
-       // $id = $this->db->real_escape_string($id);
+
         $owner_id = $this->owner_id ?? "NULL";
-       // $owner_id = $this->db->real_escape_string($owner_id);
-        $name = $this->name ?? "NULL";
-        $name = $this->db->real_escape_string($name);
+        $level_id = $this->level_id ?? "NULL";
+        error_log($level_id);
+        $type_id = $this->type_id ?? "NULL";
+        error_log($type_id);
         $year = $this->year ?? "NULL";
         $year = $this->db->real_escape_string($year);
+        error_log($year);
         if (!isset($id)) {
-            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$name', '$year');")){
+            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `name` = '$name', `year` = '$year' 
+            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year' 
                                               WHERE `id` = '$id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");
             }
@@ -148,6 +173,69 @@ class QualificationModel extends Model
         if(!$result = $this->db->query("DELETE from `qualification` WHERE `id` = '$id'")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualDelete");
         }
+    }
+
+
+    /**
+     * Function to get all the levels within the database
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function getLevels(){
+        if(!$result = $this->db->query("SELECT * FROM `qual_level`;")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetLevels");
+        }
+        return $result;
+    }
+
+    /**
+     * Function to get all the types within the database
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all sub-fields of the specified field
+     */
+    public function getTypes(){
+        if(!$result = $this->db->query("SELECT * FROM `qual_type` ;")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetTypes");
+        }
+        return $result;
+    }
+
+    /**
+     * Function to get the qual level associated to id
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function findLevel($id){
+        if(!$result = $this->db->query("SELECT `level` FROM `qual_level` WHERE `id` = '$id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetLevel");
+        }
+        $result = $result->fetch_assoc();
+        $result = $result['level'];
+        return $result;
+
+    }
+
+    /**
+     * Function to get qual type associated to id
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function findType($id){
+        if(!$result = $this->db->query("SELECT `type` FROM `qual_type` WHERE `id` = '$id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetType");
+        }
+        $result = $result->fetch_assoc();
+        $result = $result['type'];
+        return $result;
+
     }
 
 
