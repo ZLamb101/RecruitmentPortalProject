@@ -223,7 +223,7 @@ class CandidateController extends UserController
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
             if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
-            $workExperience->setOwnerId($candidateID);
+            $workExperience->setOwnerId($CandidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
@@ -356,7 +356,7 @@ class CandidateController extends UserController
         $model = new SkillModel();
         $model->delete($id);
     }
->>>>>>> d46c80dc19223a82037931a8c2f3e43e7495cde1
+
 
     public function deleteQualificationAction(){
         $id = $_GET["q"];
