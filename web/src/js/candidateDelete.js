@@ -1,6 +1,7 @@
 
 /**
  * Deletes the corresponding selected work experience and then clears the HTML of where it was displayed
+ * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperience(number, id){
     xmlhttp = new XMLHttpRequest();
@@ -32,6 +33,10 @@ function deleteWorkExperience(number, id){
     document.getElementById("work-experience-count").value = (numOfExperience-1);
 }
 
+/**
+ * Deletes the corresponding selected skill and then clears the HTML of where it was displayed
+ * Decreases all the IDs of elements after this one such that the save will still work
+ */
 function deleteSkill(number, id){
     xmlhttp = new XMLHttpRequest();
 
@@ -62,6 +67,10 @@ function deleteSkill(number, id){
     document.getElementById("skill-count").value = (numOfExperience-1);
 }
 
+/**
+ * Deletes the corresponding selected qualification and then clears the HTML of where it was displayed
+ * Decreases all the IDs of elements after this one such that the save will still work
+ */
 function deleteQualification(number, id){
     xmlhttp = new XMLHttpRequest();
 
