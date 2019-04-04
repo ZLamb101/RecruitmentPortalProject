@@ -4,6 +4,7 @@ namespace bjz\portal\controller;
 
 
 use bjz\portal\model\SkillModel;
+use bjz\portal\model\QualificationModel;
 use bjz\portal\view\View;
 use bjz\portal\model\SearchCandidateCollectionModel;
 session_start();
@@ -27,7 +28,10 @@ class SearchController extends Controller
             try{
                 $skill = new SkillModel();
                 $fields = $skill->getFields();
+                $qual = new QualificationModel();
+                $types = $qual->getTypes();
                 $view = new View('searchPage');
+                $view->addData('Quals', $types);
                 echo $view->addData('Fields', $fields)->render();
             } catch (\Exception $e){
                 error_log($e->getMessage());
@@ -49,8 +53,10 @@ class SearchController extends Controller
         $query = $_GET["query"];
         $field_id = $_GET["field"];
         $sub_field_id = $_GET["sub_field"];
+        $qual = $_GET["qual"];
+        $avail = $_GET["avail"];
         try {
-            $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id);
+            $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id, $qual, $avail);
             $candidates = $livesearch->getCandidates();
             if ($livesearch->getN() == 0) {
                 echo "No matches found";
