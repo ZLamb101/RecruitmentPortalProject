@@ -331,8 +331,117 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Retrieves the candidates preferred qualification
+     * @return string, the correct display output of the preferred qualification
+     */
+    public function displayPreferredQualification()
+    {
+        if(!$result = $this->db->query("SELECT `preferred_qual_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefQual1");
+        }
+
+        if($result->num_rows != 0){
+            $result = $result->fetch_assoc();
+            $prefID = $result['preferred_qual_id'];
+            if(!$result = $this->db->query("SELECT `level`, `type`, `year` FROM `qualification`
+                                            LEFT JOIN `qual_level` ON `qualification`.`level_id` = `qual_level`.`id` 
+                                            LEFT JOIN `qual_type` ON `qualification`.`type_id` = `qual_type`.`id`
+                                            WHERE `qualification`.`id` = '$prefID';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefQual2");
+            }
+            $result = $result->fetch_assoc();
+            return $result['level'] . " of " . $result['type'] . " - " . $result['year'];
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Retrieves the candidates preferred work experience
+     * @return string, the correct display output of the preferred work experience
+     */
+    public function displayPreferredWorkExperience()
+    {
+        if(!$result = $this->db->query("SELECT `preferred_workEx_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefWork1");
+        }
+
+        if($result->num_rows != 0){
+            $result = $result->fetch_assoc();
+            $prefID = $result['preferred_workEx_id'];
+            if(!$result = $this->db->query("SELECT `role`, `employer`, `duration` FROM `work_experience`
+                                            WHERE `work_experience`.`id` = '$prefID';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefWork2");
+            }
+            $result = $result->fetch_assoc();
+            return $result['role'] . " - " . $result['employer'] . " - " . $this->convertDuration($result['duration']);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Retrieves the candidates preferred skill
+     * @return string, the correct display output of the preferred skill
+     */
+    public function displayPreferredSkill()
+    {
+        if(!$result = $this->db->query("SELECT `preferred_skill_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefSkill1");
+        }
+
+        if($result->num_rows != 0){
+            $result = $result->fetch_assoc();
+            $prefID = $result['preferred_skill_id'];
+            if(!$result = $this->db->query("SELECT field, sub_field, contents FROM skill 
+                                         LEFT JOIN field ON skill.`field_id` = field.`id`
+                                         LEFT JOIN sub_field ON skill.`sub_field_id` = sub_field.`id`
+                                         WHERE skill.`id` = '$prefID';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefSkill2");
+            }
+            $result = $result->fetch_assoc();
+            return $result['field'] . " - " . $result['sub_field'] . " - " . $result['contents'];
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Converts the numeric duration of a candidates work experience to a display format
+     * @param int duration, the duration (in months) of a work experience instance.
+     * @return string, the string output in either year-month format or just months
+     */
+    public function convertDuration($duration)
+    {
+        if($duration > 12){
+            $years = intdiv($duration, 12);
+            $months = $duration % 12;
+            if($months != 0){
+                return $years . " Year". $this->isOne($years). ", ". $months . " Month" . $this->isOne($months);
+            } else{
+                return $years . " Year". $this->isOne($years);
+            }
+        } else {
+            return $duration . " Month". $this->isOne($duration);
+        }
+    }
+
+    /***
+     * Determines if a word needs to be pluralised based on the numerical value associated with it
+     * @param $value, the value to be checked for a 1
+     * @return string, the correct plural/non plural for the word
+     */
+    public function isOne($value)
+    {
+        if($value == 1){
+            return "";
+        } else{
+            return "s";
+        }
+    }
+
+    /**
      * This function sends a email when a user is recovering their password
-     *
      */
     public function sendInviteEmail($email)
     {

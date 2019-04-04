@@ -73,9 +73,11 @@ class SearchController extends Controller
      * @return string, the formatted HTML Table element displaying the search results.
      */
     public function formatSearch($candidates){
-        $response = "<table><tr><th>First Name</th><th>Last Name</th></tr>";
+        $response = "<table><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th></tr>";
         foreach($candidates as $candidate){
-            $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td></tr>";
+            $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
+                            $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
+                            ."</td><td>". $candidate->displayPreferredSkill() ."</td></tr>";
         }
         $response = $response . '</table>';
         return $response;

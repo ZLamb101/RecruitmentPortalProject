@@ -105,7 +105,6 @@ class SearchCandidateCollectionModel extends Model
     {
         parent::__construct();
         $required = $this->evaluateAvailability();
-        error_log("required string is: ".$required);
         if(($sub_field_id == "all") && (strlen($query) == 0)){
             // Case for searching all subfields in a field, with no string given
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
