@@ -302,6 +302,34 @@ class CandidateModel extends UserModel
         return $result['id'];
     }
 
+    /***
+     * Saves the candidates selected preferences to the database
+     * @param $pref_qual, the id of the candidates preferred qualification
+     * @param $pref_work, the id of the candidates preferred work experience
+     * @param $pref_skill, the id of the candidates preferred skill
+     */
+    public function savePreferences($pref_qual, $pref_work, $pref_skill)
+    {
+        if(!$result = $this->db->query("SELECT * FROM `preferences` WHERE `owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefprecheck");
+        }
+
+        if($result->num_rows == 0){
+            if(!$result = $this->db->query("INSERT INTO `preferences` VALUES (NULL, '$this->id', '$pref_qual', '$pref_work', '$pref_skill');")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefNEW");
+            }
+        } else {
+            $result = $result->fetch_assoc();
+            $pref_id = $result['id'];
+            error_log("UPDATE: PREF ID FOUND IS : ".$pref_id);
+            if(!$result = $this->db->query("UPDATE `preferences` SET `owner_id` = '$this->id', `preferred_qual_id` = '$pref_qual', 
+                                            `preferred_workEx_id` = '$pref_work', `preferred_skill_id` = '$pref_skill'
+                                            WHERE `id` = '$pref_id';")){
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefUPDATE");
+            }
+        }
+    }
+
     /**
      * This function sends a email when a user is recovering their password
      *

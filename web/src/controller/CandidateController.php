@@ -103,7 +103,11 @@ class CandidateController extends UserController
             $pref_skill = $this->updateSkillAction($candidateID);
 
             error_log("Pref qual id: ".$pref_qual."\nPref work id is".$pref_work."\nPref skill id is".$pref_skill);
-
+            try {
+                $account->savePreferences($pref_qual, $pref_work, $pref_skill);
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+            }
             $this->redirect('candidateHomePage');
         }
     }
