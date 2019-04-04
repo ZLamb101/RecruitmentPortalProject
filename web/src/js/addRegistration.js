@@ -10,6 +10,17 @@ function addQualification(){
 	count.setAttribute("value", ++temp);
 
 	var qual = document.createElement("div");                       // Create a <div> node
+
+	var prefP = document.createElement("p");
+	var prefLabel = document.createTextNode("Preferred: ");
+	var pref = document.createElement("input");
+	pref.setAttribute("type", "radio");
+	pref.setAttribute("name", "qualification-preference");
+	pref.setAttribute("value", temp);
+	prefP.appendChild(prefLabel);
+	qual.appendChild(prefP);
+	qual.appendChild(pref);
+
 	var yearP = document.createElement("p");
 	var yearLabel = document.createTextNode("Year.");      
 	var year = document.createElement("input");
@@ -60,6 +71,16 @@ function addWorkExperience(){
 	count.setAttribute("value", ++it);
 
 	var workex = document.createElement("div");                       // Create a <div> node
+
+	var prefP = document.createElement("p");
+	var prefLabel = document.createTextNode("Preferred: ");
+	var pref = document.createElement("input");
+	pref.setAttribute("type", "radio");
+	pref.setAttribute("name", "work-experience-preference");
+	pref.setAttribute("value", it);
+	prefP.appendChild(prefLabel);
+	workex.appendChild(prefP);
+	workex.appendChild(pref);
 
 	var roleP = document.createElement("p");
 	var roleLabel = document.createTextNode("Role.");      // Create a text node
@@ -118,6 +139,17 @@ function addSkill(){
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
+
+	var prefP = document.createElement("p");
+	var prefLabel = document.createTextNode("Preferred: ");
+	var pref = document.createElement("input");
+	pref.setAttribute("type", "radio");
+	pref.setAttribute("name", "skill-preference");
+	pref.setAttribute("value", it);
+	prefP.appendChild(prefLabel);
+	skill.appendChild(prefP);
+	skill.appendChild(pref);
+
 	var fieldP = document.createElement("p");
 	var fieldLabel = document.createTextNode("Field:");      
 	var field = document.createElement("select");

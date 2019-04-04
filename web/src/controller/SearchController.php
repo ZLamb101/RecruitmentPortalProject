@@ -67,7 +67,6 @@ class SearchController extends Controller
         return;
     }
 
-
     /**
      * Formats the search results to be displayed in HTML
      * @param $candidates, the list of candidates who were found in the search query
