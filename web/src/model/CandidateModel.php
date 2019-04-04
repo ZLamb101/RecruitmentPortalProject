@@ -257,7 +257,50 @@ class CandidateModel extends UserModel
         return $this;
     }
 
+    /**
+     * Collects the candidates preferred work experience id
+     * @return int, the id of the preferred work experience
+     */
+    public function getPreferredWorkExperience()
+    {
+        if(!$result = $this->db->query("SELECT `work_experience`.`id` FROM `work_experience` 
+                                        LEFT JOIN `preferences` ON `preferences`.`preferred_workEx_id` = `work_experience`.`id` 
+                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefworkexp");
+        }
+        $result = $result->fetch_assoc();
+        return $result['id'];
+    }
 
+    /**
+     * Collects the candidates preferred qualification id
+     * @return int, the id of the preferred qualification
+     */
+    public function getPreferredQualification()
+    {
+        if(!$result = $this->db->query("SELECT `qualification`.`id` FROM `qualification` 
+                                        LEFT JOIN `preferences` ON `preferences`.`preferred_qual_id` = `qualification`.`id` 
+                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefqual");
+        }
+        $result = $result->fetch_assoc();
+        return $result['id'];
+    }
+
+    /**
+     * Collects the candidates preferred skill id
+     * @return int, the id of the preferred skill
+     */
+    public function getPreferredSkill()
+    {
+        if(!$result = $this->db->query("SELECT `skill`.`id` FROM `skill` 
+                                        LEFT JOIN `preferences` ON `preferences`.`preferred_skill_id` = `skill`.`id` 
+                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefskill");
+        }
+        $result = $result->fetch_assoc();
+        return $result['id'];
+    }
 
     /**
      * This function sends a email when a user is recovering their password
