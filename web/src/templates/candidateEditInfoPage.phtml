@@ -104,7 +104,7 @@ include "header.phtml"
                             echo ">" . $Type['type'] . "</option>";
                         }
                         echo "</select>";
-
+                        $id = $qual->getId();
                         echo "<p>Year: <input type=text name=\"".$year."\" id=\"".$year."\" size=\"40\" pattern=\"^\d{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"> </p>";
                         echo "<input type = \"hidden\" name=\"".$qualId."\"  value=\"".$id."\">";
                         $i++;

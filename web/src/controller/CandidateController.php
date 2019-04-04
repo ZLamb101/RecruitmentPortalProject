@@ -173,10 +173,11 @@ class CandidateController extends UserController
         do{
             $qualification = new QualificationModel();
 
-            $idInput = 'id'.$qualificationCount;
+            $idInput = "id".$qualificationCount;
 
-            $idInput = $_POST["$idInput"];
-            $qualification->load($idInput);
+            if ($_POST["$idInput"]) {
+                $qualification->load($_POST["$idInput"]);
+            }
             $yearInput = 'year'.$qualificationCount;
             $levelInput = 'level'.$qualificationCount;
             $typeInput = 'type'.$qualificationCount;
@@ -241,10 +242,13 @@ class CandidateController extends UserController
      */
     public function updateWorkExperienceAction($candidateID){
         $workExperienceCount = $_POST['work-experience-count'];
-        do{
+        do {
             $workExperience = new WorkExperienceModel();
-            $idInput = 'id'.$workExperienceCount;
-            $workExperience->load($_POST["$idInput"]);
+            $idInput = 'id' . $workExperienceCount;
+            error_log("check this ".$_POST["$idInput"]);
+            if ($_POST["$idInput"]) {
+                 $workExperience->load($_POST["$idInput"]);
+            }
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
@@ -315,8 +319,10 @@ class CandidateController extends UserController
         $skillCount = $_POST['skill-count'];
         do{
             $skill = new SkillModel();
-            $skillId = 'id'.$skillCount;
-            $skill->load($_POST["$skillId"]);
+            $idInput = 'id'.$skillCount;
+            if ($_POST["$idInput"]) {
+                $skill->load($_POST["$idInput"]);
+            }
 
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
@@ -397,13 +403,17 @@ class CandidateController extends UserController
     }
 
     /**
-     * will implement when i get home
+     * Function to get all the Types within the database and echo's
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateTypesAction(){
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getTypes();
-            echo"<option value=\"all\">all categories</option>";
+            echo"<option value=\"all\">all subcategories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['type']."</option>";
             }
@@ -414,13 +424,17 @@ class CandidateController extends UserController
     }
 
     /**
-     * will implement when i get home
+     * Function to get all the Levels within the database and echo's
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateLevelsAction(){
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getLevels();
-            echo"<option value=\"all\">all subcategories</option>";
+            echo"<option value=\"all\">all categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['level']."</option>";
             }
