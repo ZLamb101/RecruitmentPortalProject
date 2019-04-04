@@ -153,4 +153,16 @@ class ShortListModel extends Model
             $this->candidates .= "," . $candId;
         }
     }
+
+
+    /**
+     * Renames the shortList as desired
+     * @param $shortListID, the ID of the shortlist to rename
+     * @param $name, the desired new name
+     */
+    public function renameShortList($shortListID, $name){
+        if(!$result = $this->db->query("UPDATE `short_list` SET `name` = '$name' WHERE `id` = '$shortListID'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListRename");
+        }
+    }
 }

@@ -4,6 +4,7 @@ include "header.phtml"
  ?>
 
 <script type = "text/javascript" src="src/js/validateForm.js"></script>
+<script type = "text/javascript" src="src/js/employerEdit.js"></script>
 <!---------- Body starts --------------->
 
 
@@ -41,12 +42,16 @@ include "header.phtml"
             <p>Short Lists</p>
             <?php
             $shortLists = $employerInfo->getShortLists();
+            $i = 0;
             foreach ($shortLists as $list){
-                echo "<p>".$list->getName()."</p>";
+                $listID = $list->getID();
+                echo "<input type=\"button\" id=\"re-name\" value = \"Re-name short list\" onclick=\"renameList(".$i.", ".$listID.")\">";
+                echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
                     echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()." <a href=\"\">Delete</a></p> ";
                 }
+                $i++;
             }
             ?>
         </div>

@@ -80,19 +80,28 @@ include "header.phtml"
                             echo "<p>Preferred: <input type=radio value=\"" . $i . "\" name='qualification-preference' checked></p>";
                         }
 
-                        echo "<select id=\"".$level."\" name=\"".$level."\"  selected = \"".$qual->findLevel($qual->getLevelId())."\">";
+                        $levelID = $qual->getLevelId();
+                        echo "<select id=\"".$level."\" name=\"".$level."\">";
 
                         foreach ($allLevels as $Level) {
-                            echo "<option value=\"" . $Level['id'] . "\">" . $Level['level'] . "</option>";
+                            echo "<option value=\"" . $Level['id'] . "\"";
+                            if($levelID == $Level['id']){
+                                echo " selected";
+                            }
+                            echo ">" . $Level['level'] . "</option>";
                         }
                         echo "</select>";
 
 
-
-                        echo "<select id=\"".$type."\" name=\"".$type."\"  selected = \"".$qual->findType($qual->getTypeId())."\">";
+                        $typeID = $qual->getTypeId();
+                        echo "<select id=\"".$type."\" name=\"".$type."\">";
 
                         foreach ($allTypes as $Type) {
-                            echo "<option value=\"" . $Type['id'] . "\">" . $Type['type'] . "</option>";
+                            echo "<option value=\"" . $Type['id'] . "\"";
+                            if($typeID == $Type['id']){
+                                echo " selected";
+                            }
+                            echo ">" . $Type['type'] . "</option>";
                         }
                         echo "</select>";
 
@@ -129,19 +138,29 @@ include "header.phtml"
                         $skillId = "id".$i;
                         $skillId2 = "skillId".$i;
                         $name = "field".$i;
-                        echo "<select id=\"".$name."\" name=\"".$name."\" onclick=\"updateFields(this);\" selected = \"".$skill->getFieldID($skill->getField())."\">";
+                        $fieldID = $skill->getFieldID($skill->getField());
+                        echo "<select id=\"".$name."\" name=\"".$name."\" onclick=\"updateFields(this);\">";
 
                         foreach ($Fields as $field) {
-                            echo "<option value=\"" . $field['id'] . "\">" . $field['field'] . "</option>";
+                            echo "<option value=\"" . $field['id'] ."\"";
+                            if($fieldID == $field['id']){
+                                echo " selected";
+                            }
+                            echo ">" . $field['field']."</option>";
                         }
                         echo "</select>";
                         $id = $skill->getFieldID($skill->getField());
                         $subFields = $skill->getSubFields($id);
                         $name = "sub-field".$i;
+                        $subFieldID = $skill->getSubFieldID($skill->getSubField());
                         echo "<p>Sub-Field:  </p>";
-                        echo "<select name=\"".$name."\" id=\"".$name."\" selected=\"".$skill->getSubFieldID($skill->getSubField())."\">";
+                        echo "<select name=\"".$name."\" id=\"".$name."\">";
                         foreach ($subFields as $sub) {
-                            echo "<option value=\"" . $sub['id'] . "\">" . $sub['sub_field'] . "</option>";
+                            echo "<option value=\"" . $sub['id'] ."\"";
+                            if($subFieldID == $sub['id']){
+                                echo " selected";
+                            }
+                            echo ">" . $sub['sub_field'] . "</option>";
                         }
                         echo "</select>";
                         $name = "contents".$i;
