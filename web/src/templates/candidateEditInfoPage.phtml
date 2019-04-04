@@ -88,6 +88,7 @@ include "header.phtml"
                         echo "</select>";
 
 
+
                         echo "<select id=\"".$type."\" name=\"".$type."\"  selected = \"".$qual->findType($qual->getTypeId())."\">";
 
                         foreach ($allTypes as $Type) {
@@ -128,7 +129,7 @@ include "header.phtml"
                         $skillId = "id".$i;
                         $skillId2 = "skillId".$i;
                         $name = "field".$i;
-                        echo "<select id=\"".$name."\" name=\"".$name."\" onclick=\"updateFields(this);\" selected = \"".$skill->getField()."\">";
+                        echo "<select id=\"".$name."\" name=\"".$name."\" onclick=\"updateFields(this);\" selected = \"".$skill->getFieldID($skill->getField())."\">";
 
                         foreach ($Fields as $field) {
                             echo "<option value=\"" . $field['id'] . "\">" . $field['field'] . "</option>";
@@ -138,7 +139,7 @@ include "header.phtml"
                         $subFields = $skill->getSubFields($id);
                         $name = "sub-field".$i;
                         echo "<p>Sub-Field:  </p>";
-                        echo "<select name=\"".$name."\" id=\"".$name."\" selected=\"".$skill->getSubField()."\">";
+                        echo "<select name=\"".$name."\" id=\"".$name."\" selected=\"".$skill->getSubFieldID($skill->getSubField())."\">";
                         foreach ($subFields as $sub) {
                             echo "<option value=\"" . $sub['id'] . "\">" . $sub['sub_field'] . "</option>";
                         }

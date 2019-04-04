@@ -124,14 +124,13 @@ class QualificationModel extends Model
      */
     public function load($id)
     {
-        error_log("Loading qual id".$id);
+
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `qualification` WHERE `id` = '$id';")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
         }
         $result = $result->fetch_assoc();
         $this->id = $id;
-        error_log("assigning id:".$id);
         $this->owner_id = $result['owner_id'];
         $this->level_id = $result['level_id'];
         $this->type_id = $result['type_id'];
