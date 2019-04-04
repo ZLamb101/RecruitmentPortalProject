@@ -337,6 +337,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/renameShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::renameShortListAction',
+            'methods' => 'GET',
+            'name' => 'renameShortList'
+        )
+    )
+);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');
