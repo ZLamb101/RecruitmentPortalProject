@@ -98,9 +98,11 @@ class CandidateController extends UserController
                 $this->redirect('errorPage');
             }
             $candidateID = $account->getId();
-            $this->updateQualificationAction($candidateID);
-            $this->updateWorkExperienceAction($candidateID);
-            $this->updateSkillAction($candidateID);
+            $pref_qual = $this->updateQualificationAction($candidateID);
+            $pref_work = $this->updateWorkExperienceAction($candidateID);
+            $pref_skill = $this->updateSkillAction($candidateID);
+
+            error_log("Pref qual id: ".$pref_qual."\nPref work id is".$pref_work."\nPref skill id is".$pref_skill);
 
             $this->redirect('candidateHomePage');
         }
@@ -182,13 +184,21 @@ class CandidateController extends UserController
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setLevelId($_POST["$levelInput"]);
             $qualification->setTypeId($_POST["$typeInput"]);
+            $isPreferred = false;
+            if($qualificationCount == $_POST["qualification-preference"]){
+                $isPreferred = true;
+            }
             $qualificationCount--;
             try {
                 $qualification->save();
             } catch (\Exception $e) {
                 $this->redirect('errorPage');
             }
+            if($isPreferred){
+                $pref_id = $qualification->getId();
+            }
         }while ($qualificationCount >= 0);
+        return $pref_id;
     }
 
 
@@ -242,14 +252,21 @@ class CandidateController extends UserController
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
+            $isPreferred = false;
+            if($workExperienceCount == $_POST["work-experience-preference"]){
+                $isPreferred = true;
+            }
             $workExperienceCount--;
             try {
                 $workExperience->save();
             } catch (\Exception $e) {
                 $this->redirect('errorPage');
             }
+            if($isPreferred){
+                $pref_id = $workExperience->getId();
+            }
         }  while($workExperienceCount >= 0);
-
+        return $pref_id;
     }
 
 
@@ -307,15 +324,22 @@ class CandidateController extends UserController
             $skill->setField($_POST["$fieldInput"]);
             $skill->setSubField($_POST["$subFieldInput"]);
 
+            $isPreferred = false;
+            if($skillCount == $_POST["skill-preference"]){
+                $isPreferred = true;
+            }
+
             $skillCount--;
             try {
                 $skill->save();
             } catch (\Exception $e) {
                 $this->redirect('errorPage');
             }
+            if($isPreferred){
+                $pref_id = $skill->getId();
+            }
         }while($skillCount >= 0);
-
-
+        return $pref_id;
     }
 
 
