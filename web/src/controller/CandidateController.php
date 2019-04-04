@@ -376,7 +376,6 @@ class CandidateController extends UserController
 
     /**
      * Function to send a calendar invite
-
      */
     public function sendInviteAction(){
         try {
@@ -389,6 +388,40 @@ class CandidateController extends UserController
             $this->redirect('errorPage');
         }
 
+    }
+
+    /**
+     * will implement when i get home
+     */
+    public function updateTypesAction(){
+        try {
+            $qual = new QualificationModel();
+            $toConvert = $qual->getTypes();
+            echo"<option value=\"all\">all categories</option>";
+            foreach ($toConvert as $item){
+                echo "<option value=\"".$item['id']."\">".$item['type']."</option>";
+            }
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
+    }
+
+    /**
+     * will implement when i get home
+     */
+    public function updateLevelsAction(){
+        try {
+            $qual = new QualificationModel();
+            $toConvert = $qual->getLevels();
+            echo"<option value=\"all\">all subcategories</option>";
+            foreach ($toConvert as $item){
+                echo "<option value=\"".$item['id']."\">".$item['level']."</option>";
+            }
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
 

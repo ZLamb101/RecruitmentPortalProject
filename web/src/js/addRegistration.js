@@ -6,8 +6,11 @@
  */
 function addQualification(){
 	var count = document.getElementById("qualification-count");
-	var temp = count.getAttribute("value");
-	count.setAttribute("value", ++temp);
+	var it = count.getAttribute("value");
+	count.setAttribute("value", ++it);
+
+
+
 
 	var qual = document.createElement("div");                       // Create a <div> node
 
@@ -38,13 +41,15 @@ function addQualification(){
 
 
 
+
 	var level = document.createElement("select");
 	var levelString = "level";
-	levelString = fieldString.concat(it.toString(10));
+	levelString = levelString.concat(it.toString(10));
 
+	qual.appendChild(level);
 	level.setAttribute("name", levelString);
 	level.setAttribute("id", levelString);
-	qual.appendChild(level);
+
 
 	var type = document.createElement("select");
 	var typeString = "type";
@@ -55,9 +60,35 @@ function addQualification(){
 	qual.appendChild(type);
 
 
+	var yearP = document.createElement("p");
+	var yearLabel = document.createTextNode("Year.");
+	var year = document.createElement("input");
+	var yearString = "year";
+	yearString = yearString.concat(it.toString(10));
+	year.setAttribute("name",yearString);
+	year.setAttribute("type","text");
+	year.setAttribute("size",40);
+	year.setAttribute("pattern", "^[0-9]{4}$");
+	year.setAttribute("title", "YYYY format. Numeric characters only");
+
+	yearP.appendChild(yearLabel);
+	qual.appendChild(yearP);
+	qual.appendChild(year);
+
+
 
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
+
+	getLevels(function () {
+		document.getElementById(levelString).innerHTML = this.responseText;
+	})
+
+	getTypes(function () {
+		document.getElementById(typeString).innerHTML = this.responseText;
+	})
+
+	return false;
 
 }
 
@@ -131,6 +162,7 @@ function addWorkExperience(){
 	workex.appendChild(employer);
 
 	document.getElementById("work-experience").appendChild(workex);
+
 
 }
 
@@ -211,11 +243,8 @@ function addSkill(){
 
 
 function getFields(callback) {
- 
     xmlhttp = new XMLHttpRequest();
-    
     xmlhttp.open("GET", "populateFields.php?q=" , true);
-
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
@@ -225,17 +254,12 @@ function getFields(callback) {
             }
         }
     };
- 
     xmlhttp.send();
-  
 }
 
 function getTypes(callback) {
-
 	xmlhttp = new XMLHttpRequest();
-
-	xmlhttp.open("GET", "populateFields.php?q=" , true);
-
+	xmlhttp.open("GET", "populateTypes.php?q=" , true);
 	xmlhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			// defensive check
@@ -245,17 +269,12 @@ function getTypes(callback) {
 			}
 		}
 	};
-
 	xmlhttp.send();
-
 }
 
 function getLevels(callback) {
-
 	xmlhttp = new XMLHttpRequest();
-
-	xmlhttp.open("GET", "populateFields.php?q=" , true);
-
+	xmlhttp.open("GET", "populateLevels.php?q=" , true);
 	xmlhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
 			// defensive check
@@ -265,7 +284,5 @@ function getLevels(callback) {
 			}
 		}
 	};
-
 	xmlhttp.send();
-
 }
