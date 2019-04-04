@@ -27,20 +27,23 @@ function addQualification(){
 
 
 
-	var nameP = document.createElement("p");
-	var nameLabel = document.createTextNode("Name");
-	var name = document.createElement("input");
-	var nameString = "name";
-	nameString = nameString.concat(temp.toString(10));
-	name.setAttribute("type","text");
-	name.setAttribute("name", nameString);
-	name.setAttribute("size",40);
-	name.setAttribute("pattern", "^[a-zA-Z\\s-]+$");
-	name.setAttribute("title", "Alphabetic, '-' and space characters only");
+	var level = document.createElement("select");
+	var levelString = "level";
+	levelString = fieldString.concat(it.toString(10));
 
-	nameP.appendChild(nameLabel);
-	qual.appendChild(nameP);
-	qual.appendChild(name);
+	level.setAttribute("name", levelString);
+	level.setAttribute("id", levelString);
+	qual.appendChild(level);
+
+	var type = document.createElement("select");
+	var typeString = "type";
+	typeString = typeString.concat(it.toString(10));
+
+	type.setAttribute("name", typeString);
+	type.setAttribute("id", typeString);
+	qual.appendChild(type);
+
+
 
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
@@ -166,7 +169,7 @@ function addSkill(){
 
 	document.getElementById("skills").appendChild(skill);
 
-	get(function () {
+	getFields(function () {
         document.getElementById(fieldString).innerHTML = this.responseText;
     })
     return false;
@@ -175,7 +178,7 @@ function addSkill(){
 
 
 
-function get(callback) {
+function getFields(callback) {
  
     xmlhttp = new XMLHttpRequest();
     
@@ -193,4 +196,44 @@ function get(callback) {
  
     xmlhttp.send();
   
+}
+
+function getTypes(callback) {
+
+	xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.open("GET", "populateFields.php?q=" , true);
+
+	xmlhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// defensive check
+			if (typeof callback === "function") {
+				// apply() sets the meaning of "this" in the callback
+				callback.apply(xmlhttp);
+			}
+		}
+	};
+
+	xmlhttp.send();
+
+}
+
+function getLevels(callback) {
+
+	xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.open("GET", "populateFields.php?q=" , true);
+
+	xmlhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			// defensive check
+			if (typeof callback === "function") {
+				// apply() sets the meaning of "this" in the callback
+				callback.apply(xmlhttp);
+			}
+		}
+	};
+
+	xmlhttp.send();
+
 }
