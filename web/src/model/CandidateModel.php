@@ -1,9 +1,9 @@
 <?php
 namespace bjz\portal\model;
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+
 /**
  * Class CandidateModel
  *
@@ -233,9 +233,9 @@ class CandidateModel extends UserModel
         
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
-        $given = $this->f_name ?? "NULL";
+        $given = $this->g_name ?? "NULL";
         $given = $this->db->real_escape_string($given);
-        $family = $this->g_name ?? "NULL";
+        $family = $this->f_name ?? "NULL";
         $family = $this->db->real_escape_string($family);
         $location = $this->location ?? "NULL";
         $location = $this->db->real_escape_string($location);
@@ -249,7 +249,7 @@ class CandidateModel extends UserModel
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
-            if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `g_name` = '$given', `f_name` = '$family', 
+            if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `f_name` = '$family', `g_name` = '$given', 
                                               `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id;")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
@@ -260,38 +260,45 @@ class CandidateModel extends UserModel
 
 
     /**
-     * This function sends a confirmation to users email when account has been created.
-     * To be completed
+     * This function sends a email when a user is recovering their password
+     *
      */
-    public function sendConfirmationEmail($email, $username)
+    public function sendInviteEmail($email)
     {
 
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 
-            //Server settings
-            $mail->SMTPDebug = false;                                 // Enable verbose debug output
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
-            $mail->Username = 'Vestarecruit@gmail.com';                 // SMTP username
-            $mail->Password = 'Bobtool22';                           // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 587;
+        //Server settings
+        $mail->SMTPDebug = false;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'Vestarecruit@gmail.com';                 // SMTP username
+        $mail->Password = 'Bobtool22';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;
 
-            // TCP port to connect to
-            //Recipients
-            $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
-            $mail->addAddress($email, $this->g_name);     // Add a recipient
-            $mail->addBCC('Vestarecruit@gmail.com');
-            //Content
+        // TCP port to connect to
+        //Recipients
+        $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
+        $mail->addAddress($email);     // Add a recipient
+        $mail->addBCC('Vestarecruit@gmail.com');
+        //Content
 
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Vesta Recruit Account Confirmation';
-            $mail->Body = 'Welcome to Vesta Recruit, ' . $username . ' we have confirmed your details and your account has been registered. To begin using Vesta Recruit, head back to our website and login!';
-            $mail->AltBody = 'Welcome to Vesta Recruit, ' . $username . ' we have confirmed your details and your account has been registered. To begin using Vesta Recruit, head back to our website and login!';
-        error_log("email attempt");
-            $mail->send();
-            // echo 'Message has been sent';
-        error_log("email sent");
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Vesta Recruit Password Recovery';
+        $mail->Body = 'Hi, You are Invited....';
+        $mail->AltBody = 'Hi, You are Invited....';
+
+        $mail->send();
+        // echo 'Message has been sent';
+
     }
+
+
+
+
+
+
+
 }

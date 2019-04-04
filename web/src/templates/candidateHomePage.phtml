@@ -37,8 +37,10 @@ include "header.phtml"
                     <p>Qualifications</p>
                     <?php $qualifications = $candidateInfo->getQualifications();
                     foreach ($qualifications as $qual){
+
+                        echo "<p>Level: ".$qual->findLevel($qual->getLevelId())."</p>";
+                        echo "<p>Type: ".$qual->findType($qual->getTypeId())."</p>";
                         echo "<p>Year: ".$qual->getYear()."</p>";
-                        echo "<p>Name: ".$qual->getName()."</p>";
                     } ?>
                 </div>
 

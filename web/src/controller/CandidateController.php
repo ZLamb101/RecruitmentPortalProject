@@ -27,7 +27,7 @@ class CandidateController extends UserController
         if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             try{
                 $account = new CandidateModel();
-                $account->load($_SESSION[UserID]);
+                $account->load($_SESSION['UserID']);
                 $view = new View('candidateHomePage');
                 echo $view->addData('candidateInfo', $account)->render();
             } catch (\Exception $e){
@@ -51,7 +51,7 @@ class CandidateController extends UserController
         if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             try{
                 $account = new CandidateModel();
-                $account->load($_SESSION[UserID]);
+                $account->load($_SESSION['UserID']);
                 $view = new View('candidateEditInfoPage');
                 echo $view->addData('candidateInfo', $account)->render();
             } catch (\Exception $e){
@@ -149,7 +149,7 @@ class CandidateController extends UserController
         $this->createSkillAction($candidateID);
 
         try {
-            $account->sendConfirmationEmail($_POST['email'], $_POST['username']);
+            $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
@@ -168,13 +168,20 @@ class CandidateController extends UserController
             $qualification = new QualificationModel();
 
             $idInput = 'id'.$qualificationCount;
+            error_log("Check Qual ID : ");
+            error_log($_POST["$idInput"]);
             $qualification->load($_POST["$idInput"]);
             $yearInput = 'year'.$qualificationCount;
-            $nameInput = 'name'.$qualificationCount;
-            if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
+            $levelInput = 'level'.$qualificationCount;
+            $typeInput = 'type'.$qualificationCount;
+            if($_POST["$yearInput"] == NULL || $_POST["$levelInput"] == NULL || $_POST["$typeInput"] == NULL){
+                $qualificationCount--;
+                continue;
+            }
             $qualification->setOwnerId($candidateID);
             $qualification->setYear($_POST["$yearInput"]);
-            $qualification->setName($_POST["$nameInput"]);
+            $qualification->setLevelId($_POST["$levelInput"]);
+            $qualification->setTypeId($_POST["$typeInput"]);
             $qualificationCount--;
             try {
                 $qualification->save();
@@ -194,11 +201,16 @@ class CandidateController extends UserController
         do{
             $qualification = new QualificationModel();
             $yearInput = 'year'.$qualificationCount;
-            $nameInput = 'name'.$qualificationCount;
-            if($_POST["$yearInput"] == NULL || $_POST["$nameInput"] == NULL) break;
+            $levelInput = 'level'.$qualificationCount;
+            $typeInput = 'type'.$qualificationCount;
+            if($_POST["$yearInput"] == NULL || $_POST["$levelInput"] == NULL || $_POST["$typeInput"] == NULL){
+                $qualificationCount--;
+                continue;
+            }
             $qualification->setOwnerId($candidateID);
             $qualification->setYear($_POST["$yearInput"]);
-            $qualification->setName($_POST["$nameInput"]);
+            $qualification->setLevelId($_POST["$levelInput"]);
+            $qualification->setTypeId($_POST["$typeInput"]);
             $qualificationCount--;
             try {
                 $qualification->save();
@@ -222,8 +234,11 @@ class CandidateController extends UserController
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
-            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
-            $workExperience->setOwnerId($candidateID);
+            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) {
+                $workExperienceCount--;
+                continue;
+            }
+            $workExperience->setOwnerId($CandidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
@@ -249,7 +264,10 @@ class CandidateController extends UserController
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
-            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) break;
+            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) {
+                $workExperienceCount--;
+                continue;
+            }
             $workExperience->setOwnerId($candidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
@@ -280,7 +298,10 @@ class CandidateController extends UserController
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
-            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) {
+                $skillCount--;
+                continue;
+            }
             $skill->setOwnerId($candidateID);
             $skill->setContents($_POST["$contentsInput"]);
             $skill->setField($_POST["$fieldInput"]);
@@ -309,7 +330,10 @@ class CandidateController extends UserController
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
-            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) break;
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) {
+                $skillCount--;
+                continue;
+            }
             $skill->setOwnerId($candidateID);
             $skill->setContents($_POST["$contentsInput"]);
             $skill->setField($_POST["$fieldInput"]);
@@ -326,5 +350,42 @@ class CandidateController extends UserController
     }
 
 
+    /**
+     * Function to send a calendar invite
+
+     */
+    public function sendInviteAction(){
+        try {
+            $account = new CandidateModel();
+            $accountId = $account->findID($_POST['username']);
+            $account->load($accountId);
+            $email = $account->getEmail();
+            $account->sendInviteEmail($email);
+        } catch (\Exception $e) {
+            $this->redirect('errorPage');
+        }
+
+    }
+
+
+
+    public function deleteWorkExperienceAction(){
+        $id = $_GET["q"];
+        $model = new WorkExperienceModel();
+        $model->delete($id);
+    }
+
+    public function deleteSkillAction(){
+        $id = $_GET["q"];
+        $model = new SkillModel();
+        $model->delete($id);
+    }
+
+
+    public function deleteQualificationAction(){
+        $id = $_GET["q"];
+        $model = new QualificationModel();
+        $model->delete($id);
+    }
 
 }
