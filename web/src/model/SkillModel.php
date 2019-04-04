@@ -80,6 +80,7 @@ class SkillModel extends Model
      */
     public function getField()
     {
+
         return $this->field;
     }
 
@@ -161,14 +162,19 @@ class SkillModel extends Model
      */
     public function save()
     {
-
+        error_log("skill save attempt");
+        error_log($this->id);
         $owner_id = $this->owner_id ?? "NULL";
+        error_log($owner_id);
         $field = $this->field ?? "NULL";
         $field = $this->db->real_escape_string($field);
+        error_log($field);
         $sub_field = $this->sub_field ?? "NULL";
         $sub_field = $this->db->real_escape_string($sub_field);
+        error_log($sub_field);
         $contents = $this->contents ?? "NULL";
         $contents = $this->db->real_escape_string($contents);
+        error_log($contents);
 
         if (!isset($this->id)) {
             if (!$result = $this->db->query("INSERT INTO `skill` VALUES (NULL, '$owner_id', '$field', '$sub_field', '$contents');")){
@@ -176,7 +182,8 @@ class SkillModel extends Model
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `skill` SET `owner_id` = '$owner_id', `field` = '$field', `sub_field` = '$sub_field', `contents` = '$contents' 
+            error_log("update call");
+            if (!$result = $this->db->query("UPDATE `skill` SET `owner_id` = '$owner_id', `field_id` = '$field', `sub_field_id` = '$sub_field', `contents` = '$contents' 
                                               WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillSaveExisting");
             }
@@ -193,6 +200,21 @@ class SkillModel extends Model
      */
     public function getFieldID($name){
         if(!$result = $this->db->query("SELECT `id` FROM `field` WHERE `field` = '$name';")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
+        }
+        $result = $result->fetch_assoc();
+        return $result['id'];
+    }
+
+    /**
+     * Function to get the ID associated with a field
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
+     */
+    public function getSubFieldID($name){
+        if(!$result = $this->db->query("SELECT `id` FROM `sub_field` WHERE `sub_field` = '$name';")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
         }
         $result = $result->fetch_assoc();

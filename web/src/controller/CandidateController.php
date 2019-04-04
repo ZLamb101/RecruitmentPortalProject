@@ -239,7 +239,7 @@ class CandidateController extends UserController
      * Function to load and update a Work Experience
      * Takes the inputs from post request and updates a Work Experience
      */
-    public function updateWorkExperienceAction($CandidateID){
+    public function updateWorkExperienceAction($candidateID){
         $workExperienceCount = $_POST['work-experience-count'];
         do{
             $workExperience = new WorkExperienceModel();
@@ -249,10 +249,11 @@ class CandidateController extends UserController
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
             if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) {
+                echo("skip");
                 $workExperienceCount--;
                 continue;
             }
-            $workExperience->setOwnerId($CandidateID);
+            $workExperience->setOwnerId($candidateID);
             $workExperience->setRole($_POST["$roleInput"]);
             $workExperience->setDuration($_POST["$durationInput"]);
             $workExperience->setEmployer($_POST["$employerInput"]);
@@ -262,6 +263,7 @@ class CandidateController extends UserController
             }
             $workExperienceCount--;
             try {
+
                 $workExperience->save();
             } catch (\Exception $e) {
                 $this->redirect('errorPage');

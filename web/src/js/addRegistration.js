@@ -19,36 +19,37 @@ function addQualification(){
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
 	pref.setAttribute("name", "qualification-preference");
-	pref.setAttribute("value", temp);
+	pref.setAttribute("value", it);
 	prefP.appendChild(prefLabel);
 	qual.appendChild(prefP);
 	qual.appendChild(pref);
-
-	var yearP = document.createElement("p");
-	var yearLabel = document.createTextNode("Year.");      
-	var year = document.createElement("input");
-	var yearString = "year";
-	yearString = yearString.concat(temp.toString(10));
-	year.setAttribute("name",yearString);
-	year.setAttribute("type","text");
-	year.setAttribute("size",40);
-	year.setAttribute("pattern", "^[0-9]{4}$");
-	year.setAttribute("title", "YYYY format. Numeric characters only");
-
-	yearP.appendChild(yearLabel);
-	qual.appendChild(yearP);
-	qual.appendChild(year);
-
-
+    //
+	// var yearP = document.createElement("p");
+	// var yearLabel = document.createTextNode("Year.");
+	// var year = document.createElement("input");
+	// var yearString = "year";
+	// yearString = yearString.concat(it.toString(10));
+	// year.setAttribute("name",yearString);
+	// year.setAttribute("type","text");
+	// year.setAttribute("size",40);
+	// year.setAttribute("pattern", "^[0-9]{4}$");
+	// year.setAttribute("title", "YYYY format. Numeric characters only");
+    //
+	// yearP.appendChild(yearLabel);
+	// qual.appendChild(yearP);
+	// qual.appendChild(year);
+    //
+    //
 
 
 	var level = document.createElement("select");
 	var levelString = "level";
 	levelString = levelString.concat(it.toString(10));
 
-	qual.appendChild(level);
+
 	level.setAttribute("name", levelString);
 	level.setAttribute("id", levelString);
+    qual.appendChild(level);
 
 
 	var type = document.createElement("select");
@@ -79,7 +80,6 @@ function addQualification(){
 
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
-
 	getLevels(function () {
 		document.getElementById(levelString).innerHTML = this.responseText;
 	})

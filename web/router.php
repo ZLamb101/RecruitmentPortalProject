@@ -230,7 +230,7 @@ $collection->attachRoute(
     new Route(
         '/populateLevels.php',
         array(
-        '_controller' => 'bjz\portal\controller\QualificationController::updateLevelsAction',
+        '_controller' => 'bjz\portal\controller\CandidateController::updateLevelsAction',
             'methods' => 'GET',
             'name' => 'levels'
         )
@@ -241,7 +241,7 @@ $collection->attachRoute(
     new Route(
         '/populateTypes.php',
         array(
-            '_controller' => 'bjz\portal\controller\QualificationController::updateTypesAction',
+            '_controller' => 'bjz\portal\controller\CandidateController::updateTypesAction',
             'methods' => 'GET',
             'name' => 'types'
         )
