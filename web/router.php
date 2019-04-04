@@ -228,6 +228,28 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
+        '/populateLevels.php',
+        array(
+        '_controller' => 'bjz\portal\controller\QualificationController::updateFieldsAction',
+            'methods' => 'GET',
+            'name' => 'levels'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/populateTypes.php',
+        array(
+            '_controller' => 'bjz\portal\controller\QualificationController::updateFieldsAction',
+            'methods' => 'GET',
+            'name' => 'types'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
         '/livesearch.php',
         array(
             '_controller' => 'bjz\portal\controller\SearchController::liveSearchAction',
