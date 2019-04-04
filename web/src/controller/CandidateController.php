@@ -168,9 +168,9 @@ class CandidateController extends UserController
             $qualification = new QualificationModel();
 
             $idInput = 'id'.$qualificationCount;
-            error_log("Check Qual ID : ");
-            error_log($_POST["$idInput"]);
-            $qualification->load($_POST["$idInput"]);
+
+            $idInput = $_POST["$idInput"];
+            $qualification->load($idInput);
             $yearInput = 'year'.$qualificationCount;
             $levelInput = 'level'.$qualificationCount;
             $typeInput = 'type'.$qualificationCount;

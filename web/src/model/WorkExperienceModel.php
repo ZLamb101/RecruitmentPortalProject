@@ -154,14 +154,14 @@ class WorkExperienceModel extends Model
         $employer = $this->db->real_escape_string($employer);
         $duration = $this->duration ?? "NULL";
         $duration = $this->db->real_escape_string($duration);
-        if (!isset($id)) {
+        if (!isset($this->id)) {
             if (!$result = $this->db->query("INSERT INTO `work_experience` VALUES (NULL, '$owner_id', '$role', '$employer', '$duration');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer' 
-                                              `duration` = '$duration' WHERE `id` = '$id';")){
+                                              `duration` = '$duration' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
         }

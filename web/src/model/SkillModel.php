@@ -170,14 +170,14 @@ class SkillModel extends Model
         $contents = $this->contents ?? "NULL";
         $contents = $this->db->real_escape_string($contents);
 
-        if (!isset($id)) {
+        if (!isset($this->id)) {
             if (!$result = $this->db->query("INSERT INTO `skill` VALUES (NULL, '$owner_id', '$field', '$sub_field', '$contents');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             if (!$result = $this->db->query("UPDATE `skill` SET `owner_id` = '$owner_id', `field` = '$field', `sub_field` = '$sub_field', `contents` = '$contents' 
-                                              WHERE `id` = '$id';")){
+                                              WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillSaveExisting");
             }
         }
