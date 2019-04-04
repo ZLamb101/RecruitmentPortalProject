@@ -29,6 +29,68 @@ class SearchCandidateCollectionModel extends Model
         return $this->N;
     }
 
+    /***
+     * Determines the correct SQL clause condition based on the availability
+     * selected by the user.
+     * @return string, the string to be appended to the SQL query
+     */
+    public function evaluateAvailability(){
+        $availability = 0;
+        if(isset($_POST['full-time'])) $availability += 8;
+        if(isset($_POST['part-time'])) $availability +=4;
+        if(isset($_POST['casual'])) $availability +=2;
+        if(isset($_POST['contractor'])) $availability +=1;
+        $required = "";
+        switch ($availability){
+            case 1:
+                $required .= " AND `candidate`.`availability` IN (1,3,5,7,9,11,13,15)";
+                break;
+            case 2:
+                $required .= " AND `candidate`.`availability` IN (2,3,6,7,10,11,14,15)";
+                break;
+            case 3:
+                $required .= " AND `candidate`.`availability` IN (1,2,3,5,6,7,9,10,11,13,14,15)";
+                break;
+            case 4:
+                $required .= " AND `candidate`.`availability` IN (4,5,6,7,12,13,14,15)";
+                break;
+            case 5:
+                $required .= " AND `candidate`.`availability` IN (1,3,4,5,6,7,9,11,12,13,14,15)";
+                break;
+            case 6:
+                $required .= " AND `candidate`.`availability` IN (2,3,4,5,6,7,10,11,12,13,14,15)";
+                break;
+            case 7:
+                $required .= " AND `candidate`.`availability` IN (1,2,3,4,5,6,7,9,10,11,12,13,14,15)";
+                break;
+            case 8:
+                $required .= " AND `candidate`.`availability` IN (8,9,10,11,12,13,14,15)";
+                break;
+            case 9:
+                $required .= " AND `candidate`.`availability` IN (1,3,5,7,8,9,10,11,12,13,14,15)";
+                break;
+            case 10:
+                $required .= " AND `candidate`.`availability` IN (2,3,6,7,8,9,10,11,12,13,14,15)";
+                break;
+            case 11:
+                $required .= " AND `candidate`.`availability` IN (1,2,3,5,6,7,8,9,10,11,12,13,14,15)";
+                break;
+            case 12:
+                $required .= " AND `candidate`.`availability` IN (4,5,6,7,8,9,10,11,12,13,14,15)";
+                break;
+            case 13:
+                $required .= " AND `candidate`.`availability` IN (1,3,4,5,6,7,8,9,10,11,12,13,14,15)";
+                break;
+            case 14:
+                $required .= " AND `candidate`.`availability` IN (2,3,4,5,6,7,8,9,10,11,12,13,14,15)";
+                break;
+            default:
+                $required .= " AND `candidate`.`availability` IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)";
+                break;
+        }
+        return $required;
+    }
+
     /**
      * Constructor
      *
@@ -41,26 +103,36 @@ class SearchCandidateCollectionModel extends Model
      */
     public function __construct($query, $field_id, $sub_field_id)
     {
-        error_log("Next line is query");
-        error_log($query);
         parent::__construct();
-        if($sub_field_id == "all"){
-            // Case for searching all subfields in a field
+        $required = $this->evaluateAvailability();
+        error_log("required string is: ".$required);
+        if(($sub_field_id == "all") && (strlen($query) == 0)){
+            // Case for searching all subfields in a field, with no string given
+            if (!$result = $this->db->query("SELECT DISTINCT `user_id`
+                                         FROM `candidate` 
+                                         LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
+                                         WHERE `skill`.`field_id` = '$field_id'". $required ."
+                                         ;")) {
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+            }
+        } else if ( ($sub_field_id == "all") && (strlen($query) != 0) ) {
+            // Case for searching all subfields in a field, with a search query string
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
+                                         AND `skill`.`contents` LIKE '%{$query}%'". $required ."
                                          ;")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
             }
-        } else if(strlen($query) == 0){
+        } else if( ($sub_field_id != "all") && (strlen($query) == 0) ){
             // Case for searching a subfield without a specific string
             error_log("Trying to search a subfield without a string");
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
-                                         AND `skill`.`sub_field_id` = '$sub_field_id'
+                                         AND `skill`.`sub_field_id` = '$sub_field_id'". $required ."
                                          ;")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
             }
@@ -71,7 +143,7 @@ class SearchCandidateCollectionModel extends Model
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
                                          AND `skill`.`sub_field_id` = '$sub_field_id'
-                                         AND `skill`.`contents` LIKE '%{$query}%' 
+                                         AND `skill`.`contents` LIKE '%{$query}%'". $required ." 
                                          ;")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
             }
