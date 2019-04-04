@@ -13,7 +13,6 @@ function deleteWorkExperience(number, id){
 
     var numOfExperience = document.getElementById("work-experience-count").value
     for(var i = (number+1); i < numOfExperience; i++){
-        alert(i);
         var temp = "role" + i;
         var temp2 = "role" + (i-1);
         document.getElementById(temp).id = temp2;
@@ -44,7 +43,6 @@ function deleteSkill(number, id){
 
     var numOfExperience = document.getElementById("skill-count").value
     for(var i = (number+1); i < numOfExperience; i++){
-        alert(i);
         var temp = "sub-field" + i;
         var temp2 = "sub-field" + (i-1);
         document.getElementById(temp).id = temp2;
@@ -75,7 +73,6 @@ function deleteQualification(number, id){
 
     var numOfExperience = document.getElementById("qualification-count").value
     for(var i = (number+1); i < numOfExperience; i++){
-        alert(i);
         var temp = "year" + i;
         var temp2 = "year" + (i-1);
         document.getElementById(temp).id = temp2;
