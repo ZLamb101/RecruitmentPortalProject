@@ -261,6 +261,17 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
+        '/addToShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\SearchController::addToShortListAction',
+            'methods' => 'GET',
+            'name' => 'addToShortList'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
         '/Update-Employer-Data',
         array(
             '_controller' => 'bjz\portal\controller\EmployerController::updateAccountAction',
