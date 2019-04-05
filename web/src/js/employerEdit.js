@@ -35,6 +35,10 @@ function deleteFromShortList(listID, candidateID, divID, titleID) {
             var header = "shortList" + titleID;
             var elem = document.getElementById(header);
             elem.parentNode.removeChild(elem);
+
+            var rename = "re-name" + titleID;
+            elem = document.getElementById(rename);
+            elem.parentNode.removeChild(elem);
         }
     })
     var str = "cand" + divID;
