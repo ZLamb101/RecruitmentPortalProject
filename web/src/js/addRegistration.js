@@ -13,6 +13,7 @@ function addQualification(){
 
 
 	var qual = document.createElement("div");                       // Create a <div> node
+	qual.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -101,6 +102,7 @@ function addWorkExperience(){
 
 
 	var workex = document.createElement("div");                       // Create a <div> node
+    workex.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -170,6 +172,7 @@ function addSkill(){
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
+    skill.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -220,7 +223,7 @@ function addSkill(){
 	contentsString = contentsString.concat(it.toString(10));
 	contents.setAttribute("name", contentsString);
 	contents.setAttribute("type","text");
-	contents.setAttribute("size",100);
+	contents.setAttribute("size",40);
 	//contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);

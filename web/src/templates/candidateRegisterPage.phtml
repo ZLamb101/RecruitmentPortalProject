@@ -2,8 +2,7 @@
 include "header.phtml"
 ?>
     <script type = "text/javascript" src="src/js/validateForm.js"></script>
- <script type = "text/javascript" src="src/js/addRegistration.js"></script>
-    <script type="text/javascript" src="src/js/populateSubFields.js"></script>
+
 
     <!---------- Body starts --------------->
 
@@ -29,59 +28,6 @@ include "header.phtml"
 
                     <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only"> </p>
                     <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only"> </p>
-
-
-                    <div id="work-experience">
-                        <p>Work Experience</p>
-                        <p>Role: <input type=text name="role0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
-                        <p>Duration (in months): <input type=text name="duration0" size="40" pattern="^[0-9]+$" title="Numeric characters only"> </p>
-                        <p>Employer: <input type=text name="employer0" size="40" pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only"> </p>
-                        <input type="hidden" value="0" name="work-experience-count" id="work-experience-count">
-                    </div>
-                    <input type="button" id="add-work-experience" value="Add" onclick="addWorkExperience()">
-
-                    <div id="qualifications">
-                        <p>Qualifications</p>
-                        <p>Year: <input type=text name="year0" size="40" pattern="^\d{4}$" title="YYYY format. Numeric characters only"> </p>
-                        <p>Name: <input type=text name="name0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only"> </p>
-                        <input type="hidden" value="0" name="qualification-count" id="qualification-count">
-                    </div>
-                    <input type="button" id="add-qualification" value="Add" onclick="addQualification()">
-
-                     <div id="skills">
-                        <p>Skills</p>
-                        <p>Field: </p> 
-                        <select id="field0" name="field0" onclick="updateFields(this)">
-                            <option>All Categories</option>
-                            <?php foreach ($Fields as $field){
-                                echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
-                            } ?>
-
-                        </select>
-                        <p>Sub-Field:  </p>
-                        <select name="sub-field0" id="sub-field0">
-                            <option value="all">all subcategories</option>
-                        </select>
-
-                        <p>About: <input type=text name="contents0" size="40" pattern="^[a-zA-Z\s-]+$" title="Alphabetic, '-' and space characters only">
-                        <input type="hidden" value="0" name="skill-count" id="skill-count">
-                    </div>
-
-                    <input type="button" id="add-skill" value="Add" onclick="addSkill()">
-
-
-
-                    <div id="availability" name="availability">
-                        <p>Availability</p>
-                        <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
-                        <label for="fullTime">Full Time</label>
-                        <input type="checkbox" value="partTime" name="part-time" id="part-time">
-                        <label for="partTime">Part Time</label>
-                        <input type="checkbox" value="casual" name="casual" id="casual">
-                        <label for="casual">Casual</label>
-                        <input type="checkbox" value="contractor" name="contractor" id="contractor">
-                        <label for="contractor">Contractor</label>
-                    </div>
 
             </div>
 

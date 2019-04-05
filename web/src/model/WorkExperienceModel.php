@@ -144,29 +144,20 @@ class WorkExperienceModel extends Model
      */
     public function save()
     {
-        error_log("work ex save attempt");
-       // $id = $this->id ?? NULL;
-      //  $id = $this->db->real_escape_string($id);
-        error_log($this->id);
+
         $owner_id = $this->owner_id ?? "NULL";
-        error_log($owner_id);
-       // $owner_id = $this->db->real_escape_string($owner_id);
         $role = $this->role ?? "NULL";
         $role = $this->db->real_escape_string($role);
-        error_log($role);
         $employer = $this->employer ?? "NULL";
         $employer = $this->db->real_escape_string($employer);
-        error_log($employer);
         $duration = $this->duration ?? "NULL";
         $duration = $this->db->real_escape_string($duration);
-        error_log($duration);
         if (!isset($this->id)) {
             if (!$result = $this->db->query("INSERT INTO `work_experience` VALUES (NULL, '$owner_id', '$role', '$employer', '$duration');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            error_log("update call");
             if (!$result = $this->db->query("UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer', 
                                               `duration` = '$duration' WHERE `id` = $this->id;")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");

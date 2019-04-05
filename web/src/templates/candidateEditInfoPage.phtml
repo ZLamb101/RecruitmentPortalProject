@@ -17,13 +17,15 @@ include "header.phtml"
 
 		   <div id="registration">
                 <form method="POST" name="registration" action="<?= $linkTo('updateCandidateData'); ?>" >
-                <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
-                <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
-                <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
-                <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
+                    <div class="partition">
+                        <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
+                        <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
+                        <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
+                        <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
 
-                <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
-                <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
+                        <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
+                        <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
+                    </div>
                 <div id="work-experience">
                     <p>Work Experience</p>
                     <?php $workExperience = $candidateInfo->getWorkExperience();
@@ -31,9 +33,9 @@ include "header.phtml"
 
                     foreach ($workExperience as $work){
                         $id = $work->getId();
-                        echo "<div id = \"workExperience".$i."\">";
+                        echo "<div id = \"workExperience".$i."\" class = \"partition\">";
                         echo "<input type=\"button\" id=\"delete-work-experience\"".$i." value = \"Delete\" onclick=\"deleteWorkExperience(".$i.", ".$id.")\">";
-                        echo "<p>The corresponding id is : $id</p>";
+
                         $role = "role".$i;
                         $duration = "duration".$i;
                         $employer = "employer".$i;
@@ -51,7 +53,7 @@ include "header.phtml"
                         $i++;
                         echo "</div>";
                     }
-                    echo "<p>$i</p>";
+
                     $i--;
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"work-experience-count\" id=\"work-experience-count\">"?>
                 </div>
@@ -62,7 +64,7 @@ include "header.phtml"
                     <?php $qualifications = $candidateInfo->getQualifications();
                     $i = 0;
                     foreach ($qualifications as $qual){
-                        echo "<div id = \"qualification".$i."\">";
+                        echo "<div id = \"qualification".$i."\" class = \"partition\">";
                         $id = $qual->getId();
                         echo "<input type=\"button\" id=\"delete-qualification\"".$i." value = \"Delete\" onclick=\"deleteQualification(".$i.", ".$id.")\">";
                         $allLevels = $qual->getLevels();
@@ -72,7 +74,7 @@ include "header.phtml"
                         $type = "type".$i;
                         $qualId = "id".$i;
                         $qualId2 = "qualId".$i;
-                        echo "<p>The corresponding id is : $id</p>";
+
 
                         if($candidateInfo->getPreferredQualification() != $id) {
                             echo "<p>Preferred: <input type=radio value=\"" . $i . "\" name='qualification-preference'></p>";
@@ -110,7 +112,7 @@ include "header.phtml"
                         $i++;
                         echo "</div>";
                     }
-                    echo "<p>$i</p>";
+
                     $i--;
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"qualification-count\" id=\"qualification-count\">"?>
                 </div>
@@ -122,9 +124,8 @@ include "header.phtml"
                     $i = 0;
 
                     foreach ($skills as $skill){
-                        echo "<div id = \"skill".$i."\">";
+                        echo "<div id = \"skill".$i."\" class = \"partition\">";
                         $id = $skill->getId();
-                        echo "<p>The corresponding id is : $id</p>";
                         echo "<input type=\"button\" id=\"delete-skill\"".$i." value = \"Delete\" onclick=\"deleteSkill(".$i.", ".$id.")\">";
 
                         if($candidateInfo->getPreferredSkill() != $id) {
@@ -170,7 +171,6 @@ include "header.phtml"
                         $i++;
                         echo "</div>";
                     }
-                    echo "<p>$i</p>";
                     $i--;
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"skill-count\" id=\"skill-count\">";
                     ?>
