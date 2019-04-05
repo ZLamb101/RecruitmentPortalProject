@@ -4,33 +4,38 @@
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperience(number, id){
-    xmlhttp = new XMLHttpRequest();
+    if(document.getElementById("work-experience-count").value > 1) {
+        xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "deleteWorkExperience.php?q=" + id, true);
 
-    xmlhttp.send();
-    var divToDelete = "workExperience" + number;
-    document.getElementById(divToDelete).innerHTML = "";
+        xmlhttp.open("GET", "deleteWorkExperience.php?q=" + id, true);
 
-    var numOfExperience = document.getElementById("work-experience-count").value
-    for(var i = (number+1); i < numOfExperience; i++){
-        var temp = "role" + i;
-        var temp2 = "role" + (i-1);
-        document.getElementById(temp).id = temp2;
+        xmlhttp.send();
+        var divToDelete = "workExperience" + number;
+        document.getElementById(divToDelete).innerHTML = "";
 
-        var temp = "duration" + i;
-        var temp2 = "duration" + (i-1);
-        document.getElementById(temp).id = temp2;
+        var numOfExperience = document.getElementById("work-experience-count").value
+        for (var i = (number + 1); i < numOfExperience; i++) {
+            var elementId = "role" + i;
+            var newElementId = "role" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "employer" + i;
-        var temp2 = "employer" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "duration" + i;
+            newElementId = "duration" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "workId" + i;
-        var temp2 = "workId" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "employer" + i;
+            newElementId = "employer" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+
+            elementId = "workId" + i;
+            newElementId = "workId" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+        }
+        document.getElementById("work-experience-count").value = (numOfExperience - 1);
+    }else{
+        alert("You cannot delete your last work experience");
     }
-    document.getElementById("work-experience-count").value = (numOfExperience-1);
 }
 
 /**
@@ -38,33 +43,37 @@ function deleteWorkExperience(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteSkill(number, id){
-    xmlhttp = new XMLHttpRequest();
+    if(document.getElementById("skill-count").value > 1) {
+        xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
+        xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
 
-    xmlhttp.send();
-    var divToDelete = "skill" + number;
-    document.getElementById(divToDelete).innerHTML = "";
+        xmlhttp.send();
+        var divToDelete = "skill" + number;
+        document.getElementById(divToDelete).innerHTML = "";
 
-    var numOfExperience = document.getElementById("skill-count").value
-    for(var i = (number+1); i < numOfExperience; i++){
-        var temp = "sub-field" + i;
-        var temp2 = "sub-field" + (i-1);
-        document.getElementById(temp).id = temp2;
+        var numOfExperience = document.getElementById("skill-count").value
+        for (var i = (number + 1); i < numOfExperience; i++) {
+            var elementId = "sub-field" + i;
+            var newElementId = "sub-field" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "field" + i;
-        var temp2 = "field" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "field" + i;
+            newElementId = "field" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "contents" + i;
-        var temp2 = "contents" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "contents" + i;
+            newElementId = "contents" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "skillId" + i;
-        var temp2 = "skillId" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "skillId" + i;
+            newElementId = "skillId" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+        }
+        document.getElementById("skill-count").value = (numOfExperience - 1);
+    }else{
+        alert("You cannot delete your last qualification");
     }
-    document.getElementById("skill-count").value = (numOfExperience-1);
 }
 
 /**
@@ -72,27 +81,37 @@ function deleteSkill(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualification(number, id){
-    xmlhttp = new XMLHttpRequest();
+    if(document.getElementById("qualification-count").value > 1) {
+        xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "deleteQualification.php?q=" + id, true);
+        xmlhttp.open("GET", "deleteQualification.php?q=" + id, true);
 
-    xmlhttp.send();
-    var divToDelete = "qualification" + number;
-    document.getElementById(divToDelete).innerHTML = "";
+        xmlhttp.send();
+        var divToDelete = "qualification" + number;
+        document.getElementById(divToDelete).innerHTML = "";
 
-    var numOfExperience = document.getElementById("qualification-count").value
-    for(var i = (number+1); i < numOfExperience; i++){
-        var temp = "year" + i;
-        var temp2 = "year" + (i-1);
-        document.getElementById(temp).id = temp2;
+        var numOfExperience = document.getElementById("qualification-count").value
+        for (var i = (number + 1); i < numOfExperience; i++) {
+            var elementId = "year" + i;
+            var newElementId = "year" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "name" + i;
-        var temp2 = "name" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "level" + i;
+            newElementId = "level" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
 
-        var temp = "qualId" + i;
-        var temp2 = "qualId" + (i-1);
-        document.getElementById(temp).id = temp2;
+            elementId = "type" + i;
+            newElementId = "type" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+
+            elementId = "qualId" + i;
+            newElementId = "qualId" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+        }
+        alert(document.getElementById("qualification-count").value);
+        document.getElementById("qualification-count").value = (numOfExperience - 1);
+        alert(document.getElementById("qualification-count").value);
+    }else{
+        alert("You cannot delete your last work experience");
     }
-    document.getElementById("qualification-count").value = (numOfExperience-1);
 }

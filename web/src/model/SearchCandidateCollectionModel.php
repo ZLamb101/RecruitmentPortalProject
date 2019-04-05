@@ -32,14 +32,10 @@ class SearchCandidateCollectionModel extends Model
     /***
      * Determines the correct SQL clause condition based on the availability
      * selected by the user.
+     * @param $availability int, the availability case to be evaluated
      * @return string, the string to be appended to the SQL query
      */
-    public function evaluateAvailability(){
-        $availability = 0;
-        if(isset($_POST['full-time'])) $availability += 8;
-        if(isset($_POST['part-time'])) $availability +=4;
-        if(isset($_POST['casual'])) $availability +=2;
-        if(isset($_POST['contractor'])) $availability +=1;
+    public function evaluateAvailability($availability){
         $required = "";
         switch ($availability){
             case 1:
@@ -92,37 +88,54 @@ class SearchCandidateCollectionModel extends Model
     }
 
     /**
+     * Takes the qualification selection of the search user and creates the necessary change to the sql statement
+     * @param $qual, the value of the qualification being passed through (either an int id, or the "all" selection)
+     * @return string, the correct string to append to the sql query based on the qualification
+     */
+    public function getQualString($qual)
+    {
+        $qualString = "";
+        if($qual != "all"){
+            $qualString .= " AND `qualification`.`type_id` = '$qual'";
+        }
+        return $qualString;
+    }
+
+    /**
      * Constructor
      *
      * Collects the candidates found by a user query
      * @param query, the query string given by the user
      * @param field_id, the id of the field being searched
      * @param sub_field_id, the id of the subfield being searched
-     *
+     * @param qual, the id of the qualification type being searched
      * @throws mysqli_sql_exception if the SQL query fails
      */
-    public function __construct($query, $field_id, $sub_field_id)
+    public function __construct($query, $field_id, $sub_field_id, $qual, $avail)
     {
         parent::__construct();
-        $required = $this->evaluateAvailability();
+        $required = $this->evaluateAvailability($avail);
+        $qualString = $this->getQualString($qual);
         if(($sub_field_id == "all") && (strlen($query) == 0)){
             // Case for searching all subfields in a field, with no string given
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
-                                         WHERE `skill`.`field_id` = '$field_id'". $required ."
+                                         LEFT JOIN `qualification` ON `qualification`.`owner_id` = `candidate`.`id`
+                                         WHERE `skill`.`field_id` = '$field_id'". $required . $qualString ."
                                          ;")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct1");
             }
         } else if ( ($sub_field_id == "all") && (strlen($query) != 0) ) {
             // Case for searching all subfields in a field, with a search query string
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
+                                         LEFT JOIN `qualification` ON `qualification`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
-                                         AND `skill`.`contents` LIKE '%{$query}%'". $required ."
+                                         AND `skill`.`contents` LIKE '%{$query}%'". $required . $qualString ."
                                          ;")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct2");
             }
         } else if( ($sub_field_id != "all") && (strlen($query) == 0) ){
             // Case for searching a subfield without a specific string
@@ -130,21 +143,23 @@ class SearchCandidateCollectionModel extends Model
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
+                                         LEFT JOIN `qualification` ON `qualification`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
-                                         AND `skill`.`sub_field_id` = '$sub_field_id'". $required ."
+                                         AND `skill`.`sub_field_id` = '$sub_field_id'". $required . $qualString ."
                                          ;")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct3");
             }
         } else {
             // Case for searching a string in a specific sub field
             if (!$result = $this->db->query("SELECT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`
+                                         LEFT JOIN `qualification` ON `qualification`.`owner_id` = `candidate`.`id`
                                          WHERE `skill`.`field_id` = '$field_id'
                                          AND `skill`.`sub_field_id` = '$sub_field_id'
-                                         AND `skill`.`contents` LIKE '%{$query}%'". $required ." 
+                                         AND `skill`.`contents` LIKE '%{$query}%'". $required . $qualString ." 
                                          ;")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct");
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: SearchCandCollectConstruct4");
             }
         }
         $this->cand_ids = array_column($result->fetch_all(), 0);

@@ -30,6 +30,18 @@ include "header.phtml"
                 </select>
                 <input type="hidden" value="0" name="skill-count" id="skill-count">
 
+            <div id="qualification" name="qualification">
+                <p>Qualification</p>
+                <select id="qual0" name="qual0" >
+                    <option value="all">All Qualifications</option>
+                    <?php
+                    foreach ($Quals as $qual) {
+                        echo "<option value=\"".$qual['id']."\">".$qual['type']."</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
             <div id="availability" name="availability">
                 <p>Availability</p>
                 <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>

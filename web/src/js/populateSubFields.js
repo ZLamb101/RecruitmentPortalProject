@@ -6,9 +6,9 @@ function updateFields(button)
    // count = count.getAttribute("value");
 
     var subFieldString = "sub-field";
-    var temp = button.id;
+    var index = button.id;
 
-    subFieldString = subFieldString.concat(temp[5]);
+    subFieldString = subFieldString.concat(index[5]);
    // subFieldString = subFieldString.concat(count.toString(10));
 
         get2(button , function () {

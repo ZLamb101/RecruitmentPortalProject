@@ -13,6 +13,7 @@ function addQualification(){
 
 
 	var qual = document.createElement("div");                       // Create a <div> node
+	qual.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -23,23 +24,6 @@ function addQualification(){
 	prefP.appendChild(prefLabel);
 	qual.appendChild(prefP);
 	qual.appendChild(pref);
-    //
-	// var yearP = document.createElement("p");
-	// var yearLabel = document.createTextNode("Year.");
-	// var year = document.createElement("input");
-	// var yearString = "year";
-	// yearString = yearString.concat(it.toString(10));
-	// year.setAttribute("name",yearString);
-	// year.setAttribute("type","text");
-	// year.setAttribute("size",40);
-	// year.setAttribute("pattern", "^[0-9]{4}$");
-	// year.setAttribute("title", "YYYY format. Numeric characters only");
-    //
-	// yearP.appendChild(yearLabel);
-	// qual.appendChild(yearP);
-	// qual.appendChild(year);
-    //
-    //
 
 
 	var level = document.createElement("select");
@@ -48,17 +32,29 @@ function addQualification(){
 
 
 	level.setAttribute("name", levelString);
+    level.setAttribute("onclick", "updateTypes(this)")
 	level.setAttribute("id", levelString);
     qual.appendChild(level);
+
 
 
 	var type = document.createElement("select");
 	var typeString = "type";
 	typeString = typeString.concat(it.toString(10));
 
+    var typeOption = document.createElement("option");
+    var typeOptionLabel = document.createTextNode("all subcategories");
+    typeOption.setAttribute("value", "blank");
+
+
+    typeOption.appendChild(typeOptionLabel);
+    type.append(typeOption);
+
+
 	type.setAttribute("name", typeString);
 	type.setAttribute("id", typeString);
 	qual.appendChild(type);
+
 
 
 	var yearP = document.createElement("p");
@@ -80,15 +76,14 @@ function addQualification(){
 
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
-	getLevels(function () {
-		document.getElementById(levelString).innerHTML = this.responseText;
-	})
 
-	getTypes(function () {
-		document.getElementById(typeString).innerHTML = this.responseText;
-	})
 
-	return false;
+    getLevels(function () {
+        document.getElementById(levelString).innerHTML = this.responseText;
+    })
+
+
+    return false;
 
 }
 
@@ -102,9 +97,12 @@ function addQualification(){
 function addWorkExperience(){
 	var count = document.getElementById("work-experience-count");
 	var it = count.getAttribute("value");
+
 	count.setAttribute("value", ++it);
 
+
 	var workex = document.createElement("div");                       // Create a <div> node
+    workex.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -174,6 +172,7 @@ function addSkill(){
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
+    skill.setAttribute("class","partition");
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -224,7 +223,7 @@ function addSkill(){
 	contentsString = contentsString.concat(it.toString(10));
 	contents.setAttribute("name", contentsString);
 	contents.setAttribute("type","text");
-	contents.setAttribute("size",100);
+	contents.setAttribute("size",40);
 	//contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);
@@ -257,7 +256,22 @@ function getFields(callback) {
     xmlhttp.send();
 }
 
-function getTypes(callback) {
+
+function updateTypes(button)
+{
+    var typeString = "type";
+    var index = button.id;
+
+    typeString = typeString.concat(index[5]);
+    // subFieldString = subFieldString.concat(count.toString(10));
+
+    getTypes(button , function () {
+        document.getElementById(typeString).innerHTML = this.responseText;
+    })
+    return false;
+}
+
+function getTypes(button, callback) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "populateTypes.php?q=" , true);
 	xmlhttp.onreadystatechange = function () {
@@ -270,6 +284,8 @@ function getTypes(callback) {
 		}
 	};
 	xmlhttp.send();
+	return false
+
 }
 
 function getLevels(callback) {

@@ -4,8 +4,10 @@ namespace bjz\portal\controller;
 
 
 use bjz\portal\model\SkillModel;
+use bjz\portal\model\QualificationModel;
 use bjz\portal\view\View;
 use bjz\portal\model\SearchCandidateCollectionModel;
+use bjz\portal\model\ShortListModel;
 session_start();
 
 /**
@@ -27,7 +29,10 @@ class SearchController extends Controller
             try{
                 $skill = new SkillModel();
                 $fields = $skill->getFields();
+                $qual = new QualificationModel();
+                $types = $qual->getTypes();
                 $view = new View('searchPage');
+                $view->addData('Quals', $types);
                 echo $view->addData('Fields', $fields)->render();
             } catch (\Exception $e){
                 error_log($e->getMessage());
@@ -49,8 +54,10 @@ class SearchController extends Controller
         $query = $_GET["query"];
         $field_id = $_GET["field"];
         $sub_field_id = $_GET["sub_field"];
+        $qual = $_GET["qual"];
+        $avail = $_GET["avail"];
         try {
-            $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id);
+            $livesearch = new SearchCandidateCollectionModel($query, $field_id, $sub_field_id, $qual, $avail);
             $candidates = $livesearch->getCandidates();
             if ($livesearch->getN() == 0) {
                 echo "No matches found";
@@ -73,11 +80,11 @@ class SearchController extends Controller
      * @return string, the formatted HTML Table element displaying the search results.
      */
     public function formatSearch($candidates){
-        $response = "<table><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th></tr>";
+        $response = "<table><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th><th>Add to Shortlist?</th></tr>";
         foreach($candidates as $candidate){
             $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
-                            ."</td><td>". $candidate->displayPreferredSkill() ."</td></tr>";
+                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getId()."' value='+' onclick='addToShortList(".$candidate->getId().")'></td></tr>";
         }
         $response = $response . '</table>';
         return $response;
@@ -111,6 +118,15 @@ class SearchController extends Controller
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
+    }
+
+    /**
+     * Function to add a candidate to a shortlist.
+     */
+    public function addToShortListAction(){
+        $candId = $_GET['candId'];
+        $short_list = new ShortListModel();
+        //TODO
     }
 
    
