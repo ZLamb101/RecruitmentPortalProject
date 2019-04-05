@@ -29,4 +29,20 @@ class ShortListController extends Controller
             $this->redirect("errorPage");
         }
     }
+
+    /**
+     * Gets the id of the short list to rename and the ID of the candidate to delete from the GET array
+     * Attempts to delete said candidate from the specified shortList
+     */
+    public function deleteFromShortListAction(){
+        try{
+            $listID = $_GET["listID"];
+            $candidateID = $_GET["candidateID"];
+            $list = new ShortListModel();
+            $list->deleteFromShortList($listID, $candidateID);
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect("errorPage");
+        }
+    }
 }

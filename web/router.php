@@ -348,6 +348,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/deleteFromShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::deleteFromShortListAction',
+            'methods' => 'GET',
+            'name' => 'deleteFromShortList'
+        )
+    )
+);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');
