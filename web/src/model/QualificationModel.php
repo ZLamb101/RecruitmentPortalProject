@@ -149,17 +149,23 @@ class QualificationModel extends Model
     {
 
         $owner_id = $this->owner_id ?? "NULL";
+
         $level_id = $this->level_id ?? "NULL";
+
         $type_id = $this->type_id ?? "NULL";
+
         $year = $this->year ?? "NULL";
         $year = $this->db->real_escape_string($year);
 
+
         if (!isset($this->id)) {
+            error_log("qual save");
             if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
+
             if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year' 
                                               WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");

@@ -138,23 +138,10 @@ class CandidateController extends UserController
         $account->setGName($_POST['first-name']);
         $account->setFName($_POST['last-name']);
         $account->setLocation($_POST['location']);
-        $availability = 0;
-        if(isset($_POST['full-time'])) $availability += 8;
-        if(isset($_POST['part-time'])) $availability +=4;
-        if(isset($_POST['casual'])) $availability +=2;
-        if(isset($_POST['contractor'])) $availability +=1;
-        $account->setAvailability($availability);
-        try {
-            $account->save();
-        } catch (\Exception $e) {
-            $this->redirect('errorPage');
-        }
-        $candidateID = $account->getId();
-        $this->createQualificationAction($candidateID);
-        $this->createWorkExperienceAction($candidateID);
-        $this->createSkillAction($candidateID);
+        $account->setAvailability(8);
 
         try {
+            $account->save();
             $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -173,10 +160,11 @@ class CandidateController extends UserController
         do{
             $qualification = new QualificationModel();
 
-            $idInput = 'id'.$qualificationCount;
+            $idInput = "id".$qualificationCount;
 
-            $idInput = $_POST["$idInput"];
-            $qualification->load($idInput);
+            if ($_POST["$idInput"]) {
+                $qualification->load($_POST["$idInput"]);
+            }
             $yearInput = 'year'.$qualificationCount;
             $levelInput = 'level'.$qualificationCount;
             $typeInput = 'type'.$qualificationCount;
@@ -206,34 +194,6 @@ class CandidateController extends UserController
     }
 
 
-    /**
-     * Function to create a Qualification
-     * Takes the inputs from post request and creates a Qualification
-     */
-    public function createQualificationAction($candidateID){
-        $qualificationCount = $_POST['qualification-count'];
-        do{
-            $qualification = new QualificationModel();
-            $yearInput = 'year'.$qualificationCount;
-            $levelInput = 'level'.$qualificationCount;
-            $typeInput = 'type'.$qualificationCount;
-            if($_POST["$yearInput"] == NULL || $_POST["$levelInput"] == NULL || $_POST["$typeInput"] == NULL){
-                $qualificationCount--;
-                continue;
-            }
-            $qualification->setOwnerId($candidateID);
-            $qualification->setYear($_POST["$yearInput"]);
-            $qualification->setLevelId($_POST["$levelInput"]);
-            $qualification->setTypeId($_POST["$typeInput"]);
-            $qualificationCount--;
-            try {
-                $qualification->save();
-            } catch (\Exception $e) {
-                $this->redirect('errorPage');
-            }
-        }while ($qualificationCount >= 0);
-
-    }
 
    /**
      * Function to load and update a Work Experience
@@ -241,15 +201,17 @@ class CandidateController extends UserController
      */
     public function updateWorkExperienceAction($candidateID){
         $workExperienceCount = $_POST['work-experience-count'];
-        do{
+        do {
             $workExperience = new WorkExperienceModel();
-            $idInput = 'id'.$workExperienceCount;
-            $workExperience->load($_POST["$idInput"]);
+            $idInput = 'id' . $workExperienceCount;
+            error_log("check this ".$_POST["$idInput"]);
+            if ($_POST["$idInput"]) {
+                 $workExperience->load($_POST["$idInput"]);
+            }
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
             $employerInput = 'employer'.$workExperienceCount;
             if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) {
-                echo("skip");
                 $workExperienceCount--;
                 continue;
             }
@@ -276,36 +238,6 @@ class CandidateController extends UserController
     }
 
 
-    /**
-     * Function to create a Work Experience
-     * Takes the inputs from post request and creates a Work Experience
-     */
-    public function createWorkExperienceAction($candidateID){
-        $workExperienceCount = $_POST['work-experience-count'];
-        do{
-            $workExperience = new WorkExperienceModel();
-            $roleInput = 'role'.$workExperienceCount;
-            $durationInput = 'duration'.$workExperienceCount;
-            $employerInput = 'employer'.$workExperienceCount;
-            if($_POST["$roleInput"] == NULL || $_POST["$durationInput"] == NULL || $_POST["$employerInput"] == NULL) {
-                $workExperienceCount--;
-                continue;
-            }
-            $workExperience->setOwnerId($candidateID);
-            $workExperience->setRole($_POST["$roleInput"]);
-            $workExperience->setDuration($_POST["$durationInput"]);
-            $workExperience->setEmployer($_POST["$employerInput"]);
-            $workExperienceCount--;
-            try {
-                $workExperience->save();
-            } catch (\Exception $e) {
-                $this->redirect('errorPage');
-            }
-        }  while($workExperienceCount >= 0);
-
-    }
-
-
 
     /**
      * Function to load and update a SKill
@@ -315,8 +247,10 @@ class CandidateController extends UserController
         $skillCount = $_POST['skill-count'];
         do{
             $skill = new SkillModel();
-            $skillId = 'id'.$skillCount;
-            $skill->load($_POST["$skillId"]);
+            $idInput = 'id'.$skillCount;
+            if ($_POST["$idInput"]) {
+                $skill->load($_POST["$idInput"]);
+            }
 
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
@@ -349,36 +283,6 @@ class CandidateController extends UserController
     }
 
 
-    /**
-     * Function to create a Skill
-     * Takes the inputs from post request and creates a Skill
-     */
-    public function createSkillAction($candidateID){
-        $skillCount = $_POST['skill-count'];
-        do{
-            $skill = new SkillModel();
-            $fieldInput = 'field'.$skillCount;
-            $subFieldInput = 'sub-field'.$skillCount;
-            $contentsInput = 'contents'.$skillCount;
-            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) {
-                $skillCount--;
-                continue;
-            }
-            $skill->setOwnerId($candidateID);
-            $skill->setContents($_POST["$contentsInput"]);
-            $skill->setField($_POST["$fieldInput"]);
-            $skill->setSubField($_POST["$subFieldInput"]);
-
-            $skillCount--;
-            try {
-                $skill->save();
-            } catch (\Exception $e) {
-                $this->redirect('errorPage');
-            }
-        }while($skillCount >= 0);
-
-    }
-
 
     /**
      * Function to send a calendar invite
@@ -397,13 +301,17 @@ class CandidateController extends UserController
     }
 
     /**
-     * will implement when i get home
+     * Function to get all the Types within the database and echo's
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateTypesAction(){
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getTypes();
-            echo"<option value=\"all\">all categories</option>";
+            echo"<option value=\"all\">all subcategories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['type']."</option>";
             }
@@ -414,13 +322,17 @@ class CandidateController extends UserController
     }
 
     /**
-     * will implement when i get home
+     * Function to get all the Levels within the database and echo's
+     *
+     * @throws mysqli_sql_exception if the SQL query fails
+     *
+     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateLevelsAction(){
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getLevels();
-            echo"<option value=\"all\">all subcategories</option>";
+            echo"<option value=\"all\">all categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['level']."</option>";
             }

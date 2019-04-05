@@ -23,7 +23,7 @@ include "header.phtml"
                 <p>Phone number: <?= $candidateInfo->getPhoneNumber() ?></p>
                 <p>Location: <?= $candidateInfo->getLocation() ?> </p>
 
-                <div id="work-experience">
+                <div id="work-experience" class ="partition">
                     <p>Work Experience</p>
                     <?php $workExperience = $candidateInfo->getWorkExperience();
                     foreach ($workExperience as $work){
@@ -33,7 +33,7 @@ include "header.phtml"
                     } ?>
                 </div>
 
-                <div id="qualifications">
+                <div id="qualifications" class ="partition">
                     <p>Qualifications</p>
                     <?php $qualifications = $candidateInfo->getQualifications();
                     foreach ($qualifications as $qual){
@@ -44,7 +44,7 @@ include "header.phtml"
                     } ?>
                 </div>
 
-                <div id="skills">
+                <div id="skills" class ="partition">
                     <p>Skills</p>
                     <?php $skills = $candidateInfo->getSkills();
                     foreach ($skills as $skill){
