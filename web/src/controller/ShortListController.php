@@ -39,7 +39,9 @@ class ShortListController extends Controller
             $listID = $_GET["listID"];
             $candidateID = $_GET["candidateID"];
             $list = new ShortListModel();
-            $list->deleteFromShortList($listID, $candidateID);
+            if($list->deleteFromShortList($listID, $candidateID)){
+                echo "true";
+            }
         } catch (\Exception $e){
             error_log($e->getMessage());
             $this->redirect("errorPage");

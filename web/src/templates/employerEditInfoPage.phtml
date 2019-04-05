@@ -53,7 +53,7 @@ include "header.phtml"
                     $candID = "cand".$candcount;
                     echo "<p id = \"".$candID."\">Name: ".$candidate->getGName()." ".$candidate->getFName()."</p> ";
                     $candidateID = $candidate->getID();
-                    echo "<input type=\"button\" id=\"deleteCandidate\" value = \"Remove Candidate From List\" onclick=\"deleteFromShortList(".$listID.", ".$candidateID.", ".$candcount.")\">";
+                    echo "<input type=\"button\" id=\"deleteCandidate".$candcount."\" value = \"Remove Candidate From List\" onclick=\"deleteFromShortList(".$listID.", ".$candidateID.", ".$candcount.",".$i.")\">";
                     $candcount++;
                 }
                 $i++;
