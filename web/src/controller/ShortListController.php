@@ -75,4 +75,27 @@ class ShortListController extends Controller
             $this->redirect("errorPage");
         }
     }
+
+    /**
+     *Function to create a new shortList
+     */
+    public function newShortListAction()
+    {
+        try {
+            $name = $_GET["q"];
+            $id = $_GET["id"];
+            $list = new ShortListModel();
+            $list->newShortList($name, $id);
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect("errorPage");
+        }
+    }
+
+    /**
+     *Function to send invites to all candidates on the specified shortList
+     */
+    public function sendInviteAllAction(){
+        
+    }
 }

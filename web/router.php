@@ -376,7 +376,29 @@ $collection->attachRoute(
         array(
             '_controller' => 'bjz\portal\controller\ShortListController::displayShortListAction',
             'methods' => 'GET',
-            'name' => 'deleteFromShortList'
+            'name' => 'displayShortList'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/newShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::newShortListAction',
+            'methods' => 'GET',
+            'name' => 'newShortList'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/sendInvites.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::sendInviteAllAction',
+            'methods' => 'GET',
+            'name' => 'sendInviteAll'
         )
     )
 );
