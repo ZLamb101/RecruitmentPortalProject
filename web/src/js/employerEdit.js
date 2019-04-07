@@ -72,7 +72,7 @@ function get(listID, candidateID, divID, titleID, callback) {
     xmlhttp.send();
 }
 
-function newShortList() {
+function newShortList(ID) {
     var name = prompt("Please enter the new name", "");
 
     if (name == null || name == "") {
@@ -80,7 +80,7 @@ function newShortList() {
     } else {
         xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.open("GET", "newShortList.php?q=" + name, true);
+        xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID, true);
 
         xmlhttp.send();
         // var nameChanged = "shortList"+divID;
