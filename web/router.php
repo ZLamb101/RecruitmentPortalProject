@@ -392,6 +392,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/sendInvites.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::sendInviteAllAction',
+            'methods' => 'GET',
+            'name' => 'sendInviteAll'
+        )
+    )
+);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');

@@ -6,9 +6,6 @@
  */
 function updateShortList()
 {
-
-
-
     getCandidates(function () {
         document.getElementById('shortlist-candidates').innerHTML = this.responseText;
     })
@@ -30,5 +27,15 @@ function getCandidates(callback) {
             }
         }
     };
+    xmlhttp.send();
+}
+
+/**
+ * Sends Invites to all Candidates in a the selected Shortlist
+ */
+function sendInvite(){
+    xmlhttp = new XMLHttpRequest();
+    var shortlist = document.getElementById('shortlist0').value;
+    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
     xmlhttp.send();
 }

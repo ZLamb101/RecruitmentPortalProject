@@ -87,4 +87,8 @@ class ShortListController extends Controller
             $this->redirect("errorPage");
         }
     }
+
+    public function sendInviteAllAction(){
+        
+    }
 }
