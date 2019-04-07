@@ -2,6 +2,7 @@
 
 namespace bjz\portal\controller;
 use bjz\portal\model\ShortListModel;
+use bjz\portal\model\CandidateModel;
 
 
 /**
@@ -56,14 +57,17 @@ class ShortListController extends Controller
     public function displayShortListAction()
     {
         try {
-            error_log("here");
+
             $listID = $_GET["q"];
-            $list = new ShortListModel();
-            $list->load($listID);
-            $candidates = $list->getCandidates();
-            echo "<option value=\"all\">all categories</option>";
-            foreach ($candidates as $candidate){
-                echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()."</p>";
+            error_log("list id = ".$listID);
+            if($listID != "all") {
+                $list = new ShortListModel();
+                $list->load($listID);
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate) {
+                    error_log($candidate->getGName());
+                    echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                }
             }
 
         } catch (\Exception $e) {

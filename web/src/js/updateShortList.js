@@ -10,7 +10,7 @@ function updateShortList()
 
 
     getCandidates(function () {
-        document.getElementById(shortlist-candidates).innerHTML = this.responseText;
+        document.getElementById('shortlist-candidates').innerHTML = this.responseText;
     })
     return false;
 }
@@ -19,7 +19,8 @@ function getCandidates(callback) {
     xmlhttp = new XMLHttpRequest();
 
     var shortlist = document.getElementById('shortlist0').value;
-    xmlhttp.open("POST", "displayShortList.php?q=" + shortlist, true);
+
+    xmlhttp.open("GET", "displayShortList.php?q=" + shortlist, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

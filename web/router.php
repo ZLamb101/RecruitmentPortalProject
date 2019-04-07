@@ -375,7 +375,7 @@ $collection->attachRoute(
         '/displayShortList.php',
         array(
             '_controller' => 'bjz\portal\controller\ShortListController::displayShortListAction',
-            'methods' => 'POST',
+            'methods' => 'GET',
             'name' => 'deleteFromShortList'
         )
     )
