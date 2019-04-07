@@ -43,13 +43,18 @@ include "header.phtml"
             <?php
             $shortLists = $employerInfo->getShortLists();
             $i = 0;
+            $candcount = 0;
             foreach ($shortLists as $list){
                 $listID = $list->getID();
-                echo "<input type=\"button\" id=\"re-name\" value = \"Re-name short list\" onclick=\"renameList(".$i.", ".$listID.")\">";
+                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name short list\" onclick=\"renameList(".$i.", ".$listID.")\">";
                 echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
-                    echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()." <a href=\"\">Delete</a></p> ";
+                    $candID = "cand".$candcount;
+                    echo "<p id = \"".$candID."\">Name: ".$candidate->getGName()." ".$candidate->getFName()."</p> ";
+                    $candidateID = $candidate->getID();
+                    echo "<input type=\"button\" id=\"deleteCandidate".$candcount."\" value = \"Remove Candidate From List\" onclick=\"deleteFromShortList(".$listID.", ".$candidateID.", ".$candcount.",".$i.")\">";
+                    $candcount++;
                 }
                 $i++;
             }

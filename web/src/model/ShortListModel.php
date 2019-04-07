@@ -165,4 +165,33 @@ class ShortListModel extends Model
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListRename");
         }
     }
+
+    /**
+     * Deletes a specified candidate from a shortlist
+     *
+     * @param $shortListID, the ID of the shortList to delete the candidate from
+     * @param $idToDelete, the ID of the Candidate being deleted
+     */
+    public function deleteFromShortList($shortListID, $idToDelete){
+        if(!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$shortListID'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListRemoveCandidate");
+        }
+        $result = $result->fetch_assoc();
+        $str = $result['candidates'];
+        $strToReplace = explode(",", $str);
+        $index = array_search($idToDelete,$strToReplace);
+        unset($strToReplace[$index]);
+        $newCandidateList = implode(",", $strToReplace);
+        if($newCandidateList != "") {
+            if (!$result = $this->db->query("UPDATE `short_list` SET `candidates` = '$newCandidateList' WHERE `id` = '$shortListID'")) {
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidate");
+            }
+            return false;
+        } else {
+            if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `id` = '$shortListID'")) {
+                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidateLast");
+            }
+            return true;
+        }
+    }
 }

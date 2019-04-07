@@ -40,3 +40,19 @@ function showResult() {
 
     xmlhttp.send();
 }
+
+function addToShorlist(candId){
+    // Want to remove button element and replace with "Added" string.
+
+    xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+
+        }
+    }
+
+    xmlhttp.open("GET","addToShortList.php?candId="+candId,true);
+
+    xmlhttp.send();
+}
