@@ -69,6 +69,17 @@ include "header.phtml"
               
             </form>
 			<br>
+            <div id ="shortlist">
+                <select id="shortlist0" name="qual0" >
+                    <option value="all">All Qualifications</option>
+                    <?php
+                    foreach ($Quals as $qual) {
+                        echo "<option value=\"".$qual['id']."\">".$qual['type']."</option>";
+                    }
+                    ?>
+                </select>
+
+            </div>
 		</div>
 	</div>
 	<!--- Content Ends here ----------->

@@ -5,6 +5,7 @@ namespace bjz\portal\controller;
 
 use bjz\portal\model\SkillModel;
 use bjz\portal\model\QualificationModel;
+use bjz\portal\model\ShortListModel;
 use bjz\portal\view\View;
 use bjz\portal\model\SearchCandidateCollectionModel;
 session_start();
@@ -30,7 +31,10 @@ class SearchController extends Controller
                 $fields = $skill->getFields();
                 $qual = new QualificationModel();
                 $types = $qual->getTypes();
+                $shortlist = new ShortListModel();
+                $shortlist->load($_SESSION['UserID']);
                 $view = new View('searchPage');
+                $view->addData('ShortList', $shortlist);
                 $view->addData('Quals', $types);
                 echo $view->addData('Fields', $fields)->render();
             } catch (\Exception $e){
