@@ -370,6 +370,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/displayShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::displayShortListAction',
+            'methods' => 'POST',
+            'name' => 'deleteFromShortList'
+        )
+    )
+);
+
 
 $router = new Router($collection);
 $router->setBasePath('/');

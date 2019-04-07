@@ -18,13 +18,14 @@ class ShortListController extends Controller
      * Gets the id of the short list to rename and the new name for it from the get array
      * Attempts to rename said shortlist using the given parameters and handles errors appropriately
      */
-    public function renameShortListAction(){
-        try{
+    public function renameShortListAction()
+    {
+        try {
             $id = $_GET["q"];
             $name = $_GET["name"];
             $list = new ShortListModel();
             $list->renameShortList($id, $name);
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
         }
@@ -34,15 +35,38 @@ class ShortListController extends Controller
      * Gets the id of the short list to rename and the ID of the candidate to delete from the GET array
      * Attempts to delete said candidate from the specified shortList
      */
-    public function deleteFromShortListAction(){
-        try{
+    public function deleteFromShortListAction()
+    {
+        try {
             $listID = $_GET["listID"];
             $candidateID = $_GET["candidateID"];
             $list = new ShortListModel();
-            if($list->deleteFromShortList($listID, $candidateID)){
+            if ($list->deleteFromShortList($listID, $candidateID)) {
                 echo "true";
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect("errorPage");
+        }
+    }
+
+    /**
+     * echo's the candidates in a shortlist
+     */
+    public function displayShortListAction()
+    {
+        try {
+            error_log("here");
+            $listID = $_GET["q"];
+            $list = new ShortListModel();
+            $list->load($listID);
+            $candidates = $list->getCandidates();
+            echo "<option value=\"all\">all categories</option>";
+            foreach ($candidates as $candidate){
+                echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()."</p>";
+            }
+
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
         }
