@@ -111,7 +111,7 @@ class ShortListModel extends Model
         $owner_id = $this->db->real_escape_string($owner_id);
         $name = $this->name ?? "NULL";
         $name = $this->db->real_escape_string($name);
-        $cand = $this->candidates ?? "NULL";
+        $cand = implode(",", $this->candidates);
         $cand = $this->db->real_escape_string($cand);
         if (!isset($this->id)) {
             error_log("new SL");
@@ -121,7 +121,7 @@ class ShortListModel extends Model
             $this->id = $this->db->insert_id;
         } else {
             error_log("update SL");
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand' WHERE `id` = '$id';")){
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
@@ -148,9 +148,13 @@ class ShortListModel extends Model
     public function addCandidate($candId)
     {
         if($this->candidates == ""){
-            $this->candidates.=$candId;
+            $str = implode(",", $this->candidates);
+            $str.=$candId;
+            $this->candidates = explode(",", $str);
         } else {
-            $this->candidates .= "," . $candId;
+            $str = implode(",", $this->candidates);
+            $str .= "," . $candId;
+            $this->candidates = explode(",", $str);
         }
     }
 

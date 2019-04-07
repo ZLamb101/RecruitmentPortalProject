@@ -88,7 +88,7 @@ class SearchController extends Controller
         foreach($candidates as $candidate){
             $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
-                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getId()."' value='+' onclick='addToShortList(".$candidate->getId().")'></td></tr>";
+                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getId()."' value='+' onclick='addToShortlist(".$candidate->getId().")'></td></tr>";
         }
         $response = $response . '</table>';
         return $response;
@@ -129,8 +129,11 @@ class SearchController extends Controller
      */
     public function addToShortListAction(){
         $candId = $_GET['candId'];
+        $shortId = $_GET['shortId'];
         $short_list = new ShortListModel();
-        //TODO
+        $short_list->load($shortId);
+        $short_list->addCandidate($candId);
+        $short_list->save();
     }
 
    
