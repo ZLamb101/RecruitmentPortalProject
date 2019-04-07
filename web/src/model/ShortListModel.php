@@ -194,4 +194,16 @@ class ShortListModel extends Model
             return true;
         }
     }
+
+    /**
+     * creates the shortList as desired
+     * @param $shortListName, the name of the new shortList
+     * @param $ownerID, the ID of the user the shortList belongs to
+     */
+    public function newShortList($shortListName, $ownerID){
+        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`) VALUES 
+                                                    (NULL, '$ownerID', '$shortListName', NULL);")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
+        }
+    }
 }

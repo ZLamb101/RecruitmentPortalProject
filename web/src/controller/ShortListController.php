@@ -75,4 +75,16 @@ class ShortListController extends Controller
             $this->redirect("errorPage");
         }
     }
+
+    public function newShortListAction()
+    {
+        try {
+            $name = $_GET["q"];
+            $list = new ShortListModel();
+
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect("errorPage");
+        }
+    }
 }

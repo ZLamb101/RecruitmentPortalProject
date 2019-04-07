@@ -71,3 +71,19 @@ function get(listID, candidateID, divID, titleID, callback) {
 
     xmlhttp.send();
 }
+
+function newShortList() {
+    var name = prompt("Please enter the new name", "");
+
+    if (name == null || name == "") {
+        alert("User cancelled the prompt.");
+    } else {
+        xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.open("GET", "newShortList.php?q=" + name, true);
+
+        xmlhttp.send();
+        // var nameChanged = "shortList"+divID;
+        // document.getElementById(nameChanged).innerText = name;
+    }
+}

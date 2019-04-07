@@ -221,4 +221,11 @@ class EmployerModel extends UserModel
         }
         return $this;
     }
+
+    /**
+     * @param $userID
+     */
+    public function EmployerID($userID){
+
+    }
 }
