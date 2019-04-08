@@ -38,9 +38,9 @@ include "header.phtml"
 		    <br>
 			
 		</div>
-
+        <p>Short Lists</p>
         <div id="short-lists">
-            <p>Short Lists</p>
+
             <?php
             $shortLists = $employerInfo->getShortLists();
             $i = 0;
@@ -63,7 +63,7 @@ include "header.phtml"
                 $i++;
                 echo " </div>";
             }
-            echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().")\">";
+            echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
             ?>
         </div>
         <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home.</p>

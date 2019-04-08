@@ -72,18 +72,29 @@ function get(listID, candidateID, divID, titleID, callback) {
     xmlhttp.send();
 }
 
-function newShortList(ID) {
+function newShortList(ID,i) {
     var name = prompt("Please enter the new name", "");
 
     if (name == null || name == "") {
         alert("User cancelled the prompt.");
     } else {
-        xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID, true);
-
-        xmlhttp.send();
-        // var nameChanged = "shortList"+divID;
-        // document.getElementById(nameChanged).innerText = name;
+        getCreateNewShortlist(name,ID, function () {
+            document.getElementById("short-lists").innerText = this.responseText;
+        })
     }
+}
+
+function getCreateNewShortlist(name,ID,callback) {
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID,true);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // defensive check
+            if (typeof callback === "function") {
+                // apply() sets the meaning of "this" in the callback
+                callback.apply(xmlhttp);
+            }
+        }
+    };
+    xmlhttp.send();
 }

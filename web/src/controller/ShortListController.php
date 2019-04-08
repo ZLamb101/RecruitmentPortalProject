@@ -3,6 +3,7 @@
 namespace bjz\portal\controller;
 use bjz\portal\model\ShortListModel;
 use bjz\portal\model\CandidateModel;
+use bjz\portal\model\EmployerModel;
 
 
 /**
@@ -84,6 +85,32 @@ class ShortListController extends Controller
             $id = $_GET["id"];
             $list = new ShortListModel();
             $list->newShortList($name, $id);
+
+            $employerInfo = new Employer();
+            $employerInfo->load($_SESSION["UserID"]);
+            $shortLists = $employerInfo->getShortLists();
+            $i = 0;
+            $candcount = 0;
+            foreach ($shortLists as $list){
+                echo " <div id =\"shortlist".$i."\" class=\"partition\">";
+                $listID = $list->getID();
+                echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$listID.")\">";
+                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
+                echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate){
+                    if($candidate->getGName() != NULL) {
+                        $candID = "cand" . $candcount;
+                        $candidateID = $candidate->getID();
+                        echo "<p id = \"" . $candID . "\">Name: " . $candidate->getGName() . " " . $candidate->getFName() ."<input type=\"button\" id=\"deleteCandidate" . $candcount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $listID . ", " . $candidateID . ", " . $candcount . "," . $i . ")\"> </p> ";
+
+                        $candcount++;
+                    }
+                }
+                $i++;
+                echo " </div>";
+            }
+            echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().")\">";
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
