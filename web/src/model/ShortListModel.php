@@ -115,13 +115,13 @@ class ShortListModel extends Model
         $cand = implode(",", $this->candidates);
         $cand = $this->db->real_escape_string($cand);
         if (!isset($this->id)) {
-            error_log("new SL");
+
             if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            error_log("update SL");
+
             if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
@@ -195,12 +195,12 @@ class ShortListModel extends Model
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidate");
             }
             return false;
-        } else {
-            if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `id` = '$shortListID'")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidateLast");
-            }
+        } //else {
+         //   if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `id` = '$shortListID'")) {
+         //       throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidateLast");
+         //   }
             return true;
-        }
+       // }
     }
 
     /**

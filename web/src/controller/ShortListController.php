@@ -59,7 +59,6 @@ class ShortListController extends Controller
         try {
 
             $listID = $_GET["q"];
-            error_log("list id = ".$listID);
             if($listID != "all") {
                 $list = new ShortListModel();
                 $list->load($listID);
