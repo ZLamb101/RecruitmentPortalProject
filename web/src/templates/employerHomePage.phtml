@@ -24,9 +24,12 @@ include "header.phtml"
                 echo "<p>Short Lists:</p>";
                 foreach ($shortLists as $list){
                     echo "<p>".$list->getName()."</p>";
-                    $candidates = $list->getCandidates();
-                    foreach ($candidates as $candidate){
-                        echo "<p>Name: ".$candidate->getGName()." ".$candidate->getFName()."</p>";
+
+                    if($list->checkCandidates() != 'NULL' ) {
+                        $candidates = $list->getCandidates();
+                        foreach ($candidates as $candidate) {
+                            echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                        }
                     }
                 } ?>
 

@@ -43,6 +43,14 @@ class ShortListModel extends Model
     }
 
     /**
+     * @return int $this->id, the ID of the Short List
+     */
+    public function checkCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
      * @return int $this->owner_id, the ID of the employer the Short List belongs to
      */
     public function getOwnerId()
@@ -205,7 +213,7 @@ class ShortListModel extends Model
      */
     public function newShortList($shortListName, $ownerID){
         if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`) VALUES 
-                                                    (NULL, '$ownerID', '$shortListName', NULL);")){
+                                                    (NULL, '$ownerID', '$shortListName', 'NULL');")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
         }
     }
