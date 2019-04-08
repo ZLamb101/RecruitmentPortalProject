@@ -50,6 +50,16 @@ function deleteShortList(listId){
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4 && this.status==200) {
             //updateShortList();
+             var test = this.responseText;
+            if(test == "true"){
+                 var header = "shortList" + titleID;
+                 var elem = document.getElementById(header);
+                 elem.parentNode.removeChild(elem);
+
+                 var rename = "re-name" + titleID;
+                 elem = document.getElementById(rename);
+                 elem.parentNode.removeChild(elem);
+             }
         }
     }
 
