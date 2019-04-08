@@ -214,4 +214,39 @@ class ShortListModel extends Model
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
         }
     }
+
+    /**
+     * This function sends a email when a user is recovering their password
+     */
+    public function sendInviteEmail($email)
+    {
+
+        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+
+        //Server settings
+        $mail->SMTPDebug = false;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'Vestarecruit@gmail.com';                 // SMTP username
+        $mail->Password = 'Bobtool22';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;
+
+        // TCP port to connect to
+        //Recipients
+        $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
+        $mail->addAddress($email);     // Add a recipient
+        $mail->addBCC('Vestarecruit@gmail.com');
+        //Content
+
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Vesta Recruit Password Recovery';
+        $mail->Body = 'Hi, You are Invited to a meeting....';
+        $mail->AltBody = 'Hi, You are Invited to a meeting....';
+
+        $mail->send();
+        // echo 'Message has been sent';
+
+    }
 }

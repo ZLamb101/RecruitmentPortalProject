@@ -64,7 +64,6 @@ class ShortListController extends Controller
                 $list->load($listID);
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate) {
-                    error_log($candidate->getGName());
                     echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
                 }
             }
@@ -107,6 +106,14 @@ class ShortListController extends Controller
      *Function to send invites to all candidates on the specified shortList
      */
     public function sendInviteAllAction(){
-        
+        $shortListId = $_GET["q"];
+        $shortlist = new ShortListModel();
+        $shortlist->load($shortListId);
+
+        $candidates = $shortlist->getCandidates();
+        foreach ($candidates as $candidate) {
+            $shortlist->sendInviteEmail($candidate->getEmail());
+        }
+
     }
 }

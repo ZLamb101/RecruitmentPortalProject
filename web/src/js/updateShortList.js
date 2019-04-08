@@ -38,4 +38,5 @@ function sendInvite(){
     var shortlist = document.getElementById('shortlist0').value;
     xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
     xmlhttp.send();
+    alert("Invitation's Sent to candidates!")
 }
