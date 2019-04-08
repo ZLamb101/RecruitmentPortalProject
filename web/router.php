@@ -272,6 +272,17 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
+        '/deleteShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::deleteShortListAction',
+            'methods' => 'GET',
+            'name' => 'deleteShortList'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
         '/Update-Employer-Data',
         array(
             '_controller' => 'bjz\portal\controller\EmployerController::updateAccountAction',

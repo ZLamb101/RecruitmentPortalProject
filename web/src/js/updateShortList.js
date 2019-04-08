@@ -39,3 +39,20 @@ function sendInvite(){
     xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
     xmlhttp.send();
 }
+
+/***
+ * Deletes a shortlist from the database
+ */
+function deleteShortList(listId){
+    xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+            //updateShortList();
+        }
+    }
+
+    xmlhttp.open("GET","deleteShortList.php?listId="+listId,true);
+
+    xmlhttp.send();
+}
