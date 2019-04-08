@@ -159,9 +159,9 @@ class ShortListModel extends Model
         if(in_array($candId, $this->candidates)){
             return;
         }
-        if($this->candidates == "NULL"){
-            $str =$candId;
-            $this->candidates = explode(",", $str);
+        if($this->candidates[0] == "NULL"){
+            error_log("here for not null plz");
+            $this->candidates[0] = $candId;
         } else {
             $str = implode(",", $this->candidates);
             $str .= "," . $candId;
