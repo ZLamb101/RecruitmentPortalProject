@@ -45,22 +45,13 @@ function sendInvite(){
 /***
  * Deletes a shortlist from the database
  */
-function deleteShortList(listId){
+function deleteShortList(titleID, listId){
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4 && this.status==200) {
-            //updateShortList();
-             var test = this.responseText;
-            if(test == "true"){
-                 var header = "shortList" + titleID;
-                 var elem = document.getElementById(header);
-                 elem.parentNode.removeChild(elem);
-
-                 var rename = "re-name" + titleID;
-                 elem = document.getElementById(rename);
-                 elem.parentNode.removeChild(elem);
-             }
+             var list = document.getElementById("shortlist"+titleID);
+             list.parentNode.removeChild(list);
         }
     }
 
