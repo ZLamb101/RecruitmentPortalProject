@@ -55,8 +55,9 @@ include "header.phtml"
                 foreach ($candidates as $candidate){
                     if($candidate->getGName() != NULL) {
                         $candID = "cand" . $candcount;
-                        echo "<p id = \"" . $candID . "\">Name: " . $candidate->getGName() . " " . $candidate->getFName() ."<input type=\"button\" id=\"deleteCandidate" . $candcount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $listID . ", " . $candidateID . ", " . $candcount . "," . $i . ")\"> </p> ";
                         $candidateID = $candidate->getID();
+                        echo "<p id = \"" . $candID . "\">Name: " . $candidate->getGName() . " " . $candidate->getFName() ."<input type=\"button\" id=\"deleteCandidate" . $candcount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $listID . ", " . $candidateID . ", " . $candcount . "," . $i . ")\"> </p> ";
+
                         $candcount++;
                     }
                 }

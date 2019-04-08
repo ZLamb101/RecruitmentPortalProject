@@ -189,16 +189,18 @@ class ShortListModel extends Model
         $index = array_search($idToDelete,$strToReplace);
         unset($strToReplace[$index]);
         $newCandidateList = implode(",", $strToReplace);
-        if($newCandidateList != "") {
+        if($newCandidateList == "") {
+            $newCandidateList = "NULL";
+        }
             if (!$result = $this->db->query("UPDATE `short_list` SET `candidates` = '$newCandidateList' WHERE `id` = '$shortListID'")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidate");
             }
             return false;
-        } //else {
+       // } else {
          //   if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `id` = '$shortListID'")) {
          //       throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidateLast");
          //   }
-            return true;
+        //    return true;
        // }
     }
 
