@@ -93,6 +93,18 @@ class ShortListController extends Controller
     }
 
     /**
+     * Function to add a candidate to a shortlist.
+     */
+    public function addToShortListAction(){
+        $candId = $_GET['candId'];
+        $shortId = $_GET['shortId'];
+        $short_list = new ShortListModel();
+        $short_list->load($shortId);
+        $short_list->addCandidate($candId);
+        $short_list->save();
+    }
+
+    /**
      *Function to send invites to all candidates on the specified shortList
      */
     public function sendInviteAllAction(){

@@ -147,9 +147,8 @@ class ShortListModel extends Model
      */
     public function addCandidate($candId)
     {
-        if($this->candidates == ""){
-            $str = implode(",", $this->candidates);
-            $str.=$candId;
+        if($this->candidates == "NULL"){
+            $str =$candId;
             $this->candidates = explode(",", $str);
         } else {
             $str = implode(",", $this->candidates);
