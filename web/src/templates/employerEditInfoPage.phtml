@@ -48,6 +48,7 @@ include "header.phtml"
             foreach ($shortLists as $list){
                 echo " <div class=\"partition\">";
                 $listID = $list->getID();
+                echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$listID.")\">";
                 echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
                 echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
                 $candidates = $list->getCandidates();

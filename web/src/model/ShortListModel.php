@@ -152,9 +152,8 @@ class ShortListModel extends Model
         if(in_array($candId, $this->candidates)){
             return;
         }
-        if($this->candidates == "NULL"){
-            $str =$candId;
-            $this->candidates = explode(",", $str);
+        if($this->candidates[0] == "NULL"){
+            $this->candidates[0] = $candId;
         } else {
             $str = implode(",", $this->candidates);
             $str .= "," . $candId;
@@ -201,6 +200,19 @@ class ShortListModel extends Model
          //   }
             return true;
        // }
+    }
+
+    /**
+     * Deletes short list from the database
+     *
+     * @return $this ShortListModel
+     */
+    public function delete()
+    {
+        if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `short_list`.`id` = $this->id;")) {
+            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListModelDelete");
+        }
+        return $this;
     }
 
     /**
