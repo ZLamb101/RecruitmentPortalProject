@@ -42,13 +42,6 @@ class ShortListModel extends Model
         $this->id = $id;
     }
 
-    /**
-     * @return int $this->id, the ID of the Short List
-     */
-    public function checkCandidates()
-    {
-        return $this->candidates;
-    }
 
     /**
      * @return int $this->owner_id, the ID of the employer the Short List belongs to

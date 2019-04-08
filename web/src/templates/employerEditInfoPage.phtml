@@ -45,18 +45,21 @@ include "header.phtml"
             $i = 0;
             $candcount = 0;
             foreach ($shortLists as $list){
+                echo " <div class=\"partition\">";
                 $listID = $list->getID();
-                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name short list\" onclick=\"renameList(".$i.", ".$listID.")\">";
+                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
                 echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
-                    $candID = "cand".$candcount;
-                    echo "<p id = \"".$candID."\">Name: ".$candidate->getGName()." ".$candidate->getFName()."</p> ";
-                    $candidateID = $candidate->getID();
-                    echo "<input type=\"button\" id=\"deleteCandidate".$candcount."\" value = \"Remove Candidate From List\" onclick=\"deleteFromShortList(".$listID.", ".$candidateID.", ".$candcount.",".$i.")\">";
-                    $candcount++;
+                    if($candidate->getGName() != NULL) {
+                        $candID = "cand" . $candcount;
+                        echo "<p id = \"" . $candID . "\">Name: " . $candidate->getGName() . " " . $candidate->getFName() ."<input type=\"button\" id=\"deleteCandidate" . $candcount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $listID . ", " . $candidateID . ", " . $candcount . "," . $i . ")\"> </p> ";
+                        $candidateID = $candidate->getID();
+                        $candcount++;
+                    }
                 }
                 $i++;
+                echo " </div>";
             }
             echo "<input type=\"button\" id=\"newList\" value = \"Create new short list\" onclick=\"newShortList(".$employerInfo->getId().")\">";
             ?>

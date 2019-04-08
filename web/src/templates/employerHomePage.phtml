@@ -19,25 +19,29 @@ include "header.phtml"
                 <p>Company Name: <?= $employerInfo->getCompanyName() ?> </p>
                 <p>Address: <?= $employerInfo->getAddress() ?></p>
                 <p>URL: <?= $employerInfo->getURL() ?></p>
+            </div>
+            <p>Short Lists:</p>
 
-                <?php $shortLists = $employerInfo->getShortLists();
-                echo "<p>Short Lists:</p>";
-                foreach ($shortLists as $list){
-                    echo "<p>".$list->getName()."</p>";
 
-                    if($list->checkCandidates() != 'NULL' ) {
+                    <?php $shortLists = $employerInfo->getShortLists();
+                    foreach ($shortLists as $list){
+                        echo "<div class=\"partition\">";
+                        echo "<p>".$list->getName()."</p>";
+                        echo "<input type=\"button\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite()\"   >";
                         $candidates = $list->getCandidates();
                         foreach ($candidates as $candidate) {
-                            echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
-                        }
-                    }
-                } ?>
+                            if($candidate->getGName() != NULL)
+                                echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                            }
+                        echo "</div>";
+                    } ?>
+
 
 
                 <p>Click <a href="<?= $linkTo('editEmployerInfoPage'); ?>">Here</a> to edit info</p>
 				<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to Search</p>
                 <p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p>
-			</div>
+
 			<br>
 			<br>
 
