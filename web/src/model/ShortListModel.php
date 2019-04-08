@@ -155,6 +155,10 @@ class ShortListModel extends Model
      */
     public function addCandidate($candId)
     {
+        // Check if candidate is already in the short list
+        if(in_array($candId, $this->candidates)){
+            return;
+        }
         if($this->candidates == "NULL"){
             $str =$candId;
             $this->candidates = explode(",", $str);
