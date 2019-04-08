@@ -34,11 +34,12 @@ function getCandidates(callback) {
  * Sends Invites to all Candidates in a the selected Shortlist
  */
 function sendInvite(){
-    xmlhttp = new XMLHttpRequest();
-    var shortlist = document.getElementById('shortlist0').value;
-    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
-    xmlhttp.send();
     alert("Invitation's Sent to candidates!")
+   // xmlhttp = new XMLHttpRequest();
+   // var shortlist = document.getElementById('shortList').value;
+   // xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
+  //  xmlhttp.send();
+
 }
 
 /***
