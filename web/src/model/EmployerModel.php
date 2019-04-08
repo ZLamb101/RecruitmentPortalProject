@@ -162,8 +162,8 @@ class EmployerModel extends UserModel
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = $id;")) {
-            throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerLoad");
+        if (!$result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$id';")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerLoad");
         }
         $result = $result->fetch_assoc();
         $this->user_id = $result['user_id'];
@@ -190,20 +190,19 @@ class EmployerModel extends UserModel
         //SHORT LIST SAVE NOT WRITTEN
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
-        error_log($uid);
+
         $address = $this->address ?? "NULL";
         $address = $this->db->real_escape_string($address);
-        error_log($address);
+
         $comp_name = $this->company_name ?? "NULL";
         $comp_name = $this->db->real_escape_string($comp_name);
-        error_log($comp_name);
+
         $contact_name = $this->contact_name ?? "NULL";
         $contact_name = $this->db->real_escape_string($contact_name);
-        error_log($contact_name);
+
         $url = $this->url ?? "NULL";
         $url = $this->db->real_escape_string($url);
-        error_log($url);
-        error_log($this->id);
+
         if(!isset($this->id)){
             // new employer
             if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){

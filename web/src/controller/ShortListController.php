@@ -5,7 +5,7 @@ use bjz\portal\model\ShortListModel;
 use bjz\portal\model\CandidateModel;
 use bjz\portal\model\EmployerModel;
 
-
+session_start();
 /**
  * Class ShortListController
  *
@@ -86,13 +86,18 @@ class ShortListController extends Controller
             $list = new ShortListModel();
             $list->newShortList($name, $id);
 
-            $employerInfo = new Employer();
+            $employerInfo = new EmployerModel();
+            error_log($_SESSION['UserID']);
             $employerInfo->load($_SESSION["UserID"]);
+
+
             $shortLists = $employerInfo->getShortLists();
+            error_log($employerInfo->getCompanyName());
+            error_log($employerInfo->getCompanyName());
             $i = 0;
             $candcount = 0;
             foreach ($shortLists as $list){
-                echo " <div id =\"shortlist".$i."\" class=\"partition\">";
+                error_log($i); echo " <div id =\"shortlist".$i."\" class=\"partition\">";
                 $listID = $list->getID();
                 echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$listID.")\">";
                 echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";

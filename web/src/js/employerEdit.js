@@ -79,8 +79,9 @@ function newShortList(ID,i) {
         alert("User cancelled the prompt.");
     } else {
         getCreateNewShortlist(name,ID, function () {
-            document.getElementById("short-lists").innerText = this.responseText;
+            document.getElementById("short-lists").innerHTML = this.responseText;
         })
+        return false;
     }
 }
 
