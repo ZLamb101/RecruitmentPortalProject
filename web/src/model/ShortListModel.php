@@ -148,9 +148,12 @@ class ShortListModel extends Model
      */
     public function addCandidate($candId)
     {
-        if($this->candidates == ""){
-            $str = implode(",", $this->candidates);
-            $str.=$candId;
+        // Check if candidate is already in the short list
+        if(in_array($candId, $this->candidates)){
+            return;
+        }
+        if($this->candidates == "NULL"){
+            $str =$candId;
             $this->candidates = explode(",", $str);
         } else {
             $str = implode(",", $this->candidates);

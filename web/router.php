@@ -263,7 +263,7 @@ $collection->attachRoute(
     new Route(
         '/addToShortList.php',
         array(
-            '_controller' => 'bjz\portal\controller\SearchController::addToShortListAction',
+            '_controller' => 'bjz\portal\controller\ShortListController::addToShortListAction',
             'methods' => 'GET',
             'name' => 'addToShortList'
         )
