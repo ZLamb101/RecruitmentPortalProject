@@ -88,7 +88,7 @@ class SearchController extends Controller
         foreach($candidates as $candidate){
             $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
-                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getId()."' value='+' onclick='addToShortlist(".$candidate->getId().")'></td></tr>";
+                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
         $response = $response . '</table>';
         return $response;
