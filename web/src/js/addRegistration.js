@@ -14,6 +14,8 @@ function addQualification(){
 
 	var qual = document.createElement("div");                       // Create a <div> node
 	qual.setAttribute("class","partition");
+	var divString = "qualification"+it;
+	qual.setAttribute("id",divString);
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -68,7 +70,18 @@ function addQualification(){
 	year.setAttribute("pattern", "^[0-9]{4}$");
 	year.setAttribute("title", "YYYY format. Numeric characters only");
 
+    var deleteButton = document.createElement("input");
+    deleteButton.setAttribute("type", "button");
+    var deleteQualificationNum = "delete-qualification"+it;
+    deleteButton.setAttribute("id", deleteQualificationNum);	//append number to this
+    deleteButton.setAttribute("value", "Delete");
+    var functionName = "deleteQualificationHTML("+it+")";
+    deleteButton.setAttribute("onclick", functionName);	//make acutal function values
+
+    //echo "<input type=\"button\" id=\"delete-qualification\"".$i." value = \"Delete\" onclick=\"deleteQualification(".$i.", ".$id.")\">";
+
 	yearP.appendChild(yearLabel);
+	qual.appendChild(deleteButton);
 	qual.appendChild(yearP);
 	qual.appendChild(year);
 

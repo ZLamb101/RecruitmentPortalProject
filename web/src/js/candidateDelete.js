@@ -108,9 +108,42 @@ function deleteQualification(number, id){
             newElementId = "qualId" + (i - 1);
             document.getElementById(elementId).id = newElementId;
         }
-        alert(document.getElementById("qualification-count").value);
         document.getElementById("qualification-count").value = (numOfExperience - 1);
-        alert(document.getElementById("qualification-count").value);
+    }else{
+        alert("You cannot delete your last work experience");
+    }
+}
+
+
+/**
+ * Clears the HTML of where it was displayed
+ * Decreases all the IDs of elements after this one such that the save will still work
+ */
+function deleteQualificationHTML(number){
+    if(document.getElementById("qualification-count").value > 1) {
+        var divToDelete = "qualification" + number;
+        var elem = document.getElementById(divToDelete);
+        elem.parentNode.removeChild(elem);
+
+        var numOfExperience = document.getElementById("qualification-count").value
+        for (var i = (number + 1); i < numOfExperience; i++) {
+            var elementId = "year" + i;
+            var newElementId = "year" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+
+            elementId = "level" + i;
+            newElementId = "level" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+
+            elementId = "type" + i;
+            newElementId = "type" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+
+            elementId = "qualId" + i;
+            newElementId = "qualId" + (i - 1);
+            document.getElementById(elementId).id = newElementId;
+        }
+        document.getElementById("qualification-count").value = (numOfExperience - 1);
     }else{
         alert("You cannot delete your last work experience");
     }
