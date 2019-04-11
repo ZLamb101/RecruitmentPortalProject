@@ -201,6 +201,19 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Function to determine if an employer already has a calendar linked
+     *
+     * @return string, description of if calendar is linked
+     */
+    public function isCalendarAdded(){
+        if($this->calendar_link == NULL){
+            return "No calendar added";
+        } else {
+            return "Calendar is added";
+        }
+    }
+
+    /**
      * Saves employer information to the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
