@@ -1999,7 +1999,7 @@ $userDummy = "(NULL, 'Michael.Garcia', 'Garcia10', 'Michael@gmail.coom', '028510
 (NULL, 'Mason.Thompson', 'Thompson10', 'Mason@gmail.coom', '0260028291'), 
 (NULL, 'Abigail.Clark', 'Clark10', 'Abigail@gmail.coom', '0202804832'), 
 (NULL, 'Ava.Lewis', 'Lewis10', 'Ava@gmail.coom', '0224846301'), 
-(NULL, 'Olivia.Thompson', 'Thompson10', 'Olivia@gmail.coom', '0293182705')
-"
+(NULL, 'Olivia.Thompson', 'Thompson10', 'Olivia@gmail.coom', '0293182705') 
+";
 
 ?>

@@ -95,8 +95,7 @@ class Model
                                                     (1, 'jdrumm', '$pw1', 'jordan.b.drumm@gmail.com', '0210220342'),
                                                     (2, 'bupton', '$pw2', 'bupton@hotmail.co.nz', '0220413672'),
                                                     (3, 'zlamb', '$pw3', 'zanelamb@live.com', '0274929473'),
-                                                    (4, 'tharris', '$pw4', 'tim@gmail.com', '0210867283');")){
-                // ". $userDummy ."
+                                                    (4, 'tharris', '$pw4', 'tim@gmail.com', '0210867283'), ". $userDummy .";")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy user data.", $this->db->errno);
             }
@@ -153,8 +152,7 @@ class Model
             if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`) VALUES 
                                                     ('1', '1', 'Drumm', 'Jordan', 'Torbay', '1'), 
                                                     ('2', '2', 'Upton', 'Benjamin', 'Glenfield','3'),
-                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7');")){
-                // ," . $candidateDummy .";")){
+                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7')," . $candidateDummy .";")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy candidate data.", $this->db->errno);
             }
@@ -187,7 +185,7 @@ class Model
                                                     (NULL, '1', 'Junior Developer', 'TradeMe', '6'),
                                                     (NULL, '2', 'Garbage Man', 'E-Waste', '15'),
                                                     (NULL, '3', 'Physio', 'Torbay Physio', '8'),
-                                                    (NULL, '3', 'Stock Broker', 'Easy Cash', '12');")){
+                                                    (NULL, '3', 'Stock Broker', 'Easy Cash', '12')," . $workExpDummy .";")){
                 // ," . $workExpDummy ."
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy work_experience data.", $this->db->errno);
@@ -326,8 +324,7 @@ class Model
                                                     (NULL, '1', '3','4', '2019', 'Computer Science'),
                                                     (NULL, '1', '2','6', '2024', 'Healthy Eating'),
                                                     (NULL, '2', '1','3', '1804', 'Jump Jam'),
-                                                    (NULL, '3', '2','1', '2020', 'Exercise Physiology');")){
-                //(NULL, '3', '2','1', '2020')," . $qualDummy . ";")){
+                                                    (NULL, '3', '2','1', '2020', 'Exercise Physiology')," . $qualDummy . ";")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
             }
@@ -611,11 +608,8 @@ class Model
                                                     (NULL, 1, 1, 1, 'Counting money'),
                                                     (NULL, 1, 1, 2, 'Doing the books'),
                                                     (NULL, 2, 1, 3, 'Being Cool'),
-                                                    (NULL, 3, 1, 4, 'Being lame')
+                                                    (NULL, 3, 1, 4, 'Being lame')," . $skillDummy ."
                                                     ;")) {
-                // ,
-                //                                                    " . $skillDummy ."
-                //                                                    ;")) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy skill data.", $this->db->errno);
             }
@@ -643,11 +637,11 @@ class Model
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create preference table");
             }
-            //include 'skillDummyData.php';
+            include 'preferencesDummyData.php';
             if (!$this->db->query("INSERT INTO `preferences` (`id`, `owner_id`, `preferred_qual_id`, `preferred_workEx_id`, `preferred_skill_id`) VALUES
                                                     (NULL, 1, 1, 1, 1),
                                                     (NULL, 2, 3, 3, 3),
-                                                    (NULL, 3, 4, 4, 4)
+                                                    (NULL, 3, 4, 4, 4), ". $prefDummy."
                                                     ;")) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy preference data.", $this->db->errno);
