@@ -24,16 +24,20 @@ include "header.phtml"
 
 
                     <?php $shortLists = $employerInfo->getShortLists();
+                    $i = 0;
                     foreach ($shortLists as $list){
+
                         echo "<div class=\"partition\">";
                         echo "<p>".$list->getName()."</p>";
-                        echo "<input type=\"button\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite()\"   >";
+                        echo "<input type=\"button\" id=\"send".$i."\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite(this)\"   >";
+                        echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                         $candidates = $list->getCandidates();
                         foreach ($candidates as $candidate) {
                             if($candidate->getGName() != NULL)
                                 echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
                             }
                         echo "</div>";
+                        $i++;
                     } ?>
 
 

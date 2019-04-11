@@ -317,17 +317,6 @@ $collection->attachRoute(
 
 $collection->attachRoute(
     new Route(
-        '/Send-Invite',
-        array(
-            '_controller' => 'bjz\portal\controller\CandidateController::sendInviteAction',
-            'methods' => 'POST',
-            'name' => 'sendInvite'
-        )
-    )
-);
-
-$collection->attachRoute(
-    new Route(
         '/deleteWorkExperience.php',
         array(
             '_controller' => 'bjz\portal\controller\CandidateController::deleteWorkExperienceAction',

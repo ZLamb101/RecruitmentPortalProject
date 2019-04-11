@@ -71,7 +71,7 @@ include "header.phtml"
             </form>
 			<br>
             <div id ="shortlist">
-                <select id="shortlist0" name="shortlist0" onclick="updateShortList()">
+                <select id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
                     <option value="all">All Shortlists</option>
                     <?php
                     $shortLists = $employerInfo->getShortLists();
@@ -80,7 +80,7 @@ include "header.phtml"
                     }
                     ?>
                 </select>
-                <input type="button" name="sendInvites" value="send Invites" onclick="sendInvite()">
+                <input type="button" id="send0" name="sendInvites" value="send Invites" onclick="sendInvite()">
                 <div id="shortlist-candidates">
 
 

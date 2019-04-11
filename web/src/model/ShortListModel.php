@@ -1,5 +1,7 @@
 <?php
 namespace bjz\portal\model;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 /**
  * Class ShortListModel
  *
