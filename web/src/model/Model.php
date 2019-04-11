@@ -215,9 +215,9 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create short_list table");
             }
 
-            if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates` `description`) VALUES 
-                                                    (NULL, '1', 'Junior Developer', '1,2,3', 'Probably not jordan, he dum'),
-                                                    (NULL, '1', 'Tester', '3,2', 'Deffo can get JorDumDum in for this role');")){
+            if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`) VALUES 
+                                                    (NULL, '1', 'Junior Developer', '1,2,3', 'Jr. C# developer'),
+                                                    (NULL, '1', 'Tester', '3,2', 'Ideally undergrad');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
             }

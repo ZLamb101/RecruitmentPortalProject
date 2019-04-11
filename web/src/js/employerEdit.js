@@ -16,7 +16,28 @@ function renameList(divID, id){
 
         xmlhttp.send();
         var nameChanged = "shortList"+divID;
-        document.getElementById(nameChanged).innerText = name;
+        document.getElementById(nameChanged).innerText ="Name: " + name;
+    }
+}
+
+/**
+ * Changes the corresponding shortList description
+ * @param divID, the short list div number that will be modified
+ * @param id, the id of the shortlist to be modified
+ */
+function changeDescription(divID, id){
+    var description = prompt("Please enter the new description", "");
+
+    if (description == null || description == "") {
+        alert("User cancelled the prompt.");
+    } else {
+        xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.open("GET", "changeDescriptionShortList.php?q=" + id+ "&description=" +description, true);
+
+        xmlhttp.send();
+        var descriptionChanged = "shortListDescription"+divID;
+        document.getElementById(descriptionChanged).innerText = "Description: " + description;
     }
 }
 
@@ -73,21 +94,22 @@ function get(listID, candidateID, divID, titleID, callback) {
 }
 
 function newShortList(ID,i) {
-    var name = prompt("Please enter the new name", "");
+    var name = prompt("Please enter the new name: ", "");
 
     if (name == null || name == "") {
         alert("User cancelled the prompt.");
     } else {
-        getCreateNewShortlist(name,ID, function () {
+        var description = prompt("Please enter a description: ", "");
+        getCreateNewShortlist(name,ID,description, function () {
             document.getElementById("short-lists").innerHTML = this.responseText;
         })
         return false;
     }
 }
 
-function getCreateNewShortlist(name,ID,callback) {
+function getCreateNewShortlist(name,ID,description,callback) {
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID,true);
+    xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID+"&description=" + description,true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

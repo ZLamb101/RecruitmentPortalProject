@@ -414,6 +414,16 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/changeDescriptionShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::changeDescriptionAction',
+            'methods' => 'GET',
+            'name' => 'changeDescription'
+        )
+    )
+);
 
 $router = new Router($collection);
 $router->setBasePath('/');

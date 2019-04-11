@@ -51,7 +51,9 @@ include "header.phtml"
                 $listID = $list->getID();
                 echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$listID.")\">";
                 echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
-                echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
+                echo "<input type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$listID.")\">";
+                echo "<p id = \"shortList".$i."\">Name: ".$list->getName()."</p>";
+                echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
                     if($candidate->getGName() != NULL) {

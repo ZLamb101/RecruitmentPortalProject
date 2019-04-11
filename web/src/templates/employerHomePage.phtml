@@ -27,7 +27,8 @@ include "header.phtml"
                     <?php $shortLists = $employerInfo->getShortLists();
                     foreach ($shortLists as $list){
                         echo "<div class=\"partition\">";
-                        echo "<p>".$list->getName()."</p>";
+                        echo "<p>Name: ".$list->getName()."</p>";
+                        echo "<p>Description: ".$list->getDescription()."</p>";
                         echo "<input type=\"button\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite()\"   >";
                         $candidates = $list->getCandidates();
                         foreach ($candidates as $candidate) {
