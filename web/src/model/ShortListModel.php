@@ -34,6 +34,27 @@ class ShortListModel extends Model
     private $description;
 
     /**
+     * @var bool, check for if a shortlist has sent invites.
+     */
+    private $hasInvited;
+
+    /**
+     * @return bool
+     */
+    public function isHasInvited()
+    {
+        return $this->hasInvited;
+    }
+
+    /**
+     * @param bool $hasInvited
+     */
+    public function setHasInvited($hasInvited)
+    {
+        $this->hasInvited = $hasInvited;
+    }
+
+    /**
      * @return string, Gets the description of the short list
      */
     public function getDescription()
@@ -118,6 +139,7 @@ class ShortListModel extends Model
         $this->owner_id = $result['owner_id'];
         $this->name = $result['name'];
         $this->description = $result['description'];
+        $this->hasInvited = $result['hasInvited'];
         $candString = $result['candidates'];
         $this->candidates = explode(",", $candString);
         return $this;
@@ -142,13 +164,13 @@ class ShortListModel extends Model
         $cand = $this->db->real_escape_string($cand);
         if (!isset($this->id)) {
 
-            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand', '$description');")){
+            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand', '$description', 0);")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
 
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand', `description` = '$description' WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand', `description` = '$description', `hasInvited` = '$this->hasInvited' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }

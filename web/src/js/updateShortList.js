@@ -46,6 +46,8 @@ function sendInvite(button){
 
     xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
     xmlhttp.send();
+    button.disabled = true;
+    button.value = "Invites sent";
     alert("Invitation's Sent to candidates!");
 }
 
