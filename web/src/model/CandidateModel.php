@@ -343,14 +343,14 @@ class CandidateModel extends UserModel
         if($result->num_rows != 0){
             $result = $result->fetch_assoc();
             $prefID = $result['preferred_qual_id'];
-            if(!$result = $this->db->query("SELECT `level`, `type`, `year` FROM `qualification`
+            if(!$result = $this->db->query("SELECT `level`, `type`, `year`, `major` FROM `qualification`
                                             LEFT JOIN `qual_level` ON `qualification`.`level_id` = `qual_level`.`id` 
                                             LEFT JOIN `qual_type` ON `qualification`.`type_id` = `qual_type`.`id`
                                             WHERE `qualification`.`id` = '$prefID';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefQual2");
             }
             $result = $result->fetch_assoc();
-            return $result['level'] . " of " . $result['type'] . " - " . $result['year'];
+            return $result['level'] . " of " . $result['type'] . " (" . $result['major'] . ") - " . $result['year'];
         } else {
             return "";
         }

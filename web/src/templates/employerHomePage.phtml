@@ -1,4 +1,4 @@
-
+progr
 <?php 
 include "header.phtml"
  ?>
@@ -19,6 +19,7 @@ include "header.phtml"
                 <p>Company Name: <?= $employerInfo->getCompanyName() ?> </p>
                 <p>Address: <?= $employerInfo->getAddress() ?></p>
                 <p>URL: <?= $employerInfo->getURL() ?></p>
+                <p>Calendar: <?= $employerInfo->isCalendarAdded() ?></p>
             </div>
             <p>Short Lists:</p>
 
@@ -31,6 +32,9 @@ include "header.phtml"
                         echo "<p>".$list->getName()."</p>";
                         echo "<input type=\"button\" id=\"send".$i."\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite(this)\"   >";
                         echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
+                        echo "<p>Name: ".$list->getName()."</p>";
+                        echo "<p>Description: ".$list->getDescription()."</p>";
+                        echo "<input type=\"button\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite()\"   >";
                         $candidates = $list->getCandidates();
                         foreach ($candidates as $candidate) {
                             if($candidate->getGName() != NULL)

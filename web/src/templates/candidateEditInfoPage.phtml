@@ -72,6 +72,7 @@ include "header.phtml"
                         $year = "year".$i;
                         $level = "level".$i;
                         $type = "type".$i;
+                        $major = "major".$i;
                         $qualId = "id".$i;
                         $qualId2 = "qualId".$i;
 
@@ -108,6 +109,7 @@ include "header.phtml"
                         echo "</select>";
                         $id = $qual->getId();
                         echo "<p>Year: <input type=text name=\"".$year."\" id=\"".$year."\" size=\"40\" pattern=\"^\d{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"> </p>";
+                        echo "<p>Major: <input type=text name=\"".$major."\" id=\"".$major."\" size=\"40\" value=\"".$qual->getMajor()."\"></p>";
                         echo "<input type = \"hidden\" name=\"".$qualId."\"  value=\"".$id."\">";
                         $i++;
                         echo "</div>";

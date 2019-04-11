@@ -29,6 +29,27 @@ class ShortListModel extends Model
     private $candidates;
 
     /**
+     * @var string, brief description of the short list
+     */
+    private $description;
+
+    /**
+     * @return string, Gets the description of the short list
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description, Sets the description of the short list
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
      * @return int $this->id, the ID of the Short List
      */
     public function getId()
@@ -96,6 +117,7 @@ class ShortListModel extends Model
         $this->id = $id;
         $this->owner_id = $result['owner_id'];
         $this->name = $result['name'];
+        $this->description = $result['description'];
         $candString = $result['candidates'];
         $this->candidates = explode(",", $candString);
         return $this;
@@ -112,19 +134,21 @@ class ShortListModel extends Model
     {
         $owner_id = $this->owner_id ?? "NULL";
         $owner_id = $this->db->real_escape_string($owner_id);
+        $description = $this->description ?? "NULL";
+        $description = $this->db->real_escape_string($description);
         $name = $this->name ?? "NULL";
         $name = $this->db->real_escape_string($name);
         $cand = implode(",", $this->candidates);
         $cand = $this->db->real_escape_string($cand);
         if (!isset($this->id)) {
 
-            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand');")){
+            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand', '$description');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
 
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand' WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand', `description` = '$description' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
@@ -176,6 +200,17 @@ class ShortListModel extends Model
     }
 
     /**
+     * Changes the shortList description as desired
+     * @param $shortListID, the ID of the shortlist to rename
+     * @param $description, the desired new description
+     */
+    public function changeDescription($shortListID, $description){
+        if(!$result = $this->db->query("UPDATE `short_list` SET `description` = '$description' WHERE `id` = '$shortListID'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListChangeDescription");
+        }
+    }
+
+    /**
      * Deletes a specified candidate from a shortlist
      *
      * @param $shortListID, the ID of the shortList to delete the candidate from
@@ -223,10 +258,11 @@ class ShortListModel extends Model
      * creates the shortList as desired
      * @param $shortListName, the name of the new shortList
      * @param $ownerID, the ID of the user the shortList belongs to
+     * @param $description, the description of the shortList
      */
-    public function newShortList($shortListName, $ownerID){
-        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`) VALUES 
-                                                    (NULL, '$ownerID', '$shortListName', 'NULL');")){
+    public function newShortList($shortListName, $ownerID, $description){
+        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`) VALUES 
+                                                    (NULL, '$ownerID', '$shortListName', 'NULL', '$description');")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
         }
     }
