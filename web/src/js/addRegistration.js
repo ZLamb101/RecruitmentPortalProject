@@ -14,6 +14,17 @@ function addQualification(){
 
 	var qual = document.createElement("div");                       // Create a <div> node
 	qual.setAttribute("class","partition");
+	var divString = "qualification"+it;
+	qual.setAttribute("id",divString);
+
+    var deleteButton = document.createElement("input");
+    deleteButton.setAttribute("type", "button");
+    var deleteQualificationNum = "delete-qualification"+it;
+    deleteButton.setAttribute("id", deleteQualificationNum);
+    deleteButton.setAttribute("value", "Delete");
+    var functionName = "deleteQualificationHTML("+it+")";
+    deleteButton.setAttribute("onclick", functionName);
+    qual.appendChild(deleteButton);
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -68,7 +79,10 @@ function addQualification(){
 	year.setAttribute("pattern", "^[0-9]{4}$");
 	year.setAttribute("title", "YYYY format. Numeric characters only");
 
+
+
 	yearP.appendChild(yearLabel);
+
 	qual.appendChild(yearP);
 	qual.appendChild(year);
 
@@ -103,6 +117,18 @@ function addWorkExperience(){
 
 	var workex = document.createElement("div");                       // Create a <div> node
     workex.setAttribute("class","partition");
+    var divName = "workExperience" + it;
+    workex.setAttribute("id",divName);
+
+    var deleteButton = document.createElement("input");
+    deleteButton.setAttribute("type", "button");
+    var deleteWorkNum = "delete-work-experience"+it;
+    deleteButton.setAttribute("id", deleteWorkNum);
+    deleteButton.setAttribute("value", "Delete");
+    var functionName = "deleteWorkExperienceHTML("+it+")";
+    deleteButton.setAttribute("onclick", functionName);
+    workex.appendChild(deleteButton);
+
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
@@ -155,7 +181,10 @@ function addWorkExperience(){
 	employer.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
 	employer.setAttribute("title", "Alphanumeric, '-' and space characters only");
 
+
+
 	employerP.appendChild(employerLabel);
+
 	workex.appendChild(employerP);
 	workex.appendChild(employer);
 
@@ -173,6 +202,17 @@ function addSkill(){
 
 	var skill = document.createElement("div");                       // Create a <div> node
     skill.setAttribute("class","partition");
+    var divName = "skill" + it;
+    skill.setAttribute("id",divName);
+
+    var deleteButton = document.createElement("input");
+    deleteButton.setAttribute("type", "button");
+    var deleteSkillNum = "delete-skill"+it;
+    deleteButton.setAttribute("id", deleteSkillNum);
+    deleteButton.setAttribute("value", "Delete");
+    var functionName = "deleteSkillHTML("+it+")";
+    deleteButton.setAttribute("onclick", functionName);
+    skill.appendChild(deleteButton);
 
 	var prefP = document.createElement("p");
 	var prefLabel = document.createTextNode("Preferred: ");
