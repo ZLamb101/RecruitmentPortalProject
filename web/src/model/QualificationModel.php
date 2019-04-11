@@ -33,6 +33,11 @@ class QualificationModel extends Model
      */
     private $year;
 
+    /***
+     * @var string, the major selected for the qualification
+     */
+    private $major;
+
     /**
      * @return int, the ID of the qualification
      */
@@ -114,6 +119,24 @@ class QualificationModel extends Model
     }
 
     /**
+     * @return string, the major associated with the qualification
+     */
+    public function getMajor()
+    {
+        return $this->major;
+    }
+
+    /**
+     * @param string $major, the new major associated with the qualification
+     */
+    public function setMajor($major)
+    {
+        $this->major = $major;
+    }
+
+
+
+    /**
      * Loads qualification information from the database
      *
      * @param int $id, the id of the qualification to load
@@ -135,6 +158,7 @@ class QualificationModel extends Model
         $this->level_id = $result['level_id'];
         $this->type_id = $result['type_id'];
         $this->year = $result['year'];
+        $this->major = $result['major'];
         return $this;
     }
 
@@ -157,17 +181,18 @@ class QualificationModel extends Model
         $year = $this->year ?? "NULL";
         $year = $this->db->real_escape_string($year);
 
+        $major = $this->major ?? "NULL";
+        $major = $this->db->real_escape_string($major);
+
 
         if (!isset($this->id)) {
-            error_log("qual save");
-            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year');")){
+            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year', '$major');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-
-            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year' 
-                                              WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year', 
+                                              `major` = '$major' WHERE `id` = '$this->id';")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");
             }
         }

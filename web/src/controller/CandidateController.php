@@ -102,7 +102,6 @@ class CandidateController extends UserController
             $pref_work = $this->updateWorkExperienceAction($candidateID);
             $pref_skill = $this->updateSkillAction($candidateID);
 
-            error_log("Pref qual id: ".$pref_qual."\nPref work id is".$pref_work."\nPref skill id is".$pref_skill);
             try {
                 $account->savePreferences($pref_qual, $pref_work, $pref_skill);
             } catch (\Exception $e){
@@ -154,6 +153,8 @@ class CandidateController extends UserController
    /**
      * Function to load and update a Qualification
      * Takes the inputs from post request and updates a Qualification
+    * @param int $candidateID, the id of the candidate whose qualifications they belong to
+    * @return int $pref_id, the id of the preferred qualification
      */
     public function updateQualificationAction($candidateID){
         $qualificationCount = $_POST['qualification-count'];
@@ -168,6 +169,7 @@ class CandidateController extends UserController
             $yearInput = 'year'.$qualificationCount;
             $levelInput = 'level'.$qualificationCount;
             $typeInput = 'type'.$qualificationCount;
+            $majorInput = 'major'.$qualificationCount;
             if($_POST["$yearInput"] == NULL || $_POST["$levelInput"] == NULL || $_POST["$typeInput"] == NULL){
                 $qualificationCount--;
                 continue;
@@ -176,6 +178,7 @@ class CandidateController extends UserController
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setLevelId($_POST["$levelInput"]);
             $qualification->setTypeId($_POST["$typeInput"]);
+            $qualification->setMajor($_POST["$majorInput"]);
             $isPreferred = false;
             if($qualificationCount == $_POST["qualification-preference"]){
                 $isPreferred = true;

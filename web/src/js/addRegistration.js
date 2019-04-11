@@ -69,7 +69,7 @@ function addQualification(){
 
 
 	var yearP = document.createElement("p");
-	var yearLabel = document.createTextNode("Year.");
+	var yearLabel = document.createTextNode("Year: ");
 	var year = document.createElement("input");
 	var yearString = "year";
 	yearString = yearString.concat(it.toString(10));
@@ -78,16 +78,22 @@ function addQualification(){
 	year.setAttribute("size",40);
 	year.setAttribute("pattern", "^[0-9]{4}$");
 	year.setAttribute("title", "YYYY format. Numeric characters only");
-
-
-
 	yearP.appendChild(yearLabel);
 
 	qual.appendChild(yearP);
 	qual.appendChild(year);
 
-
-
+	var majorP = document.createElement("p");
+	var majorLabel = document.createTextNode("Major:");
+	var major = document.createElement("input");
+	var majorString = "major";
+	majorString = majorString.concat(it.toString(10));
+	major.setAttribute("name", majorString);
+	major.setAttribute("type", "text");
+	major.setAttribute("size", 40);
+	majorP.appendChild(majorLabel);
+	qual.appendChild(majorP);
+	qual.appendChild(major);
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
 
