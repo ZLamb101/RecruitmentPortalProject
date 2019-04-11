@@ -114,6 +114,7 @@ class Model
                                                 `company_name` varchar(256) DEFAULT NULL,
                                                 `contact_name` varchar(256) DEFAULT NULL,
                                                 `url` varchar(256) DEFAULT NULL,
+                                                `calendar` varchar (256) DEFAULT NULL,
                                                 PRIMARY KEY (`id`),
                                                 FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
                                                 );");
@@ -122,8 +123,8 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create employer table");
             }
 
-            if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`) VALUES 
-                                                    (1, '4', 'Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com');")){
+            if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`, `calendar`) VALUES 
+                                                    (1, '4', 'Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com', 'https://calendar.google.com/calendar/selfsched?sstoken=UUY1TVNrb0FSMVVCfGRlZmF1bHR8YWIyYTE2MWFlZDk0MjNjOGZiMGY3MjQyNTk0Njk2Yzc');")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy employer data.", $this->db->errno);
             }

@@ -39,6 +39,11 @@ class EmployerModel extends UserModel
     private $short_lists;
 
     /**
+     * @var string, the link to the employer's calendar
+     */
+    private $calendar_link;
+
+    /**
      * @return int $this->id, the id of the employer profile
      */
     public function getId()
@@ -151,6 +156,22 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * @return string, a link to the employer's calendar application
+     */
+    public function getCalendarLink()
+    {
+        return $this->calendar_link;
+    }
+
+    /**
+     * @param string $calendar_link, the new link to the employers calendar application
+     */
+    public function setCalendarLink($calendar_link)
+    {
+        $this->calendar_link = $calendar_link;
+    }
+
+    /**
      * Loads employer information from the database
      *
      * @param int $id, the id of the employer to load
@@ -171,6 +192,7 @@ class EmployerModel extends UserModel
         $this->company_name = $result['company_name'];
         $this->contact_name = $result['contact_name'];
         $this->url = $result['url'];
+        $this->calendar_link = $result['calendar'];
         $shortlists = new ShortListCollectionModel($result['id']);
         $this->short_lists = $shortlists->getShortLists();
         $this->id = $result['id'];
@@ -203,9 +225,12 @@ class EmployerModel extends UserModel
         $url = $this->url ?? "NULL";
         $url = $this->db->real_escape_string($url);
 
+        $calendar = $this->calendar_link ?? "NULL";
+        $calendar = $this->db->real_escape_string($calendar);
+
         if(!isset($this->id)){
             // new employer
-            if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url');")){
+            if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url', '$calendar');")){
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
             }
             $this->id = $this->db->insert_id;
@@ -213,7 +238,7 @@ class EmployerModel extends UserModel
             error_log("updating");
             // existing employer, update information
             if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
-                                              `contact_name` = '$contact_name', `url` = '$url' WHERE `id` = '$this->id';")) {
+                                              `contact_name` = '$contact_name', `url` = '$url', 'calendar' = '$calendar' WHERE `id` = '$this->id';")) {
                 error_log("throw");
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
             }
