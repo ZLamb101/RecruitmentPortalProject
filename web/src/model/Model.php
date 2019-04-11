@@ -310,6 +310,7 @@ class Model
                                                     `level_id` int (8) unsigned NOT NULL,
                                                     `type_id` int (8) unsigned NOT NULL,
                                                     `year` varchar(256) DEFAULT NULL,
+                                                    `major` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`),
                                                     FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`),
                                                     FOREIGN KEY (`level_id`) REFERENCES `qual_level`(`id`),
@@ -320,11 +321,11 @@ class Model
                 throw new \mysqli_sql_exception("Failed to create qualification table");
             }
             include 'qualDummyData.php';
-            if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `level_id`,`type_id`, `year`) VALUES 
-                                                    (NULL, '1', '3','4', '2019'),
-                                                    (NULL, '1', '2','6', '2024'),
-                                                    (NULL, '2', '1','3', '1804'),
-                                                    (NULL, '3', '2','1', '2020');")){
+            if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `level_id`,`type_id`, `year`, `major`) VALUES 
+                                                    (NULL, '1', '3','4', '2019', 'Computer Science'),
+                                                    (NULL, '1', '2','6', '2024', 'Healthy Eating'),
+                                                    (NULL, '2', '1','3', '1804', 'Jump Jam'),
+                                                    (NULL, '3', '2','1', '2020', 'Exercise Physiology');")){
                 //(NULL, '3', '2','1', '2020')," . $qualDummy . ";")){
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
