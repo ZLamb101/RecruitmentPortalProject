@@ -33,13 +33,22 @@ function getCandidates(callback) {
 /**
  * Sends Invites to all Candidates in a the selected Shortlist
  */
-function sendInvite(){
-    alert("Invitation's Sent to candidates!")
-   // xmlhttp = new XMLHttpRequest();
-   // var shortlist = document.getElementById('shortList').value;
-   // xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
-  //  xmlhttp.send();
+function sendInvite(button){
 
+
+    xmlhttp = new XMLHttpRequest();
+    var listString = "shortlist";
+    var index = button.id;
+
+    listString = listString.concat(index[4]);
+
+    var shortlist = document.getElementById(listString).value;
+
+    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
+    xmlhttp.send();
+    button.disabled = true;
+    button.value = "Invites sent";
+    alert("Invitation's Sent to candidates!");
 }
 
 /***

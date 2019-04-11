@@ -287,21 +287,7 @@ class CandidateController extends UserController
 
 
 
-    /**
-     * Function to send a calendar invite
-     */
-    public function sendInviteAction(){
-        try {
-            $account = new CandidateModel();
-            $accountId = $account->findID($_POST['username']);
-            $account->load($accountId);
-            $email = $account->getEmail();
-            $account->sendInviteEmail($email);
-        } catch (\Exception $e) {
-            $this->redirect('errorPage');
-        }
 
-    }
 
     /**
      * Function to get all the Types within the database and echo's

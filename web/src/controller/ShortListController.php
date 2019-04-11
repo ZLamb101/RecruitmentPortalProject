@@ -34,6 +34,23 @@ class ShortListController extends Controller
     }
 
     /**
+     * Gets the id of the short list to change the description of and the new description for it from the GET array
+     * Attempts to change the description of said shortlist using the given parameters and handles errors appropriately
+     */
+    public function changeDescriptionAction()
+    {
+        try {
+            $id = $_GET["q"];
+            $description = $_GET["description"];
+            $list = new ShortListModel();
+            $list->changeDescription($id, $description);
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            $this->redirect("errorPage");
+        }
+    }
+
+    /**
      * Gets the id of the short list to rename and the ID of the candidate to delete from the GET array
      * Attempts to delete said candidate from the specified shortList
      */
@@ -83,8 +100,9 @@ class ShortListController extends Controller
         try {
             $name = $_GET["q"];
             $id = $_GET["id"];
+            $description = $_GET["description"];
             $list = new ShortListModel();
-            $list->newShortList($name, $id);
+            $list->newShortList($name, $id, $description);
 
             $employerInfo = new EmployerModel();
             error_log($_SESSION['UserID']);
@@ -101,7 +119,9 @@ class ShortListController extends Controller
                 $listID = $list->getID();
                 echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$listID.")\">";
                 echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
-                echo "<p id = \"shortList".$i."\">".$list->getName()."</p>";
+                echo "<input type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$listID.")\">";
+                echo "<p id = \"shortList".$i."\">Name: ".$list->getName()."</p>";
+                echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
                 $candidates = $list->getCandidates();
                 foreach ($candidates as $candidate){
                     if($candidate->getGName() != NULL) {
@@ -150,6 +170,7 @@ class ShortListController extends Controller
      *Function to send invites to all candidates on the specified shortList
      */
     public function sendInviteAllAction(){
+
         $shortListId = $_GET["q"];
         $shortlist = new ShortListModel();
         $shortlist->load($shortListId);
@@ -158,6 +179,8 @@ class ShortListController extends Controller
         foreach ($candidates as $candidate) {
             $shortlist->sendInviteEmail($candidate->getEmail());
         }
+        $shortlist->setHasInvited(1);
+        $shortlist->save();
 
     }
 }

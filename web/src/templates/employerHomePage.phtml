@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 include "header.phtml"
  ?>
 <script type = "text/javascript" src="src/js/updateShortList.js"></script>
@@ -25,16 +25,26 @@ include "header.phtml"
 
 
                     <?php $shortLists = $employerInfo->getShortLists();
+                    $i = 0;
                     foreach ($shortLists as $list){
+
                         echo "<div class=\"partition\">";
                         echo "<p>".$list->getName()."</p>";
-                        echo "<input type=\"button\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite()\"   >";
+                        if($list->isHasInvited()) {
+                            echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
+                        }else{
+                            echo "<input type=\"button\" id=\"send".$i."\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite(this)\"   >";
+                        }
+                        echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
+                        echo "<p>Name: ".$list->getName()."</p>";
+                        echo "<p>Description: ".$list->getDescription()."</p>";
                         $candidates = $list->getCandidates();
                         foreach ($candidates as $candidate) {
                             if($candidate->getGName() != NULL)
                                 echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
                             }
                         echo "</div>";
+                        $i++;
                     } ?>
 
 
