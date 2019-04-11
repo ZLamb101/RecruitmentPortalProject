@@ -87,9 +87,11 @@ class EmployerController extends UserController
             $account->setUrl($_POST['url']);
             $account->setContactName($_POST['contact-name']);
             $account->setAddress($_POST['address']);
+            $account->setCalendarLink($_POST['calendar-link']);
             try {
                 $account->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             $this->redirect('employerHomePage');
