@@ -425,5 +425,16 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/addAllToShortList.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::addAllToShortListAction',
+            'methods' => 'GET',
+            'name' => 'addAllToShortList'
+        )
+    )
+);
+
 $router = new Router($collection);
 $router->setBasePath('/');

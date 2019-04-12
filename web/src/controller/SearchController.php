@@ -84,13 +84,22 @@ class SearchController extends Controller
      * @return string, the formatted HTML Table element displaying the search results.
      */
     public function formatSearch($candidates){
+        $candidateIDs = NULL;
         $response = "<table><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th><th>Add to Shortlist?</th></tr>";
         foreach($candidates as $candidate){
+
+            if($candidateIDs == NULL){
+                $candidateIDs = $candidate->getUserID();
+            } else {
+                $candidateIDs = $candidateIDs . ',' . $candidate->getUserID();
+            }
+
             $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
                             ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
         $response = $response . '</table>';
+        $response = $response . "<input type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'>";
         return $response;
     }
 
