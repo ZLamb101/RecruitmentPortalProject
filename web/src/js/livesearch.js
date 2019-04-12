@@ -56,3 +56,23 @@ function addToShortlist(candId){
 
     xmlhttp.send();
 }
+
+/***
+ *
+ * @param candidates, all candidates to  be added
+ */
+function addAllToShortlist(candidates){
+    var short_id = document.getElementById("shortlist0").value;
+    // Want to remove button element and replace with "Added" string.
+    xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+            updateShortList();
+        }
+    }
+
+    xmlhttp.open("GET","addAllToShortList.php?candidates="+candidates+"&shortId="+short_id,true);
+
+    xmlhttp.send();
+}

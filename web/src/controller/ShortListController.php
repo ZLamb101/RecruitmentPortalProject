@@ -156,6 +156,22 @@ class ShortListController extends Controller
     }
 
     /**
+     * Function to add all candidates to a shortlist.
+     */
+    public function addAllToShortListAction()
+    {
+        $candIDs = $_GET['candidates'];
+        $shortId = $_GET['shortId'];
+        $ids = explode(",",$candIDs);
+        $short_list = new ShortListModel();
+        $short_list->load($shortId);
+        foreach ($ids as $id) {
+            $short_list->addCandidate($id);
+        }
+        $short_list->save();
+    }
+
+    /**
      * Deletes a short list from the database
      */
     public function deleteShortListAction()
