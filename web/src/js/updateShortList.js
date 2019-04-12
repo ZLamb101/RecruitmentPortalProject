@@ -35,7 +35,6 @@ function getCandidates(callback) {
  */
 function sendInvite(button){
 
-
     xmlhttp = new XMLHttpRequest();
     var listString = "shortlist";
     var index = button.id;
