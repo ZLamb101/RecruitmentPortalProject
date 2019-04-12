@@ -1,0 +1,92 @@
+
+<?php 
+include "header.phtml"
+ ?>
+
+<!---------- Body starts --------------->
+
+
+	<!--- Content Start -->
+	<div id= "page">
+		
+		<div id = "content">
+			<div >
+				<h2>Page of <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
+			</div>
+			<div >
+				<br>
+
+                <p>First Name: <?= $candidateInfo->getGName()?> </p>
+                <p>Last Name: <?= $candidateInfo->getFName() ?> </p>
+                <p>Username: <?= $candidateInfo->getUserName() ?></p>
+                <p>Email: <?= $candidateInfo->getEmail() ?></p>
+                <p>Phone number: <?= $candidateInfo->getPhoneNumber() ?></p>
+                <p>Location: <?= $candidateInfo->getLocation() ?> </p>
+
+                <div id="work-experience" class ="partition">
+                    <p>Work Experience</p>
+                    <?php $workExperience = $candidateInfo->getWorkExperience();
+                    foreach ($workExperience as $work){
+                        echo "<p>Role: ".$work->getRole()."</p>";
+                        echo "<p>Duration (in months): ".$work->getDuration()."</p>";
+                        echo "<p>Employer: ".$work->getEmployer()."</p>";
+                    } ?>
+                </div>
+
+                <div id="qualifications" class ="partition">
+                    <p>Qualifications</p>
+                    <?php $qualifications = $candidateInfo->getQualifications();
+                    foreach ($qualifications as $qual){
+
+                        echo "<p>Level: ".$qual->findLevel($qual->getLevelId())."</p>";
+                        echo "<p>Type: ".$qual->findType($qual->getTypeId())."</p>";
+                        echo "<p>Major: ".$qual->getMajor()."</p>";
+                        echo "<p>Year: ".$qual->getYear()."</p>";
+                    } ?>
+                </div>
+
+                <div id="skills" class ="partition">
+                    <p>Skills</p>
+                    <?php $skills = $candidateInfo->getSkills();
+                    foreach ($skills as $skill){
+                        echo "<p>Field: ".$skill->getField()."</p>";
+                        echo "<p>SubField: ".$skill->getSubField()."</p>";
+                        echo "<p>Contents: ".$skill->getContents()."</p>";
+                    } ?>
+                </div>
+
+                <?php
+                $availability = $candidateInfo->getAvailability();
+                $availabilityString = "";
+                if($availability - 8 >= 0) {
+                    $availability -= 8;
+                    $availabilityString = $availabilityString."Full Time ";
+                }
+                if($availability - 4 >= 0) {
+                    $availability -= 4;
+                    $availabilityString = $availabilityString."Part Time ";
+                }
+                if($availability - 2 >= 0) {
+                    $availability -= 2;
+                    $availabilityString = $availabilityString."Casual ";
+                }
+                if($availability - 1 >= 0) {
+                    $availabilityString = $availabilityString."Contractor";
+                }
+                echo "<p>Availability: ".$availabilityString."</p>";
+                ?>
+
+				<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to return to search</p>
+                <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to go back home</p>
+			</div>
+			<br>
+			<br>
+			
+		</div>
+	</div>
+	<!--- Content Ends here ----------->
+
+
+
+<!---------- Body ends -------------------->
+<?php include "footer.phtml" ?>

@@ -283,8 +283,8 @@ class ShortListModel extends Model
      * @param $description, the description of the shortList
      */
     public function newShortList($shortListName, $ownerID, $description){
-        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`) VALUES 
-                                                    (NULL, '$ownerID', '$shortListName', 'NULL', '$description');")){
+        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`, `hasInvited`) VALUES 
+                                                    (NULL, '$ownerID', '$shortListName', 'NULL', '$description',0);")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
         }
     }
