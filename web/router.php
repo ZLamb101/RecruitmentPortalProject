@@ -414,5 +414,16 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/writeEmail.php',
+        array(
+            '_controller' => 'bjz\portal\controller\ShortListController::writeEmailAction',
+            'methods' => 'GET',
+            'name' => 'writeEmail'
+        )
+    )
+);
+
 $router = new Router($collection);
 $router->setBasePath('/');

@@ -4,6 +4,7 @@ namespace bjz\portal\controller;
 use bjz\portal\model\ShortListModel;
 use bjz\portal\model\CandidateModel;
 use bjz\portal\model\EmployerModel;
+use bjz\portal\view\View;
 
 session_start();
 /**
@@ -182,5 +183,13 @@ class ShortListController extends Controller
         $shortlist->setHasInvited(1);
         $shortlist->save();
 
+    }
+
+    /**
+     * Function to load the page to write an email to a short list of candidates
+     */
+    public function writeEmailAction(){
+        $view = new View('writeEmail');
+        echo $view->render();
     }
 }
