@@ -186,17 +186,17 @@ class ShortListController extends Controller
      *Function to send invites to all candidates on the specified shortList
      */
     public function sendInviteAllAction(){
-        error_log("made it to php");
+
         $shortListId = $_GET["q"];
         $shortlist = new ShortListModel();
         $shortlist->load($shortListId);
 
         $candidates = $shortlist->getCandidates();
         foreach ($candidates as $candidate) {
-            error_log("invite sending to ".$candidate->getEmail());
             $shortlist->sendInviteEmail($candidate->getEmail());
-            error_log("invite sent");
         }
+        $shortlist->setHasInvited(1);
+        $shortlist->save();
 
     }
 }

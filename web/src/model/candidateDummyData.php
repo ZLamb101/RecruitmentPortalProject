@@ -2000,6 +2000,6 @@ $candidateDummy ="(NULL, '5', 'Garcia', 'Michael', 'Random Location', '10'),
 (NULL, '2002', 'Clark', 'Abigail', 'Random Location', '5'), 
 (NULL, '2003', 'Lewis', 'Ava', 'Random Location', '8'), 
 (NULL, '2004', 'Thompson', 'Olivia', 'Random Location', '3')
-"
+";
 
 ?>
