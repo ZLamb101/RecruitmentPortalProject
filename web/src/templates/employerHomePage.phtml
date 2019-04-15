@@ -33,7 +33,7 @@ include "header.phtml"
                         if($list->isHasInvited()) {
                             echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
                         }else{
-                            echo "<input type=\"button\" id=\"send".$i."\" value=\"Send Invites\" name=\"sendInvites\" onclick=\"sendInvite(this)\"   >";
+                            echo "<p><a href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
                         }
                         echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                         echo "<p>Name: ".$list->getName()."</p>";

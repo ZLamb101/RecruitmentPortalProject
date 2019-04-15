@@ -200,6 +200,20 @@ class EmployerModel extends UserModel
         return $this;
     }
 
+    /***
+     * Uses the employer id used by other parts of the system to find the correct user_id
+     * to load the employer with.
+     * @param int $id, the employer id used by other parts of the system
+     * @return int, the user id associated with the employer id
+     */
+    public function findLoadId($id){
+        if(!$result = $this->db->query("SELECT `user_id` FROM `employer` WHERE `id` = '$id'")){
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerFindLoadId");
+        }
+        $result = $result->fetch_assoc();
+        return $result['user_id'];
+    }
+
     /**
      * Function to determine if an employer already has a calendar linked
      *

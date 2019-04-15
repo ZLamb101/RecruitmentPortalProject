@@ -192,9 +192,16 @@ class ShortListController extends Controller
         $shortlist = new ShortListModel();
         $shortlist->load($shortListId);
 
+        $content = $_GET['content'];
+
+        $employerId = $shortlist->getOwnerId();
+        $employer = new EmployerModel();
+        $employerLoadId = $employer->findLoadId($employerId);
+        $employer->load($employerLoadId);
+
         $candidates = $shortlist->getCandidates();
         foreach ($candidates as $candidate) {
-            $shortlist->sendInviteEmail($candidate->getEmail());
+            $shortlist->sendInviteEmail($candidate, $content, $employer);
         }
         $shortlist->setHasInvited(1);
         $shortlist->save();
@@ -205,7 +212,17 @@ class ShortListController extends Controller
      * Function to load the page to write an email to a short list of candidates
      */
     public function writeEmailAction(){
+        $shortlistId = $_GET["list_id"];
+        $shortlist = new ShortListModel();
+        $shortlist->load($shortlistId);
+
+        $employerId = $shortlist->getOwnerId();
+        $employer = new EmployerModel();
+        $employerLoadId = $employer->findLoadId($employerId);
+        $employer->load($employerLoadId);
+
         $view = new View('writeEmail');
-        echo $view->render();
+        $view->addData('employer', $employer);
+        echo $view->addData('shortlist', $shortlist)->render();
     }
 }

@@ -31,23 +31,27 @@ function getCandidates(callback) {
 }
 
 /**
- * Sends Invites to all Candidates in a the selected Shortlist
+ * Sends Invites to all Candidates in the selected Shortlist
  */
-function sendInvite(button){
+function sendInvite(shortlist){
+    var submitButton = document.getElementById('submit-handle');
+    var emailContent = document.getElementById('content').value;
 
     xmlhttp = new XMLHttpRequest();
-    var listString = "shortlist";
-    var index = button.id;
 
-    listString = listString.concat(index[4]);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // defensive check
+            if (typeof callback === "function") {
 
-    var shortlist = document.getElementById(listString).value;
+            }
+        }
+    };
 
-    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist, true);
+    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist + "&content="+emailContent, true);
+    submitButton.click();
     xmlhttp.send();
-    button.disabled = true;
-    button.value = "Invites sent";
-    alert("Invitation's Sent to candidates!");
+
 }
 
 /***
@@ -64,6 +68,19 @@ function deleteShortList(titleID, listId){
     }
 
     xmlhttp.open("GET","deleteShortList.php?listId="+listId,true);
+
+    xmlhttp.send();
+}
+
+/***
+ * Directs an employer to the write email page
+ */
+
+function writeEmail(){
+    listId = document.getElementById('shortlist0').value;
+
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET","writeEmail.php?list_id="+listId,true);
 
     xmlhttp.send();
 }

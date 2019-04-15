@@ -293,9 +293,12 @@ class ShortListModel extends Model
     }
 
     /**
-     * This function sends a email when a user is recovering their password
+     * This function sends a email when an employer is inviting a shortlist of candidates
+     * @param $candidate CandidateModel, an object representing the candidate the email is being sent to
+     * @param $content string, the extra information an employer is adding to an email
+     * @param $employer EmployerModel, an object representing the employer on behalf of whom the email is being sent
      */
-    public function sendInviteEmail($email)
+    public function sendInviteEmail($candidate, $content, $employer)
     {
 
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
@@ -312,18 +315,42 @@ class ShortListModel extends Model
 
         // TCP port to connect to
         //Recipients
-        $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
-        $mail->addAddress($email);     // Add a recipient
+        $mail->setFrom('Vestarecruit@gmail.com', 'Vesta Recruitment');
+        $mail->addAddress($candidate->getEmail());     // Add a recipient
         $mail->addBCC('Vestarecruit@gmail.com');
         //Content
 
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Vesta Recruit Password Recovery';
-        $mail->Body = 'Hi, You are Invited to a meeting....';
-        $mail->AltBody = 'Hi, You are Invited to a meeting....';
+        $mail->Subject = 'Vesta Recruitment - Invite from '.$employer->getCompanyName();
+
+        $emailString=$this->getEmailBody($candidate, $content, $employer);
+
+        $mail->Body = $emailString;
+        $mail->AltBody = $emailString;
 
         $mail->send();
         // echo 'Message has been sent';
+
+    }
+
+    /***
+     * Helper function to generate the email to send to the candidate
+     * @param $candidate CandidateModel, an object representing the candidate the email is being sent to
+     * @param $content string, the extra information an employer is adding to an email
+     * @param $employer EmployerModel, an object representing the employer on behalf of whom the email is being sent
+     * @return string $body, the full body of the email to send to each candidate
+     */
+    public function getEmailBody($candidate, $content, $employer)
+    {
+        $body = "";
+        $body.="Dear ".$candidate->getGName().",<br>You are invited to meet with ".$employer->getContactName()." from ".$employer->getCompanyName()."<br><br>";
+        $body.="They would like you to book a time for an interview that suits you, by following the following link<br>";
+        $body.="<a href=".$employer->getCalendarLink().">".$employer->getCalendarLink()."</a><br><br>";
+        if($content != "") {
+            $body .= $content . "<br><br>";
+        }
+        $body.="Kind Regards,<br>Vesta Recruitment";
+        return $body;
 
     }
 }
