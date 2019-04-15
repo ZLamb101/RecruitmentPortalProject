@@ -76,3 +76,14 @@ function addAllToShortlist(candidates){
 
     xmlhttp.send();
 }
+
+/***
+ *
+ * @param candidates, all candidates to  be added
+ */
+function displayCandidate(url){
+    newwindow=window.open(url,'name','height=400,width=350');
+    if (window.focus) {newwindow.focus()}
+    return false;
+}
+

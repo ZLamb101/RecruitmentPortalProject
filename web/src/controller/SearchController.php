@@ -94,7 +94,7 @@ class SearchController extends Controller
                 $candidateIDs = $candidateIDs . ',' . $candidate->getUserID();
             }
 
-            $response .= "<tr><td>" . $candidate->getGName() . "</td><td>" . $candidate->getFName() . "</td><td>" .
+            $response .= "<tr><td><a href=\"Employer-Home\" onclick=\"return displayCandidate('Employer-Home')\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
                             ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
