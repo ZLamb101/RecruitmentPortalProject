@@ -305,31 +305,35 @@ function getFields(callback) {
 
 function updateTypes(button)
 {
-    var typeString = "type";
-    var index = button.id;
+	if(button.value != "all") {
+		var typeString = "type";
+		var index = button.id;
 
-    typeString = typeString.concat(index[5]);
-    // subFieldString = subFieldString.concat(count.toString(10));
+		typeString = typeString.concat(index[5]);
+		// subFieldString = subFieldString.concat(count.toString(10));
 
-    getTypes(button , function () {
-        document.getElementById(typeString).innerHTML = this.responseText;
-    })
+		getTypes(button, function () {
+			document.getElementById(typeString).innerHTML = this.responseText;
+		})
+	}
     return false;
 }
 
 function getTypes(button, callback) {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "populateTypes.php?q=" , true);
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			// defensive check
-			if (typeof callback === "function") {
-				// apply() sets the meaning of "this" in the callback
-				callback.apply(xmlhttp);
+
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "populateTypes.php?q=", true);
+		xmlhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				// defensive check
+				if (typeof callback === "function") {
+					// apply() sets the meaning of "this" in the callback
+					callback.apply(xmlhttp);
+				}
 			}
-		}
-	};
-	xmlhttp.send();
+		};
+		xmlhttp.send();
+
 	return false
 
 }
