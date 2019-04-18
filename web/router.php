@@ -436,5 +436,27 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/selectCandidateToView.php',
+        array(
+            '_controller' => 'bjz\portal\controller\SearchController::selectCandidateToViewAction',
+            'methods' => 'GET',
+            'name' => 'select-candidate-to-view'
+        )
+    )
+);
+
+$collection->attachRoute(
+    new Route(
+        '/View-Candidate',
+        array(
+            '_controller' => 'bjz\portal\controller\CandidateController::candidateViewAction',
+            'methods' => 'GET',
+            'name' => 'select-candidate-to-view'
+        )
+    )
+);
+
 $router = new Router($collection);
 $router->setBasePath('/');

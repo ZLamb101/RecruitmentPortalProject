@@ -43,6 +43,9 @@ class EmployerController extends UserController
 
     }
 
+
+
+
     /**
      * Action to load the employerEditInfoPage
      * Checks if the user is logged in as an Employer and if so grants them access to this page

@@ -94,7 +94,7 @@ class SearchController extends Controller
                 $candidateIDs = $candidateIDs . ',' . $candidate->getUserID();
             }
 
-            $response .= "<tr><td><a href=\"Employer-Home\" onclick=\"return displayCandidate('Employer-Home')\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
+            $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getId().")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
                             ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
@@ -104,6 +104,10 @@ class SearchController extends Controller
     }
 
 
+    /**
+     * Echo's out the entire list of skill categories
+     *
+     */
     public function updateFieldsAction(){
         try {
             $skill = new SkillModel();
@@ -118,6 +122,10 @@ class SearchController extends Controller
         }
     }
 
+    /**
+     * Echo's out the entire list of skill sub-categories
+     * corresponding to specified ID received from get request
+     */
     public function updateSubFieldsAction(){
         $id = $_GET["q"];
         try {
@@ -131,5 +139,14 @@ class SearchController extends Controller
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
+    }
+
+    /**
+     * Gets candidate Id from get request, saves it in session.
+     */
+    public function selectCandidateToViewAction(){
+        $id = $_GET["q"];
+        $_SESSION['candidateToView'] = $id;
+        error_log("id saved as ".$id);
     }
 }

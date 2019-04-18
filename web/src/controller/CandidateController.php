@@ -42,6 +42,18 @@ class CandidateController extends UserController
     }
 
     /**
+     * Action to load the candidateDisplayPage
+     * Passes a candidate object through the view so that account specific information can be accessed
+     */
+    public function candidateViewAction(){
+        $account = new CandidateModel();
+        error_log('trying to load now');
+        $account->load($_SESSION['candidateToView']);
+        $view = new View('candidateDisplayPage');
+        echo $view->addData('candidateInfo', $account)->render();
+    }
+
+    /**
      * Action to load the candidateEditInfoPage
      * Checks if the user is logged in as a candidate and if so grants them access to this page
      * Passes a candidate object through the view so that account specific information can be accessed

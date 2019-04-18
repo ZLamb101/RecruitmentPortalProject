@@ -39,6 +39,7 @@ function showResult() {
     xmlhttp.open("GET","livesearch.php?query="+str+"&field="+field+"&sub_field="+sub_field+"&qual="+qual+"&avail="+avail,true);
 
     xmlhttp.send();
+
 }
 
 function addToShortlist(candId){
@@ -55,6 +56,7 @@ function addToShortlist(candId){
     xmlhttp.open("GET","addToShortList.php?candId="+candId+"&shortId="+short_id,true);
 
     xmlhttp.send();
+
 }
 
 /***
@@ -81,9 +83,34 @@ function addAllToShortlist(candidates){
  *
  * @param candidates, all candidates to  be added
  */
-function displayCandidate(url){
-    newwindow=window.open(url,'name','height=400,width=350');
-    if (window.focus) {newwindow.focus()}
+function displayCandidate(url, candidateId){
+
+    getDisplay(function () {
+        newwindow=window.open(url,'name','height=800,width=750');
+        if (window.focus) {newwindow.focus()}
+
+    }, candidateId)
     return false;
+
+
 }
+
+function getDisplay(callback, candidateId) {
+    xmlhttp = new XMLHttpRequest();
+
+
+    xmlhttp.open("GET","selectCandidateToView.php?q="+candidateId ,true);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // defensive check
+            if (typeof callback === "function") {
+                // apply() sets the meaning of "this" in the callback
+                callback.apply(xmlhttp);
+            }
+        }
+    };
+    xmlhttp.send();
+}
+
+
 
