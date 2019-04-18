@@ -147,6 +147,5 @@ class SearchController extends Controller
     public function selectCandidateToViewAction(){
         $id = $_GET["q"];
         $_SESSION['candidateToView'] = $id;
-        error_log("id saved as ".$id);
     }
 }

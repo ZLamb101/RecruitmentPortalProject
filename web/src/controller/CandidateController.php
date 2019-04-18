@@ -47,7 +47,6 @@ class CandidateController extends UserController
      */
     public function candidateViewAction(){
         $account = new CandidateModel();
-        error_log('trying to load now');
         $account->load($_SESSION['candidateToView']);
         $view = new View('candidateDisplayPage');
         echo $view->addData('candidateInfo', $account)->render();
