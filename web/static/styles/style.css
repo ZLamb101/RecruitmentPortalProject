@@ -1,9 +1,11 @@
 html, body {
 	height: 100%;
+	
+	background-image: linear-gradient(#0073BD, #33A4EB);
 }
 
 body{
-	margin: 0px;
+	margin: 5px;
 	padding: 0px;
 }
 
