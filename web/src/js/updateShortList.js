@@ -7,7 +7,13 @@
 function updateShortList()
 {
     getCandidates(function () {
-        document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+        if(this.responseText == "<p>Shortlist has been invited previously</p>"){
+            document.getElementById('send0').disabled = true;
+            document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+        } else {
+            document.getElementById('send0').disabled = false;
+            document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+        }
     })
     return false;
 }
@@ -78,9 +84,5 @@ function deleteShortList(titleID, listId){
 
 function writeEmail(){
     listId = document.getElementById('shortlist0').value;
-
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET","writeEmail.php?list_id="+listId,true);
-
-    xmlhttp.send();
+    window.location.assign("writeEmail.php?list_id="+listId);
 }

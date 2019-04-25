@@ -76,17 +76,19 @@ class ShortListController extends Controller
     public function displayShortListAction()
     {
         try {
-
             $listID = $_GET["q"];
             if($listID != "all") {
                 $list = new ShortListModel();
                 $list->load($listID);
                 $candidates = $list->getCandidates();
-                foreach ($candidates as $candidate) {
-                    echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                if($list->isHasInvited()){
+                    echo "<p>Shortlist has been invited previously</p>";
+                } else {
+                    foreach ($candidates as $candidate) {
+                        echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                    }
                 }
             }
-
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
