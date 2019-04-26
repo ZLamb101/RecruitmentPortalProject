@@ -17,11 +17,13 @@
 
 
             <div id = "login">
-              
+                <span class="circle">
+                    <img src="/static/styles/Images/VN.png">
+                </span>
 
 		      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
-		       		<p>Username: <input type="text" name="username_input" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only"></p>
-		       		<p>Password: <input type="password" name="password_input" required pattern="^(?=.*[A-Z])([a-zA-Z0-9]{7,15})$" title="Must contain at least one uppercase letter, and be between 7-15 characters"  ></p>
+		       		<p>Username: <br><input type="text" name="username_input" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only"></p>
+		       		<p>Password: <br><input type="password" name="password_input" required pattern="^(?=.*[A-Z])([a-zA-Z0-9]{7,15})$" title="Must contain at least one uppercase letter, and be between 7-15 characters"  ></p>
  					<input class="button" id="login-button" type="submit" value="Login">
 			    </form>
 

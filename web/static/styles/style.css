@@ -1,11 +1,11 @@
 html, body {
 	height: 100%;
-	background-image: linear-gradient(#0073BD, #33A4EB);
+	background-image: linear-gradient(#0073BD, #09A9CA);
 }
 
 body{
 
-	margin: 5px;
+	margin: 0px;
 	padding: 0px;
 }
 
@@ -43,12 +43,13 @@ body{
 #login{
 	display: flex;
 	width: 100%;
-	border-radius: 15px;
+	border-radius: 30px;
 	border-width: 2px;
 	background-color: white;
 	justify-content: center;
 	flex-direction: column;
 	padding:1em;
+	box-shadow: 2px 2px 4px #000000;
 }
 
 #login-button{
@@ -57,13 +58,15 @@ body{
 }
 
 .button{
-	background-color: blue;
+	background-color: #5B9BD5;
 	color: white;
 	border-radius: 15px;
 	padding: 1em;
 	text-decoration: none;
+	font-weight: bold;
 	display: inline;
 	margin: 2em;
+	box-shadow: 2px 2px 4px #000000;
 }
 
 #login p{
@@ -73,10 +76,23 @@ body{
 .navbar{
 	width: 100%;
 	height: 10%;
+	position: fixed;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
 	background-color: #000000;
 	color: #FFFFFF;
 	justify-content: space-around;
+}
+
+.circle {
+	position: relative;
+	left: 35%;
+	top: -70px;
+	height: 100px;
+	width: 100px;
+	background-color: #FFFFFF;
+	border-radius: 50%;
+	justify-content: center;
+	display: inline-block;
 }
