@@ -8,22 +8,21 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-	<div id= "page">
+	<div class = "page">
 		
-		<div id = "content">
+		<div class = "content">
 			<div class = "title">
 			<h2>Pre Register Page</h2>
 			</div>
 			<div class="partition">
-				 <br>
 				 <p>Please choose which type of account you want to create</p>
 				
-					<p><a href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a> </p>
-					<p><a href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a></p>
+					<a class="button" href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a>
+					<a class="button" href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a>
 			
 			</div>
 			<br>
-			<p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p>
+			<a class="button" href="<?= $linkTo('home'); ?>">Return</a>
 		</div>
 	</div>
 	<!--- Content Ends here ----------->
