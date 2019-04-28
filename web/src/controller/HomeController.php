@@ -110,36 +110,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Action to load the passwordRecoveryPage
-     */
-    public function passwordRecoveryPageAction()
-    {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
-            $view = new View('passwordRecoveryPage');
-            echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
-            $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            $this->redirect('employerHomePage');
-        }
-    }
-
-    /**
-     * Action to load the passwordRecoveryConfirmationPage
-     */
-    public function passwordRecoveryConfirmationPageAction()
-    {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
-            $view = new View('passwordRecoveryConfirmationPage');
-            echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
-            $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            $this->redirect('employerHomePage');
-        }
-    }
-
-    /**
      * Action to load the errorPage
      */
     public function errorPageAction()
