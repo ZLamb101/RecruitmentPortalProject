@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <title>Recruitment Portal Ltd</title>
     <link rel="shortcut icon" href="https://nuvo.vesta-central.com/wp-content/uploads/2017/11/square_lg.jpg">
+	 
+	 <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+	 <!-- jQuery library -->
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	 <!-- Latest compiled JavaScript -->
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
     <meta name="keywords" content="Vesta Recruitment Portal" />
@@ -31,17 +40,17 @@
             <?php
                 use bjz\portal\controller\Controller;
                 if($_SESSION["loginStatus"] == Controller::GUEST){
-                    echo "<a href=\"<?= $linkTo('home'); ?>\"> Login </a>";
-                    echo "<a href=\"<?= $linkTo('preRegisterPage'); ?>\"> Register </a>";
+                    echo "<a href=\"".$linkTo('home')."\"> Login </a>";
+                    echo "<a href=\"".$linkTo('preRegisterPage')."\"> Register </a>";
                 } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
-                    echo "<a href=\"<?= $linkTo('candidateHomePage'); ?>\"> Home </a>";
-                    echo "<a href=\"<?= $linkTo('editCandidateInfoPage'); ?>\"> Edit Information </a>";
-                    echo "<a href=\"<?= $linkTo('logout'); ?>\"> Logout </a>";
+                    echo "<a href=\"".$linkTo('candidateHomePage')."\"> Home </a>";
+                    echo "<a href=\"".$linkTo('editCandidateInfoPage')."\"> Edit Information </a>";
+                    echo "<a href=\"".$linkTo('logout')."\"> Logout </a>";
                 } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-                    echo "<a href=\"<?= $linkTo('employerHomePage'); ?>\"> Home </a>";
-                    echo "<a href=\"<?= $linkTo('editEmployerInfoPage'); ?>\"> Edit Information </a>";
-                    echo "<a href=\"<?= $linkTo('searchPage'); ?>\"> Search </a>";
-                    echo "<a href=\"<?= $linkTo('logout'); ?>\"> Logout </a>";
+                    echo "<a href=\"".$linkTo('employerHomePage')."\"> Home </a>";
+                    echo "<a href=\"".$linkTo('editEmployerInfoPage')."\"> Edit Information </a>";
+                    echo "<a href=\"".$linkTo('searchPage')."\"> Search </a>";
+                    echo "<a href=\"".$linkTo('logout')."\"> Logout </a>";
                 }
             ?>
         </div>
