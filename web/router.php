@@ -116,27 +116,7 @@ $collection->attachRoute(
     )
 );
 
-$collection->attachRoute(
-    new Route(
-        '/Password-Recovery',
-        array(
-            '_controller' => 'bjz\portal\controller\HomeController::passwordRecoveryPageAction',
-            'methods' => 'GET',
-            'name' => 'passwordRecoveryPage'
-        )
-    )
-);
 
-$collection->attachRoute(
-    new Route(
-        '/Password-Recovery-Confirmation',
-        array(
-            '_controller' => 'bjz\portal\controller\HomeController::passwordRecoveryConfirmationPageAction',
-            'methods' => 'GET',
-            'name' => 'passwordRecoveryConfirmationPage'
-        )
-    )
-);
 
 $collection->attachRoute(
     new Route(

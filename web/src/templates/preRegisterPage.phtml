@@ -9,21 +9,16 @@ include "header.phtml"
 
 	<!--- Content Start -->
 	<div class = "page">
+
 		
-		<div class = "content">
-			<div class = "title">
-			<h2>Pre Register Page</h2>
-			</div>
-			<div class="partition">
-				 <p>Please choose which type of account you want to create</p>
-				
-					<a class="button" href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a>
-					<a class="button" href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a>
-			
-			</div>
-			<br>
-			<a class="button" href="<?= $linkTo('home'); ?>">Return</a>
+		<div class="partition">
+			<p>Please choose which type of account you want to create</p>
+			<a class="button" href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a>
+			<a class="button" href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a>
+			<a class="button" href="<?= $linkTo('home'); ?>">Return</a> <!--Remove This -->
 		</div>
+		
+		
 	</div>
 	<!--- Content Ends here ----------->
 

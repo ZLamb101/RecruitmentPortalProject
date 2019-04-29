@@ -7,13 +7,14 @@
     <link rel="shortcut icon" href="https://nuvo.vesta-central.com/wp-content/uploads/2017/11/square_lg.jpg">
 
 
-<meta name="keywords" content="Vesta Recruitment Portal" />
-<meta name="description" content="A online medium where employers can connect with potential candidates" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Vesta Recruitment Portal" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A online medium where employers can connect with potential candidates" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css" />
-<link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Abel|Satisfy' rel='stylesheet' type='text/css' />
 
 
     <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
@@ -23,26 +24,28 @@
 
 <nav>
 <div class="navbar">
-
-        <img src="/static/styles/Images/vesta.png">
-        <?php
-            use bjz\portal\controller\Controller;
-            if($_SESSION["loginStatus"] == Controller::GUEST){
-                echo "<p> Login </p>";
-                echo "<p> Register </p>";
-            } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
-                echo "<p> Home </p>";
-                echo "<p> Edit Information </p>";
-                echo "<p> Logout </p>";
-            } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-                echo "<p> Home </p>";
-                echo "<p> Edit Information </p>";
-                echo "<p> Search </p>";
-                echo "<p> Logout </p>";
-            }
-        ?>
-
-</div>
+        <div id="logo">
+            <img src="/static/styles/Images/vesta.png">
+        </div>
+        <div id="links">
+            <?php
+                use bjz\portal\controller\Controller;
+                if($_SESSION["loginStatus"] == Controller::GUEST){
+                    echo "<p> Login </p>";
+                    echo "<p> Register </p>";
+                } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
+                    echo "<p> Home </p>";
+                    echo "<p> Edit Information </p>";
+                    echo "<p> Logout </p>";
+                } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+                    echo "<p> Home </p>";
+                    echo "<p> Edit Information </p>";
+                    echo "<p> Search </p>";
+                    echo "<p> Logout </p>";
+                }
+            ?>
+        </div>
+    </div>
 </nav>
 
 <body>

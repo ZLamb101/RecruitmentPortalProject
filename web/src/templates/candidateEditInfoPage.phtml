@@ -9,23 +9,18 @@ include "header.phtml"
 
 	<!--- Content Start -->
 	<div id= "page">
-		
-		<div id = "content">
-			<div class = "title">
-			<h2>Edit your information here:</h2>
-			</div>
 
-		   <div id="registration">
-                <form method="POST" name="registration" action="<?= $linkTo('updateCandidateData'); ?>" >
-                    <div class="partition">
-                        <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
-                        <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
-                        <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
-                        <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
+	   <div id="registration">
+            <form method="POST" name="registration" action="<?= $linkTo('updateCandidateData'); ?>" >
+                <div class="partition">
+                    <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>"> </p>
+                    <p>Last Name: <input type="text" placeholder="Name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>"> </p>
+                    <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
+                    <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
 
-                        <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
-                        <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
-                    </div>
+                    <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
+                    <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
+                </div>
                 <div id="work-experience">
                     <p>Work Experience</p>
                     <?php $workExperience = $candidateInfo->getWorkExperience();
@@ -181,57 +176,57 @@ include "header.phtml"
                 <input type="button" id="add-skill" value="Add" onclick="addSkill()">
 
 
-                    <div id="availability" name="availability">
-                        <p>Availability</p>
-                    <?php
-                    $availability = $candidateInfo->getAvailability();
-                    $availabilityString = "";
-                    if($availability - 8 >= 0) {
-                        $availability -= 8;
-                        $availabilityString = $availabilityString."Full Time ";
-                        echo "<input type=\"checkbox\" value=\"fullTime\" name=\"full-time\" id=\"full-time\" checked>";
-                    }else{
-                        echo "<input type=\"checkbox\" value=\"fullTime\" name=\"full-time\" id=\"full-time\">";
-                    }
-                    echo "<label for=\"fullTime\">Full Time</label>";
-                    if($availability - 4 >= 0) {
-                        $availability -= 4;
-                        $availabilityString = $availabilityString."Part Time";
-                        echo "<input type=\"checkbox\" value=\"partTime\" name=\"part-time\" id=\"part-time\" checked>";
-                    }else{
-                        echo "<input type=\"checkbox\" value=\"partTime\" name=\"part-time\" id=\"part-time\">";
-                    }
-                    echo "<label for=\"partTime\">Part Time</label>";
-                    if($availability - 2 >= 0) {
-                        $availability -= 2;
-                        $availabilityString = $availabilityString."Casual";
-                        echo "<input type=\"checkbox\" value=\"casual\" name=\"casual\" id=\"casual\" checked>";
-                    }else{
-                        echo "<input type=\"checkbox\" value=\"casual\" name=\"casual\" id=\"casual\">";
-                    }
-                    echo "<label for=\"casual\">Casual</label>";
-                    if($availability - 1 >= 0) {
-                        $availabilityString = $availabilityString."Contractor";
-                        echo "<input type=\"checkbox\" value=\"contractor\" name=\"contractor\" id=\"contractor\" checked>";
-                    }else{
-                        echo "<input type=\"checkbox\" value=\"contractor\" name=\"contractor\" id=\"contractor\">";
-                    }
-                    echo "<label for=\"contractor\">Contractor</label>";
-                    ?>
-
-                </div>
+                <div id="availability" name="availability">
+                    <p>Availability</p>
+                <?php
+                $availability = $candidateInfo->getAvailability();
+                $availabilityString = "";
+                if($availability - 8 >= 0) {
+                    $availability -= 8;
+                    $availabilityString = $availabilityString."Full Time ";
+                    echo "<input type=\"checkbox\" value=\"fullTime\" name=\"full-time\" id=\"full-time\" checked>";
+                }else{
+                    echo "<input type=\"checkbox\" value=\"fullTime\" name=\"full-time\" id=\"full-time\">";
+                }
+                echo "<label for=\"fullTime\">Full Time</label>";
+                if($availability - 4 >= 0) {
+                    $availability -= 4;
+                    $availabilityString = $availabilityString."Part Time";
+                    echo "<input type=\"checkbox\" value=\"partTime\" name=\"part-time\" id=\"part-time\" checked>";
+                }else{
+                    echo "<input type=\"checkbox\" value=\"partTime\" name=\"part-time\" id=\"part-time\">";
+                }
+                echo "<label for=\"partTime\">Part Time</label>";
+                if($availability - 2 >= 0) {
+                    $availability -= 2;
+                    $availabilityString = $availabilityString."Casual";
+                    echo "<input type=\"checkbox\" value=\"casual\" name=\"casual\" id=\"casual\" checked>";
+                }else{
+                    echo "<input type=\"checkbox\" value=\"casual\" name=\"casual\" id=\"casual\">";
+                }
+                echo "<label for=\"casual\">Casual</label>";
+                if($availability - 1 >= 0) {
+                    $availabilityString = $availabilityString."Contractor";
+                    echo "<input type=\"checkbox\" value=\"contractor\" name=\"contractor\" id=\"contractor\" checked>";
+                }else{
+                    echo "<input type=\"checkbox\" value=\"contractor\" name=\"contractor\" id=\"contractor\">";
+                }
+                echo "<label for=\"contractor\">Contractor</label>";
+                ?>
 
             </div>
 
+        </div>
 
-            <p type="hidden" id="validate"></p>
 
-            <input id="submit-handle" type="submit" >
-        </form>
-		    <br>
+        <p type="hidden" id="validate"></p>
 
-		</div>
-        <p>Click <a href="<?= $linkTo('candidateHomePage'); ?>">Here</a> to return home.</p>
+        <input id="submit-handle" type="submit" >
+    </form>
+
+
+		<br>
+        <p>Click <a href="<?= $linkTo('candidateHomePage'); ?>">Here</a> to return home.</p> <!-- REMOVE LATER -->
     </div>
 	<!--- Content Ends here ----------->
 

@@ -9,32 +9,22 @@
 	<!--- Content Start -->
 	<div class= "page">
 		
-		<div class = "content">
-			<div class = "title">
-				<h2>Vesta Recruitment Portal</h2>
-			</div>
+        <div id = "login">
+            <span class="circle">
+                <img src="/static/styles/Images/VN.png">
+            </span>
 
+	      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
+	       		<p>Username: <br><input type="text" name="username_input" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only"></p>
+	       		<p>Password: <br><input type="password" name="password_input" required pattern="^(?=.*[A-Z])([a-zA-Z0-9]{7,15})$" title="Must contain at least one uppercase letter, and be between 7-15 characters"  ></p>
+					<input class="button" id="login-button" type="submit" value="Login">
+		    </form>
 
-
-            <div id = "login">
-                <span class="circle">
-                    <img src="/static/styles/Images/VN.png">
-                </span>
-
-		      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
-		       		<p>Username: <br><input type="text" name="username_input" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only"></p>
-		       		<p>Password: <br><input type="password" name="password_input" required pattern="^(?=.*[A-Z])([a-zA-Z0-9]{7,15})$" title="Must contain at least one uppercase letter, and be between 7-15 characters"  ></p>
- 					<input class="button" id="login-button" type="submit" value="Login">
-			    </form>
-
-                <div id="hyperlink">
-                    <a id="create-new-account" href=<?= $linkTo('preRegisterPage'); ?>>Don't have an account? Register here.</a>
-                    <br>
-                    <a id="recover-password" href=<?= $linkTo('passwordRecoveryPage'); ?>>Forgot your password? Recover here.</a>
-                </div>
-			</div>
-
+            <div id="hyperlink">
+                <a id="create-new-account" href=<?= $linkTo('preRegisterPage'); ?>>Don't have an account? Register here.</a>
+            </div>
 		</div>
+
 	</div>
 	<!--- Content Ends here ----------->
 

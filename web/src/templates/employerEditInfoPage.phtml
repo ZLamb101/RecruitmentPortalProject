@@ -11,37 +11,26 @@ include "header.phtml"
 
 	<!--- Content Start -->
 	<div id= "page">
-		
-		<div id = "content">
-			<div class = "title">
-				<h2>Edit your information here:</h2>
-			</div>
-
-
+	
 		<div id="registration">
-        <form method="POST" name="registration" action="<?= $linkTo('updateEmployerData'); ?>" >
-            <input type="text" placeholder="Username"  name="username" size="40" hidden value="<?= $employerInfo->getUserName() ?>">
-            <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>"></p>
+            <form method="POST" name="registration" action="<?= $linkTo('updateEmployerData'); ?>" >
+                <input type="text" placeholder="Username"  name="username" size="40" hidden value="<?= $employerInfo->getUserName() ?>">
+                <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>"></p>
 
-            <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>"> </p>
-            <p>Address: <input type=text name="address" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only" value="<?= $employerInfo->getAddress() ?>"> </p>
+                <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>"> </p>
+                <p>Address: <input type=text name="address" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric characters and spaces only" value="<?= $employerInfo->getAddress() ?>"> </p>
 
-            <p>Company Name: <input type=text name="company-name" size="40" required pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only" value="<?= $employerInfo->getCompanyName() ?>"> </p>
-            <p>URL: <input type=text name="url" size="40" value="<?= $employerInfo->getURL() ?>"> </p>
-            <p>Contact Name: <input type=text name="contact-name" size="40" required pattern="^[a-zA-Z\s]+$" title="Alphabetic characters and spaces only" value="<?= $employerInfo->getContactName() ?>"> </p>
-            <p>Calendar Link: <input type=text name="calendar-link" size="256" value="<?= $employerInfo->getCalendarLink() ?>"> </p>
-
-            </div>
-          <!--  <button id="submit-registration" value="Update" onclick="return validateForm()">Update</button>  not sure why this is here?-->
-            <input id="submit-handle" type="submit" >
-        </form>
-
-		    <br>
-			
-		</div>
-        <p>Short Lists</p>
+                <p>Company Name: <input type=text name="company-name" size="40" required pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only" value="<?= $employerInfo->getCompanyName() ?>"> </p>
+                <p>URL: <input type=text name="url" size="40" value="<?= $employerInfo->getURL() ?>"> </p>
+                <p>Contact Name: <input type=text name="contact-name" size="40" required pattern="^[a-zA-Z\s]+$" title="Alphabetic characters and spaces only" value="<?= $employerInfo->getContactName() ?>"> </p>
+                <p>Calendar Link: <input type=text name="calendar-link" size="256" value="<?= $employerInfo->getCalendarLink() ?>"> </p>
+                <input id="submit-handle" type="submit" >
+            </form>
+        </div>
+	
+      
         <div id="short-lists">
-
+            <h3>Short Lists</h3>
             <?php
             $shortLists = $employerInfo->getShortLists();
             $i = 0;
@@ -69,11 +58,10 @@ include "header.phtml"
             }
             echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
             ?>
-        </div>
-        <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home.</p>
+        <p>Click <a href="<?= $linkTo('employerHomePage'); ?>">Here</a> to return home.</p> <!-- REMOVE LATER -->
     </div>
 	<!--- Content Ends here ----------->
-
+</div>
 
 
 

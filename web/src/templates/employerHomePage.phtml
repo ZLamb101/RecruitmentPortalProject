@@ -8,55 +8,50 @@ include "header.phtml"
 
 	<!--- Content Start -->
 	<div id= "page">
-		
-		<div id = "content">
-			<div class = "title">
-				<h2>Welcome <?= $employerInfo->getContactName()?>.</h2>
-			</div>
-			<div class="partition">
-				<br>
+        <div class="info">
+    		<div class = "title">
+    			<h2>Welcome <?= $employerInfo->getContactName()?>.</h2>
+    		</div>
+    		<div class="partition">
                 <p>Contact Name: <?= $employerInfo->getContactName()?> </p>
                 <p>Company Name: <?= $employerInfo->getCompanyName() ?> </p>
                 <p>Address: <?= $employerInfo->getAddress() ?></p>
                 <p>URL: <?= $employerInfo->getURL() ?></p>
                 <p>Calendar: <?= $employerInfo->isCalendarAdded() ?></p>
             </div>
-            <p>Short Lists:</p>
+        </div>
+
+        <div class="shortlists">
+            <h3>Short Lists:</h3>
+            <?php $shortLists = $employerInfo->getShortLists();
+            $i = 0;
+            foreach ($shortLists as $list){
+
+                echo "<div class=\"partition\">";
+                echo "<p>".$list->getName()."</p>";
+                if($list->isHasInvited()) {
+                    echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
+                }else{
+                    echo "<p><a href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
+                }
+                echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
+                echo "<p>Name: ".$list->getName()."</p>";
+                echo "<p>Description: ".$list->getDescription()."</p>";
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate) {
+                    if($candidate->getGName() != NULL)
+                        echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                    }
+                echo "</div>";
+                $i++;
+            } ?>
+        </div>
+
+            <p>Click <a href="<?= $linkTo('editEmployerInfoPage'); ?>">Here</a> to edit info</p><!--REMOVE LATER -->
+			<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to Search</p> <!--REMOVE LATER -->
+            <p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p> <!--REMOVE LATER -->
 
 
-                    <?php $shortLists = $employerInfo->getShortLists();
-                    $i = 0;
-                    foreach ($shortLists as $list){
-
-                        echo "<div class=\"partition\">";
-                        echo "<p>".$list->getName()."</p>";
-                        if($list->isHasInvited()) {
-                            echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
-                        }else{
-                            echo "<p><a href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
-                        }
-                        echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
-                        echo "<p>Name: ".$list->getName()."</p>";
-                        echo "<p>Description: ".$list->getDescription()."</p>";
-                        $candidates = $list->getCandidates();
-                        foreach ($candidates as $candidate) {
-                            if($candidate->getGName() != NULL)
-                                echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
-                            }
-                        echo "</div>";
-                        $i++;
-                    } ?>
-
-
-
-                <p>Click <a href="<?= $linkTo('editEmployerInfoPage'); ?>">Here</a> to edit info</p>
-				<p>Click <a href="<?= $linkTo('searchPage'); ?>">Here</a> to Search</p>
-                <p>Click <a href="<?= $linkTo('logout'); ?>">Here</a> to logout</p>
-
-			<br>
-			<br>
-
-		</div>
 	</div>
 	<!--- Content Ends here ----------->
 
