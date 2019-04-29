@@ -31,17 +31,17 @@
             <?php
                 use bjz\portal\controller\Controller;
                 if($_SESSION["loginStatus"] == Controller::GUEST){
-                    echo "<p> Login </p>";
-                    echo "<p> Register </p>";
+                    echo "<a href=\"<?= $linkTo('home'); ?>\"> Login </a>";
+                    echo "<a href=\"<?= $linkTo('preRegisterPage'); ?>\"> Register </a>";
                 } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
-                    echo "<p> Home </p>";
-                    echo "<p> Edit Information </p>";
-                    echo "<p> Logout </p>";
+                    echo "<a href=\"<?= $linkTo('candidateHomePage'); ?>\"> Home </a>";
+                    echo "<a href=\"<?= $linkTo('editCandidateInfoPage'); ?>\"> Edit Information </a>";
+                    echo "<a href=\"<?= $linkTo('logout'); ?>\"> Logout </a>";
                 } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-                    echo "<p> Home </p>";
-                    echo "<p> Edit Information </p>";
-                    echo "<p> Search </p>";
-                    echo "<p> Logout </p>";
+                    echo "<a href=\"<?= $linkTo('employerHomePage'); ?>\"> Home </a>";
+                    echo "<a href=\"<?= $linkTo('editEmployerInfoPage'); ?>\"> Edit Information </a>";
+                    echo "<a href=\"<?= $linkTo('searchPage'); ?>\"> Search </a>";
+                    echo "<a href=\"<?= $linkTo('logout'); ?>\"> Logout </a>";
                 }
             ?>
         </div>

@@ -9,9 +9,6 @@ include "header.phtml"
 
 	<!--- Content Start -->
 	<div id= "page">
-		
-            <p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p> <!--Remove Later -->
-
 		<div id="registration">
             <form method="POST" name="registration" action="<?= $linkTo('submitEmployerRegistration'); ?>" >
                 <p>Username: <input type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" ></p>

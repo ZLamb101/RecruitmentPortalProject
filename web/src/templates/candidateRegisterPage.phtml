@@ -10,10 +10,6 @@ include "header.phtml"
     <!--- Content Start -->
     <div id= "page">
 
-      
-        <p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p> <!-- REMOVE LATER -->
-
-
         <div id="registration">
             <form method="POST" name="registration" action="<?= $linkTo('submitCandidateRegistration'); ?>" >
                 <p>First Name: <input type="text" placeholder="Name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only"> </p>
