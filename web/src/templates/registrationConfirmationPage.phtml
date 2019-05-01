@@ -12,15 +12,17 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-	<div class= "page">
+	<div class="container-fluid center" id= "page">
 		
-		<div class="partition">
-			<div class = "title">
+		<div class="partition ">
+            <div class="center">
+                <img id="logo" src="/static/styles/Images/VN.png">
+            </div>
+			<div class = "title center">
 				<h2>Account created successfully.</h2>
 			</div>
-			 <br>
-			 <p>You should receive an email confirming account creation(implementation coming soon)</p>
-				<p>Click <a href="<?= $linkTo('home'); ?>">Here</a> to return back to login page</p>
+            <p>You should receive an email confirming account creation soon.</p>
+            <p>Click <a href="<?= $linkTo('home'); ?>"> Here </a> to return back to login page</p>
 		</div>
 	</div>
 	<!--- Content Ends here ----------->

@@ -8,14 +8,20 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-	<div class = "page">
+    <div class="container-fluid center" id="page">
 
 		
-		<div class="partition">
-			<p>Please choose which type of account you want to create</p>
-			<a class="button" href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a>
-			<a class="button" href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a>
-
+		<div class="partition" id="login">
+            <div class="center">
+                <img id="logo" src="/static/styles/Images/VN.png">
+            </div>
+			<h4 class="center">Choose Account Type:</h4>
+            <div class="center button-pad row">
+                <a class="btn btn-info" href="<?= $linkTo('candidateRegisterPage'); ?>">Candidate</a>
+            </div>
+            <div class="center button-pad  row">
+                <a class="btn btn-info" href="<?= $linkTo('employerRegisterPage'); ?>">Employer</a>
+            </div>
 		</div>
 		
 		

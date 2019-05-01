@@ -27,6 +27,13 @@ include "header.phtml"
         <div class="shortlists">
             <?php $shortLists = $employerInfo->getShortLists();
             $i = 0;
+            if($employerInfo->numOfShortlists() == 0){
+                error_log("here");
+                echo "<div class=\"partition\"> ";
+                echo "<h4>No shortlists added.</h4>";
+                // Add button to add a shortlist here
+                echo "</div>";
+            }
             foreach ($shortLists as $list){
 
                 echo "<div class=\"partition\" id=\"shortlist-format\">";

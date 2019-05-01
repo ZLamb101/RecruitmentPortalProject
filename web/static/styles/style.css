@@ -5,8 +5,7 @@
 	padding-right: 60px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	/*margin-left: 35%;*/
-	/*margin-top: 20%;*/
+
 }
 
 #page{
@@ -30,6 +29,20 @@
 .large-box-format{
 	margin: 4%;
 	/*display:flex;*/
+}
+
+.box-tight{
+	width:40%
+}
+
+.form-pad{
+	padding:20px;
+}
+
+
+
+.button-pad{
+	padding:5px;
 }
 
 .interior-box-format{
