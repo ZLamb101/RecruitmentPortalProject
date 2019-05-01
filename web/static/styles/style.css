@@ -27,6 +27,23 @@
 	border-thickness: 1em;
 }
 
+.large-box-format{
+	margin: 4%;
+	/*display:flex;*/
+}
+
+.interior-box-format{
+	margin: 2%;
+	display:inline-block;
+	/*display:flex;*/
+	/*flex-shrink: 2;*/
+	/*flex-direction:column;*/
+}
+
+.interior-box-format p{
+	/*flex-shrink: 1;*/
+}
+
 .center{
 	display: flex;
 	justify-content: center;
@@ -40,6 +57,20 @@
 	border-radius: 15px;
 	background-color: white;
 	box-shadow: 2px 2px 4px #000000;
+	min-width: 400px;
+}
+
+#employer-info{
+	padding-top: 1em;
+	font-size: 1.5em;
+}
+
+#shortlist-format{
+	margin:4%;
+}
+
+#send-invite-btn{
+	margin-top: 16px;
 }
 
 .navbar{

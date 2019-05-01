@@ -7,83 +7,112 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-	<div id="page">
-		
-		<div class="info">
-    		<div class = "title">
-    			<h2>Welcome <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
-    		</div>
-            <div class="partition">
-                <p>First Name: <?= $candidateInfo->getGName()?> </p>
-                <p>Last Name: <?= $candidateInfo->getFName() ?> </p>
-                <p>Username: <?= $candidateInfo->getUserName() ?></p>
-                <p>Email: <?= $candidateInfo->getEmail() ?></p>
-                <p>Phone number: <?= $candidateInfo->getPhoneNumber() ?></p>
-                <p>Location: <?= $candidateInfo->getLocation() ?> </p>
+    <div class="container-fluid from-top">
+		<div class="#" id="info">
+            <div ="row">
+                <div class = "title">
+                    <h2>Welcome <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
+                </div>
+                <div class="#">
+                    <p>First Name: <?= $candidateInfo->getGName()?> </p>
+                    <p>Last Name: <?= $candidateInfo->getFName() ?> </p>
+                    <p>Username: <?= $candidateInfo->getUserName() ?></p>
+                    <p>Email: <?= $candidateInfo->getEmail() ?></p>
+                    <p>Phone number: <?= $candidateInfo->getPhoneNumber() ?></p>
+                    <p>Location: <?= $candidateInfo->getLocation() ?> </p>
 
-                <?php
-                $availability = $candidateInfo->getAvailability();
-                $availabilityString = "";
-                if($availability - 8 >= 0) {
-                    $availability -= 8;
-                    $availabilityString = $availabilityString."Full Time ";
-                }
-                if($availability - 4 >= 0) {
-                    $availability -= 4;
-                    $availabilityString = $availabilityString."Part Time ";
-                }
-                if($availability - 2 >= 0) {
-                    $availability -= 2;
-                    $availabilityString = $availabilityString."Casual ";
-                }
-                if($availability - 1 >= 0) {
-                    $availabilityString = $availabilityString."Contractor";
-                }
-                echo "<p>Availability: ".$availabilityString."</p>";
-                ?>
+                    <?php
+                    $availability = $candidateInfo->getAvailability();
+                    $availabilityString = "";
+                    if($availability - 8 >= 0) {
+                        $availability -= 8;
+                        $availabilityString = $availabilityString."Full Time ";
+                    }
+                    if($availability - 4 >= 0) {
+                        $availability -= 4;
+                        $availabilityString = $availabilityString."Part Time ";
+                    }
+                    if($availability - 2 >= 0) {
+                        $availability -= 2;
+                        $availabilityString = $availabilityString."Casual ";
+                    }
+                    if($availability - 1 >= 0) {
+                        $availabilityString = $availabilityString."Contractor";
+                    }
+                    echo "<p>Availability: ".$availabilityString."</p>";
+                    ?>
+                </div>
             </div>
         </div>
-		
-			
-            <div id="work-experience" class ="partition">
-                <p>Work Experience</p>
-                <?php $workExperience = $candidateInfo->getWorkExperience();
-                foreach ($workExperience as $work){
-                    echo "<div class=\"partition\">";
-                    echo "<p>Role: ".$work->getRole()."</p>";
-                    echo "<p>Duration (in months): ".$work->getDuration()."</p>";
-                    echo "<p>Employer: ".$work->getEmployer()."</p>";
-                    echo "</div>";
-                } ?>
-            </div>
+    </div>
 
-            <div id="qualifications" class ="partition">
-                <p>Qualifications</p>
-                <?php $qualifications = $candidateInfo->getQualifications();
-                foreach ($qualifications as $qual){
-                    echo "<div class=\"partition\">";
-                    echo "<p>Level: ".$qual->findLevel($qual->getLevelId())."</p>";
-                    echo "<p>Type: ".$qual->findType($qual->getTypeId())."</p>";
-                    echo "<p>Major: ".$qual->getMajor()."</p>";
-                    echo "<p>Year: ".$qual->getYear()."</p>";
-                    echo "</div>";
-                } ?>
-            </div>
+    <div class="separator"><br></div>
 
-            <div id="skills" class ="partition">
-                <p>Skills</p>
-                <?php $skills = $candidateInfo->getSkills();
-                foreach ($skills as $skill){
-                    echo "<div class=\"partition\">";
-                    echo "<p>Field: ".$skill->getField()."</p>";
-                    echo "<p>SubField: ".$skill->getSubField()."</p>";
-                    echo "<p>Contents: ".$skill->getContents()."</p>";
-                    echo "</div>";
-                } ?>
-            </div>
-		</div>
+    <div class="container-fluid" id= "page">
+        <div id="work-experience" class ="partition large-box-format">
+            <h2>Work Experience</h2>
+            <?php $workExperience = $candidateInfo->getWorkExperience();
+            echo "<div class=\"row\">";
+            $count = 0;
+            foreach ($workExperience as $work){
+                if($count == 3){
+                    echo "</div><div class=\"row\">";
+                    $count = 0;
+                }
+                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<p>Role: ".$work->getRole()."</p>";
+                echo "<p>Duration (in months): ".$work->getDuration()."</p>";
+                echo "<p>Employer: ".$work->getEmployer()."</p>";
+                echo "</div>";
+                $count++;
+            }
+            echo "</div>";
+            ?>
+        </div>
 
-	</div>
+        <div id="qualifications" class ="partition large-box-format">
+            <h2>Qualifications</h2>
+            <?php $qualifications = $candidateInfo->getQualifications();
+            echo "<div class=\"row\">";
+            $count = 0;
+            foreach ($qualifications as $qual){
+                if($count == 3){
+                    echo "</div><div class=\"row\">";
+                    $count = 0;
+                }
+                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<p>Level: ".$qual->findLevel($qual->getLevelId())."</p>";
+                echo "<p>Type: ".$qual->findType($qual->getTypeId())."</p>";
+                echo "<p>Major: ".$qual->getMajor()."</p>";
+                echo "<p>Year: ".$qual->getYear()."</p>";
+                echo "</div>";
+                $count++;
+            }
+            echo "</div>";
+            ?>
+        </div>
+
+        <div id="skills" class ="partition large-box-format">
+            <h2>Skills</h2>
+            <?php $skills = $candidateInfo->getSkills();
+            echo "<div class=\"row\">";
+            $count = 0;
+            foreach ($skills as $skill){
+                if($count == 3){
+                    echo "</div><div class=\"row\">";
+                    $count = 0;
+                }
+                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<p>Field: ".$skill->getField()."</p>";
+                echo "<p>SubField: ".$skill->getSubField()."</p>";
+                echo "<p>Contents: ".$skill->getContents()."</p>";
+                echo "</div>";
+                $count++;
+            }
+            echo "</div>";
+            ?>
+        </div>
+    </div>
 	<!--- Content Ends here ----------->
 
 

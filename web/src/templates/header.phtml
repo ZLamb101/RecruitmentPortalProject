@@ -34,26 +34,33 @@
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="<?= $linkTo('employerHomePage') ?>"> <img src="/static/styles/Images/vesta.png"> </a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <?php
-            use bjz\portal\controller\Controller;
-            if($_SESSION["loginStatus"] == Controller::GUEST){
-                echo "<li><a href=\"".$linkTo('home')."\"> Login </a></li>";
-                echo "<li><a href=\"".$linkTo('preRegisterPage')."\"> Register </a></li>";
-            } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
-                echo "<li><a href=\"".$linkTo('candidateHomePage')."\"> Home </a></li>";
-                echo "<li><a href=\"".$linkTo('editCandidateInfoPage')."\"> Edit Information </a></li>";
-                echo "<li><a href=\"".$linkTo('logout')."\"> Logout </a></li>";
-            } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-                echo "<li><a href=\"".$linkTo('employerHomePage')."\"> Home </a></li>";
-                echo "<li><a href=\"".$linkTo('editEmployerInfoPage')."\"> Edit Information </a></li>";
-                echo "<li><a href=\"".$linkTo('searchPage')."\"> Search </a></li>";
-                echo "<li><a href=\"".$linkTo('logout')."\"> Logout </a></li>";
-            }
-            ?>
-        </ul>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <?php
+                use bjz\portal\controller\Controller;
+                if($_SESSION["loginStatus"] == Controller::GUEST){
+                    echo "<li><a href=\"".$linkTo('home')."\"> Login </a></li>";
+                    echo "<li><a href=\"".$linkTo('preRegisterPage')."\"> Register </a></li>";
+                } else if ($_SESSION["loginStatus"] == Controller::CANDIDATE){
+                    echo "<li><a href=\"".$linkTo('candidateHomePage')."\"> Home </a></li>";
+                    echo "<li><a href=\"".$linkTo('editCandidateInfoPage')."\"> Edit Information </a></li>";
+                    echo "<li><a href=\"".$linkTo('logout')."\"> Logout </a></li>";
+                } else if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+                    echo "<li><a href=\"".$linkTo('employerHomePage')."\"> Home </a></li>";
+                    echo "<li><a href=\"".$linkTo('editEmployerInfoPage')."\"> Edit Information </a></li>";
+                    echo "<li><a href=\"".$linkTo('searchPage')."\"> Search </a></li>";
+                    echo "<li><a href=\"".$linkTo('logout')."\"> Logout </a></li>";
+                }
+                ?>
+            </ul>
+        </div>
     </div>
 </nav>
 

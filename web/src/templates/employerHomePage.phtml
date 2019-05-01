@@ -9,15 +9,15 @@ include "header.phtml"
 	<!--- Content Start -->
 	<div class="container-fluid from-top">
         <div class="#" id="welcome">
-    		<div class = "title">
-    			<h2>Welcome <?= $employerInfo->getContactName()?>.</h2>
-    		</div>
-    		<div class="#">
-                <p>Contact Name: <?= $employerInfo->getContactName()?> </p>
-                <p>Company Name: <?= $employerInfo->getCompanyName() ?> </p>
-                <p>Address: <?= $employerInfo->getAddress() ?></p>
-                <p>URL: <?= $employerInfo->getURL() ?></p>
-                <p>Calendar: <?= $employerInfo->isCalendarAdded() ?></p>
+            <div class= "row">
+                <div class = "title col-sm-4">
+                    <h2>Welcome <?= $employerInfo->getContactName()?>.</h2>
+                </div>
+                <div class="col-sm-8 text-right" id="employer-info">
+                    <p>Company Name: <?= $employerInfo->getCompanyName() ?> </p>
+                    <p>Location: <?= $employerInfo->getAddress() ?></p>
+                    <p>URL: <?= $employerInfo->getURL() ?></p>
+                </div>
             </div>
         </div>
     </div>
@@ -25,26 +25,36 @@ include "header.phtml"
 
     <div class="container-fluid" id= "page">
         <div class="shortlists">
-            <h3>Short Lists:</h3>
             <?php $shortLists = $employerInfo->getShortLists();
             $i = 0;
             foreach ($shortLists as $list){
 
-                echo "<div class=\"partition\">";
-                echo "<p>".$list->getName()."</p>";
+                echo "<div class=\"partition\" id=\"shortlist-format\">";
+                echo "<div class=\"row\">";
+                echo "<h3 class=\"col-sm-9 font-weight-bold\"><u>".$list->getName()."</u></h3>";
                 if($list->isHasInvited()) {
                     echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
                 }else{
-                    echo "<p><a href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
+                    echo "<p><a  class=\"btn btn-info col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
                 }
+                echo "</div>";
                 echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
-                echo "<p>Name: ".$list->getName()."</p>";
                 echo "<p>Description: ".$list->getDescription()."</p>";
+                echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
                 $candidates = $list->getCandidates();
+                echo "<div class=\"row\">";
+                $count = 0;
                 foreach ($candidates as $candidate) {
-                    if($candidate->getGName() != NULL)
-                        echo "<p>Name: " . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                    if($count == 4){
+                        echo "</div><div class=\"row\">";
+                        $count = 0;
                     }
+                    if($candidate->getGName() != NULL) {
+                        echo "<p class=\"col-sm-3\">" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
+                    }
+                    $count++;
+                }
+                echo "</div>";
                 echo "</div>";
                 $i++;
             } ?>
