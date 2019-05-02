@@ -3,6 +3,7 @@
 include "header.phtml"
  ?>
 <script type = "text/javascript" src="src/js/employerEdit.js"></script>
+<script type = "text/javascript" src="src/js/livesearch.js"></script>
 <script type = "text/javascript" src="src/js/updateShortList.js"></script>
 <!---------- Body starts --------------->
 
@@ -65,7 +66,7 @@ include "header.phtml"
                     }
                     $candID = "cand" . $candCount;
                     if($candidate->getGName() != NULL) {
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\">" . $candidate->getGName() . " " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ")\"></p>";
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ")\"></p>";
                         $candCount++;
                     }
 
