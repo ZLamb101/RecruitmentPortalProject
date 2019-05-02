@@ -25,7 +25,7 @@ include "header.phtml"
     <div class="separator"><br></div>
 
     <div class="container-fluid" id= "page">
-        <div class="shortlists">
+        <div id="short-lists" class="shortlists">
             <?php $shortLists = $employerInfo->getShortLists();
             $i = 0;
 //            if($employerInfo->numOfShortlists() == 0){
@@ -74,7 +74,9 @@ include "header.phtml"
                 echo "</div>";
                 echo "</div>";
                 $i++;
-            } ?>
+            }
+            echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
+            ?>
         </div>
 	</div>
 	<!--- Content Ends here ----------->
