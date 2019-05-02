@@ -35,6 +35,19 @@
 	width:40%
 }
 
+.small-box-format{
+	margin:1%;
+}
+
+.spread{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.scrollable{
+	overflow-y: scroll;
+}
+
 .form-pad{
 	padding:20px;
 }

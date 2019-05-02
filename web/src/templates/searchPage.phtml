@@ -7,82 +7,106 @@ include "header.phtml"
     <script type = "text/javascript" src="src/js/updateShortList.js"></script>
 
 	<!--- Content Start -->
-	<div class= "page from-top">
+	<div class= "container-fluid from-top" id="">
 
+        <div class="#" id="search-params">
+            <form class="horizontal">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label" for="field0">All Categories</label>
+                        <select class="form-control" id="field0" name="field0" onclick="updateFields(this)">
+                            <?php
+                            echo "<option value=\"all\">all categories</option>";
+                            foreach ($Fields as $field){
+                                echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
 
-        <div id="search-params">
-            <form>
-                <p>All Categories</p>
-                <select id="field0" name="field0" onclick="updateFields(this)">
-                    <?php
-                    echo "<option value=\"all\">all categories</option>";
-                    foreach ($Fields as $field){
-                        echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
-                    }
-                    ?>
-                </select>
+                    <div class="col-sm-6 form-group" id="qualification" name="qualification">
+                        <label class="control-label" for="qual0">Qualification</label>
+                        <select class="form-control" id="qual0" name="qual0" >
+                            <option value="all">All Qualifications</option>
+                            <?php
+                            foreach ($Quals as $qual) {
+                                echo "<option value=\"".$qual['id']."\">".$qual['type']."</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
 
-                <p>All Sub-Categories</p>
-                <select id ="sub-field0" name="sub-field0">
-                    <option value="all">All Sub-Categories</option>
-                </select>
-                <input type="hidden" value="0" name="skill-count" id="skill-count">
-
-                <div id="qualification" name="qualification">
-                    <p>Qualification</p>
-                    <select id="qual0" name="qual0" >
-                        <option value="all">All Qualifications</option>
-                        <?php
-                        foreach ($Quals as $qual) {
-                            echo "<option value=\"".$qual['id']."\">".$qual['type']."</option>";
-                        }
-                        ?>
-                    </select>
                 </div>
 
-                <div id="availability" name="availability">
-                    <p>Availability</p>
-                    <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
-                    <label for="fullTime">Full Time</label>
-                    <input type="checkbox" value="partTime" name="part-time" id="part-time" checked>
-                    <label for="partTime">Part Time</label>
-                    <input type="checkbox" value="casual" name="casual" id="casual" checked>
-                    <label for="casual">Casual</label>
-                    <input type="checkbox" value="contractor" name="contractor" id="contractor" checked>
-                    <label for="contractor">Contractor</label>
+                <div class="row">
+
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label" for="sub-field0">All Sub-Categories</label>
+                        <select class="form-control" id ="sub-field0" name="sub-field0">
+                            <option value="all">All Sub-Categories</option>
+                        </select>
+                        <input type="hidden" value="0" name="skill-count" id="skill-count">
+                    </div>
+
+                    <div class="form-group col-sm-5 spread" id="availability" name="availability">
+                        <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
+                        <label for="fullTime">Full Time</label>
+                        <input type="checkbox" value="partTime" name="part-time" id="part-time" checked>
+                        <label for="partTime">Part Time</label>
+                        <input  type="checkbox" value="casual" name="casual" id="casual" checked>
+                        <label for="casual">Casual</label>
+                        <input type="checkbox" value="contractor" name="contractor" id="contractor" checked>
+                        <label for="contractor">Contractor</label>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6  form-group" id="skills-search-bar">
+                        <label for="skill-search"> Search Skills: </label> <input class="form-control" id="skill-search" type="text" size="50">
+                    </div>
+
+                    <input class="btn btn-info" id="submit-search" type="button" value="Search" onclick="showResult()">
+
                 </div>
 
 
-                <div id="skills-search-bar">
-    				<p> Search Skills:  <input id="skill-search" type="text" size="50"></p>
-    			</div>
-
-                <input id="submit-search" type="button" value="Search" onclick="showResult()">
             </form>
         </div>
-		<br>
+    </div>
 
-		<div id = "search">
-        	<p><b>Search Results</b></p>
-        	<div id="livesearch"> </div>
-        </div>
-          
+    <div class="separator"><br></div>
 
+    <div class="container-fluid" id="page">
 
-		<br>
-        <div id ="shortlist">
-            <select id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
-                <option value="all">All Shortlists</option>
-                <?php
-                    $shortLists = $employerInfo->getShortLists();
-                    foreach ($shortLists as $shortList) {
-                        echo "<option value=\"".$shortList->getId()."\">".$shortList->getName()."</option>";
-                    }
-                ?>
-            </select>
-            <input type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()">
-            <div id="shortlist-candidates">
-                
+        <div class="row">
+
+            <div class="partition col-sm-8 small-box-format">
+                <div class="center" id = "search">
+                    <h4><b>Search Results</b></h4>
+                </div>
+                <div id="livesearch"> </div>
+            </div>
+
+            <div class="partition col-sm-2 small-box-format">
+                <div id ="shortlist">
+                    <select id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
+                        <option value="all">All Shortlists</option>
+                        <?php
+                            $shortLists = $employerInfo->getShortLists();
+                            foreach ($shortLists as $shortList) {
+                                echo "<option value=\"".$shortList->getId()."\">".$shortList->getName()."</option>";
+                            }
+                        ?>
+                    </select>
+                    <input class="btn btn-info" type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()">
+                    <div id="shortlist-candidates">
+
+                    </div>
+                </div>
             </div>
         </div>
 	</div>

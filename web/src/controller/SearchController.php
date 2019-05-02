@@ -85,7 +85,7 @@ class SearchController extends Controller
      */
     public function formatSearch($candidates){
         $candidateIDs = NULL;
-        $response = "<table><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th><th>Add to Shortlist?</th></tr>";
+        $response = "<table class=\"table-condensed table-striped\"><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th><th>Add to Shortlist?</th></tr>";
         foreach($candidates as $candidate){
 
             if($candidateIDs == NULL){
@@ -96,10 +96,10 @@ class SearchController extends Controller
 
             $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getId().")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
-                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
+                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td class=\"center\"><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
         $response = $response . '</table>';
-        $response = $response . "<input type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'>";
+        $response = "<div class=\"center small-box-format\"><input class=\"btn btn-info\" type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'></div>" . $response;
         return $response;
     }
 
