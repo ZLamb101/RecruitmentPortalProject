@@ -16,7 +16,7 @@ function renameList(divID, id){
 
         xmlhttp.send();
         var nameChanged = "shortList"+divID;
-        document.getElementById(nameChanged).innerText ="Name: " + name;
+        document.getElementById(nameChanged).innerText = name;
     }
 }
 
@@ -48,19 +48,9 @@ function changeDescription(divID, id){
  * @param divID, the short list div number that will be modified
  * @param titleID, the corresponding shortList title number that will be changed
  */
-function deleteFromShortList(listID, candidateID, divID, titleID) {
+function deleteFromShortList(listID, candidateID, divID) {
     //Checks to see if it's the final member of the shortList being deleted. If it is, then delete the title from the PHTML
-    get(listID, candidateID, divID, titleID, function () {
-      //  var test = this.responseText;
-       // if(test == "true"){
-       //      var header = "shortList" + titleID;
-       //      var elem = document.getElementById(header);
-       //      elem.parentNode.removeChild(elem);
-       //
-       //      var rename = "re-name" + titleID;
-       //      elem = document.getElementById(rename);
-       //      elem.parentNode.removeChild(elem);
-       //  }
+    get(listID, candidateID, function () {
     })
     var str = "cand" + divID;
     document.getElementById(str).innerHTML = "";
@@ -77,7 +67,7 @@ function deleteFromShortList(listID, candidateID, divID, titleID) {
  * @param titleID, the corresponding shortList title number that will be changed
  * @param callback, the function to be called
  */
-function get(listID, candidateID, divID, titleID, callback) {
+function get(listID, candidateID, callback) {
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "deleteFromShortList.php?listID=" + listID+ "&candidateID=" +candidateID, true);
     xmlhttp.onreadystatechange = function () {
