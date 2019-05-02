@@ -19,7 +19,7 @@ include "header.phtml"
                     <p>Email: <input type="text" placeholder="Email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>"></p>
 
                     <p>Phone number: <input type=text name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>"> </p>
-                    <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
+                    <p>Location: <input type=text name="location" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>"> </p>
                 </div>
                 <div id="work-experience">
                     <p>Work Experience</p>
