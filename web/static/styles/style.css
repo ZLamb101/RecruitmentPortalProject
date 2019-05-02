@@ -13,12 +13,24 @@
 	min-height: 100%;
 }
 
+#page2{
+	background-image: linear-gradient(#0073BD, #09A9CA);
+}
+
 #welcome{
 
 }
 
+.wd-80{
+	width:80%;
+}
+
 .from-top{
 	margin-top: 80px;
+}
+
+.from-bottom{
+	margin-bottom: 30px;
 }
 
 .separator{
@@ -52,7 +64,9 @@
 	padding:20px;
 }
 
-
+.mw-50{
+	max-width: 50%;
+}
 
 .button-pad{
 	padding:5px;
@@ -68,6 +82,14 @@
 
 .interior-box-format p{
 	/*flex-shrink: 1;*/
+}
+
+#shortlist0{
+	display: inline;
+}
+
+.pad-15{
+	padding-top: 15px;
 }
 
 .center{
@@ -86,12 +108,18 @@
 	min-width: 400px;
 }
 
-#employer-info{
+#personal-info{
 	padding-top: 1em;
 	font-size: 1.5em;
 }
 
-#shortlist-format{
+.vcenter {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
+.shortlist-format{
 	margin:4%;
 }
 

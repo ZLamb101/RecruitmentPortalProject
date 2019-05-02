@@ -4,8 +4,8 @@ include "header.phtml"
  ?>
 
     <script type = "text/javascript" src="src/js/updateShortList.js"></script>
-    <div class="page">
-        <div class="partition">
+    <div class="container-fluid from-top" id="page">
+        <div class="partition large-box-format">
             <h2>Compose your email to your short list for: <?= $shortlist->getName(); ?></h2>
 
             <p>Dear CANDIDATE_NAME, </p>
@@ -14,11 +14,11 @@ include "header.phtml"
             <p>They would like you to book a time for an interview that suits you, by following the following link <br> <?= $employer->getCalendarLink() ?></p>
             <br>
             <form method="GET" name="emailContent" action="<?= $linkTo('employerHomePage'); ?>">
-                <p>Input your content here:</p><br>
-                <textarea id="content" name="content" rows="15" cols="50" maxlength="800" placeholder="Add in anything you would like each candidate to know about you, your company or what is expected of them when they arrive for their interview. You may leave this blank if you wish"></textarea>
+                <p>(Input your content below)</p><br>
+                <textarea class="form-control" id="content" name="content" rows="7" cols="50" maxlength="800" placeholder="Add in anything you would like each candidate to know about you, your company or what is expected of them when they arrive for their interview. You may leave this blank if you wish."></textarea>
                 <br>
                 <p>Kind Regards, <br> Vesta Recruitment</p>
-                <button id="submit-email" value="Send" onclick="sendInvite(<?= $shortlist->getId(); ?>)">Send</button>
+                <button class="btn btn-info" id="submit-email" value="Send" onclick="sendInvite(<?= $shortlist->getId(); ?>)">Send</button>
                 <input id="submit-handle" type="submit" style="display: none">
             </form>
         </div>

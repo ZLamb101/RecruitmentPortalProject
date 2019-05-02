@@ -7,11 +7,19 @@ include "header.phtml"
     <script type = "text/javascript" src="src/js/updateShortList.js"></script>
 
 	<!--- Content Start -->
-	<div class= "container-fluid from-top" id="">
+	<div class= "container-fluid from-top" id="page2">
 
-        <div class="#" id="search-params">
+        <div class="partition large-box-format" id="search-params">
+<!--            <div class="center">-->
+<!--                <img id="logo" src="/static/styles/Images/VN.png">-->
+<!--            </div>-->
+<!---->
+<!--            <div class="center">-->
+<!--                <h4>Candidate Search</h4>-->
+<!--            </div>-->
+
             <form class="horizontal">
-                <div class="row">
+                <div class="row center">
                     <div class="col-sm-6 form-group">
                         <label class="control-label" for="field0">All Categories</label>
                         <select class="form-control" id="field0" name="field0" onclick="updateFields(this)">
@@ -38,7 +46,7 @@ include "header.phtml"
 
                 </div>
 
-                <div class="row">
+                <div class="row center">
 
                     <div class="col-sm-6 form-group">
                         <label class="control-label" for="sub-field0">All Sub-Categories</label>
@@ -48,29 +56,36 @@ include "header.phtml"
                         <input type="hidden" value="0" name="skill-count" id="skill-count">
                     </div>
 
-                    <div class="form-group col-sm-5 spread" id="availability" name="availability">
-                        <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
-                        <label for="fullTime">Full Time</label>
-                        <input type="checkbox" value="partTime" name="part-time" id="part-time" checked>
-                        <label for="partTime">Part Time</label>
-                        <input  type="checkbox" value="casual" name="casual" id="casual" checked>
-                        <label for="casual">Casual</label>
-                        <input type="checkbox" value="contractor" name="contractor" id="contractor" checked>
-                        <label for="contractor">Contractor</label>
-                    </div>
-
-
-
-                </div>
-
-                <div class="row">
-
                     <div class="col-sm-6  form-group" id="skills-search-bar">
                         <label for="skill-search"> Search Skills: </label> <input class="form-control" id="skill-search" type="text" size="50">
                     </div>
 
-                    <input class="btn btn-info" id="submit-search" type="button" value="Search" onclick="showResult()">
+                </div>
 
+                <div class="row center">
+
+                    <div class="form-group pad-15 col-sm-6 spread" id="availability" name="availability">
+                        <div>
+                            <input type="checkbox" value="fullTime" name="full-time" id="full-time" checked>
+                            <label for="fullTime">Full Time</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="partTime" name="part-time" id="part-time" checked>
+                            <label for="partTime">Part Time</label>
+                        </div>
+                        <div>
+                            <input  type="checkbox" value="casual" name="casual" id="casual" checked>
+                            <label for="casual">Casual</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="contractor" name="contractor" id="contractor" checked>
+                            <label for="contractor">Contractor</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input class="center-block btn btn-info" id="submit-search" type="button" value="Search" onclick="showResult()">
+                    </div>
                 </div>
 
 
@@ -80,7 +95,7 @@ include "header.phtml"
 
     <div class="separator"><br></div>
 
-    <div class="container-fluid" id="page">
+    <div class="container-fluid from-bottom" id="page">
 
         <div class="row">
 
@@ -93,7 +108,10 @@ include "header.phtml"
 
             <div class="partition col-sm-2 small-box-format">
                 <div id ="shortlist">
-                    <select id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
+                    <div class="center" id = "#">
+                        <h4><b>Shortlists</b></h4>
+                    </div>
+                    <select class="mw-50 form-control" id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
                         <option value="all">All Shortlists</option>
                         <?php
                             $shortLists = $employerInfo->getShortLists();
@@ -102,7 +120,8 @@ include "header.phtml"
                             }
                         ?>
                     </select>
-                    <input class="btn btn-info" type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()">
+                    <input class="btn btn-info pull-right" type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()">
+
                     <div id="shortlist-candidates">
 
                     </div>

@@ -10,10 +10,10 @@ include "header.phtml"
     <div class="container-fluid from-top">
 		<div class="#" id="info">
             <div ="row">
-                <div class = "title">
+                <div class = "title col-sm-4">
                     <h2>Welcome <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
                 </div>
-                <div class="#">
+                <div class="col-sm-8 text-right" id="personal-info">
                     <p>First Name: <?= $candidateInfo->getGName()?> </p>
                     <p>Last Name: <?= $candidateInfo->getFName() ?> </p>
                     <p>Username: <?= $candidateInfo->getUserName() ?></p>
