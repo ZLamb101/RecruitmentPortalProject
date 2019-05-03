@@ -57,9 +57,10 @@ include "header.phtml"
                 echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
                 echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
                 $candidates = $list->getCandidates();
-                echo "<div class=\"row\">";
+
                 $count = 0;
                 echo "<div id=\"candidates".$i."\">";
+                echo "<div class=\"row\">";
                 foreach ($candidates as $candidate) {
                     if($count == 4){
                         echo "</div><div class=\"row\">";
