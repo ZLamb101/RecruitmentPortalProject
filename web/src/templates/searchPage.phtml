@@ -24,7 +24,7 @@ include "header.phtml"
                         <label class="control-label" for="field0">All Categories</label>
                         <select class="form-control" id="field0" name="field0" onclick="updateFields(this)">
                             <?php
-                            echo "<option value=\"all\">all categories</option>";
+                            echo "<option value=\"all\">All Categories</option>";
                             foreach ($Fields as $field){
                                 echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
                             }
@@ -120,7 +120,7 @@ include "header.phtml"
                             }
                         ?>
                     </select>
-                    <input class="btn btn-info pull-right" type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()">
+                    <input class="btn btn-info pull-right" type="button" id="send0" name="sendInvites" value="Send Invite Email" onclick="writeEmail()" disabled>
 
                     <div id="shortlist-candidates">
 

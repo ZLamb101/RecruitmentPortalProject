@@ -94,7 +94,7 @@ class SearchController extends Controller
                 $candidateIDs = $candidateIDs . ',' . $candidate->getUserID();
             }
 
-            $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getId().")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
+            $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
                             $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
                             ."</td><td>". $candidate->displayPreferredSkill() ."</td><td class=\"center\"><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
@@ -112,7 +112,7 @@ class SearchController extends Controller
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
-            echo"<option value=\"all\">all categories</option>";
+            echo"<option value=\"all\">All Categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
             }
@@ -131,7 +131,7 @@ class SearchController extends Controller
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);
-            echo"<option value=\"all\">all subcategories</option>";
+            echo"<option value=\"all\">All Sub-Categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['sub_field']."</option>";
             }

@@ -10,7 +10,10 @@ function updateShortList()
         if(this.responseText == "<p>Shortlist has been invited previously</p>"){
             document.getElementById('send0').disabled = true;
             document.getElementById('shortlist-candidates').innerHTML = this.responseText;
-        } else {
+        } else if(this.responseText == "Do not display"){
+			document.getElementById('send0').disabled = true;
+			document.getElementById('shortlist-candidates').innerHTML = "";
+        }else {
             document.getElementById('send0').disabled = false;
             document.getElementById('shortlist-candidates').innerHTML = this.responseText;
         }

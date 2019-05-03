@@ -311,7 +311,7 @@ class CandidateController extends UserController
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getTypes();
-            echo"<option value=\"all\">all subcategories</option>";
+            echo"<option value=\"all\">All Sub-Categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['type']."</option>";
             }
@@ -332,7 +332,7 @@ class CandidateController extends UserController
         try {
             $qual = new QualificationModel();
             $toConvert = $qual->getLevels();
-            echo"<option value=\"all\">all categories</option>";
+            echo"<option value=\"all\">All Categories</option>";
             foreach ($toConvert as $item){
                 echo "<option value=\"".$item['id']."\">".$item['level']."</option>";
             }

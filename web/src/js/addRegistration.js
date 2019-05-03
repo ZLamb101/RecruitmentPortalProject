@@ -7,7 +7,11 @@
 function addQualification(){
 	var count = document.getElementById("qualification-count");
 	var it = count.getAttribute("value");
-	count.setAttribute("value", ++it);
+    if(it >= 9){
+        alert("You have reached maximum number of qualifications");
+        return;
+    }
+    count.setAttribute("value", ++it);
 
 
 
@@ -117,8 +121,12 @@ function addQualification(){
 function addWorkExperience(){
 	var count = document.getElementById("work-experience-count");
 	var it = count.getAttribute("value");
+    if(it >= 9){
+        alert("You have reached maximum number of work-experiences");
+        return;
+    }
 
-	count.setAttribute("value", ++it);
+    count.setAttribute("value", ++it);
 
 
 	var workex = document.createElement("div");                       // Create a <div> node
@@ -204,6 +212,10 @@ function addWorkExperience(){
 function addSkill(){
 	var count = document.getElementById("skill-count");
 	var it = count.getAttribute("value");
+    if(it >= 9){
+        alert("You have reached maximum number of skills");
+        return;
+    }
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node

@@ -88,6 +88,8 @@ class ShortListController extends Controller
                         echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
                     }
                 }
+            }else{
+                echo "Do not display";
             }
         } catch (\Exception $e) {
             error_log($e->getMessage());
