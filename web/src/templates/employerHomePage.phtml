@@ -58,7 +58,8 @@ include "header.phtml"
                     echo "</div>";
                     echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                     echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
-                    echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
+                    echo "<h4>Description</h4>";
+                    echo "<p size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</p>";
                     $candidates = $list->getCandidates();
 
                     $count = 0;
