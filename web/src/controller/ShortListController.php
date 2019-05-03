@@ -60,9 +60,45 @@ class ShortListController extends Controller
         try {
             $listID = $_GET["listID"];
             $candidateID = $_GET["candidateID"];
+            $candCount = $_GET['candCount'];
+            $i = $_GET['divID'];
+
             $list = new ShortListModel();
+            $list->load($listID);
+            $count = 0;
+            error_log("IM HERE 1111");
             if ($list->deleteFromShortList($listID, $candidateID)) {
-                echo "true";
+                error_log("IM HERE 2");
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate) {
+                    if($count == 4){
+                        echo "</div><div class=\"row\">";
+                        $count = 0;
+                    }
+                    $candID = "cand" . $candCount;
+                    if($candidate->getGName() != NULL) {
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
+                        $candCount++;
+                    }
+
+                    $count++;
+                }
+                error_log("loopy");
+            }else{
+                $candidates = $list->getCandidates();
+                foreach ($candidates as $candidate) {
+                    if($count == 4){
+                        echo "</div><div class=\"row\">";
+                        $count = 0;
+                    }
+                    $candID = "cand" . $candCount;
+                    if($candidate->getGName() != NULL) {
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
+                        $candCount++;
+                    }
+
+                    $count++;
+                }
             }
         } catch (\Exception $e) {
             error_log($e->getMessage());

@@ -53,12 +53,13 @@ include "header.phtml"
                 echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$list->getId().")\">";
                 echo "<input type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$list->getId().")\">";
                 echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
+                echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
                 echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
                 echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
                 $candidates = $list->getCandidates();
                 echo "<div class=\"row\">";
                 $count = 0;
-
+                echo "<div id=\"candidates".$i."\">";
                 foreach ($candidates as $candidate) {
                     if($count == 4){
                         echo "</div><div class=\"row\">";
@@ -66,12 +67,13 @@ include "header.phtml"
                     }
                     $candID = "cand" . $candCount;
                     if($candidate->getGName() != NULL) {
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ")\"></p>";
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
                         $candCount++;
                     }
 
                     $count++;
                 }
+                echo "</div>";
                 echo "</div>";
                 echo "</div>";
                 $i++;
