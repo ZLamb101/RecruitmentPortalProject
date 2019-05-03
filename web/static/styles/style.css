@@ -80,11 +80,15 @@
 	/*flex-direction:column;*/
 }
 
+.cand-name-size{
+	font-size: 20px;
+}
+
 .interior-box-format p{
 	/*flex-shrink: 1;*/
 }
 
-#shortlist-inline{
+.shortlist-inline{
 	display: inline;
 }
 
@@ -123,10 +127,6 @@
 	margin:4%;
 }
 
-#send-invite-btn{
-	margin-top: 16px;
-}
-
 .navbar{
 	min-height: 80px;
 	border-radius: 0px;
@@ -135,6 +135,12 @@
 
 #login-button{
 	width:50%;
+}
+
+.button-grouping{
+	margin-top:16px;
+	margin-left:8px;
+	margin-right:8px;
 }
 
 .sm-pad{

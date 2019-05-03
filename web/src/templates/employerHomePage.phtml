@@ -42,16 +42,16 @@ include "header.phtml"
 
                 echo "<div class=\"partition shortlist-format\" id=\"shortlist".$i."\">";
                 echo "<div class=\"row\">";
-                echo "<h3 id = \"shortList".$i."\" class=\"col-sm-9 font-weight-bold\"><u>".$list->getName()."</u></h3>";
+                echo "<h3 id = \"shortList".$i."\" class=\"col-sm-3 font-weight-bold\"><u>".$list->getName()."</u></h3>";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-danger\" type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$list->getId().")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-warning\" type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$list->getId().")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-info\" type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$list->getId().")\">";
                 if($list->isHasInvited()) {
                     echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
                 }else{
-                    echo "<p><a  class=\"btn btn-info col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
+                    echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
                 }
                 echo "</div>";
-                echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$list->getId().")\">";
-                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$list->getId().")\">";
-                echo "<input type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$list->getId().")\">";
                 echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                 echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
                 echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
@@ -66,7 +66,7 @@ include "header.phtml"
                     }
                     $candID = "cand" . $candCount;
                     if($candidate->getGName() != NULL) {
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ")\"></p>";
+                        echo "<p  id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ")\"></p>";
                         $candCount++;
                     }
 
