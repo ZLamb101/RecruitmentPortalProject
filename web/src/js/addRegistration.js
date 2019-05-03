@@ -7,7 +7,7 @@
 function addQualification(){
 	var count = document.getElementById("qualification-count");
 	var it = count.getAttribute("value");
-    if(it >= 9){
+    if(it >= 8){
         alert("You have reached maximum number of qualifications");
         return;
     }
@@ -16,13 +16,14 @@ function addQualification(){
 
 
 
-	var qual = document.createElement("div");                       // Create a <div> node
-	qual.setAttribute("class","partition");
+	var qual = document.createElement("div");                       // Create outer <div> node
+	qual.setAttribute("class","edit-box partition interior-box-format");
 	var divString = "qualification"+it;
 	qual.setAttribute("id",divString);
 
-    var deleteButton = document.createElement("input");
+    var deleteButton = document.createElement("input");				//Create delete button
     deleteButton.setAttribute("type", "button");
+    deleteButton.setAttribute("class", "btn btn-danger");
     var deleteQualificationNum = "delete-qualification"+it;
     deleteButton.setAttribute("id", deleteQualificationNum);
     deleteButton.setAttribute("value", "Delete");
@@ -30,74 +31,106 @@ function addQualification(){
     deleteButton.setAttribute("onclick", functionName);
     qual.appendChild(deleteButton);
 
-	var prefP = document.createElement("p");
+    var qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild.setAttribute("class","sm-pad form-group");
+
+	var prefP = document.createElement("label");
 	var prefLabel = document.createTextNode("Preferred: ");
 	var pref = document.createElement("input");
+	pref.setAttribute("class", "pull-right");
 	pref.setAttribute("type", "radio");
+	prefP.setAttribute("for", "qualification-preference");
 	pref.setAttribute("name", "qualification-preference");
+	pref.setAttribute("id", "qualification-preference");
 	pref.setAttribute("value", it);
 	prefP.appendChild(prefLabel);
-	qual.appendChild(prefP);
-	qual.appendChild(pref);
+	qualChild.appendChild(prefP);										//Append Label and input into Child Div
+	qualChild.appendChild(pref);
 
+    qual.appendChild(qualChild);										//Append child div to parent div
 
+    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild.setAttribute("class","form-group");
+
+    var levelP = document.createElement("label");
+    var levelLabel = document.createTextNode("Level: ");
 	var level = document.createElement("select");
-	var levelString = "level";
-	levelString = levelString.concat(it.toString(10));
-
-
+	var levelString = "level"+it;
+	levelP.setAttribute("for", levelString);
 	level.setAttribute("name", levelString);
-    level.setAttribute("onclick", "updateTypes(this)")
+	level.setAttribute("class", "form-control");
+    level.setAttribute("onclick", "updateTypes(this)");
 	level.setAttribute("id", levelString);
-    qual.appendChild(level);
+    levelP.appendChild(levelLabel);
+    qualChild.appendChild(levelP);
+    qualChild.appendChild(level);
 
+    qual.appendChild(qualChild);										//Append child div to parent div
 
+    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild.setAttribute("class","form-group");
 
+    var typeP = document.createElement("label");
+    var typeLabel = document.createTextNode("Field: ");
 	var type = document.createElement("select");
-	var typeString = "type";
-	typeString = typeString.concat(it.toString(10));
+	var typeString = "type"+it;
+	typeP.setAttribute("for", typeString);
+    type.setAttribute("name", typeString);
+    type.setAttribute("id", typeString);
+    type.setAttribute("class", "form-control");
+    typeP.appendChild(typeLabel);
 
     var typeOption = document.createElement("option");
-    var typeOptionLabel = document.createTextNode("all subcategories");
+    var typeOptionLabel = document.createTextNode("All subcategories");
     typeOption.setAttribute("value", "blank");
-
-
     typeOption.appendChild(typeOptionLabel);
     type.append(typeOption);
 
+	qualChild.appendChild(typeP);
+	qualChild.appendChild(type);
 
-	type.setAttribute("name", typeString);
-	type.setAttribute("id", typeString);
-	qual.appendChild(type);
+    qual.appendChild(qualChild);										//Append child div to parent div
 
+    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild.setAttribute("class","form-group");
 
-
-	var yearP = document.createElement("p");
+	var yearP = document.createElement("label");
 	var yearLabel = document.createTextNode("Year: ");
 	var year = document.createElement("input");
-	var yearString = "year";
-	yearString = yearString.concat(it.toString(10));
+	var yearString = "year"+it;
+	yearP.setAttribute("for",yearString);
 	year.setAttribute("name",yearString);
+	year.setAttribute("id",yearString);
 	year.setAttribute("type","text");
 	year.setAttribute("size",40);
+	year.setAttribute("class","form-control");
 	year.setAttribute("pattern", "^[0-9]{4}$");
 	year.setAttribute("title", "YYYY format. Numeric characters only");
 	yearP.appendChild(yearLabel);
 
-	qual.appendChild(yearP);
-	qual.appendChild(year);
+	qualChild.appendChild(yearP);
+	qualChild.appendChild(year);
 
-	var majorP = document.createElement("p");
+    qual.appendChild(qualChild);										//Append child div to parent div
+
+    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild.setAttribute("class","form-group");
+
+	var majorP = document.createElement("label");
 	var majorLabel = document.createTextNode("Major:");
 	var major = document.createElement("input");
-	var majorString = "major";
-	majorString = majorString.concat(it.toString(10));
+	var majorString = "major"+it;
+	majorP.setAttribute("for", majorString);
 	major.setAttribute("name", majorString);
+	major.setAttribute("id", majorString);
 	major.setAttribute("type", "text");
+	major.setAttribute("class", "form-control");
 	major.setAttribute("size", 40);
 	majorP.appendChild(majorLabel);
-	qual.appendChild(majorP);
-	qual.appendChild(major);
+	qualChild.appendChild(majorP);
+	qualChild.appendChild(major);
+
+    qual.appendChild(qualChild);										//Append child div to parent div
 
 	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
 
@@ -121,7 +154,7 @@ function addQualification(){
 function addWorkExperience(){
 	var count = document.getElementById("work-experience-count");
 	var it = count.getAttribute("value");
-    if(it >= 9){
+    if(it >= 8){
         alert("You have reached maximum number of work-experiences");
         return;
     }
@@ -129,78 +162,106 @@ function addWorkExperience(){
     count.setAttribute("value", ++it);
 
 
-	var workex = document.createElement("div");                       // Create a <div> node
-    workex.setAttribute("class","partition");
+	var workex = document.createElement("div");              		         // Create outer <div> node
+    workex.setAttribute("class","edit-box partition interior-box-format");
     var divName = "workExperience" + it;
     workex.setAttribute("id",divName);
 
-    var deleteButton = document.createElement("input");
+    var deleteButton = document.createElement("input");						//Create delete button
     deleteButton.setAttribute("type", "button");
     var deleteWorkNum = "delete-work-experience"+it;
     deleteButton.setAttribute("id", deleteWorkNum);
     deleteButton.setAttribute("value", "Delete");
+    deleteButton.setAttribute("class", "btn btn-danger");
     var functionName = "deleteWorkExperienceHTML("+it+")";
     deleteButton.setAttribute("onclick", functionName);
     workex.appendChild(deleteButton);
 
+    var workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
+    workexChild.setAttribute("class","sm-pad form-group");
 
-	var prefP = document.createElement("p");
+
+	var prefP = document.createElement("label");
+	prefP.setAttribute("for", divName);
 	var prefLabel = document.createTextNode("Preferred: ");
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
+	pref.setAttribute("class", "pull-right");
+	var radID = "work-experience-preference"+it;
+	pref.setAttribute("id", radID);
 	pref.setAttribute("name", "work-experience-preference");
 	pref.setAttribute("value", it);
 	prefP.appendChild(prefLabel);
-	workex.appendChild(prefP);
-	workex.appendChild(pref);
+	workexChild.appendChild(prefP);
+	workexChild.appendChild(pref);
 
-	var roleP = document.createElement("p");
-	var roleLabel = document.createTextNode("Role.");      // Create a text node
+	workex.appendChild(workexChild);									//Append Child div to inner div
+
+    workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
+    workexChild.setAttribute("class","form-group");
+
+	var roleP = document.createElement("label");
+	var roleString = "role"+it;
+	roleP.setAttribute("for", roleString);
+	var roleLabel = document.createTextNode("Role.");     		 // Create a text node
 	var role = document.createElement("input");
-	var roleString = "role";
-	roleString = roleString.concat(it.toString(10));
 	role.setAttribute("name", roleString);
+	role.setAttribute("id", roleString);
+	role.setAttribute("class", "form-control");
 	role.setAttribute("type", "text");
 	role.setAttribute("size",40);
 	role.setAttribute("pattern", "^[a-zA-Z\\s-]+$");
 	role.setAttribute("title", "Alphabetic, '-' and space characters only");
 
 	roleP.appendChild(roleLabel);
-	workex.appendChild(roleP);
-	workex.appendChild(role);
+	workexChild.appendChild(roleP);
+	workexChild.appendChild(role);
 
-	var durationP = document.createElement("p");
+    workex.appendChild(workexChild);									//Append Child div to inner div
+
+    workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
+    workexChild.setAttribute("class","form-group");
+
+	var durationP = document.createElement("label");
 	var durationLabel = document.createTextNode("Duration.");      // Create a text node
 	var duration = document.createElement("input");
-	var durationString = "duration";
-	durationString = durationString.concat(it.toString(10));
+	var durationString = "duration"+it;
+	durationP.setAttribute("for", durationString)
 	duration.setAttribute("name", durationString);
+	duration.setAttribute("id", durationString);
 	duration.setAttribute("type","text");
+	duration.setAttribute("class", "form-control");
 	duration.setAttribute("size",40);
 	duration.setAttribute("pattern", "^[0-9]+$");
 	duration.setAttribute("title", "Numeric characters only");
 
 	durationP.appendChild(durationLabel);
-	workex.appendChild(durationP);
-	workex.appendChild(duration);
+	workexChild.appendChild(durationP);
+	workexChild.appendChild(duration);
 
-	var employerP = document.createElement("p");
+    workex.appendChild(workexChild);									//Append Child div to inner div
+
+    workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
+    workexChild.setAttribute("class","form-group");
+
+	var employerP = document.createElement("label");
 	var employerLabel = document.createTextNode("Employer.");      // Create a text node
 	var employer = document.createElement("input");
-	var employerString = "employer";
-	employerString = employerString.concat(it.toString(10));
+	var employerString = "employer"+it;
+	employerP.setAttribute("for", employerString);
 	employer.setAttribute("name", employerString);
+	employer.setAttribute("id", employerString);
 	employer.setAttribute("type","text");
+	employer.setAttribute("class", "form-control");
 	employer.setAttribute("size",40);
 	employer.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
 	employer.setAttribute("title", "Alphanumeric, '-' and space characters only");
 
-
-
 	employerP.appendChild(employerLabel);
+	workexChild.appendChild(employerP);
+	workexChild.appendChild(employer);
 
-	workex.appendChild(employerP);
-	workex.appendChild(employer);
+    workex.appendChild(workexChild);									//Append Child div to inner div
 
 	document.getElementById("work-experience").appendChild(workex);
 
@@ -212,14 +273,14 @@ function addWorkExperience(){
 function addSkill(){
 	var count = document.getElementById("skill-count");
 	var it = count.getAttribute("value");
-    if(it >= 9){
+    if(it >= 8){
         alert("You have reached maximum number of skills");
         return;
     }
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
-    skill.setAttribute("class","partition");
+    skill.setAttribute("class","partition ");
     var divName = "skill" + it;
     skill.setAttribute("id",divName);
 
@@ -261,7 +322,7 @@ function addSkill(){
 	var subField = document.createElement("select");
 	var subFieldString = "sub-field";
 	var subFieldOption = document.createElement("option");
-	var subFieldOptionLabel = document.createTextNode("all subcategories");
+	var subFieldOptionLabel = document.createTextNode("All subcategories");
 	subFieldOption.setAttribute("value", "blank");
 	subFieldString = subFieldString.concat(it.toString(10));
 	subField.setAttribute("name", subFieldString);
