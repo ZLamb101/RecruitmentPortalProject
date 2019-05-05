@@ -51,7 +51,7 @@ function changeDescription(divID, id){
 function deleteFromShortList(listID, candidateID, divID, i) {
     //Checks to see if it's the final member of the shortList being deleted. If it is, then delete the title from the PHTML
     get(listID, candidateID, i, function () {
-        document.getElementById(("candidates"+i)).innerHTML = "";
+      //  document.getElementById(("candidates"+i)).innerHTML = "";
         document.getElementById(("candidates"+i)).innerHTML = this.responseText;
     })
     var str = "cand" + divID;
@@ -72,7 +72,6 @@ function deleteFromShortList(listID, candidateID, divID, i) {
 function get(listID, candidateID, i, callback) {
     temp = 'num' + i;
     candCount = document.getElementById(temp).value;
-    alert(candCount);
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "deleteFromShortList.php?listID=" + listID + "&candidateID=" +candidateID + "&candCount=" + candCount +"&divID=" + i, true);
     xmlhttp.onreadystatechange = function () {
