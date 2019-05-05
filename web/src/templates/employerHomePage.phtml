@@ -78,7 +78,6 @@ include "header.phtml"
 
                             $candCount++;
                         }
-
                         $count++;
                     }
                     echo "</div>";
@@ -86,7 +85,7 @@ include "header.phtml"
                     echo "</div>";
                     $i++;
                 }
-                echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
+                echo "<input class=\"btn btn-success btn-block btn-lrg\" type=\"button\" id=\"newList\" value = \"Add New Shortlist\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
                 ?>
             </div>
         </div>

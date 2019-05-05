@@ -59,7 +59,7 @@ include "header.phtml"
                     echo "</div><div class=\"row\">";
                     $count = 0;
                 }
-                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<div class=\"partition zebra col-sm-3 interior-box-format\">";
                 echo "<p>Role: ".$work->getRole()."</p>";
                 echo "<p>Duration (in months): ".$work->getDuration()."</p>";
                 echo "<p>Employer: ".$work->getEmployer()."</p>";
@@ -80,7 +80,7 @@ include "header.phtml"
                     echo "</div><div class=\"row\">";
                     $count = 0;
                 }
-                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<div class=\"partition zebra col-sm-3 interior-box-format\">";
                 echo "<p>Level: ".$qual->findLevel($qual->getLevelId())."</p>";
                 echo "<p>Type: ".$qual->findType($qual->getTypeId())."</p>";
                 echo "<p>Major: ".$qual->getMajor()."</p>";
@@ -102,7 +102,7 @@ include "header.phtml"
                     echo "</div><div class=\"row\">";
                     $count = 0;
                 }
-                echo "<div class=\"partition col-sm-3 interior-box-format\">";
+                echo "<div class=\"partition zebra col-sm-3 interior-box-format\">";
                 echo "<p>Field: ".$skill->getField()."</p>";
                 echo "<p>SubField: ".$skill->getSubField()."</p>";
                 echo "<p>Contents: ".$skill->getContents()."</p>";

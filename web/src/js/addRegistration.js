@@ -1,7 +1,7 @@
 
 /**
  * Create a <div> node with input fields "year" and "name"
- * increment the names of the inputs for each invokation.
+ * increment the names of the inputs for each invocation.
  * append new <div> to qualification in phtml
  */
 function addQualification(){
@@ -280,7 +280,7 @@ function addSkill(){
 	count.setAttribute("value", ++it);
 
 	var skill = document.createElement("div");                       // Create a <div> node
-    skill.setAttribute("class","partition ");
+    skill.setAttribute("class","edit-box partition interior-box-format ");
     var divName = "skill" + it;
     skill.setAttribute("id",divName);
 
@@ -289,35 +289,56 @@ function addSkill(){
     var deleteSkillNum = "delete-skill"+it;
     deleteButton.setAttribute("id", deleteSkillNum);
     deleteButton.setAttribute("value", "Delete");
+    deleteButton.setAttribute("class", "btn btn-danger")
     var functionName = "deleteSkillHTML("+it+")";
     deleteButton.setAttribute("onclick", functionName);
     skill.appendChild(deleteButton);
 
-	var prefP = document.createElement("p");
+    var skillChild = document.createElement("div");
+    skillChild.setAttribute("class", "sm-pad form-group");
+
+	var prefP = document.createElement("label");
+
 	var prefLabel = document.createTextNode("Preferred: ");
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
+	pref.setAttribute("class", "pull-right");
+	var skillID = "skill-preference"+it;
+	prefP.setAttribute("for", skillID);
+	pref.setAttribute("id", skillID);
 	pref.setAttribute("name", "skill-preference");
 	pref.setAttribute("value", it);
 	prefP.appendChild(prefLabel);
-	skill.appendChild(prefP);
-	skill.appendChild(pref);
+	skillChild.appendChild(prefP);
+	skillChild.appendChild(pref);
 
-	var fieldP = document.createElement("p");
+	skill.appendChild(skillChild);
+
+	skillChild = document.createElement("div");
+	skillChild.setAttribute("class", "form-group");
+
+	var fieldP = document.createElement("label");
 	var fieldLabel = document.createTextNode("Field:");      
 	var field = document.createElement("select");
 	var fieldString = "field";
 	fieldString = fieldString.concat(it.toString(10));
+	fieldP.setAttribute("for", fieldString);
 
+	field.setAttribute("class", "form-control")
 	field.setAttribute("name", fieldString);
 	field.setAttribute("onclick", "updateFields(this)")
 	field.setAttribute("id", fieldString);
 
 	fieldP.appendChild(fieldLabel);
-	skill.appendChild(fieldP);
-	skill.appendChild(field);
+	skillChild.appendChild(fieldP);
+	skillChild.appendChild(field);
 
-	var subFieldP = document.createElement("p");
+	skill.append(skillChild);
+
+	skillChild = document.createElement("div");
+	skillChild.setAttribute("class", "form-group");
+
+	var subFieldP = document.createElement("label");
 	var subFieldLabel = document.createTextNode("Sub-Field:");
 	var subField = document.createElement("select");
 	var subFieldString = "sub-field";
@@ -325,29 +346,41 @@ function addSkill(){
 	var subFieldOptionLabel = document.createTextNode("All subcategories");
 	subFieldOption.setAttribute("value", "blank");
 	subFieldString = subFieldString.concat(it.toString(10));
+	subFieldP.setAttribute("for", subFieldString);
 	subField.setAttribute("name", subFieldString);
 	subField.setAttribute("id", subFieldString);
+	subField.setAttribute("class", "form-control");
 	//subField.setAttribute("disabled", true);
 
 	subFieldP.appendChild(subFieldLabel);
 	subFieldOption.appendChild(subFieldOptionLabel);
 	subField.append(subFieldOption);
-	skill.appendChild(subFieldP);
-	skill.appendChild(subField);
+	skillChild.appendChild(subFieldP);
+	skillChild.appendChild(subField);
 
-	var contentsP = document.createElement("p");
+	skill.appendChild(skillChild);
+
+	skillChild = document.createElement("div");
+	skillChild.setAttribute("class", "form-group");
+
+	var contentsP = document.createElement("label");
 	var contentsLabel = document.createTextNode("About:");      
 	var contents = document.createElement("input");
 	var contentsString = "contents";
 	contentsString = contentsString.concat(it.toString(10));
+	contentsP.setAttribute("for", contentsString);
+
 	contents.setAttribute("name", contentsString);
+	contents.setAttribute("class", "form-control")
 	contents.setAttribute("type","text");
 	contents.setAttribute("size",40);
 	//contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);
-	skill.appendChild(contentsP);
-	skill.appendChild(contents);
+	skillChild.appendChild(contentsP);
+	skillChild.appendChild(contents);
+
+	skill.appendChild(skillChild);
 
 	document.getElementById("skills").appendChild(skill);
 
