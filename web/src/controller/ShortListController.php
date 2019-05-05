@@ -66,40 +66,29 @@ class ShortListController extends Controller
             $list = new ShortListModel();
             $list->load($listID);
             $count = 0;
-            error_log("IM HERE 1111");
-            if ($list->deleteFromShortList($listID, $candidateID)) {
-                error_log("IM HERE 2");
-                $candidates = $list->getCandidates();
-                foreach ($candidates as $candidate) {
-                    if($count == 4){
-                        echo "</div><div class=\"row\">";
-                        $count = 0;
-                    }
-                    $candID = "cand" . $candCount;
-                    if($candidate->getGName() != NULL) {
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
-                        $candCount++;
-                    }
-
-                    $count++;
+            error_log("candidate ID is:".$candidateID);
+            $list->deleteFromShortList($listID, $candidateID);
+            //$list->save();
+            $list->load($listID);
+            $candidates = $list->getCandidates();
+            echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
+            echo "<div class=\"row\">";
+            foreach ($candidates as $candidate) {
+                if($count == 4){
+                    echo "</div><div class=\"row\">";
+                    $count = 0;
                 }
-                error_log("loopy");
-            }else{
-                $candidates = $list->getCandidates();
-                foreach ($candidates as $candidate) {
-                    if($count == 4){
-                        echo "</div><div class=\"row\">";
-                        $count = 0;
-                    }
-                    $candID = "cand" . $candCount;
-                    if($candidate->getGName() != NULL) {
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
-                        $candCount++;
-                    }
-
-                    $count++;
+                $candID = "cand" . $candCount;
+                if($candidate->getGName() != NULL) {
+                    echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
+                    $candCount++;
                 }
+
+                $count++;
             }
+            echo "</div>";
+            echo "</div>";
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
@@ -146,13 +135,10 @@ class ShortListController extends Controller
             $list->newShortList($name, $id, $description);
 
             $employerInfo = new EmployerModel();
-            error_log($_SESSION['UserID']);
             $employerInfo->load($_SESSION["UserID"]);
 
 
             $shortLists = $employerInfo->getShortLists();
-            error_log($employerInfo->getCompanyName());
-            error_log($employerInfo->getCompanyName());
             $i = 0;
             $candcount = 0;
             foreach ($shortLists as $list){

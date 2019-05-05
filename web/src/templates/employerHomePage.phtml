@@ -74,7 +74,7 @@ include "header.phtml"
                         $candID = "cand" . $candCount;
                         if($candidate->getGName() != NULL) {
 
-                            echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getId() . ", " . $candCount . ", ".$i.")\"></p>";
+                            echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
 
                             $candCount++;
                         }
