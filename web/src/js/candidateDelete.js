@@ -4,7 +4,7 @@
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperience(number, id){
-    if(document.getElementById("work-experience-count").value > 1) {
+    if(document.getElementById("work-experience-count").value > 0) {
         xmlhttp = new XMLHttpRequest();
 
 
@@ -12,7 +12,9 @@ function deleteWorkExperience(number, id){
 
         xmlhttp.send();
         var divToDelete = "workExperience" + number;
-        document.getElementById(divToDelete).innerHTML = "";
+        var elem = document.getElementById(divToDelete);
+        elem.parentNode.removeChild(elem);
+
 
         var numOfExperience = document.getElementById("work-experience-count").value
         for (var i = (number + 1); i < numOfExperience; i++) {
@@ -44,7 +46,7 @@ function deleteWorkExperience(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperienceHTML(number){
-    if(document.getElementById("work-experience-count").value > 1) {
+    if(document.getElementById("work-experience-count").value > 0) {
 
         var divToDelete = "workExperience" + number;
         var elem = document.getElementById(divToDelete);
@@ -79,7 +81,7 @@ function deleteWorkExperienceHTML(number){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteSkillHTML(number, id){
-    if(document.getElementById("skill-count").value > 1) {
+    if(document.getElementById("skill-count").value > 0) {
         xmlhttp = new XMLHttpRequest();
 
         xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
@@ -119,9 +121,10 @@ function deleteSkillHTML(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteSkill(number){
-    if(document.getElementById("skill-count").value > 1) {
+    if(document.getElementById("skill-count").value > 0) {
         var divToDelete = "skill" + number;
-        document.getElementById(divToDelete).innerHTML = "";
+        var elem = document.getElementById(divToDelete);
+        elem.parentNode.removeChild(elem);
 
         var numOfExperience = document.getElementById("skill-count").value
         for (var i = (number + 1); i < numOfExperience; i++) {
@@ -152,14 +155,15 @@ function deleteSkill(number){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualification(number, id){
-    if(document.getElementById("qualification-count").value > 1) {
+    if(document.getElementById("qualification-count").value > 0) {
         xmlhttp = new XMLHttpRequest();
 
         xmlhttp.open("GET", "deleteQualification.php?q=" + id, true);
 
         xmlhttp.send();
         var divToDelete = "qualification" + number;
-        document.getElementById(divToDelete).innerHTML = "";
+        var elem = document.getElementById(divToDelete);
+        elem.parentNode.removeChild(elem);
 
         var numOfExperience = document.getElementById("qualification-count").value
         for (var i = (number + 1); i < numOfExperience; i++) {
@@ -191,7 +195,7 @@ function deleteQualification(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualificationHTML(number){
-    if(document.getElementById("qualification-count").value > 1) {
+    if(document.getElementById("qualification-count").value > 0) {
         var divToDelete = "qualification" + number;
         var elem = document.getElementById(divToDelete);
         elem.parentNode.removeChild(elem);
