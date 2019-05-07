@@ -64,7 +64,7 @@ include "header.phtml"
                         $role = "role".$i;
                         $duration = "duration".$i;
                         $employer = "employer".$i;
-                        $workId = "id".$i;
+                        $workId = "weid".$i;
                         $workId2 = "workId".$i;
                         if($candidateInfo->getPreferredWorkExperience() != $id) {
                             echo "<div class=\"sm-pad form-group\"><label for=\"work-experience-preference".$i."\">Preferred: </label><input class='pull-right' type=radio value=\"" . $i . "\" id=\"work-experience-preference".$i."\" name='work-experience-preference'></div>";
@@ -80,6 +80,7 @@ include "header.phtml"
                     }
 
                     $i--;
+                    echo "<input type=\"hidden\" value=\"".$i."\" name=\"work-experience-existing-count\" id=\"work-experience-existing-count\">";
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"work-experience-count\" id=\"work-experience-count\">"?>
 
 
@@ -102,7 +103,7 @@ include "header.phtml"
                         $level = "level".$i;
                         $type = "type".$i;
                         $major = "major".$i;
-                        $qualId = "id".$i;
+                        $qualId = "qid".$i;
                         $qualId2 = "qualId".$i;
 
 
@@ -145,6 +146,7 @@ include "header.phtml"
                     }
 
                     $i--;
+                    echo "<input type=\"hidden\" value=\"".$i."\" name=\"qualification-existing-count\" id=\"qualification-existing-count\">";
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"qualification-count\" id=\"qualification-count\">"?>
 
                 </div>
@@ -171,7 +173,7 @@ include "header.phtml"
 
 
                         $Fields = $skill->getFields();
-                        $skillId = "id".$i;
+                        $skillId = "sid".$i;
                         $skillId2 = "skillId".$i;
                         $name = "field".$i;
                         $fieldID = $skill->getFieldID($skill->getField());
@@ -206,6 +208,7 @@ include "header.phtml"
                         echo "</div>";
                     }
                     $i--;
+                    echo "<input type=\"hidden\" value=\"".$i."\" name=\"skill-existing-count\" id=\"skill-existing-count\">";
                     echo "<input type=\"hidden\" value=\"".$i."\" name=\"skill-count\" id=\"skill-count\">";
                     ?>
 

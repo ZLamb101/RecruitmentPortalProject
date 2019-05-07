@@ -4,7 +4,7 @@
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperience(number, id){
-    if(document.getElementById("work-experience-count").value > 0) {
+    if(document.getElementById("work-experience-existing-count").value > 0) {
         var prefferedCheck = document.getElementById("work-experience-preference"+number);
         if(prefferedCheck.checked){
             alert("You cannot delete your preferred work experience");
@@ -40,6 +40,7 @@ function deleteWorkExperience(number, id){
             document.getElementById(elementId).id = newElementId;
         }
         document.getElementById("work-experience-count").value = (numOfExperience - 1);
+        document.getElementById("work-experience-existing-count").value = (document.getElementById("work-experience-existing-count").value - 1);
     }else{
         alert("You cannot delete your last work experience");
     }
@@ -58,6 +59,7 @@ function deleteWorkExperienceHTML(number){
         elem.parentNode.removeChild(elem);
 
         var numOfExperience = document.getElementById("work-experience-count").value
+
         for (var i = (number + 1); i < numOfExperience; i++) {
             var elementId = "role" + i;
             var newElementId = "role" + (i - 1);
@@ -76,6 +78,7 @@ function deleteWorkExperienceHTML(number){
             document.getElementById(elementId).id = newElementId;
         }
         document.getElementById("work-experience-count").value = (numOfExperience - 1);
+        document.getElementById("work-experience-existing-count").value = (document.getElementById("work-experience-existing-count").value - 1);
     }else{
         alert("You cannot delete your last work experience");
     }
@@ -128,7 +131,7 @@ function deleteSkillHTML(number, id){
  */
 function deleteSkill(number,id){
 
-    if(document.getElementById("skill-count").value > 0) {
+    if(document.getElementById("skill-existing-count").value > 0) {
 
         var prefferedCheck = document.getElementById("skill-preference"+number);
         if(prefferedCheck.checked){
@@ -162,6 +165,7 @@ function deleteSkill(number,id){
             newElementId = "skillId" + (i - 1);
             document.getElementById(elementId).id = newElementId;
         }
+        document.getElementById("skill-existing-count").value = document.getElementById("skill-existing-count").value-1
         document.getElementById("skill-count").value = (numOfExperience - 1);
     }else{
         alert("You cannot delete your last qualification");
@@ -173,7 +177,7 @@ function deleteSkill(number,id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualification(number, id){
-    if(document.getElementById("qualification-count").value > 0) {
+    if(document.getElementById("qualification-existing-count").value > 0) {
         var prefferedCheck = document.getElementById("qualification-preference"+number);
         if(prefferedCheck.checked){
             alert("You cannot delete your preferred qualification");
@@ -206,6 +210,7 @@ function deleteQualification(number, id){
             newElementId = "qualId" + (i - 1);
             document.getElementById(elementId).id = newElementId;
         }
+        document.getElementById("qualification-existing-count").value = document.getElementById("qualification-existing-count").value - 1
         document.getElementById("qualification-count").value = (numOfExperience - 1);
     }else{
         alert("You cannot delete your last work experience");

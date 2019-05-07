@@ -172,8 +172,7 @@ class CandidateController extends UserController
         do{
             $qualification = new QualificationModel();
 
-            $idInput = "id".$qualificationCount;
-
+            $idInput = "qid".$qualificationCount;
             if ($_POST["$idInput"]) {
                 $qualification->load($_POST["$idInput"]);
             }
@@ -185,17 +184,20 @@ class CandidateController extends UserController
                 $qualificationCount--;
                 continue;
             }
+
             $qualification->setOwnerId($candidateID);
             $qualification->setYear($_POST["$yearInput"]);
             $qualification->setLevelId($_POST["$levelInput"]);
             $qualification->setTypeId($_POST["$typeInput"]);
             $qualification->setMajor($_POST["$majorInput"]);
+
             $isPreferred = false;
             if($qualificationCount == $_POST["qualification-preference"]){
                 $isPreferred = true;
             }
             $qualificationCount--;
             try {
+
                 $qualification->save();
             } catch (\Exception $e) {
                 $this->redirect('errorPage');
@@ -217,8 +219,7 @@ class CandidateController extends UserController
         $workExperienceCount = $_POST['work-experience-count'];
         do {
             $workExperience = new WorkExperienceModel();
-            $idInput = 'id' . $workExperienceCount;
-            error_log("check this ".$_POST["$idInput"]);
+            $idInput = 'weid' . $workExperienceCount;
             if ($_POST["$idInput"]) {
                  $workExperience->load($_POST["$idInput"]);
             }
@@ -261,7 +262,7 @@ class CandidateController extends UserController
         $skillCount = $_POST['skill-count'];
         do{
             $skill = new SkillModel();
-            $idInput = 'id'.$skillCount;
+            $idInput = 'sid'.$skillCount;
             if ($_POST["$idInput"]) {
                 $skill->load($_POST["$idInput"]);
             }
