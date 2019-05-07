@@ -140,29 +140,52 @@ class ShortListController extends Controller
 
             $shortLists = $employerInfo->getShortLists();
             $i = 0;
-            $candcount = 0;
+            $candCount = 0;
             foreach ($shortLists as $list){
-                error_log($i); echo " <div id =\"shortlist".$i."\" class=\"partition\">";
-                $listID = $list->getID();
-                echo "<input type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$listID.")\">";
-                echo "<input type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$listID.")\">";
-                echo "<input type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$listID.")\">";
-                echo "<p id = \"shortList".$i."\">Name: ".$list->getName()."</p>";
-                echo "<p size = \"512\" id = \"shortListDescription".$i."\">Description: ".$list->getDescription()."</p>";
-                $candidates = $list->getCandidates();
-                foreach ($candidates as $candidate){
-                    if($candidate->getGName() != NULL) {
-                        $candID = "cand" . $candcount;
-                        $candidateID = $candidate->getID();
-                        echo "<p id = \"" . $candID . "\">Name: " . $candidate->getGName() . " " . $candidate->getFName() ."<input type=\"button\" id=\"deleteCandidate" . $candcount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $listID . ", " . $candidateID . ", " . $candcount . "," . $i . ")\"> </p> ";
 
-                        $candcount++;
-                    }
+
+                echo "<div class=\"partition zebra shortlist-format\" id=\"shortlist".$i."\">";
+                echo "<div class=\"row\">";
+                echo "<h3 id = \"shortList".$i."\" class=\"col-sm-3 font-weight-bold\"><u>".$list->getName()."</u></h3>";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-danger\" type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$list->getId().")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-warning\" type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$list->getId().")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-info\" type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$list->getId().")\">";
+                if($list->isHasInvited()) {
+                    echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
+                }else{
+                    echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
                 }
+                echo "</div>";
+                echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
+                echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
+                echo "<h4>Description</h4>";
+                echo "<p size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</p>";
+                $candidates = $list->getCandidates();
+
+                $count = 0;
+                echo "<div class=\"partition small-box-format\" id=\"candidates".$i."\">";
+                echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
+                echo "<div class=\"row\">";
+                foreach ($candidates as $candidate) {
+                    if($count == 4){
+                        echo "</div><div class=\"row\">";
+                        $count = 0;
+                    }
+                    $candID = "cand" . $candCount;
+                    if($candidate->getGName() != NULL) {
+
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
+
+                        $candCount++;
+                    }
+                    $count++;
+                }
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
                 $i++;
-                echo " </div>";
             }
-            echo "<input type=\"button\" id=\"newList\" value = \"Add\" onclick=\"newShortList(".$employerInfo->getId().")\">";
+            echo "<input class=\"btn btn-success btn-block btn-lrg\" type=\"button\" id=\"newList\" value = \"Add New Shortlist\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
