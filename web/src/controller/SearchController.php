@@ -99,7 +99,8 @@ class SearchController extends Controller
                             ."</td><td>". $candidate->displayPreferredSkill() ."</td><td class=\"center\"><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
         }
         $response = $response . '</table>';
-        $response = "<div class=\"center small-box-format\"><input class=\"btn btn-info\" type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'></div>" . $response;
+        $response = $response . "<input type=\"hidden\" id= \"cand-ids\" value=\"$candidateIDs\">";
+      //  $response = "<div class=\"center small-box-format\"><input class=\"btn btn-info\" type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'></div>" . $response;
         return $response;
     }
 

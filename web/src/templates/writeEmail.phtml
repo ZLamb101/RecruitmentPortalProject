@@ -11,7 +11,7 @@ include "header.phtml"
             <p>Dear CANDIDATE_NAME, </p>
             <br>
             <p>You are invited to meet with <?= $employer->getContactName(); ?> from <?= $employer->getCompanyName(); ?>.</p>
-            <p>They would like you to book a time for an interview that suits you, by following the following link <br> <?= $employer->getCalendarLink() ?></p>
+            <p>They would like you to book a time for an interview that suits you, by following this <a href="<?= $employer->getCalendarLink() ?>">link</a>.</p>
             <br>
             <form method="GET" name="emailContent" action="<?= $linkTo('employerHomePage'); ?>">
                 <p>(Input your content below)</p><br>

@@ -25,6 +25,10 @@ function showResult() {
     if(field == "all"){
         alert("Must select a category");
         document.getElementById("livesearch").innerHTML = "";
+
+        document.getElementById("search").innerHTML = "<h4><b>Search Results</b></h4>";
+        document.getElementById("search").setAttribute("class", "center");
+
         return;
     }
 
@@ -33,6 +37,15 @@ function showResult() {
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4 && this.status==200) {
             document.getElementById("livesearch").innerHTML=this.responseText;
+            if(document.getElementById("livesearch").innerHTML != ""){
+
+                document.getElementById("search").innerHTML = "<h4><b>Search Results</b></h4>" +
+                    "<div class=\"center small-box-format\"><input class=\"btn btn-info\" type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist()'></div>";
+                document.getElementById("search").setAttribute("class", "space-between");
+            }
+
+
+
         }
     }
 
@@ -42,7 +55,8 @@ function showResult() {
 
 }
 
-function addToShortlist(candId){
+function addToShortlist(){
+    var candId = document.getElementById("cand-ids").value;
     var short_id = document.getElementById("shortlist0").value;
     // Want to remove button element and replace with "Added" string.
     xmlhttp = new XMLHttpRequest();

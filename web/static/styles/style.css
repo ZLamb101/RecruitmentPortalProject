@@ -172,6 +172,11 @@ html, body {
 	height: 100%;
 }
 
+.space-between{
+	display: flex;
+	justify-content: space-between;
+}
+
 /*body{*/
 	/*margin: 0px;*/
 	/*padding: 0px;*/
@@ -263,3 +268,4 @@ html, body {
 	/*justify-content: center;*/
 	/*display: inline-block;*/
 /*}*/
+
