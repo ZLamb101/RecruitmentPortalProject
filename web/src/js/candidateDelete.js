@@ -5,6 +5,11 @@
  */
 function deleteWorkExperience(number, id){
     if(document.getElementById("work-experience-count").value > 0) {
+        var prefferedCheck = document.getElementById("work-experience-preference"+number);
+        if(prefferedCheck.checked){
+            alert("You cannot delete your preferred work experience");
+            return;
+        }
         xmlhttp = new XMLHttpRequest();
 
 
@@ -82,6 +87,7 @@ function deleteWorkExperienceHTML(number){
  */
 function deleteSkillHTML(number, id){
     if(document.getElementById("skill-count").value > 0) {
+
         xmlhttp = new XMLHttpRequest();
 
         xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
@@ -120,8 +126,20 @@ function deleteSkillHTML(number, id){
  * Deletes the corresponding selected skill and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
  */
-function deleteSkill(number){
+function deleteSkill(number,id){
+
     if(document.getElementById("skill-count").value > 0) {
+
+        var prefferedCheck = document.getElementById("skill-preference"+number);
+        if(prefferedCheck.checked){
+            alert("You cannot delete your preferred skill");
+            return;
+        }
+        xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
+
+        xmlhttp.send();
         var divToDelete = "skill" + number;
         var elem = document.getElementById(divToDelete);
         elem.parentNode.removeChild(elem);
@@ -156,6 +174,11 @@ function deleteSkill(number){
  */
 function deleteQualification(number, id){
     if(document.getElementById("qualification-count").value > 0) {
+        var prefferedCheck = document.getElementById("qualification-preference"+number);
+        if(prefferedCheck.checked){
+            alert("You cannot delete your preferred qualification");
+            return;
+        }
         xmlhttp = new XMLHttpRequest();
 
         xmlhttp.open("GET", "deleteQualification.php?q=" + id, true);
