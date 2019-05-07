@@ -4,6 +4,9 @@
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperience(number, id){
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("work-experience-existing-count").value > 0) {
         var prefferedCheck = document.getElementById("work-experience-preference"+number);
         if(prefferedCheck.checked){
@@ -52,6 +55,9 @@ function deleteWorkExperience(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteWorkExperienceHTML(number){
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("work-experience-count").value > 0) {
 
         var divToDelete = "workExperience" + number;
@@ -89,6 +95,9 @@ function deleteWorkExperienceHTML(number){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteSkillHTML(number, id){
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("skill-count").value > 0) {
 
         xmlhttp = new XMLHttpRequest();
@@ -130,7 +139,9 @@ function deleteSkillHTML(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteSkill(number,id){
-
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("skill-existing-count").value > 0) {
 
         var prefferedCheck = document.getElementById("skill-preference"+number);
@@ -177,6 +188,9 @@ function deleteSkill(number,id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualification(number, id){
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("qualification-existing-count").value > 0) {
         var prefferedCheck = document.getElementById("qualification-preference"+number);
         if(prefferedCheck.checked){
@@ -223,6 +237,9 @@ function deleteQualification(number, id){
  * Decreases all the IDs of elements after this one such that the save will still work
  */
 function deleteQualificationHTML(number){
+    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+        return;
+    }
     if(document.getElementById("qualification-count").value > 0) {
         var divToDelete = "qualification" + number;
         var elem = document.getElementById(divToDelete);

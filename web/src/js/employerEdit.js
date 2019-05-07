@@ -96,6 +96,7 @@ function newShortList(ID,i) {
         var description = prompt("Please enter a description: ", "");
         getCreateNewShortlist(name,ID,description, function () {
             document.getElementById("short-lists").innerHTML = this.responseText;
+            document.getElementById("short-list-number").value = document.getElementById("short-list-number").value + 1;
         })
         return false;
     }

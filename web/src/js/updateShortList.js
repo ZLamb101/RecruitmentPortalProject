@@ -67,12 +67,26 @@ function sendInvite(shortlist){
  * Deletes a shortlist from the database
  */
 function deleteShortList(titleID, listId){
+    if(!confirm("Deleting this short list is permanent. Are you sure you want to delete?")){
+        return;
+    }
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange=function() {
         if (this.readyState==4 && this.status==200) {
              var list = document.getElementById("shortlist"+titleID);
              list.parentNode.removeChild(list);
+            document.getElementById("short-list-number").value = document.getElementById("short-list-number").value - 1;
+            if(document.getElementById("short-list-number").value == 0){
+                var promptDiv = document.createElement("div");
+                promptDiv.setAttribute("class", "partition center   interior-box-format");
+                var shortlistPrompt = document.createElement("p");
+                var promptText = document.createTextNode("Looks like you have no shortlists. Click below to create one and start searching!");
+                shortlistPrompt.appendChild(promptText);
+                promptDiv.appendChild(shortlistPrompt);
+                document.getElementById("short-lists").appendChild(promptDiv);
+            }
+
         }
     }
 

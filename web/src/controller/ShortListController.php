@@ -185,7 +185,7 @@ class ShortListController extends Controller
                 echo "</div>";
                 $i++;
             }
-            echo "<input class=\"btn btn-success btn-block btn-lrg\" type=\"button\" id=\"newList\" value = \"Add New Shortlist\" onclick=\"newShortList(".$employerInfo->getId().",".$i.")\">";
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
