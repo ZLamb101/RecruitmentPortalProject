@@ -12,7 +12,13 @@
             <div class="center">
                 <img id="logo" src="/static/styles/Images/VN.png">
             </div>
-
+            <?php
+            if(0) {
+                echo "<div class=\"center\">";
+                echo "<p>Wrong password or username</p>";
+                echo "</div>";
+            }
+            ?>
 	      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
                 <div class="form-group">
 	       		    <p>Username: <br><input type="text" class="form-control " name="username_input" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only"></p>
