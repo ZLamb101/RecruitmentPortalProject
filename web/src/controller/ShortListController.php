@@ -180,6 +180,11 @@ class ShortListController extends Controller
                     }
                     $count++;
                 }
+                if($candCount == 0) {
+                    echo "<div class=\"center\">";
+                    echo "<p>Looks like you have no candidates, Click <a href=\"Search\">Here</a> to start searching!</p>";
+                    echo "</div>";
+                }
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
