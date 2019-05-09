@@ -26,17 +26,20 @@ include "header.phtml"
                     $availabilityString = "";
                     if($availability - 8 >= 0) {
                         $availability -= 8;
-                        $availabilityString = $availabilityString."Full Time ";
+                        $availabilityString = $availabilityString."Full Time";
                     }
                     if($availability - 4 >= 0) {
                         $availability -= 4;
-                        $availabilityString = $availabilityString."Part Time ";
+                        if(strlen($availabilityString) > 0){ $availabilityString = $availabilityString.", ";}
+                        $availabilityString = $availabilityString."Part Time";
                     }
                     if($availability - 2 >= 0) {
                         $availability -= 2;
-                        $availabilityString = $availabilityString."Casual ";
+                        if(strlen($availabilityString) > 0){ $availabilityString = $availabilityString.", ";}
+                        $availabilityString = $availabilityString."Casual";
                     }
                     if($availability - 1 >= 0) {
+                        if(strlen($availabilityString) > 0){ $availabilityString = $availabilityString.", ";}
                         $availabilityString = $availabilityString."Contractor";
                     }
                     echo "<p>Availability: ".$availabilityString."</p>";
