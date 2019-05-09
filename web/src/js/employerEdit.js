@@ -54,11 +54,11 @@ function deleteFromShortList(listID, candidateID, divID, i) {
       //  document.getElementById(("candidates"+i)).innerHTML = "";
         document.getElementById(("candidates"+i)).innerHTML = this.responseText;
     })
-    var str = "cand" + divID;
-    document.getElementById(str).innerHTML = "";
-    var buttonElement = "deleteCandidate"+divID;
-    var elem = document.getElementById(buttonElement);
-    elem.parentNode.removeChild(elem);
+    // var str = "cand" + divID;
+    // document.getElementById(str).innerHTML = "";
+    // var buttonElement = "deleteCandidate"+divID;
+    // var elem = document.getElementById(buttonElement);
+    // elem.parentNode.removeChild(elem);
 }
 
 /**

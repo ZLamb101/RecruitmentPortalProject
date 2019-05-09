@@ -64,6 +64,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $_SESSION["loginStatus"] = 0;
+            $_SESSION["invalidDetails"] = 1;
             $this->redirect("home");
         }
     }

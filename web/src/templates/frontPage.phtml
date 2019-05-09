@@ -13,10 +13,11 @@
                 <img id="logo" src="/static/styles/Images/VN.png">
             </div>
             <?php
-            if(0) {
+            if($_SESSION['invalidDetails'] == 1) {
                 echo "<div class=\"center\">";
-                echo "<p>Wrong password or username</p>";
+                echo "<h4 style='color: red'>Invalid password or username</h4>";
                 echo "</div>";
+                $_SESSION['invalidDetails'] = 0;
             }
             ?>
 	      	<form action = "<?= $linkTo('loginSubmit'); ?>" method="post">
