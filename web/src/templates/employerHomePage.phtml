@@ -57,23 +57,30 @@ include "header.phtml"
 
                     $count = 0;
                     echo "<div class=\"partition small-box-format\" id=\"candidates".$i."\">";
+
                     echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
                     echo "<div class=\"row\">";
                     foreach ($candidates as $candidate) {
-                        if($count == 4){
+                        if ($count == 4) {
                             echo "</div><div class=\"row\">";
                             $count = 0;
                         }
                         $candID = "cand" . $candCount;
-                        if($candidate->getGName() != NULL) {
+                        if ($candidate->getGName() != NULL) {
 
-                            echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
+                            echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate'," . $candidate->getUserId() . ")\">" . $candidate->getGName() . " " . $candidate->getFName() . "</a> <input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", " . $i . ")\"></p>";
 
                             $candCount++;
                         }
                         $count++;
                     }
 
+
+                    if($candCount == 0) {
+                        echo "<div class=\"center\">";
+                        echo "<p>Looks like you have no candidates, Click <a href=\"".$linkTo('searchPage')."\">Here</a> to start searching!</p>";
+                        echo "</div>";
+                    }
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";

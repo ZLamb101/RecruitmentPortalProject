@@ -38,6 +38,9 @@ class ShortListModel extends Model
      */
     private $hasInvited;
 
+
+
+
     /**
      * @return bool
      */
@@ -184,6 +187,7 @@ class ShortListModel extends Model
     public function getCandidates()
     {
         foreach ($this->candidates as $id) {
+            $this->numOfCandidates++;
             // Use a generator to save on memory/resources
             // load accounts from DB one at a time only when required
             yield (new CandidateModel())->load($id);
