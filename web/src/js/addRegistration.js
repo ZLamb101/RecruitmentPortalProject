@@ -13,7 +13,7 @@ function addQualification(){
     }
     count.setAttribute("value", ++it);
 
-
+	mainDiv = document.getElementById("qualifications");
 
 
 	var qual = document.createElement("div");                       // Create outer <div> node
@@ -43,6 +43,9 @@ function addQualification(){
 	pref.setAttribute("name", "qualification-preference");
 	pref.setAttribute("id", "qualification-preference");
 	pref.setAttribute("value", it);
+    if(mainDiv.childNodes.length == 6){
+        pref.checked = true;
+    }
 	prefP.appendChild(prefLabel);
 	qualChild.appendChild(prefP);										//Append Label and input into Child Div
 	qualChild.appendChild(pref);
@@ -132,7 +135,7 @@ function addQualification(){
 
     qual.appendChild(qualChild);										//Append child div to parent div
 
-	document.getElementById("qualifications").appendChild(qual);           // Append <p> to <div> with id="myDIV"
+	mainDiv.appendChild(qual);           // Append <p> to <div> with id="myDIV"
 
 
     getLevels(function () {
@@ -161,6 +164,7 @@ function addWorkExperience(){
 
     count.setAttribute("value", ++it);
 
+    var mainDiv = document.getElementById("work-experience");
 
 	var workex = document.createElement("div");              		         // Create outer <div> node
     workex.setAttribute("class","edit-box partition interior-box-format");
@@ -187,6 +191,9 @@ function addWorkExperience(){
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
 	pref.setAttribute("class", "pull-right");
+	if(mainDiv.childNodes.length == 6){
+		pref.checked = true;
+	}
 	var radID = "work-experience-preference"+it;
 	pref.setAttribute("id", radID);
 	pref.setAttribute("name", "work-experience-preference");
@@ -263,7 +270,7 @@ function addWorkExperience(){
 
     workex.appendChild(workexChild);									//Append Child div to inner div
 
-	document.getElementById("work-experience").appendChild(workex);
+	mainDiv.appendChild(workex);
 
 
 }
@@ -278,6 +285,8 @@ function addSkill(){
         return;
     }
 	count.setAttribute("value", ++it);
+
+    mainDiv = document.getElementById("skills");
 
 	var skill = document.createElement("div");                       // Create a <div> node
     skill.setAttribute("class","edit-box partition interior-box-format ");
@@ -308,6 +317,9 @@ function addSkill(){
 	pref.setAttribute("id", skillID);
 	pref.setAttribute("name", "skill-preference");
 	pref.setAttribute("value", it);
+    if(mainDiv.childNodes.length == 6){
+        pref.checked = true;
+    }
 	prefP.appendChild(prefLabel);
 	skillChild.appendChild(prefP);
 	skillChild.appendChild(pref);
@@ -382,7 +394,7 @@ function addSkill(){
 
 	skill.appendChild(skillChild);
 
-	document.getElementById("skills").appendChild(skill);
+	mainDiv.appendChild(skill);
 
 	getFields(function () {
         document.getElementById(fieldString).innerHTML = this.responseText;
