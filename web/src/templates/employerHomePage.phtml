@@ -34,6 +34,7 @@ include "header.phtml"
                 <?php $shortLists = $employerInfo->getShortLists();
                 $i = 0;
                 $candCount = 0;
+                $shortlistCount = 0;
                 foreach ($shortLists as $list){
 
 
@@ -56,6 +57,7 @@ include "header.phtml"
                     $candidates = $list->getCandidates();
 
                     $count = 0;
+
                     echo "<div class=\"partition small-box-format\" id=\"candidates".$i."\">";
 
                     echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
@@ -69,14 +71,15 @@ include "header.phtml"
                         if ($candidate->getGName() != NULL) {
 
                             echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate'," . $candidate->getUserId() . ")\">" . $candidate->getGName() . " " . $candidate->getFName() . "</a> <input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", " . $i . ")\"></p>";
-
+                            $count++;
                             $candCount++;
                         }
-                        $count++;
+
+                        $shortlistCount = 1;
                     }
 
 
-                    if($candCount == 0) {
+                    if($count == 0) {
                         echo "<div class=\"center\">";
                         echo "<p>Looks like you have no candidates, Click <a href=\"".$linkTo('searchPage')."\">Here</a> to start searching!</p>";
                         echo "</div>";
@@ -86,7 +89,7 @@ include "header.phtml"
                     echo "</div>";
                     $i++;
                 }
-                if($count==0){
+                if($shortlistCount==0){
                     echo "<div class=\"partition center   interior-box-format\">";
                     echo "<p>Looks like you have no shortlists. Click below to create one and start searching! </p>";
                     echo "</div>";
