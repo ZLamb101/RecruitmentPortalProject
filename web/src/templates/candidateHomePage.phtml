@@ -54,7 +54,10 @@ include "header.phtml"
 
 
         <div id="work-experience" class ="partition large-box-format">
-            <h2>Work Experience</h2>
+            <div class="row center">
+                <h2 class="col-sm-10">Work Experience</h2>
+                <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
+            </div>
             <?php $workExperience = $candidateInfo->getWorkExperience();
             echo "<div class=\"row\">";
             $count = 0;
@@ -81,7 +84,10 @@ include "header.phtml"
         </div>
 
         <div id="qualifications" class ="partition large-box-format">
-            <h2>Qualifications</h2>
+            <div class="row center">
+                <h2 class="col-sm-10">Qualifications</h2>
+                <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
+            </div>
             <?php $qualifications = $candidateInfo->getQualifications();
             echo "<div class=\"row\">";
             $count = 0;
@@ -109,7 +115,10 @@ include "header.phtml"
         </div>
 
         <div id="skills" class ="partition large-box-format">
-            <h2>Skills</h2>
+            <div class="row center">
+                <h2 class="col-sm-10">Skills</h2>
+                <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
+            </div>
             <?php $skills = $candidateInfo->getSkills();
             echo "<div class=\"row\">";
             $count = 0;
