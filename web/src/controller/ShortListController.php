@@ -175,12 +175,13 @@ class ShortListController extends Controller
                     if($candidate->getGName() != NULL) {
 
                         echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
-
+                        $count++;
                         $candCount++;
                     }
-                    $count++;
+
                 }
-                if($candCount == 0) {
+
+                if($count == 0) {
                     echo "<div class=\"center\">";
                     echo "<p>Looks like you have no candidates, Click <a href=\"Search\">Here</a> to start searching!</p>";
                     echo "</div>";
