@@ -59,7 +59,7 @@ include "header.phtml"
                     foreach ($workExperience as $work){
                         $id = $work->getId();
                         echo "<div id = \"workExperience".$i."\" class = \"edit-box partition interior-box-format\">";
-                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-work-experience\"".$i." value = \"Delete\" onclick=\"deleteWorkExperience(".$i.", ".$id.")\">";
+                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-work-experience".$i."\" value = \"Delete\" onclick=\"deleteWorkExperience(".$i.", ".$id.")\">";
 
                         $role = "role".$i;
                         $duration = "duration".$i;
@@ -96,7 +96,7 @@ include "header.phtml"
                     foreach ($qualifications as $qual){
                         echo "<div id = \"qualification".$i."\" class = \"edit-box partition interior-box-format\">";
                         $id = $qual->getId();
-                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-qualification\"".$i." value = \"Delete\" onclick=\"deleteQualification(".$i.", ".$id.")\">";
+                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-qualification".$i."\" value = \"Delete\" onclick=\"deleteQualification(".$i.", ".$id.")\">";
                         $allLevels = $qual->getLevels();
                         $allTypes = $qual->getTypes();
                         $year = "year".$i;
