@@ -37,6 +37,7 @@ class UserController extends Controller
             $a = new UserModel();
             echo $a->findName($username);
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
     }
@@ -80,7 +81,8 @@ class UserController extends Controller
             $account = new UserModel();
             $account->load($_SESSION['UserID']);
         } catch (\Exception $e) {
-            $this->redirect('error');
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
         $account->setPhoneNumber($_POST['phone-number']);
         $account->setEmail($_POST['email']);
@@ -88,6 +90,7 @@ class UserController extends Controller
         try {
             $account->save();
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
     }
@@ -101,6 +104,7 @@ class UserController extends Controller
         try {
             $account = new UserModel();
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
         $account->setUsername($_POST['username']);
@@ -135,6 +139,7 @@ class UserController extends Controller
 
             $this->redirect('passwordRecoveryConfirmationPage');
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
 
