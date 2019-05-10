@@ -163,7 +163,7 @@ include "header.phtml"
                     foreach ($skills as $skill){
                         echo "<div id = \"skill".$i."\" class = \"edit-box partition interior-box-format\">";
                         $id = $skill->getId();
-                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-skill\"".$i." value = \"Delete\" onclick=\"deleteSkill(".$i.", ".$id.")\">";
+                        echo "<input class=\"btn btn-danger\" type=\"button\" id=\"delete-skill".$i."\" value = \"Delete\" onclick=\"deleteSkill(".$i.", ".$id.")\">";
 
                         if($candidateInfo->getPreferredSkill() != $id) {
                             echo "<div class=\"sm-pad form-group\"><label for='skill-preference".$i."'>Preferred: </label><input class='pull-right' type=radio value=\"" . $i . "\" id='skill-preference".$i."' name='skill-preference'></div>";
@@ -202,7 +202,6 @@ include "header.phtml"
                         echo "</select></div>";
                         $name = "contents".$i;
                         echo "<div class=\"form-group\"><label for='skill-input".$i."'>About: </label><input class='form-control' type=text id='skill-input".$i."' name=\"".$name."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value=\"".$skill->getContents()."\"></div>";
-                        echo "<br>";
                         echo "<input type = \"hidden\" name=\"".$skillId."\" value=\"".$skill->getId()."\">";
                         $i++;
                         echo "</div>";
