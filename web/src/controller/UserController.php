@@ -133,7 +133,10 @@ class UserController extends Controller
             if($account->findName($username)){
                 $id = $account->findId($username);
                 $account->load($id);
-                $account->sendPasswordRecoveryEmail();
+                $guid = new GuidModel();
+                
+                //$uuid = $account->createVerificationLink();
+                $account->sendPasswordRecoveryEmail($guid->getGuid());
 
             }
 

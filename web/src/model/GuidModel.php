@@ -14,86 +14,89 @@ use PHPMailer\PHPMailer\Exception;
 class UserModel extends Model
 {
     /**
-     * @var int, id of the user
+     * @var int, id of the guid
      */
     private $id;
     /**
-     * @var string, username of the user
+     * @var int, the user id for the guid
      */
-    private $username;
+    private $user_id;
     /**
-     * @var string, the password of the user (will be hashed)
+     * @var string, the uuid
      */
-    private $password;
+    private $uuid;
     /**
-     * @var string, the email address of the user
+     * @var string, the expired time of the
      */
-    private $email;
+    private $expiredTime;
+
     /**
-     * @var string, the phone number of the user
-     */
-    private $phone_number;
-    /**
-     * @return int $this->id, the id of the user
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
+
     /**
-     * @return string $this->username, the username of the user
+     * @param int $id
      */
-    public function getUsername()
+    public function setId($id)
     {
-        return $this->username;
+        $this->id = $id;
     }
+
     /**
-     * @param string $username, the username of the user
+     * @return string
      */
-    public function setUsername($username)
+    public function getUserId()
     {
-        $this->username = $username;
+        return $this->user_id;
     }
+
     /**
-     * @return string $this->password, the password of the user
+     * @param string $user_id
      */
-    public function getPassword()
+    public function setUserId($user_id)
     {
-        return $this->password;
+        $this->user_id = $user_id;
     }
+
     /**
-     * @param string $password, the password of the user
+     * @return string
      */
-    public function setPassword($password)
+    public function getUuid()
     {
-        $this->password = $password;
+        return $this->uuid;
     }
+
     /**
-     * @return string $this->email, the email address of the user
+     * @param string $uuid
      */
-    public function getEmail()
+    public function setUuid($uuid)
     {
-        return $this->email;
+        $this->uuid = $uuid;
     }
+
     /**
-     * @param string $email, the new email address of the user
+     * @return string
      */
-    public function setEmail($email){
-        $this->email = $email;
-    }
-    /**
-     * @return string $this->phone_number, the phone number of the user
-     */
-    public function getPhoneNumber()
+    public function getExpiredTime()
     {
-        return $this->phone_number;
+        return $this->expiredTime;
     }
+
     /**
-     * @param string $phone_number, the new phone number for the user
+     * @param string $expiredTime
      */
-    public function setPhoneNumber($phone_number){
-        $this->phone_number = $phone_number;
+    public function setExpiredTime($expiredTime)
+    {
+        $this->expiredTime = $expiredTime;
     }
+
+
+
+
     /**
      * Loads user information from the database
      *
@@ -103,18 +106,17 @@ class UserModel extends Model
      *
      * @return $this UserModel
      */
-    public function load($id)
+    public function load($uuid)
     {
-        $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `id` = '$id';")) {
-            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userLoad");
+
+        if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$uuid';")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidLoad");
         }
         $result = $result->fetch_assoc();
-        $this->username = $result['username'];
-        $this->password = $result['password'];
-        $this->email = $result['email'];
-        $this->phone_number = $result['phone_number'];
-        $this->id = $id;
+        $this->user_id = $result['user_id'];
+        $this->uuid = $result['guid'];
+        $this->expireTime = $result['expireTime'];
+        $this->id = $result['id'];
         return $this;
     }
     /**
@@ -124,30 +126,22 @@ class UserModel extends Model
      *
      * @return $this UserModel
      */
-    public function save()
+    public function GuidModel($username)
     {
-        $username = $this->username ?? "NULL";
+        $this->uuid = $this->gen_uuid();
+
         $username = $this->db->real_escape_string($username);
-        $password = $this->password ?? "NULL";
-        $password = $this->db->real_escape_string($password);
-        $email = $this->email ?? "NULL";
-        $email = $this->db->real_escape_string($email);
-        $phone = $this->phone_number ?? "NULL";
-        $phone = $this->db->real_escape_string($phone);
-        if (!isset($this->id)) {
-            // New user - Perform INSERT
-            $password = password_hash($password, PASSWORD_BCRYPT);
-            if (!$result = $this->db->query("INSERT INTO `user` VALUES (NULL,'$username','$password','$email','$phone');")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveNew");
-            }
-            $this->id = $this->db->insert_id;
-        } else {
-            // saving existing user - perform UPDATE
-            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', 
-                                              `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
-            }
+        $this->user_id = $this->findID($username);
+
+        $this->expireTime = date('Y-m-d H:i:s');
+        error_log($this->expireTime);
+
+        // New user - Perform INSERT
+        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$this->expireTime');")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
         }
+        $this->id = $this->db->insert_id;
+
         return $this;
     }
 
@@ -351,7 +345,27 @@ class UserModel extends Model
         );
     }
 
+    function createVerificationLink(){
 
+        $uuid = $this->gen_uuid();
+
+        $username = $this->username ?? "NULL";
+        $username = $this->db->real_escape_string($username);
+        $user_id = $this->findID($username);
+
+        $expireTime = date('Y-m-d H:i:s');
+        error_log($expireTime);
+
+        
+
+        // New user - Perform INSERT
+        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$user_id','$uuid', '$expireTime');")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
+        }
+        $this->id = $this->db->insert_id;
+
+        return $uuid;
+    }
 
 
 

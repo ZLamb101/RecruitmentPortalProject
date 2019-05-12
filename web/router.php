@@ -459,5 +459,17 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/Verify',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::verifyAction',
+            'methods' => 'GET',
+            'name' => 'verify'
+        )
+    )
+);
+
+
 $router = new Router($collection);
 $router->setBasePath('/');

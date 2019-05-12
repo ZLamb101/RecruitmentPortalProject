@@ -158,6 +158,27 @@ class Model
             }
         }
 
+        $result = $this->db->query("SHOW TABLES LIKE 'passwordguids';");
+        if ($result->num_rows == 0) {
+            // table doesn't exist
+            // create it and populate with sample data
+            $result = $this->db->query(
+                "CREATE TABLE `passwordguids` (
+                                                `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
+                                                `user_id` int (8) unsigned NOT NULL,
+                                                `guid` varchar(256) NOT NULL,
+                                                `expireTime` DATETIME NOT NULL,
+                  
+                                                PRIMARY KEY (`id`),
+                                                FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+                                                );");
+
+            if (!$result) {
+                throw new \mysqli_sql_exception("Failed to create passwordguids table");
+            }
+
+        }
+
 
         // W.E
 

@@ -26,19 +26,36 @@ function renameList(divID, id){
  * @param id, the id of the shortlist to be modified
  */
 function changeDescription(divID, id){
-    var description = prompt("Please enter the new description", "");
+   // var description = prompt("Please enter the new description", "");
+    var descriptionChanged = "shortListDescription"+divID;
+    var button = document.getElementById("change-description"+divID);
+    if(button.value == "Change Description"){
+        button.value = "Save Description";
+        document.getElementById(descriptionChanged).disabled = false;
+    }else{
+        button.value = "Change Description";
+        document.getElementById(descriptionChanged).disabled = true;
 
-    if (description == null || description == "") {
-        alert("User cancelled the prompt.");
-    } else {
         xmlhttp = new XMLHttpRequest();
+        var description = document.getElementById(descriptionChanged).innerHTML;
+        alert(description);
+        if (description == null || description == "") {
+              alert("User cancelled the prompt.");
+        } else {
 
-        xmlhttp.open("GET", "changeDescriptionShortList.php?q=" + id+ "&description=" +description, true);
 
-        xmlhttp.send();
-        var descriptionChanged = "shortListDescription"+divID;
-        document.getElementById(descriptionChanged).innerText = "Description: " + description;
+
+            xmlhttp.open("GET", "changeDescriptionShortList.php?q=" + id+ "&description=" +description, true);
+
+            xmlhttp.send();
+
+            document.getElementById(descriptionChanged).innerText = "Description: " + description;
+        }
     }
+
+
+
+
 }
 
 /**

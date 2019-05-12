@@ -140,6 +140,22 @@ class HomeController extends Controller
         }
     }
 
+    /**
+     * Checks if the guid is valid , and if so allows access to a reset page
+     */
+    public function verifyAction(){
+        $uuid = $_GET['id'];
+        error_log("the uuid i received is ".$uuid);
+
+
+        $view = new View('resetPasswordPage');
+        echo $view->render();
+
+        $view = new View('errorPage');
+        echo $view->render();
+    }
+
+
 
     /**
      * Action to load the errorPage
