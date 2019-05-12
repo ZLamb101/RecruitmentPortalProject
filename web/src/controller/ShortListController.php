@@ -66,7 +66,6 @@ class ShortListController extends Controller
             $list = new ShortListModel();
             $list->load($listID);
             $count = 0;
-            error_log("candidate ID is:".$candidateID);
             $list->deleteFromShortList($listID, $candidateID);
             //$list->save();
             $list->load($listID);
