@@ -106,6 +106,7 @@ function addQualification(){
 	year.setAttribute("id",yearString);
 	year.setAttribute("type","text");
 	year.setAttribute("size",40);
+	year.setAttribute("placeholder","Year of completion");
 	year.setAttribute("class","form-control");
 	year.setAttribute("pattern", "^[0-9]{4}$");
 	year.setAttribute("title", "YYYY format. Numeric characters only");
@@ -129,6 +130,7 @@ function addQualification(){
 	major.setAttribute("type", "text");
 	major.setAttribute("class", "form-control");
 	major.setAttribute("size", 40);
+	major.setAttribute("placeholder","E.g. Marketing");
 	majorP.appendChild(majorLabel);
 	qualChild.appendChild(majorP);
 	qualChild.appendChild(major);
@@ -217,6 +219,7 @@ function addWorkExperience(){
 	role.setAttribute("class", "form-control");
 	role.setAttribute("type", "text");
 	role.setAttribute("size",40);
+	role.setAttribute("placeholder", "Alphabetic characters only");
 	role.setAttribute("pattern", "^[a-zA-Z\\s-]+$");
 	role.setAttribute("title", "Alphabetic, '-' and space characters only");
 
@@ -239,6 +242,7 @@ function addWorkExperience(){
 	duration.setAttribute("type","text");
 	duration.setAttribute("class", "form-control");
 	duration.setAttribute("size",40);
+	duration.setAttribute("placeholder","Number in months");
 	duration.setAttribute("pattern", "^[0-9]+$");
 	duration.setAttribute("title", "Numeric characters only");
 
@@ -261,6 +265,7 @@ function addWorkExperience(){
 	employer.setAttribute("type","text");
 	employer.setAttribute("class", "form-control");
 	employer.setAttribute("size",40);
+	employer.setAttribute("placeholder","Alphanumeric characters only");
 	employer.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
 	employer.setAttribute("title", "Alphanumeric, '-' and space characters only");
 
@@ -386,6 +391,8 @@ function addSkill(){
 	contents.setAttribute("class", "form-control")
 	contents.setAttribute("type","text");
 	contents.setAttribute("size",40);
+	contents.setAttribute("placeholder","Alphanumeric characters only");
+	contents.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
 	//contents.setAttribute("disable", true);
 
 	contentsP.appendChild(contentsLabel);

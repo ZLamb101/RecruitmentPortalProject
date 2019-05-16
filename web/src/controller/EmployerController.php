@@ -123,11 +123,14 @@ class EmployerController extends UserController
         $account->setAddress($_POST['address']);
         try {
             $account->save();
+            $view = new View('registrationConfirmationPage');
+            echo $view->render();
             $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-        $this->redirect('registrationConfirmationPage');
+
+
         //To complete`
         //Call super
     }

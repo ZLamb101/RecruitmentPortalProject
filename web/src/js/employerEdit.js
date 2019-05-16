@@ -34,23 +34,30 @@ function changeDescription(divID, id){
         document.getElementById(descriptionChanged).disabled = false;
     }else{
         button.value = "Change Description";
-        document.getElementById(descriptionChanged).disabled = true;
+
 
         xmlhttp = new XMLHttpRequest();
-        var description = document.getElementById(descriptionChanged).innerHTML;
-        alert(description);
+        var description = document.getElementById(descriptionChanged).value;
+        let formData = new FormData();
+        formData.append("id", id);
+        formData.append("description", description);
+
         if (description == null || description == "") {
               alert("User cancelled the prompt.");
         } else {
 
 
 
-            xmlhttp.open("GET", "changeDescriptionShortList.php?q=" + id+ "&description=" +description, true);
+            xmlhttp.open("POST", "changeDescriptionShortList.php", true);
+            xmlhttp.setRequestHeader("id", id);
+            xmlhttp.setRequestHeader("description", description);
 
-            xmlhttp.send();
 
-            document.getElementById(descriptionChanged).innerText = "Description: " + description;
+            xmlhttp.send(formData);
+
+            document.getElementById(descriptionChanged).innerText = description;
         }
+        document.getElementById(descriptionChanged).disabled = true;
     }
 
 

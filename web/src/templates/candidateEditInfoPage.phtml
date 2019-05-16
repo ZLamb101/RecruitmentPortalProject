@@ -26,24 +26,24 @@ include "header.phtml"
                     <div class=" partition large-box-format">
                         <div class="form-group">
                             <label for="first-name">First Name: </label>
-                            <input class="form-control" type="text" placeholder="Name" id="first-name" name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>">
+                            <input class="form-control" type="text"  placeholder="John" id="first-name"   name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>">
                         </div>
                         <div class="form-group">
                             <label for="last-name">Last Name: </label>
-                            <input class="form-control"  type="text" placeholder="Name" id="last-name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>">
+                            <input class="form-control"  type="text" placeholder="Smith" id="last-name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>">
                         </div>
                         <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
                         <div class="form-group">
                             <label for="email">Email: </label>
-                            <input class="form-control"  type="text" placeholder="Email" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>">
+                            <input class="form-control"  type="text" placeholder="example@gmail.com" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>">
                         </div>
                         <div class="form-group">
                             <label for="phone-number">Phone number: </label>
-                            <input class="form-control"  type=text id="phone-number" name="phone-number" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>">
+                            <input class="form-control"  type=text id="phone-number" name="phone-number" placeholder="Mobile and landlines accepted" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>">
                         </div>
                         <div class="form-group">
                             <label for="location">Location: </label>
-                            <input class="form-control"  type=text id="location" name="location" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>">
+                            <input class="form-control"  type=text id="location" name="location" placeholder="City" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>">
                         </div>
                     </div>
                 </div>
@@ -71,9 +71,9 @@ include "header.phtml"
                         } else {
                             echo "<div class=\"sm-pad form-group\"><label for=\"work-experience-preference".$i."\">Preferred: </label><input class='pull-right' type=radio value=\"" . $i . "\" id=\"work-experience-preference".$i."\" name='work-experience-preference' checked></div>";
                         }
-                        echo "<div class=\"form-group\"><label for=\"".$role."\">Role: </label><input class=\"form-control\" type=text name=\"".$role."\" id=\"".$role."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value =\"".$work->getRole() ."\"></div> ";
-                        echo "<div class=\"form-group\"><label for=\"".$duration."\">Duration (in months): </label><input class=\"form-control\" type=text name=\"".$duration."\" id=\"".$duration."\" size=\"40\" pattern=\"^[0-9]+$\" title=\"Numeric characters only\" value=\"".$work->getDuration()."\"></div>";
-                        echo "<div class=\"form-group\"><label for=\"".$employer."\">Employer: </label><input class=\"form-control\" type=text name=\"".$employer."\" id=\"".$employer."\" size=\"40\" pattern=\"^[a-zA-Z0-9\s-]+$\" title=\"Alphanumeric, '-' and space characters only\" value= \"".$work->getEmployer()."\"></div> ";
+                        echo "<div class=\"form-group\"><label for=\"".$role."\">Role: </label><input placeholder='Alphabetic characters only' class=\"form-control\" type=text name=\"".$role."\" id=\"".$role."\" size=\"40\" pattern=\"^[a-zA-Z\s-]+$\" title=\"Alphabetic, '-' and space characters only\" value =\"".$work->getRole() ."\"></div> ";
+                        echo "<div class=\"form-group\"><label for=\"".$duration."\">Duration : </label><input placeholder='Number in months' class=\"form-control\" type=text name=\"".$duration."\" id=\"".$duration."\" size=\"40\" pattern=\"^[0-9]+$\" title=\"Numeric characters only\" value=\"".$work->getDuration()."\"></div>";
+                        echo "<div class=\"form-group\"><label for=\"".$employer."\">Employer: </label><input placeholder='Alphanumeric characters only' class=\"form-control\" type=text name=\"".$employer."\" id=\"".$employer."\" size=\"40\" pattern=\"^[a-zA-Z0-9\s-]+$\" title=\"Alphanumeric, '-' and space characters only\" value= \"".$work->getEmployer()."\"></div> ";
                         echo "<input type = \"hidden\" name=\"".$workId."\" id=\"".$workId2."\" value=\"".$id."\">";
                         $i++;
                         echo "</div>";
@@ -138,8 +138,8 @@ include "header.phtml"
                         }
                         echo "</select></div>";
                         $id = $qual->getId();
-                        echo "<div class=\"form-group\"><label for='".$year."'>Year: </label><input class=\"form-control\" type=text name=\"".$year."\" id=\"".$year."\" size=\"40\" pattern=\"^\d{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"></div>";
-                        echo "<div class=\"form-group\"><label for='".$major."'>Major: </label><input class=\"form-control\" type=text name=\"".$major."\" id=\"".$major."\" size=\"40\" value=\"".$qual->getMajor()."\"></div>";
+                        echo "<div class=\"form-group\"><label for='".$year."'>Year: </label><input placeholder='Year of completion' class=\"form-control\" type=text name=\"".$year."\" id=\"".$year."\" size=\"40\" pattern=\"^[0-9]{4}$\" title=\"YYYY format. Numeric characters only\" value=\"".$qual->getYear()."\"></div>";
+                        echo "<div class=\"form-group\"><label for='".$major."'>Major: </label><input placeholder='E.g. Marketing' class=\"form-control\" type=text name=\"".$major."\" id=\"".$major."\" size=\"40\" value=\"".$qual->getMajor()."\"></div>";
                         echo "<input type = \"hidden\" name=\"".$qualId."\"  value=\"".$id."\">";
                         $i++;
                         echo "</div>";
@@ -201,7 +201,7 @@ include "header.phtml"
                         }
                         echo "</select></div>";
                         $name = "contents".$i;
-                        echo "<div class=\"form-group\"><label for='skill-input".$i."'>About: </label><input class='form-control' type=text id='skill-input".$i."' name=\"".$name."\" size=\"40\" title=\"Alphabetic, '-' and space characters only\" value=\"".$skill->getContents()."\"></div>";
+                        echo "<div class=\"form-group\"><label for='skill-input".$i."'>About: </label><input placeholder='Alphanumeric characters only' class='form-control' type=text id='skill-input".$i."' name=\"".$name."\" size=\"40\" pattern='^[a-zA-Z0-9\s-]+$' title=\"Alphanumeric, '-' and space characters only\" value=\"".$skill->getContents()."\"></div>";
                         echo "<input type = \"hidden\" name=\"".$skillId."\" value=\"".$skill->getId()."\">";
                         $i++;
                         echo "</div>";
@@ -217,8 +217,13 @@ include "header.phtml"
                 <div class="partition zebra large-box-format" id="availability" name="availability">
                     <div class="row center">
                         <h2 class="col-sm-11">Availability</h2>
+
                     </div>
+
                     <div class="partition large-box-format">
+                        <div class="row center">
+                            <p>Please check the options you are available for.</p>
+                        </div>
                     <?php
                     $availability = $candidateInfo->getAvailability();
                     $availabilityString = "";

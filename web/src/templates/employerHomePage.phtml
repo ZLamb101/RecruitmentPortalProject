@@ -26,6 +26,18 @@ include "header.phtml"
     <div class="separator"><br></div>
 
     <div class="container-fluid" id= "page">
+        <?php
+            if ($employerInfo->getCalendarLink() == "NULL"){
+                echo "<div class=\"partition large-box-format center alert alert-info\">";
+                echo "<p><strong>Info!</strong> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
+                echo "</div>";
+            }
+
+            ?>
+
+
+
+
         <div class="partition large-box-format">
             <div class="center">
                 <h1>Short Lists</h1>

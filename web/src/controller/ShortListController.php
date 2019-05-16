@@ -41,8 +41,8 @@ class ShortListController extends Controller
     public function changeDescriptionAction()
     {
         try {
-            $id = $_GET["q"];
-            $description = $_GET["description"];
+            $id = $_POST["id"];
+            $description = $_POST["description"];
             $list = new ShortListModel();
             $list->changeDescription($id, $description);
         } catch (\Exception $e) {
@@ -158,7 +158,7 @@ class ShortListController extends Controller
                 echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                 echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
                 echo "<h4>Description</h4>";
-                echo "<p size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</p>";
+                echo "<textarea  disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
                 $candidates = $list->getCandidates();
 
                 $count = 0;

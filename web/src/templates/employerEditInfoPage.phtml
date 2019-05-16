@@ -20,31 +20,31 @@ include "header.phtml"
 
                 <div class="form-group">
                     <label for="email">Email: </label>
-                    <input class="form-control" type="text" placeholder="Email" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>">
+                    <input class="form-control" type="text" placeholder="example@gmail.com" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $employerInfo->getEmail() ?>">
                 </div>
                 <div class="form-group">
                     <label for="phone-number">Phone number: </label>
-                    <input class="form-control" id="phone-number" type=text name="phone-number" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>">
+                    <input class="form-control" id="phone-number" type=text name="phone-number" placeholder="Mobile and landlines accepted" size="40" required pattern="^[0-9+-\s]+$" title="Numeric, '+', '-', and space characters only" value="<?= $employerInfo->getPhoneNumber() ?>">
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
-                    <input class="form-control"  type=text id="address" name="address" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric characters and spaces only" value="<?= $employerInfo->getAddress() ?>">
+                    <input class="form-control"  type=text id="address" name="address" placeholder="City" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric characters and spaces only" value="<?= $employerInfo->getAddress() ?>">
                 </div>
                 <div class="form-group">
                     <label for="company-name">Company Name: </label>
-                    <input class="form-control" id="company-name" type=text name="company-name" size="40" required pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only" value="<?= $employerInfo->getCompanyName() ?>">
+                    <input class="form-control" id="company-name" type=text name="company-name" placeholder="Vesta Recruit" size="40" required pattern="^[a-zA-Z0-9\s-]+$" title="Alphanumeric, '-' and space characters only" value="<?= $employerInfo->getCompanyName() ?>">
                 </div>
                 <div class="form-group">
                     <label for="url">URL: </label>
-                    <input class="form-control" id="url" type=text name="url" size="40" value="<?= $employerInfo->getURL() ?>">
+                    <input class="form-control" id="url" type=text name="url" size="40" placeholder="www.vesta-recruit.com" value="<?= $employerInfo->getURL() ?>">
                 </div>
                 <div class="form-group">
                     <label for="contact-name">Contact Name: </label>
-                    <input class="form-control" id="contact-name" type=text name="contact-name" size="40" required pattern="^[a-zA-Z\s]+$" title="Alphabetic characters and spaces only" value="<?= $employerInfo->getContactName() ?>">
+                    <input class="form-control" id="contact-name" type=text name="contact-name" placeholder="John Smith" size="40" required pattern="^[a-zA-Z\s]+$" title="Alphabetic characters and spaces only" value="<?= $employerInfo->getContactName() ?>">
                 </div>
                 <div class="form-group">
                     <label for="calendar-link">Calendar Link: </label>
-                    <input class="form-control" type=text id="calendar-link" name="calendar-link" size="256" value="<?= $employerInfo->getCalendarLink() ?>">
+                    <input class="form-control" type=text id="calendar-link" name="calendar-link" placeholder="Include G-suite calendar link" size="256" value="<?= $employerInfo->getCalendarLink() ?>">
                 </div>
                 <input class="btn btn-success btn-block btn-lrg" id="submit-handle" type="submit" >
             </form>

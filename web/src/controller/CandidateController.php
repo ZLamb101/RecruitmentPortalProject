@@ -152,12 +152,14 @@ class CandidateController extends UserController
 
         try {
             $account->save();
+            $view = new View('registrationConfirmationPage');
+            echo $view->render();
             $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
-        $this->redirect('registrationConfirmationPage');
+
     }
 
 

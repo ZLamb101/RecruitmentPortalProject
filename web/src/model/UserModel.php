@@ -289,7 +289,7 @@ class UserModel extends Model
 
         $mail->send();
         // echo 'Message has been sent';
-
+        error_log("EMAIL SENT");
     }
 
     /**

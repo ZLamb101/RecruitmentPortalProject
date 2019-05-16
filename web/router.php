@@ -388,7 +388,7 @@ $collection->attachRoute(
         '/changeDescriptionShortList.php',
         array(
             '_controller' => 'bjz\portal\controller\ShortListController::changeDescriptionAction',
-            'methods' => 'GET',
+            'methods' => 'POST',
             'name' => 'changeDescription'
         )
     )
