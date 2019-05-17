@@ -9,7 +9,20 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-	<div class="container-fluid from-top" id = "page2">
+
+        <?php
+
+        if ($employerInfo->getCalendarLink() == "NULL"){
+            echo "<div class=\"container-fluid \" id = \"page2\">";
+            echo "<div class=\"\ from-top center alert alert-danger\">";
+            echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
+            echo "</div>";
+        }else{
+            echo "<div class=\"container-fluid from-top\" id = \"page2\">";
+        }
+
+        ?>
+
         <div class="partition large-box-format" id="welcome">
             <div class= "row">
                 <div class = "title col-sm-4">
@@ -26,14 +39,7 @@ include "header.phtml"
     <div class="separator"><br></div>
 
     <div class="container-fluid" id= "page">
-        <?php
-            if ($employerInfo->getCalendarLink() == "NULL"){
-                echo "<div class=\"partition large-box-format center alert alert-info\">";
-                echo "<p><strong>Info!</strong> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
-                echo "</div>";
-            }
 
-            ?>
 
 
 
@@ -65,7 +71,7 @@ include "header.phtml"
                     echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                     echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
                     echo "<h4>Description</h4>";
-                    echo "<textarea  disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
+                    echo "<textarea class = 'form-control' disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
                     $candidates = $list->getCandidates();
 
                     $count = 0;

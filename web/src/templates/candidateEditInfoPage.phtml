@@ -201,7 +201,7 @@ include "header.phtml"
                         }
                         echo "</select></div>";
                         $name = "contents".$i;
-                        echo "<div class=\"form-group\"><label for='skill-input".$i."'>About: </label><input placeholder='Alphanumeric characters only' class='form-control' type=text id='skill-input".$i."' name=\"".$name."\" size=\"40\" pattern='^[a-zA-Z0-9\s-]+$' title=\"Alphanumeric, '-' and space characters only\" value=\"".$skill->getContents()."\"></div>";
+                        echo "<div class=\"form-group\"><label for='skill-input".$i."'>About: </label><textarea rows='3' placeholder='Alphanumeric characters only' class='form-control' type=text id='skill-input".$i."' name=\"".$name."\" size=\"40\" pattern='^[a-zA-Z0-9\s-]+$' title=\"Alphanumeric, '-' and space characters only\" value=\"".$skill->getContents()."\"></textarea></div>";
                         echo "<input type = \"hidden\" name=\"".$skillId."\" value=\"".$skill->getId()."\">";
                         $i++;
                         echo "</div>";

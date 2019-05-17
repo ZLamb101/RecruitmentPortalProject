@@ -382,7 +382,7 @@ function addSkill(){
 
 	var contentsP = document.createElement("label");
 	var contentsLabel = document.createTextNode("About:");      
-	var contents = document.createElement("input");
+	var contents = document.createElement("textarea");
 	var contentsString = "contents";
 	contentsString = contentsString.concat(it.toString(10));
 	contentsP.setAttribute("for", contentsString);
@@ -391,6 +391,7 @@ function addSkill(){
 	contents.setAttribute("class", "form-control")
 	contents.setAttribute("type","text");
 	contents.setAttribute("size",40);
+	contents.setAttribute("rows",3);
 	contents.setAttribute("placeholder","Alphanumeric characters only");
 	contents.setAttribute("pattern", "^[a-zA-Z0-9\\s-]+$");
 	//contents.setAttribute("disable", true);
@@ -477,3 +478,4 @@ function getLevels(callback) {
 	};
 	xmlhttp.send();
 }
+

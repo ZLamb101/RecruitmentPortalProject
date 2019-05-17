@@ -158,7 +158,7 @@ class ShortListController extends Controller
                 echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
                 echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
                 echo "<h4>Description</h4>";
-                echo "<textarea  disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
+                echo "<textarea class = 'form-control' disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
                 $candidates = $list->getCandidates();
 
                 $count = 0;
