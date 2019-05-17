@@ -34,8 +34,22 @@ function addQualification(){
     var qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","sm-pad form-group");
 
+
+    var glyphicon = document.createElement("span");
+	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
+
+	var toolTip = document.createElement("a");
+	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("data-toggle","tooltip");
+	toolTip.setAttribute("data-placement", "top");
+	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+
+	toolTip.appendChild(glyphicon);
+	qualChild.appendChild(toolTip);
+
+
 	var prefP = document.createElement("label");
-	var prefLabel = document.createTextNode("Preferred: ");
+	var prefLabel = document.createTextNode("  Preferred: ");
 	var pref = document.createElement("input");
 	pref.setAttribute("class", "pull-right");
 	pref.setAttribute("type", "radio");
@@ -186,10 +200,21 @@ function addWorkExperience(){
     var workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
     workexChild.setAttribute("class","sm-pad form-group");
 
+	var glyphicon = document.createElement("span");
+	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
+
+	var toolTip = document.createElement("a");
+	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("data-toggle","tooltip");
+	toolTip.setAttribute("data-placement", "top");
+	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+
+	toolTip.appendChild(glyphicon);
+	workexChild.appendChild(toolTip);
 
 	var prefP = document.createElement("label");
 	prefP.setAttribute("for", divName);
-	var prefLabel = document.createTextNode("Preferred: ");
+	var prefLabel = document.createTextNode(" Preferred: ");
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
 	pref.setAttribute("class", "pull-right");
@@ -311,9 +336,21 @@ function addSkill(){
     var skillChild = document.createElement("div");
     skillChild.setAttribute("class", "sm-pad form-group");
 
+	var glyphicon = document.createElement("span");
+	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
+
+	var toolTip = document.createElement("a");
+	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("data-toggle","tooltip");
+	toolTip.setAttribute("data-placement", "top");
+	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+
+	toolTip.appendChild(glyphicon);
+	skillChild.appendChild(toolTip);
+
 	var prefP = document.createElement("label");
 
-	var prefLabel = document.createTextNode("Preferred: ");
+	var prefLabel = document.createTextNode(" Preferred: ");
 	var pref = document.createElement("input");
 	pref.setAttribute("type", "radio");
 	pref.setAttribute("class", "pull-right");
