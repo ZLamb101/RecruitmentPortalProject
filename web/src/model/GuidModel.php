@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
  *
  * @package bjz/portal
  */
-class UserModel extends Model
+class GuidModel extends Model
 {
     /**
      * @var int, id of the guid
@@ -161,71 +161,9 @@ class UserModel extends Model
         return $this;
     }
 
-    /**
-     * Validates that the supplied login is correct.
-     *
-     * @param $username the username as entered by the user
-     * @param $password the password as entered by the user
-     *
-     * @throws mysqli_sql_exception if the SQL query fails
-     *
-     * @return $result['id'] the ID of the successfully validated user
-     */
-    public function validateLogin($username, $password){
-        if(!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")){
-            throw new \mysqli_sql_exception("An account with that username doesn't exist");
-        }
-        $result = $result->fetch_assoc();
-        if(!$result){
-            throw new \mysqli_sql_exception("Failed");
-        }
-        $resultPassword = $result['password'];
-        if(password_verify($password, $resultPassword)){
-            return $result['id'];
-        } else {
-            throw new \mysqli_sql_exception("Password doesn't match");
-        }
-    }
 
-    /**
-     * Checks whether the logging in user is a candidate or employer
-     *
-     * @param $userID the ID of the user being checked
-     *
-     * @return int either 1 or 2 corresponding to the type of user being logged in
-     */
-    public function determineType($userID){
-        $result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'");
-        if($result->num_rows == 1){
-            return 2;       //2 represents employer
-        } else {
-            return 1;       //1 represents candidate
-        }
-    }
 
-     /***
-     * Checks whether an account with the submitted username already exists.
-     *
-     * @param $username string, the username to look for in the database
-     * @return string, really a boolean, but read as a string for use in Javascript, Returns true
-     *         if there are no existing accounts with the submitted username meaning a user can register
-     *         that name.
-     *
-     * @throws \mysqli_sql_exception, if the SQL query fails
-     */
-    public function findName($username)
-    {
 
-        $username = mysqli_real_escape_string($this->db, $username);
-        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-        }
-        if ($result->num_rows == 0) {
-            return 'true'; // If no other user exists with this username, return true
-        } else {
-            return 'false';
-        }
-    }
 
 
      /***
@@ -347,11 +285,12 @@ class UserModel extends Model
 
     function createVerificationLink(){
 
-        $uuid = $this->gen_uuid();
-
-        $username = $this->username ?? "NULL";
-        $username = $this->db->real_escape_string($username);
-        $user_id = $this->findID($username);
+        $this->uuid = $this->gen_uuid();
+        error_log("test5");
+       // $username = $this->username ?? "NULL";
+       // $username = $this->db->real_escape_string($username);
+       // $this->user_id = $this->findID($username);
+        error_log("test6");
 
         $expireTime = date('Y-m-d H:i:s');
         error_log($expireTime);
@@ -359,12 +298,20 @@ class UserModel extends Model
         
 
         // New user - Perform INSERT
-        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$user_id','$uuid', '$expireTime');")) {
+        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$expireTime');")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
         }
         $this->id = $this->db->insert_id;
 
-        return $uuid;
+        return $this->uuid;
+    }
+
+
+    function deleteGuid(){
+
+         if (!$result = $this->db->query(" DELETE FROM `passwordguids` WHERE `guid` = '$this->uuid' ;")) {
+             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
+         }
     }
 
 

@@ -145,12 +145,11 @@ class HomeController extends Controller
      */
     public function verifyAction(){
         $uuid = $_GET['id'];
-        error_log("the uuid i received is ".$uuid);
-
-
-        $view = new View('resetPasswordPage');
-        echo $view->render();
-
+        $account = new UserModel();
+        if($account->check_uuid($uuid)){
+            $view = new View('resetPasswordPage');
+            echo $view->addData('uuid',$uuid)->render();
+        }
         $view = new View('errorPage');
         echo $view->render();
     }

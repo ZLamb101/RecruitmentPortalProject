@@ -39,10 +39,10 @@ function addQualification(){
 	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
 
 	var toolTip = document.createElement("a");
-	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("href","#!");
 	toolTip.setAttribute("data-toggle","tooltip");
 	toolTip.setAttribute("data-placement", "top");
-	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
 	qualChild.appendChild(toolTip);
@@ -204,10 +204,10 @@ function addWorkExperience(){
 	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
 
 	var toolTip = document.createElement("a");
-	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("href","#!");
 	toolTip.setAttribute("data-toggle","tooltip");
 	toolTip.setAttribute("data-placement", "top");
-	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
 	workexChild.appendChild(toolTip);
@@ -340,10 +340,10 @@ function addSkill(){
 	glyphicon.setAttribute("class","glyphicon glyphicon-info-sign");
 
 	var toolTip = document.createElement("a");
-	toolTip.setAttribute("href","#");
+	toolTip.setAttribute("href","#!");
 	toolTip.setAttribute("data-toggle","tooltip");
 	toolTip.setAttribute("data-placement", "top");
-	toolTip.setAttribute("title","The preferred button indicate which card will be displayed when employers search for you!");
+	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
 	skillChild.appendChild(toolTip);

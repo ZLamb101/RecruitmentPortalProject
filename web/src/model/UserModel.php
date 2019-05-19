@@ -352,6 +352,17 @@ class UserModel extends Model
     }
 
 
+    function check_uuid($str){
+        if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$str';")) {
+            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
+        }
+       // $result = $result->fetch_assoc();
+        if($result->num_rows == 0){
+            return false;
+        }
+        return true;
+    }
+
 
 
 

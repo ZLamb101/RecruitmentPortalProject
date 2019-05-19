@@ -2,6 +2,7 @@
 
 namespace bjz\portal\controller;
 use bjz\portal\model\UserModel;
+use bjz\portal\model\GuidModel;
 use bjz\portal\view\View;
 session_start();
 
@@ -132,11 +133,15 @@ class UserController extends Controller
             $username = $_POST['username'];
             if($account->findName($username)){
                 $id = $account->findId($username);
+
                 $account->load($id);
                 $guid = new GuidModel();
-                
+                $guid->setUserId($id);
+
                 //$uuid = $account->createVerificationLink();
-                $account->sendPasswordRecoveryEmail($guid->getGuid());
+                $guid->createVerificationLink();
+
+                $account->sendPasswordRecoveryEmail($guid->getUuid());
 
             }
 
@@ -146,13 +151,31 @@ class UserController extends Controller
             $this->redirect('errorPage');
         }
 
+    }
+
+    public function updatePassword(){
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['password_confirm'];
+        $uuid = $_POST['uuid'];
+        $guid = new GuidModel();
+        $guid->load($uuid);
 
 
+        if($password != $confirmPassword){
+            error_log("no Matcho");
+            $this->redirect('errorPage');
+        }else{
+            $account = new UserModel();
+            $account->load($guid->getUserId());
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            $account->setPassword($password);
+
+            $account->save();
+            $this->redirect('home');
+            $guid->deleteGuid();
+        }
 
 
-
-        //To complete
-        //Generic to both users
     }
 
 

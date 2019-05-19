@@ -6,14 +6,8 @@
  */
 function validateForm()
 {
-        var password = document.forms["registration"]["password"].value;
-        var password_confirm = document.forms["registration"]["password_confirm"].value;
-
-        var submitButton = document.getElementById('submit-handle');
-
-
-    if (password !== password_confirm) {
-        alert("Passwords do not match!");
+    var submitButton = document.getElementById('submit-handle');
+    if (validatePassword()) {
         return false;
     }
 
@@ -45,4 +39,17 @@ function get1(callback) {
         }
     };
     xmlhttp.send();
+}
+
+function validatePassword(){
+    alert("hey");
+    var password = document.forms["registration"]["password"].value;
+    var password_confirm = document.forms["registration"]["password_confirm"].value;
+
+    if (password !== password_confirm) {
+        alert("Passwords do not match!");
+        return false;
+    }
+    return true;
+
 }

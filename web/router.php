@@ -470,6 +470,19 @@ $collection->attachRoute(
     )
 );
 
+$collection->attachRoute(
+    new Route(
+        '/Update-Password',
+        array(
+            '_controller' => 'bjz\portal\controller\UserController::updatePassword',
+            'methods' => 'POST',
+            'name' => 'updatePassword'
+        )
+    )
+);
+
+
+
 
 $router = new Router($collection);
 $router->setBasePath('/');
