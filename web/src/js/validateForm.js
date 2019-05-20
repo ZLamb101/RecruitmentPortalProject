@@ -1,6 +1,7 @@
 
 /**
- * Compares passwords to make sure they match. Call a php function to search rdb for duplicates of username. 
+ * Call a js function to check if passwords match
+ * Call a php function to search rdb for duplicates of username.
  *
  * @return {Boolean}      Whether validation fails or passes
  */
@@ -11,7 +12,7 @@ function validateForm()
         return false;
     }
 
-        get1(function () {
+        getValidate(function () {
             myVar = this.responseText;
             if (myVar === 'true') {
                 submitButton.click();
@@ -23,7 +24,7 @@ function validateForm()
         return false;
 }
 
-function get1(callback) {
+function getValidate(callback) {
     xmlhttp = new XMLHttpRequest();
 
     var username = document.forms["registration"]["username"].value;
@@ -41,8 +42,13 @@ function get1(callback) {
     xmlhttp.send();
 }
 
+/**
+ * Compares passwords to make sure they match.
+ *
+ * @return {Boolean}      Whether validation fails or passes
+ */
 function validatePassword(){
-    alert("hey");
+
     var password = document.forms["registration"]["password"].value;
     var password_confirm = document.forms["registration"]["password_confirm"].value;
 

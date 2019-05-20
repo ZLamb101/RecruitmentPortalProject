@@ -98,13 +98,13 @@ class GuidModel extends Model
 
 
     /**
-     * Loads user information from the database
+     * Loads GUID information from the database
      *
-     * @param int $id, the id of the user to load
+     * @param int $uuid, the uuid of the guid to load
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
-     * @return $this UserModel
+     * @return $this GuidModel
      */
     public function load($uuid)
     {
@@ -120,11 +120,11 @@ class GuidModel extends Model
         return $this;
     }
     /**
-     * Saves user information to the database
+     * Saves guid information to the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
-     * @return $this UserModel
+     * @return $this GuidModel
      */
     public function GuidModel($username)
     {
@@ -134,7 +134,7 @@ class GuidModel extends Model
         $this->user_id = $this->findID($username);
 
         $this->expireTime = date('Y-m-d H:i:s');
-        error_log($this->expireTime);
+        //error_log($this->expireTime);
 
         // New user - Perform INSERT
         if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$this->expireTime');")) {
@@ -146,17 +146,17 @@ class GuidModel extends Model
     }
 
     /**
-     * Deletes user from the database
+     * Deletes guid from the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
-     * @return $this UserModel
+     * @return $this GuidModel
      */
     public function delete()
     {
         //Not sure if this should be allowed. Will not currently delete children?
         if (!$result = $this->db->query("DELETE FROM `user` WHERE `user`.`id` = $this->id;")) {
-            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidDelete");
         }
         return $this;
     }
@@ -286,11 +286,11 @@ class GuidModel extends Model
     function createVerificationLink(){
 
         $this->uuid = $this->gen_uuid();
-        error_log("test5");
+
        // $username = $this->username ?? "NULL";
        // $username = $this->db->real_escape_string($username);
        // $this->user_id = $this->findID($username);
-        error_log("test6");
+
 
         $expireTime = date('Y-m-d H:i:s');
         error_log($expireTime);

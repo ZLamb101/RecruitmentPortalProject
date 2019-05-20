@@ -124,7 +124,10 @@ class UserController extends Controller
 
 
     /**
-     * Function to create an account
+     * Function send verification email to owner of the account.
+     * checks if account exists,
+     * Generates guid
+     * Send Email to email address attached to account
      */
     public function passwordRecoveryAction()
     {
@@ -133,18 +136,12 @@ class UserController extends Controller
             $username = $_POST['username'];
             if($account->findName($username)){
                 $id = $account->findId($username);
-
                 $account->load($id);
                 $guid = new GuidModel();
                 $guid->setUserId($id);
-
-                //$uuid = $account->createVerificationLink();
                 $guid->createVerificationLink();
-
                 $account->sendPasswordRecoveryEmail($guid->getUuid());
-
             }
-
             $this->redirect('passwordRecoveryConfirmationPage');
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -153,6 +150,9 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Function send update password after resetting
+     */
     public function updatePassword(){
         $password = $_POST['password'];
         $confirmPassword = $_POST['password_confirm'];
@@ -162,7 +162,6 @@ class UserController extends Controller
 
 
         if($password != $confirmPassword){
-            error_log("no Matcho");
             $this->redirect('errorPage');
         }else{
             $account = new UserModel();
