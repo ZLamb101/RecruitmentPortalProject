@@ -320,8 +320,8 @@ class UserModel extends Model
 
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Vesta Recruit Password Recovery';
-        $mail->Body = 'You lost your password. too bad nerd follow this link <a href="http://localhost:8000/Verify/?id='.$uuid.'"> link </a>';
-        $mail->AltBody = 'You lost your password. too bad nerd';
+        $mail->Body = 'To reset your password, please click <a href="http://localhost:8000/Verify/?id='.$uuid.'">here</a>.';
+        $mail->AltBody = 'Reset your password';
 
         $mail->send();
         // echo 'Message has been sent';
