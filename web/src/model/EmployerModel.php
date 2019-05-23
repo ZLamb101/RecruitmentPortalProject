@@ -243,17 +243,22 @@ class EmployerModel extends UserModel
         $address = $this->address ?? "NULL";
         $address = $this->db->real_escape_string($address);
 
+
         $comp_name = $this->company_name ?? "NULL";
         $comp_name = $this->db->real_escape_string($comp_name);
+
 
         $contact_name = $this->contact_name ?? "NULL";
         $contact_name = $this->db->real_escape_string($contact_name);
 
+
         $url = $this->url ?? "NULL";
         $url = $this->db->real_escape_string($url);
 
+
         $calendar = $this->calendar_link ?? "NULL";
         $calendar = $this->db->real_escape_string($calendar);
+
 
         if(!isset($this->id)){
             // new employer
@@ -262,10 +267,10 @@ class EmployerModel extends UserModel
             }
             $this->id = $this->db->insert_id;
         } else {
-            error_log("updating");
+
             // existing employer, update information
             if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
-                                              `contact_name` = '$contact_name', `url` = '$url', 'calendar' = '$calendar' WHERE `id` = '$this->id';")) {
+                                              `contact_name` = '$contact_name', `url` = '$url', `calendar` = '$calendar' WHERE `id` = '$this->id';")) {
                 error_log("throw");
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
             }

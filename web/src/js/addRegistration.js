@@ -45,7 +45,7 @@ function addQualification(){
 	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
-	qualChild.appendChild(toolTip);
+
 
 
 	var prefP = document.createElement("label");
@@ -60,7 +60,10 @@ function addQualification(){
     if(mainDiv.childNodes.length == 6){
         pref.checked = true;
     }
+
+	prefP.appendChild(toolTip);
 	prefP.appendChild(prefLabel);
+
 	qualChild.appendChild(prefP);										//Append Label and input into Child Div
 	qualChild.appendChild(pref);
 
@@ -98,7 +101,7 @@ function addQualification(){
     typeP.appendChild(typeLabel);
 
     var typeOption = document.createElement("option");
-    var typeOptionLabel = document.createTextNode("All subcategories");
+    var typeOptionLabel = document.createTextNode("All Sub-Categories");
     typeOption.setAttribute("value", "blank");
     typeOption.appendChild(typeOptionLabel);
     type.append(typeOption);
@@ -210,7 +213,7 @@ function addWorkExperience(){
 	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
-	workexChild.appendChild(toolTip);
+
 
 	var prefP = document.createElement("label");
 	prefP.setAttribute("for", divName);
@@ -225,7 +228,9 @@ function addWorkExperience(){
 	pref.setAttribute("id", radID);
 	pref.setAttribute("name", "work-experience-preference");
 	pref.setAttribute("value", it);
+	prefP.appendChild(toolTip);
 	prefP.appendChild(prefLabel);
+
 	workexChild.appendChild(prefP);
 	workexChild.appendChild(pref);
 
@@ -346,7 +351,7 @@ function addSkill(){
 	toolTip.setAttribute("title","The preferred button indicates which card will be displayed when employers search for you!");
 
 	toolTip.appendChild(glyphicon);
-	skillChild.appendChild(toolTip);
+
 
 	var prefP = document.createElement("label");
 
@@ -362,6 +367,7 @@ function addSkill(){
     if(mainDiv.childNodes.length == 6){
         pref.checked = true;
     }
+	prefP.appendChild(toolTip);
 	prefP.appendChild(prefLabel);
 	skillChild.appendChild(prefP);
 	skillChild.appendChild(pref);
@@ -397,7 +403,7 @@ function addSkill(){
 	var subField = document.createElement("select");
 	var subFieldString = "sub-field";
 	var subFieldOption = document.createElement("option");
-	var subFieldOptionLabel = document.createTextNode("All subcategories");
+	var subFieldOptionLabel = document.createTextNode("All Sub-Categories");
 	subFieldOption.setAttribute("value", "blank");
 	subFieldString = subFieldString.concat(it.toString(10));
 	subFieldP.setAttribute("for", subFieldString);

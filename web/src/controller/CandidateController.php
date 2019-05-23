@@ -110,8 +110,11 @@ class CandidateController extends UserController
             }
             $candidateID = $account->getId();
             $pref_qual = $this->updateQualificationAction($candidateID);
+            error_log("test1". $pref_qual);
             $pref_work = $this->updateWorkExperienceAction($candidateID);
+            error_log("test2". $pref_work);
             $pref_skill = $this->updateSkillAction($candidateID);
+            error_log("test3". $pref_skill);
 
             try {
                 $account->savePreferences($pref_qual, $pref_work, $pref_skill);
@@ -262,7 +265,9 @@ class CandidateController extends UserController
      */
     public function updateSkillAction($candidateID){
         $skillCount = $_POST['skill-count'];
+
         do{
+
             $skill = new SkillModel();
             $idInput = 'sid'.$skillCount;
             if ($_POST["$idInput"]) {
@@ -272,7 +277,7 @@ class CandidateController extends UserController
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
-            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL || $_POST["$contentsInput"] == NULL) {
+            if($_POST["$fieldInput"] == NULL || $_POST["$subFieldInput"] == NULL ) {
                 $skillCount--;
                 continue;
             }
@@ -282,6 +287,7 @@ class CandidateController extends UserController
             $skill->setSubField($_POST["$subFieldInput"]);
 
             $isPreferred = false;
+
             if($skillCount == $_POST["skill-preference"]){
                 $isPreferred = true;
             }
@@ -293,6 +299,7 @@ class CandidateController extends UserController
                 $this->redirect('errorPage');
             }
             if($isPreferred){
+
                 $pref_id = $skill->getId();
             }
         }while($skillCount >= 0);
