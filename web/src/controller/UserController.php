@@ -162,7 +162,7 @@ class UserController extends Controller
 
 
         if($password != $confirmPassword){
-            $this->redirect('errorPage');
+            $this->redirect('updatePassword');
         }else{
             $account = new UserModel();
             $account->load($guid->getUserId());
@@ -170,7 +170,7 @@ class UserController extends Controller
             $account->setPassword($password);
 
             $account->save();
-            $this->redirect('home');
+            $this->redirect('updatePasswordConfirmation');
             $guid->deleteGuid();
         }
 

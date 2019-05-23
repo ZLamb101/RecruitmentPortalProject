@@ -482,6 +482,20 @@ $collection->attachRoute(
 );
 
 
+$collection->attachRoute(
+    new Route(
+        '/Update-Password-Confirmation',
+        array(
+            '_controller' => 'bjz\portal\controller\HomeController::updatePasswordConfirmationIndex',
+            'methods' => 'GET',
+            'name' => 'updatePasswordConfirmation'
+        )
+    )
+);
+
+
+
+
 
 
 $router = new Router($collection);

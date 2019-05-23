@@ -164,4 +164,13 @@ class HomeController extends Controller
         $view = new View('errorPage');
         echo $view->render();
     }
+
+    /**
+     * Action to load updatePasswordConfirmationPage
+     */
+    public function updatePasswordConfirmationIndex(){
+        error_log("i tried");
+        $view = new View('resetPasswordConfirmationPage');
+        echo $view->render();
+    }
 }
