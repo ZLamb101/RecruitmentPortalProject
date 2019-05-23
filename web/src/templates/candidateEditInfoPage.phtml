@@ -26,24 +26,24 @@ include "header.phtml"
                     <div class=" partition large-box-format">
                         <div class="form-group">
                             <label for="first-name">First Name: </label>
-                            <input class="form-control" type="text"  placeholder="John" id="first-name"   name="first-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>">
+                            <input class="form-control" type="text"  placeholder="John" id="first-name" name="first-name" size="40" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getGName() ?>">
                         </div>
                         <div class="form-group">
                             <label for="last-name">Last Name: </label>
-                            <input class="form-control"  type="text" placeholder="Smith" id="last-name" name="last-name" size="40" pattern="^[a-zA-Z-\s]+$" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>">
+                            <input class="form-control"  type="text" placeholder="Smith" id="last-name" name="last-name" size="40" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>">
                         </div>
-                        <input hidden type="text" placeholder="Username"  name="username" size="40" required pattern="^[a-zA-Z0-9-_]+$" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
+                        <input hidden type="text" placeholder="Username"  name="username" size="40" required title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
                         <div class="form-group">
                             <label for="email">Email: </label>
                             <input class="form-control"  type="text" placeholder="example@gmail.com" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>">
                         </div>
                         <div class="form-group">
                             <label for="phone-number">Phone number: </label>
-                            <input class="form-control"  type=text id="phone-number" name="phone-number" placeholder="Mobile and landlines accepted" size="40" required pattern="^[0-9+\s-]+$" title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>">
+                            <input class="form-control"  type=text id="phone-number" name="phone-number" placeholder="Mobile and landlines accepted" size="40" required title="Numeric, '+', '-' and space characters only" value="<?= $candidateInfo->getPhoneNumber() ?>">
                         </div>
                         <div class="form-group">
                             <label for="location">Location: </label>
-                            <input class="form-control"  type=text id="location" name="location" placeholder="City" size="40" required pattern="^[a-zA-Z0-9\s,]+$" title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>">
+                            <input class="form-control"  type=text id="location" name="location" placeholder="City" size="40" required title="Alphanumeric and space characters only" value="<?= $candidateInfo->getLocation() ?>">
                         </div>
                     </div>
                 </div>
