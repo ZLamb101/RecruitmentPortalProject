@@ -8,7 +8,7 @@
 function validateForm()
 {
     var submitButton = document.getElementById('submit-handle');
-    if (validatePassword()) {
+    if (!validatePassword()) {
         return false;
     }
 
