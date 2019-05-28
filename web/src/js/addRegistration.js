@@ -27,7 +27,7 @@ function addQualification(){
     var deleteQualificationNum = "delete-qualification"+it;
     deleteButton.setAttribute("id", deleteQualificationNum);
     deleteButton.setAttribute("value", "Delete");
-    var functionName = "deleteQualificationHTML("+it+")";
+    var functionName = "deleteQualification("+it+",-1)";
     deleteButton.setAttribute("onclick", functionName);
     qual.appendChild(deleteButton);
 
@@ -53,9 +53,10 @@ function addQualification(){
 	var pref = document.createElement("input");
 	pref.setAttribute("class", "pull-right");
 	pref.setAttribute("type", "radio");
-	prefP.setAttribute("for", "qualification-preference");
+	var qualID = "qualification-preference"+ it;
+	prefP.setAttribute("for", qualID);
 	pref.setAttribute("name", "qualification-preference");
-	pref.setAttribute("id", "qualification-preference");
+	pref.setAttribute("id", qualID);
 	pref.setAttribute("value", it);
     if(mainDiv.childNodes.length == 6){
         pref.checked = true;
@@ -196,7 +197,7 @@ function addWorkExperience(){
     deleteButton.setAttribute("id", deleteWorkNum);
     deleteButton.setAttribute("value", "Delete");
     deleteButton.setAttribute("class", "btn btn-danger");
-    var functionName = "deleteWorkExperienceHTML("+it+")";
+    var functionName = "deleteWorkExperience("+it+",-1)";
     deleteButton.setAttribute("onclick", functionName);
     workex.appendChild(deleteButton);
 
@@ -334,7 +335,7 @@ function addSkill(){
     deleteButton.setAttribute("id", deleteSkillNum);
     deleteButton.setAttribute("value", "Delete");
     deleteButton.setAttribute("class", "btn btn-danger")
-    var functionName = "deleteSkillHTML("+it+")";
+    var functionName = "deleteSkill("+it+",-1)";
     deleteButton.setAttribute("onclick", functionName);
     skill.appendChild(deleteButton);
 
