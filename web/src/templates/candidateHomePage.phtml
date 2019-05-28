@@ -2,12 +2,12 @@
 <?php 
 include "header.phtml"
  ?>
-
+<script type = "text/javascript" src="src/js/addRegistration.js"></script>
 <!---------- Body starts --------------->
 
 
 	<!--- Content Start -->
-    <div class="container-fluid from-top" id="page2">
+    <div class="container-fluid" id="page2">
 
 		<div class="partition large-box-format" id="info">
             <div class="row">
@@ -59,6 +59,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $workExperience = $candidateInfo->getWorkExperience();
+            $noWork = false;
             echo "<div class=\"row\">";
             $count = 0;
 
@@ -75,6 +76,7 @@ include "header.phtml"
                 $count++;
             }
             if($count==0){
+                $noWork = true;
                 echo "<div class=\"partition   interior-box-format\">";
                 echo "<p>Looks like you have no work experiences entered. Click <a href=\"".$linkTo('editCandidateInfoPage')."\">Here</a> to add some! </p>";
                 echo "</div>";
@@ -89,6 +91,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $qualifications = $candidateInfo->getQualifications();
+            $noQual = false;
             echo "<div class=\"row\">";
             $count = 0;
             foreach ($qualifications as $qual){
@@ -106,6 +109,7 @@ include "header.phtml"
 
             }
             if($count==0){
+                $noQual = true;
                 echo "<div class=\"partition   interior-box-format\">";
                 echo "<p>Looks like you have no qualifications entered. Click <a href=\"".$linkTo('editCandidateInfoPage')."\">Here</a> to add some! </p>";
                 echo "</div>";
@@ -120,6 +124,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $skills = $candidateInfo->getSkills();
+            $noSkill = false;
             echo "<div class=\"row\">";
             $count = 0;
             foreach ($skills as $skill){
@@ -136,11 +141,17 @@ include "header.phtml"
 
             }
             if($count==0){
+                $noSkill = true;
                 echo "<div class=\"partition   interior-box-format\">";
                 echo "<p>Looks like you have no skills entered. Click <a href=\"".$linkTo('editCandidateInfoPage')."\">Here</a> to add some! </p>";
                 echo "</div>";
             }
             echo "</div>";
+
+
+            if($noQual || $noWork || $noSkill){
+                echo "<script>missingInfoAlert()</script>";
+            }
             ?>
         </div>
     </div>
