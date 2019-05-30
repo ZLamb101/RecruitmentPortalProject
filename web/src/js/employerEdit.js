@@ -35,7 +35,6 @@ function changeDescription(divID, id){
     }else{
         button.value = "Change Description";
 
-
         xmlhttp = new XMLHttpRequest();
         var description = document.getElementById(descriptionChanged).value;
         let formData = new FormData();
@@ -45,13 +44,7 @@ function changeDescription(divID, id){
         if (description == null || description == "") {
               alert("User cancelled the prompt.");
         } else {
-
-
-
             xmlhttp.open("POST", "changeDescriptionShortList.php", true);
-            xmlhttp.setRequestHeader("id", id);
-            xmlhttp.setRequestHeader("description", description);
-
 
             xmlhttp.send(formData);
 
@@ -59,10 +52,6 @@ function changeDescription(divID, id){
         }
         document.getElementById(descriptionChanged).disabled = true;
     }
-
-
-
-
 }
 
 /**

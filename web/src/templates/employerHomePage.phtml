@@ -9,16 +9,14 @@ include "header.phtml"
 
 
 	<!--- Content Start -->
-
+    <div class="container-fluid from-top " id = "page2">
         <?php
 
         if ($employerInfo->getCalendarLink() == "NULL"){
-            echo "<div class=\"container-fluid from-top \" id = \"page2\">";
+
             echo "<div class=\"\ small-box-format center alert alert-danger\">";
             echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
             echo "</div>";
-        }else{
-            echo "<div class=\"container-fluid from-top\" id = \"page2\">";
         }
 
         ?>
