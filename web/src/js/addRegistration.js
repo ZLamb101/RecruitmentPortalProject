@@ -525,7 +525,7 @@ function getLevels(callback) {
 
 function missingInfoAlert() {
     var alertBox = document.createElement("div");
-    alertBox.setAttribute("class","from-top center alert alert-danger");
+    alertBox.setAttribute("class","small-box-format center alert alert-danger");
     var text = document.createTextNode("It looks like you're missing some information. Click <a href=\"edit-candidate-information\">Here</a> to add what's missing");
 
     alertBox.appendChild(text);
