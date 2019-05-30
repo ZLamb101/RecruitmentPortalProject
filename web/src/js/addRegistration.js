@@ -526,9 +526,21 @@ function getLevels(callback) {
 function missingInfoAlert() {
     var alertBox = document.createElement("div");
     alertBox.setAttribute("class","small-box-format center alert alert-danger");
-    var text = document.createTextNode("It looks like you're missing some information. Click <a href=\"edit-candidate-information\">Here</a> to add what's missing");
 
-    alertBox.appendChild(text);
+    var para = document.createElement("p");
+    var node = document.createTextNode("It looks like you're missing some information. Click ");
+    para.appendChild(node);
+
+    var a = document.createElement('a');
+    var linkText = document.createTextNode("Here");
+    a.appendChild(linkText);
+    a.href = "http://localhost:8000/edit-candidate-information";
+    para.appendChild(a);
+
+    var node3 = document.createTextNode(" to add what's missing");
+    para.appendChild(node3);
+
+    alertBox.appendChild(para);
 	var pageDiv = document.getElementById("page2");
     pageDiv.insertBefore(alertBox, pageDiv.firstChild);
 }
