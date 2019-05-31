@@ -56,9 +56,7 @@ function showResult() {
 }
 
 function addToShortlist(candId){
-    // var candId = document.getElementById("cand-ids").value;
     var short_id = document.getElementById("shortlist0").value;
-    // Want to remove button element and replace with "Added" string.
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange=function() {
@@ -80,7 +78,6 @@ function addToShortlist(candId){
 function addAllToShortlist(candidates){
     var candidates = document.getElementById("cand-ids").value;
     var short_id = document.getElementById("shortlist0").value;
-    // Want to remove button element and replace with "Added" string.
     xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange=function() {

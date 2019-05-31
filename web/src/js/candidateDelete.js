@@ -1,6 +1,9 @@
 /**
  * Deletes the corresponding selected work experience and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
+ *
+ * @param number, the position of the work experience as displayed on the page
+ * @param id, the id of the work experience as in the database
  */
 function deleteWorkExperience(number, id){
     if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
@@ -55,6 +58,8 @@ function deleteWorkExperience(number, id){
 /**
  * Deletes the corresponding selected skill and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
+ * @param number, the position of the skill as displayed on the page
+ * @param id, the id of the skill as in the database
  */
 function deleteSkill(number,id){
     if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
@@ -109,6 +114,8 @@ function deleteSkill(number,id){
 /**
  * Deletes the corresponding selected qualification and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
+ * @param number, the position of the qualification as displayed on the page
+ * @param id, the id of the qualification as in the database
  */
 function deleteQualification(number, id){
     if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
