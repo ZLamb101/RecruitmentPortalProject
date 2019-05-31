@@ -100,7 +100,6 @@ class SearchController extends Controller
         }
         $response = $response . '</table>';
         $response = $response . "<input type=\"hidden\" id= \"cand-ids\" value=\"$candidateIDs\">";
-      //  $response = "<div class=\"center small-box-format\"><input class=\"btn btn-info\" type='button' id='add-all-to-shortlist' value='Add all to Short List' onclick='addAllToShortlist(\"".$candidateIDs."\")'></div>" . $response;
         return $response;
     }
 
