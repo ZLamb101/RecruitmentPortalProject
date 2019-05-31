@@ -64,6 +64,9 @@ class Model
         $this->generateDatabase();
     }
 
+    /**
+     * Generates the database and inserts dummy data.
+     */
     public function generateDatabase(){
 
         // User Table

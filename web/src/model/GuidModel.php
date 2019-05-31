@@ -5,9 +5,10 @@ use bjz\portal\model\Model;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 /**
- * Class UserModel
+ * Class GuidModel
  *
- * Represents a user of the system
+ * Represents a global unique identifier. Used to create time sensitive links
+ * for password recovery.
  *
  * @package bjz/portal
  */
@@ -31,6 +32,7 @@ class GuidModel extends Model
     private $expiredTime;
 
     /**
+     * Returns the ID of the guid
      * @return int
      */
     public function getId()
@@ -39,6 +41,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Sets the ID of the guid
      * @param int $id
      */
     public function setId($id)
@@ -47,6 +50,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Returns the ID of the user the guid is associated to.
      * @return string
      */
     public function getUserId()
@@ -55,6 +59,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Sets the user associated with the guid, based on their ID
      * @param string $user_id
      */
     public function setUserId($user_id)
@@ -63,6 +68,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Gets the guid
      * @return string
      */
     public function getUuid()
@@ -71,6 +77,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Sets the guid
      * @param string $uuid
      */
     public function setUuid($uuid)
@@ -79,6 +86,7 @@ class GuidModel extends Model
     }
 
     /**
+     * Returns the time the guid is set to expire
      * @return string
      */
     public function getExpiredTime()
@@ -87,15 +95,13 @@ class GuidModel extends Model
     }
 
     /**
+     * Sets the time the guid will expire
      * @param string $expiredTime
      */
     public function setExpiredTime($expiredTime)
     {
         $this->expiredTime = $expiredTime;
     }
-
-
-
 
     /**
      * Loads GUID information from the database
@@ -108,7 +114,6 @@ class GuidModel extends Model
      */
     public function load($uuid)
     {
-
         if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$uuid';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidLoad");
         }
@@ -119,6 +124,7 @@ class GuidModel extends Model
         $this->id = $result['id'];
         return $this;
     }
+
     /**
      * Saves guid information to the database
      *
@@ -134,7 +140,6 @@ class GuidModel extends Model
         $this->user_id = $this->findID($username);
 
         $this->expireTime = date('Y-m-d H:i:s');
-        //error_log($this->expireTime);
 
         // New user - Perform INSERT
         if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$this->expireTime');")) {
@@ -161,11 +166,6 @@ class GuidModel extends Model
         return $this;
     }
 
-
-
-
-
-
      /***
      * Searches for the user_id of an explicit username
      *
@@ -187,80 +187,28 @@ class GuidModel extends Model
 
     }
 
-
-    /**
-     * This function sends a confirmation to users email when account has been created.
-     *
+    /***
+     * Generates a new uuid and returns it for use in a verification link
+     * @return string, the uuid generated
      */
-    public function sendConfirmationEmail($email, $username)
-    {
+    function createVerificationLink(){
 
-        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+        $this->uuid = $this->gen_uuid();
+        $expireTime = date('Y-m-d H:i:s');
 
-        //Server settings
-        $mail->SMTPDebug = false;                                 // Enable verbose debug output
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'Vestarecruit@gmail.com';                 // SMTP username
-        $mail->Password = 'Bobtool22';                           // SMTP password
-        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587;
+        // New user - Perform INSERT
+        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$expireTime');")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
+        }
+        $this->id = $this->db->insert_id;
 
-        // TCP port to connect to
-        //Recipients
-        $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
-        $mail->addAddress($email);     // Add a recipient
-        $mail->addBCC('Vestarecruit@gmail.com');
-        //Content
-
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Vesta Recruit Account Confirmation';
-        $mail->Body = 'Welcome to Vesta Recruit, ' . $username . ' we have confirmed your details and your account has been registered. To begin using Vesta Recruit, head back to our website and login!';
-        $mail->AltBody = 'Welcome to Vesta Recruit, ' . $username . ' we have confirmed your details and your account has been registered. To begin using Vesta Recruit, head back to our website and login!';
-
-        $mail->send();
-        // echo 'Message has been sent';
-
+        return $this->uuid;
     }
 
     /**
-     * This function sends a email when a user is recovering their password
-     *
+     * Generates a unique identifier for password recovery
+     * @return string, a unique identifier to send in an email link
      */
-    public function sendPasswordRecoveryEmail($uuid)
-    {
-
-        $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-
-        //Server settings
-        $mail->SMTPDebug = false;                                 // Enable verbose debug output
-        $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-        $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'Vestarecruit@gmail.com';                 // SMTP username
-        $mail->Password = 'Bobtool22';                           // SMTP password
-        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587;
-
-        // TCP port to connect to
-        //Recipients
-        $mail->setFrom('Vestarecruit@gmail.com', 'Vestarecruit');
-        $mail->addAddress($this->email);     // Add a recipient
-        $mail->addBCC('Vestarecruit@gmail.com');
-        //Content
-
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Vesta Recruit Password Recovery';
-        $mail->Body = 'You lost your password. too bad nerd follow this link <a href="http://localhost:8000/Verify/?id='.$uuid.'"> link </a>';
-        $mail->AltBody = 'You lost your password. too bad nerd';
-
-        $mail->send();
-        // echo 'Message has been sent';
-
-    }
-
-
     function gen_uuid() {
         return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
@@ -283,32 +231,10 @@ class GuidModel extends Model
         );
     }
 
-    function createVerificationLink(){
-
-        $this->uuid = $this->gen_uuid();
-
-       // $username = $this->username ?? "NULL";
-       // $username = $this->db->real_escape_string($username);
-       // $this->user_id = $this->findID($username);
-
-
-        $expireTime = date('Y-m-d H:i:s');
-        error_log($expireTime);
-
-        
-
-        // New user - Perform INSERT
-        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$expireTime');")) {
-            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
-        }
-        $this->id = $this->db->insert_id;
-
-        return $this->uuid;
-    }
-
-
+    /**
+     * Deletes the guid from the database
+     */
     function deleteGuid(){
-
          if (!$result = $this->db->query(" DELETE FROM `passwordguids` WHERE `guid` = '$this->uuid' ;")) {
              throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
          }

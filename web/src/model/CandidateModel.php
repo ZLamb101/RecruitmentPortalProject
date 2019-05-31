@@ -51,6 +51,7 @@ class CandidateModel extends UserModel
     private $qualifications;
 
     /**
+     * Returns the ID of the candidate
      * @return int $this->id, the ID of the candidate
      */
     public function getId()
@@ -58,6 +59,7 @@ class CandidateModel extends UserModel
         return $this->id;
     }
     /**
+     * Sets the ID of the candidate
      * @param int $id, the new ID of the candidate
      */
     public function setId($id)
@@ -66,6 +68,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns the id of the user tied to this candidate
      * @return int $this->user_id, the id of the user tied to this candidate
      */
     public function getUserId()
@@ -73,6 +76,7 @@ class CandidateModel extends UserModel
         return $this->user_id;
     }
     /**
+     * Sets the id of the user tied to this candidate
      * @param $uid, the new user id tied to this candidate
      */
     public function setUserId($uid)
@@ -80,6 +84,7 @@ class CandidateModel extends UserModel
         $this->user_id = $uid;
     }
     /**
+     * Returns the given name of the candidate
      * @return string $this->g_name, the given name of the candidate
      */
     public function getGName()
@@ -87,6 +92,7 @@ class CandidateModel extends UserModel
         return $this->g_name;
     }
     /**
+     * Sets the given name of the candidate
      * @param string $g_name, the new given name of the candidate
      */
     public function setGName($g_name)
@@ -94,6 +100,7 @@ class CandidateModel extends UserModel
         $this->g_name = $g_name;
     }
     /**
+     * Returns the family name of the candidate
      * @return string $this->f_name, the family name of the candidate
      */
     public function getFName()
@@ -102,6 +109,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets the family name of the candidate
      * @param string $f_name, the new family name of the candidate
      */
     public function setFName($f_name)
@@ -110,6 +118,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns the suburb the candidate lives in
      * @return string $this->location, the suburb the candidate lives in
      */
     public function getLocation()
@@ -118,6 +127,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets the suburb the candidate lives in
      * @param string $location, the new suburb the candidate lives in
      */
     public function setLocation($location)
@@ -126,6 +136,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns the availability of the candidate to work
      * @return string $this->availability, the availability of the candidate to work
      */
     public function getAvailability()
@@ -134,6 +145,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets the availability of the candidate to work
      * @param string $availability, the new availability of the candidate to work
      */
     public function setAvailability($availability)
@@ -142,6 +154,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns the candidates skills
      * @return string, the candidates skills
      */
     public function getSkills(){
@@ -149,6 +162,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets the candidates skills
      * @param string $skills, the new set of skills of the candidate
      */
     public function setSkills($skills)
@@ -157,6 +171,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns the candidates work experience instances
      * @return array $this->workExperiences, the array of the candidates work experience instances
      */
     public function getWorkExperience(){
@@ -164,6 +179,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets the work experience of the candidate.
      * @param array $workExperiences, the new set of work experience of the candidate.
      */
     public function setWorkExperiences($workExperiences)
@@ -172,6 +188,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Returns a candidates qualifications
      * @return array $this->qualifications, the array of a candidates qualifications
      */
     public function getQualifications()
@@ -180,6 +197,7 @@ class CandidateModel extends UserModel
     }
 
     /**
+     * Sets a candidates qualifications
      * @param array $qualifications, the new array of candidate qualifications
      */
     public function setQualifications($qualifications)

@@ -44,6 +44,7 @@ class EmployerModel extends UserModel
     private $calendar_link;
 
     /**
+     * Returns the employers ID
      * @return int $this->id, the id of the employer profile
      */
     public function getId()
@@ -52,6 +53,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the employers ID
      * @param int $id, the new id of the employer profile
      */
     public function setId($id)
@@ -60,6 +62,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the user associated with an employer
      * @return int $this->user_id, the id of the employer's user profile
      */
     public function getUserId()
@@ -68,6 +71,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the user associated with an employer
      * @param int $user_id, the new id of the employer's user profile
      */
     public function setUserId($user_id)
@@ -76,6 +80,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the company name of the employer
      * @return string $this->company_name, the name of the company the employer is representing
      */
     public function getCompanyName()
@@ -84,6 +89,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the company name of the employer
      * @param string $company_name, the new name of the company the employer is representing
      */
     public function setCompanyName($company_name)
@@ -92,6 +98,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the company URL
      * @return string $this->url, the URL of the company's website
      */
     public function getUrl()
@@ -100,6 +107,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the company URL
      * @param string $url, the new URL of the company's website
      */
     public function setUrl($url)
@@ -108,6 +116,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the name of the company contact
      * @return string $this->contact_name, the name of the contact person for the employer
      */
     public function getContactName()
@@ -116,6 +125,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the name of the company contact
      * @param string $contact_name, the new name of the contact person for the employer
      */
     public function setContactName($contact_name)
@@ -124,6 +134,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the company address
      * @return string $this->address, the physical location of the company's offices.
      */
     public function getAddress()
@@ -132,6 +143,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the company address
      * @param string $address, the new physical location of the company's offices.
      */
     public function setAddress($address)
@@ -140,6 +152,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the shortlists belonging to the employer
      * @return array $this->short_lists, the short lists of candidates a company has
      */
     public function getShortLists()
@@ -148,6 +161,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the shortlists belonging to the employer
      * @param array $short_lists, the new short lists of candidates a company has
      */
     public function setShortLists($short_lists)
@@ -156,6 +170,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Returns the G-Suite calendar linked to the employer
      * @return string, a link to the employer's calendar application
      */
     public function getCalendarLink()
@@ -164,6 +179,7 @@ class EmployerModel extends UserModel
     }
 
     /**
+     * Sets the G-Suite calendar linked to the employer
      * @param string $calendar_link, the new link to the employers calendar application
      */
     public function setCalendarLink($calendar_link)

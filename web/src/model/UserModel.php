@@ -337,7 +337,7 @@ class UserModel extends Model
     }
 
     /**
-     * Generates a uniqu identifier for password recovery
+     * Generates a unique identifier for password recovery
      * @return string, a unique identifier to send in an email link
      */
     function gen_uuid() {
