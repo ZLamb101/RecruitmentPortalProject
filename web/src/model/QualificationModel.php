@@ -201,6 +201,11 @@ class QualificationModel extends Model
         return $this;
     }
 
+    /**
+     * Deletes a qualification instance from the database
+     *
+     * @param int $id, the id of the qualification to delete
+     ***/
     public function delete($id){
         if(!$result = $this->db->query("DELETE from `qualification` WHERE `id` = '$id'")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualDelete");
@@ -209,7 +214,7 @@ class QualificationModel extends Model
 
 
     /**
-     * Function to get all the levels within the database
+     * Function to get all the qualification levels within the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
@@ -237,7 +242,7 @@ class QualificationModel extends Model
     }
 
     /**
-     * Function to get the qual level associated to id
+     * Function to get the qualification level associated to id
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
@@ -254,7 +259,7 @@ class QualificationModel extends Model
     }
 
     /**
-     * Function to get qual type associated to id
+     * Function to get qualification type associated to id
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
@@ -269,6 +274,5 @@ class QualificationModel extends Model
         return $result;
 
     }
-
 
 }

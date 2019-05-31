@@ -42,6 +42,7 @@ class ShortListModel extends Model
 
 
     /**
+     * Informs whether a shortlist has sent invites before.
      * @return bool
      */
     public function isHasInvited()
@@ -50,6 +51,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Changes the state of a shortlists invite sent status
      * @param bool $hasInvited
      */
     public function setHasInvited($hasInvited)
@@ -58,6 +60,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Returns the description of the short list
      * @return string, Gets the description of the short list
      */
     public function getDescription()
@@ -66,6 +69,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Modifies the description of the shortlist
      * @param string $description, Sets the description of the short list
      */
     public function setDescription($description)
@@ -74,6 +78,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Returns the ID of the short list
      * @return int $this->id, the ID of the Short List
      */
     public function getId()
@@ -82,6 +87,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Sets the ID of the short list
      * @param int $id, the new ID of the Short List
      */
     public function setId($id)
@@ -91,6 +97,7 @@ class ShortListModel extends Model
 
 
     /**
+     * Returns the ID of the employer who owns the short list
      * @return int $this->owner_id, the ID of the employer the Short List belongs to
      */
     public function getOwnerId()
@@ -99,6 +106,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Sets the owner of the short list to the employer's ID
      * @param int $owner_id, the new ID of the employer the Short List belongs to
      */
     public function setOwnerId($owner_id)
@@ -107,6 +115,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Returns the name of the short list
      * @return string $this->name, the name of the Short List
      */
     public function getName()
@@ -115,6 +124,7 @@ class ShortListModel extends Model
     }
 
     /**
+     * Sets the name of the shortlist
      * @param string $name, the new name of the Short List
      */
     public function setName($name)
@@ -238,7 +248,6 @@ class ShortListModel extends Model
 
     /**
      * Deletes a specified candidate from a shortlist
-     *
      * @param $shortListID, the ID of the shortList to delete the candidate from
      * @param $idToDelete, the ID of the Candidate being deleted
      */
@@ -255,16 +264,9 @@ class ShortListModel extends Model
         if($newCandidateList == "") {
             $newCandidateList = "NULL";
         }
-            if (!$result = $this->db->query("UPDATE `short_list` SET `candidates` = '$newCandidateList' WHERE `id` = '$shortListID'")) {
-                throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidate");
-            }
-            return false;
-       // } else {
-         //   if (!$result = $this->db->query("DELETE FROM `short_list` WHERE `id` = '$shortListID'")) {
-         //       throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidateLast");
-         //   }
-        //    return true;
-       // }
+        if (!$result = $this->db->query("UPDATE `short_list` SET `candidates` = '$newCandidateList' WHERE `id` = '$shortListID'")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListSavingRemovedCandidate");
+        }
     }
 
     /**
@@ -281,7 +283,7 @@ class ShortListModel extends Model
     }
 
     /**
-     * creates the shortList as desired
+     * Creates the shortList as desired
      * @param $shortListName, the name of the new shortList
      * @param $ownerID, the ID of the user the shortList belongs to
      * @param $description, the description of the shortList

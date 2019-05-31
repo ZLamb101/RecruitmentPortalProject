@@ -22,6 +22,7 @@ class WorkExperienceCollectionModel extends Model
     private $N;
 
     /**
+     * Returns the number of work experiences collected
      * @return int, the number of instances collected
      */
     public function getN()

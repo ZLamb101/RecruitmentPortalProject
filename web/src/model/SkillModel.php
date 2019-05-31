@@ -44,6 +44,7 @@ class SkillModel extends Model
     private $contents;
 
     /**
+     * Return the ID of the skill
      * @return int, the ID of the skill
      */
     public function getId()
@@ -52,6 +53,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Sets the ID of the skill
      * @param int $id, the new ID of the skill
      */
     public function setId($id)
@@ -60,6 +62,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Return the ID of the candidate who owns the skill
      * @return int, the ID of the candidate the skill belongs to
      */
     public function getOwnerId()
@@ -68,6 +71,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Sets the owner of the skill based on their ID
      * @param int $owner_id, the new ID of the candidate the skill belongs to
      */
     public function setOwnerId($owner_id)
@@ -76,6 +80,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Returns the field the skill is associated with
      * @return string, the name of the field the sub-field and skill is associated with
      */
     public function getField()
@@ -85,6 +90,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Sets the field the skill is associated with
      * @param string $field, the new name field the sub-field and skill is associated with
      */
     public function setField($field)
@@ -93,6 +99,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Returns the subfield the skill is associated with
      * @return string, the name of the sub-field the skill is associated with
      */
     public function getSubField()
@@ -101,6 +108,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Sets the subfield the skill is associated with
      * @param string $sub_field, the new name of the sub-field the skill is associated with
      */
     public function setSubField($sub_field)
@@ -109,6 +117,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Returns the users description of the skill
      * @return string, the message explaining their skill in certain sub-field
      */
     public function getContents()
@@ -117,6 +126,7 @@ class SkillModel extends Model
     }
 
     /**
+     * Sets the users description of the skill
      * @param string $contents, the new message explaining their skill in certain sub-field
      */
     public function setContents($contents)
@@ -278,6 +288,10 @@ class SkillModel extends Model
         return $result;
     }
 
+    /**
+     * Deletes a skill from the database
+     * @param $id, the ID of the skill to be deleted
+     */
     public function delete($id){
         if(!$result = $this->db->query("DELETE from `skill` WHERE `id` = '$id'")){
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillDelete");

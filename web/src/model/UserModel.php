@@ -41,6 +41,7 @@ class UserModel extends Model
         return $this->id;
     }
     /**
+     * Gets the user's username
      * @return string $this->username, the username of the user
      */
     public function getUsername()
@@ -48,6 +49,7 @@ class UserModel extends Model
         return $this->username;
     }
     /**
+     * Sets the user's username
      * @param string $username, the username of the user
      */
     public function setUsername($username)
@@ -55,6 +57,7 @@ class UserModel extends Model
         $this->username = $username;
     }
     /**
+     * Returns the password of the user
      * @return string $this->password, the password of the user
      */
     public function getPassword()
@@ -62,6 +65,7 @@ class UserModel extends Model
         return $this->password;
     }
     /**
+     * Sets the password of the user
      * @param string $password, the password of the user
      */
     public function setPassword($password)
@@ -69,6 +73,7 @@ class UserModel extends Model
         $this->password = $password;
     }
     /**
+     * Return the email address of the user
      * @return string $this->email, the email address of the user
      */
     public function getEmail()
@@ -76,12 +81,14 @@ class UserModel extends Model
         return $this->email;
     }
     /**
+     * Sets the email address of the user
      * @param string $email, the new email address of the user
      */
     public function setEmail($email){
         $this->email = $email;
     }
     /**
+     * Returns the phone number of the user
      * @return string $this->phone_number, the phone number of the user
      */
     public function getPhoneNumber()
@@ -89,6 +96,7 @@ class UserModel extends Model
         return $this->phone_number;
     }
     /**
+     * Gets the phone number of the user
      * @param string $phone_number, the new phone number for the user
      */
     public function setPhoneNumber($phone_number){
@@ -258,7 +266,8 @@ class UserModel extends Model
 
     /**
      * This function sends a confirmation to users email when account has been created.
-     *
+     * @param $email string, the email address to send the email to
+     * @param $username string, the username of the user
      */
     public function sendConfirmationEmail($email, $username)
     {
@@ -289,12 +298,11 @@ class UserModel extends Model
 
         $mail->send();
         // echo 'Message has been sent';
-        error_log("EMAIL SENT");
     }
 
     /**
      * This function sends a email when a user is recovering their password
-     *
+     * @param $uuid string, the universally unique identifier assigned to account to reset the password of that account
      */
     public function sendPasswordRecoveryEmail($uuid)
     {
@@ -328,7 +336,10 @@ class UserModel extends Model
 
     }
 
-
+    /**
+     * Generates a uniqu identifier for password recovery
+     * @return string, a unique identifier to send in an email link
+     */
     function gen_uuid() {
         return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
@@ -351,7 +362,11 @@ class UserModel extends Model
         );
     }
 
-
+    /**
+     * Checks that a uuid is valid
+     * @param $str, the uuid used to access the Verify webpage
+     * @return bool, returns true if the uuid exists
+     */
     function check_uuid($str){
         if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$str';")) {
             throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
@@ -362,12 +377,4 @@ class UserModel extends Model
         }
         return true;
     }
-
-
-
-
-
-
-
-
 }
