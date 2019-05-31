@@ -46,10 +46,15 @@ class CandidateController extends UserController
      * Passes a candidate object through the view so that account specific information can be accessed
      */
     public function candidateViewAction(){
-        $account = new CandidateModel();
-        $account->load($_SESSION['candidateToView']);
-        $view = new View('candidateDisplayPage');
-        echo $view->addData('candidateInfo', $account)->render();
+        try {
+            $account = new CandidateModel();
+            $account->load($_SESSION['candidateToView']);
+            $view = new View('candidateDisplayPage');
+            echo $view->addData('candidateInfo', $account)->render();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
     /**
@@ -110,12 +115,8 @@ class CandidateController extends UserController
             }
             $candidateID = $account->getId();
             $pref_qual = $this->updateQualificationAction($candidateID);
-            error_log("test1". $pref_qual);
             $pref_work = $this->updateWorkExperienceAction($candidateID);
-            error_log("test2". $pref_work);
             $pref_skill = $this->updateSkillAction($candidateID);
-            error_log("test3". $pref_skill);
-
             try {
                 $account->savePreferences($pref_qual, $pref_work, $pref_skill);
             } catch (\Exception $e){
@@ -124,10 +125,6 @@ class CandidateController extends UserController
             $this->redirect('candidateHomePage');
         }
     }
-
-
-
-
 
 
     /**
@@ -162,24 +159,32 @@ class CandidateController extends UserController
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
-
     }
 
 
    /**
      * Function to load and update a Qualification
      * Takes the inputs from post request and updates a Qualification
-    * @param int $candidateID, the id of the candidate whose qualifications they belong to
-    * @return int $pref_id, the id of the preferred qualification
+     * @param int $candidateID, the id of the candidate whose qualifications they belong to
+     * @return int $pref_id, the id of the preferred qualification
      */
     public function updateQualificationAction($candidateID){
         $qualificationCount = $_POST['qualification-count'];
         do{
-            $qualification = new QualificationModel();
-
+            try {
+                $qualification = new QualificationModel();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
             $idInput = "qid".$qualificationCount;
             if ($_POST["$idInput"]) {
-                $qualification->load($_POST["$idInput"]);
+                try {
+                    $qualification->load($_POST["$idInput"]);
+                } catch (\Exception $e){
+                    error_log($e->getMessage());
+                    $this->redirect('errorPage');
+                }
             }
             $yearInput = 'year'.$qualificationCount;
             $levelInput = 'level'.$qualificationCount;
@@ -219,14 +224,26 @@ class CandidateController extends UserController
    /**
      * Function to load and update a Work Experience
      * Takes the inputs from post request and updates a Work Experience
+     * @param int $candidateID, the id of the candidate whose work experience they belong to
+     * @return int $pref_id, the id of the preferred work experience
      */
     public function updateWorkExperienceAction($candidateID){
         $workExperienceCount = $_POST['work-experience-count'];
         do {
-            $workExperience = new WorkExperienceModel();
+            try {
+                $workExperience = new WorkExperienceModel();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
             $idInput = 'weid' . $workExperienceCount;
             if ($_POST["$idInput"]) {
-                 $workExperience->load($_POST["$idInput"]);
+                try {
+                    $workExperience->load($_POST["$idInput"]);
+                } catch (\Exception $e){
+                    error_log($e->getMessage());
+                    $this->redirect('errorPage');
+                }
             }
             $roleInput = 'role'.$workExperienceCount;
             $durationInput = 'duration'.$workExperienceCount;
@@ -260,20 +277,30 @@ class CandidateController extends UserController
 
 
     /**
-     * Function to load and update a SKill
+     * Function to load and update a Skill
      * Takes the inputs from post request and updates a Skill
+     * @param int $candidateID, the id of the candidate whose skill they belong to
+     * @return int $pref_id, the id of the preferred skill
      */
     public function updateSkillAction($candidateID){
         $skillCount = $_POST['skill-count'];
 
         do{
-
-            $skill = new SkillModel();
+            try {
+                $skill = new SkillModel();
+            } catch (\Exception $e){
+                error_log($e->getMessage());
+                $this->redirect('errorPage');
+            }
             $idInput = 'sid'.$skillCount;
             if ($_POST["$idInput"]) {
-                $skill->load($_POST["$idInput"]);
+                try {
+                    $skill->load($_POST["$idInput"]);
+                } catch (\Exception $e){
+                    error_log($e->getMessage());
+                    $this->redirect('errorPage');
+                }
             }
-
             $fieldInput = 'field'.$skillCount;
             $subFieldInput = 'sub-field'.$skillCount;
             $contentsInput = 'contents'.$skillCount;
@@ -296,6 +323,7 @@ class CandidateController extends UserController
             try {
                 $skill->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             if($isPreferred){
@@ -306,16 +334,9 @@ class CandidateController extends UserController
         return $pref_id;
     }
 
-
-
-
-
     /**
      * Function to get all the Types within the database and echo's
      *
-     * @throws mysqli_sql_exception if the SQL query fails
-     *
-     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateTypesAction(){
         try {
@@ -333,10 +354,6 @@ class CandidateController extends UserController
 
     /**
      * Function to get all the Levels within the database and echo's
-     *
-     * @throws mysqli_sql_exception if the SQL query fails
-     *
-     * @return bool|\mysqli_result all the fields and corresponding id's
      */
     public function updateLevelsAction(){
         try {
@@ -353,24 +370,48 @@ class CandidateController extends UserController
     }
 
 
-
+    /**
+     * Function to delete a candidates work experience from the database
+     */
     public function deleteWorkExperienceAction(){
         $id = $_GET["q"];
-        $model = new WorkExperienceModel();
-        $model->delete($id);
+        try {
+            $model = new WorkExperienceModel();
+            $model->delete($id);
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
+
+    /**
+     * Function to delete a candidates skill from the database
+     */
     public function deleteSkillAction(){
         $id = $_GET["q"];
-        $model = new SkillModel();
-        $model->delete($id);
+        try {
+            $model = new SkillModel();
+            $model->delete($id);
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
 
+    /**
+     * Function to delete a candidates qualification from the database
+     */
     public function deleteQualificationAction(){
         $id = $_GET["q"];
-        $model = new QualificationModel();
-        $model->delete($id);
+        try {
+            $model = new QualificationModel();
+            $model->delete($id);
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
 }

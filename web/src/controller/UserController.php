@@ -21,15 +21,13 @@ class UserController extends Controller
      */
     public function logoutAction()
     {
-        //unset($_SESSION['loginStatus']);
         session_unset();
         $this->redirect("home");
     }
 
- 
-
     /**
-    * Manages a request to register a user, checks if the username already exists in the database.
+     * Manages a request to register a user, checks if the username already exists in the database.
+     * Gets the username from the GET array
     */
     public function validateUsernameAction()
     {
@@ -55,7 +53,6 @@ class UserController extends Controller
             $userType = $user->determineType($userID);
 
             $_SESSION["loginStatus"] = $userType;
-            //Currently just saves the UserID however will be modified to save more data later to make searching easier
             $_SESSION["UserID"] = $userID;
 
             if($userType == 1) {
@@ -118,8 +115,6 @@ class UserController extends Controller
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-        //To complete
-        //Generic to both users
     }
 
 
@@ -147,7 +142,6 @@ class UserController extends Controller
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
-
     }
 
     /**
@@ -159,7 +153,6 @@ class UserController extends Controller
         $uuid = $_POST['uuid'];
         $guid = new GuidModel();
         $guid->load($uuid);
-
 
         if($password != $confirmPassword){
             $this->redirect('updatePassword');
@@ -173,9 +166,5 @@ class UserController extends Controller
             $this->redirect('updatePasswordConfirmation');
             $guid->deleteGuid();
         }
-
-
     }
-
-
 }

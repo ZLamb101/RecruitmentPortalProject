@@ -22,9 +22,7 @@ class EmployerController extends UserController
      */
     public function indexAction()
     {
-
         if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-
             try{
                 $account = new EmployerModel();
                 $account->load($_SESSION["UserID"]);
@@ -36,15 +34,9 @@ class EmployerController extends UserController
         } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
             $this->redirect('candidateHomePage');
         } else {
-
             $this->redirect('home');
         }
-
-
     }
-
-
-
 
     /**
      * Action to load the employerEditInfoPage
@@ -69,7 +61,6 @@ class EmployerController extends UserController
             $this->redirect('home');
         }
     }
-
 
     /**
      * Function to update a Employer account
@@ -101,11 +92,9 @@ class EmployerController extends UserController
         }
     }
 
-
-
     /**
      * Action to create an Employer account
-     * Retreives employer information from post request and saves to account, redirects to confirmation page.
+     * Retrieves employer information from post request and saves to account, redirects to confirmation page.
      */
     public function createAccountAction()
     {
@@ -129,9 +118,5 @@ class EmployerController extends UserController
         } catch (\Exception $e) {
             $this->redirect('errorPage');
         }
-
-
-        //To complete`
-        //Call super
     }
 }

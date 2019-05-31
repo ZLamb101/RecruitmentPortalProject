@@ -18,7 +18,9 @@ class ShortListController extends Controller
 {
 
     /**
-     * Gets the id of the short list to rename and the new name for it from the get array
+     * Function to rename a shortlist
+     *
+     * Gets the id of the short list to rename and the new name for it from the GET array
      * Attempts to rename said shortlist using the given parameters and handles errors appropriately
      */
     public function renameShortListAction()
@@ -35,6 +37,8 @@ class ShortListController extends Controller
     }
 
     /**
+     * Function to change the description of a shortlist
+     *
      * Gets the id of the short list to change the description of and the new description for it from the GET array
      * Attempts to change the description of said shortlist using the given parameters and handles errors appropriately
      */
@@ -52,8 +56,10 @@ class ShortListController extends Controller
     }
 
     /**
-     * Gets the id of the short list to rename and the ID of the candidate to delete from the GET array
-     * Attempts to delete said candidate from the specified shortList
+     * Function to delete a candidate from a shortlist
+     *
+     * Gets the id of the short list and the ID of the candidate to delete from said shortlist from the GET array
+     * Attempts to delete said candidate from the specified shortList and handles exceptions appropriately
      */
     public function deleteFromShortListAction()
     {
@@ -67,7 +73,6 @@ class ShortListController extends Controller
             $list->load($listID);
             $count = 0;
             $list->deleteFromShortList($listID, $candidateID);
-            //$list->save();
             $list->load($listID);
             $candidates = $list->getCandidates();
             echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
@@ -95,7 +100,10 @@ class ShortListController extends Controller
     }
 
     /**
-     * echo's the candidates in a shortlist
+     * Function to display a shortlist
+     *
+     * Gets the ID of the shortlist to display from the GET array
+     * echo's the candidates in the associated shortlist and handles errors appropriately
      */
     public function displayShortListAction()
     {
@@ -122,7 +130,12 @@ class ShortListController extends Controller
     }
 
     /**
-     *Function to create a new shortList
+     * Function to create a new shortList
+     *
+     * Get the name of the shortlist, the description of the shortlist and the ID of the employer
+     * the shortlist belongs to from the GET array
+     *
+     * Re-displays all shortlists upon creation.
      */
     public function newShortListAction()
     {
@@ -199,6 +212,8 @@ class ShortListController extends Controller
 
     /**
      * Function to add a candidate to a shortlist.
+     *
+     * Gets both the candidate and shortlist ID from the GET array
      */
     public function addToShortListAction()
     {
@@ -212,6 +227,8 @@ class ShortListController extends Controller
 
     /**
      * Function to add all candidates to a shortlist.
+     *
+     * Gets a list of all candidate ids and the shortlist id being added to from the GET array
      */
     public function addAllToShortListAction()
     {
@@ -228,6 +245,8 @@ class ShortListController extends Controller
 
     /**
      * Deletes a short list from the database
+     *
+     * Gets the ID of the shortlist to delete from the GET array
      */
     public function deleteShortListAction()
     {
@@ -238,7 +257,9 @@ class ShortListController extends Controller
     }
 
     /**
-     *Function to send invites to all candidates on the specified shortList
+     * Function to send invites to all candidates on the specified shortList
+     *
+     * Get's the shortlist ID from the GET array
      */
     public function sendInviteAllAction(){
 
@@ -264,6 +285,8 @@ class ShortListController extends Controller
 
     /**
      * Function to load the page to write an email to a short list of candidates
+     *
+     * Get's the ID of the shortlist being sent to from the GET array
      */
     public function writeEmailAction(){
         $shortlistId = $_GET["list_id"];
