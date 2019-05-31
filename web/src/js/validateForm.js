@@ -17,7 +17,6 @@ function validateForm()
             if (myVar === 'true') {
                 submitButton.click();
             } else {
-               // alert(myVar);
                 alert("Username already exists");
             }
         })
@@ -45,7 +44,7 @@ function getValidate(callback) {
 /**
  * Compares passwords to make sure they match.
  *
- * @return {Boolean}      Whether validation fails or passes
+ * @return {Boolean} returns false if passwords don't match, true if they do
  */
 function validatePassword(){
 
