@@ -11,7 +11,7 @@ include "header.phtml"
 	<!--- Content Start -->
     <div class="container-fluid from-top " id = "page2">
         <?php
-
+        //Alerts the employer if their calendar link is missing
         if ($employerInfo->getCalendarLink() == "NULL"){
 
             echo "<div class=\"\ small-box-format center alert alert-danger\">";
@@ -20,7 +20,7 @@ include "header.phtml"
         }
 
         ?>
-
+        <!--Displays the employers information-->
         <div class="partition large-box-format" id="welcome">
             <div class= "row">
                 <div class = "title col-sm-4">
@@ -48,6 +48,7 @@ include "header.phtml"
             </div>
             <div id="short-lists" class="shortlists">
                 <?php $shortLists = $employerInfo->getShortLists();
+                //Displays their shortlists
                 $i = 0;
                 $candCount = 0;
                 $shortlistCount = 0;
@@ -119,8 +120,6 @@ include "header.phtml"
         </div>
 	</div>
 	<!--- Content Ends here ----------->
-
-
 
 <!---------- Body ends -------------------->
 <?php include "footer.phtml" ?>

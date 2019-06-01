@@ -10,14 +10,10 @@ include "header.phtml"
 	<!--- Content Start -->
 	<div class="container-fluid from-top from-bottom" id= "page">
         <div class ="partition large-box-format">
-<!--            <div class="center">-->
-<!--                <img id="logo" src="/static/styles/Images/VN.png">-->
-<!--            </div>-->
-
             <div class="center">
                 <h1>Edit Information</h1>
             </div>
-	   <div id="registration">
+	    <div id="registration">
             <form method="POST" name="registration" action="<?= $linkTo('updateCandidateData'); ?>" >
                 <div class=" partition zebra large-box-format">
                     <div class="row center">
@@ -55,7 +51,7 @@ include "header.phtml"
                     </div>
                     <?php $workExperience = $candidateInfo->getWorkExperience();
                     $i = 0;
-
+                    //Loop displays each of the candidates existing work experiences in an editable format
                     foreach ($workExperience as $work){
                         $id = $work->getId();
                         echo "<div id = \"workExperience".$i."\" class = \"edit-box partition interior-box-format\">";
@@ -66,7 +62,6 @@ include "header.phtml"
                         $employer = "employer".$i;
                         $workId = "weid".$i;
                         $workId2 = "workId".$i;
-
 
                         if($candidateInfo->getPreferredWorkExperience() != $id) {
                             echo "<div class=\"sm-pad form-group\"><label for=\"work-experience-preference".$i."\"><a href='#!'   data-toggle='tooltip' data-placement='top' title='The preferred button indicates which card will be displayed when employers search for you!'> <span class='glyphicon glyphicon-info-sign'></span></a> Preferred: </label><input class='pull-right' type=radio value=\"" . $i . "\" id=\"work-experience-preference".$i."\" name='work-experience-preference'></div>";
@@ -95,6 +90,7 @@ include "header.phtml"
                         <input class="col-sm-1 btn btn-success" type="button" id="add-qualification" value="Add" onclick="addQualification()">
                     </div>
                     <?php $qualifications = $candidateInfo->getQualifications();
+                    //Loop displays each of the candidates existing qualifications in an editable format
                     $i = 0;
                     foreach ($qualifications as $qual){
                         echo "<div id = \"qualification".$i."\" class = \"edit-box partition interior-box-format\">";
@@ -161,6 +157,7 @@ include "header.phtml"
                         <input class="col-sm-1 btn btn-success" type="button" id="add-skill" value="Add" onclick="addSkill()">
                     </div>
                     <?php $skills = $candidateInfo->getSkills();
+                    //Loop displays each of the candidates existing skills in an editable format
                     $i = 0;
 
                     foreach ($skills as $skill){
@@ -229,6 +226,8 @@ include "header.phtml"
                         </div>
                     <?php
                     $availability = $candidateInfo->getAvailability();
+                    //Displays the candidates availability in an editable format. Calculations done to seperate each one
+                    //due to them being saved in a binary representation
                     $availabilityString = "";
                     if($availability - 8 >= 0) {
                         $availability -= 8;
