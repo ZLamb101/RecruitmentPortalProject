@@ -10,7 +10,7 @@ session_start();
 /**
  * Class ShortListController
  *
- *
+ * Class contains all actions relevant to the shortListModel
  *
  * @package bjz\portal\controller
  */

@@ -10,19 +10,13 @@ include "header.phtml"
 	<div class= "container-fluid from-top" id="page2">
 
         <div class="partition large-box-format" id="search-params">
-<!--            <div class="center">-->
-<!--                <img id="logo" src="/static/styles/Images/VN.png">-->
-<!--            </div>-->
-<!---->
-<!--            <div class="center">-->
-<!--                <h4>Candidate Search</h4>-->
-<!--            </div>-->
             <form class="horizontal">
                 <div class="row center">
                     <div class="col-sm-6 form-group">
                         <label class="control-label" for="field0">All Categories</label>
                         <select class="form-control" id="field0" name="field0" onclick="updateFields(this)">
                             <?php
+                            //Populates the drop down with all the fields
                             echo "<option value=\"all\">All Categories</option>";
                             foreach ($Fields as $field){
                                 echo "<option value=\"".$field['id']."\">".$field['field']."</option>";
@@ -36,6 +30,7 @@ include "header.phtml"
                         <select class="form-control" id="qual0" name="qual0" >
                             <option value="all">All Qualifications</option>
                             <?php
+                            //Populates the drop down with all the qualifications
                             foreach ($Quals as $qual) {
                                 echo "<option value=\"".$qual['id']."\">".$qual['type']."</option>";
                             }
@@ -111,6 +106,7 @@ include "header.phtml"
                     <select class="mw-50 form-control shortlist-inline" id="shortlist0" name="shortlist0" onclick="updateShortList(this)">
                         <option value="all">All Shortlists</option>
                         <?php
+                        //Populates the drop-down with all the employers shortlists
                             $shortLists = $employerInfo->getShortLists();
                             foreach ($shortLists as $shortList) {
                                 echo "<option value=\"".$shortList->getId()."\">".$shortList->getName()."</option>";

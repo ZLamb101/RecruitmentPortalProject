@@ -11,6 +11,7 @@ include "header.phtml"
 
 		<div class="partition large-box-format" id="info">
             <div class="row">
+                <!--Displays the candidates information-->
                 <div class = "title col-sm-4">
                     <h2>Welcome <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
                 </div>
@@ -59,6 +60,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $workExperience = $candidateInfo->getWorkExperience();
+            //Displays the candidates work experience
             $noWork = false;
             echo "<div class=\"row\">";
             $count = 0;
@@ -91,6 +93,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $qualifications = $candidateInfo->getQualifications();
+            //Displays the candidates qualifications
             $noQual = false;
             echo "<div class=\"row\">";
             $count = 0;
@@ -124,6 +127,7 @@ include "header.phtml"
                 <a class="col-sm-1 btn btn-success" href="<? echo $linkTo('editCandidateInfoPage'); ?>"> Add New </a>
             </div>
             <?php $skills = $candidateInfo->getSkills();
+            //Displays the candidates skills
             $noSkill = false;
             echo "<div class=\"row\">";
             $count = 0;
@@ -150,14 +154,13 @@ include "header.phtml"
 
 
             if($noQual || $noWork || $noSkill){
+                //Displays an alert if they are missing any information
                 echo "<script>missingInfoAlert()</script>";
             }
             ?>
         </div>
     </div>
 	<!--- Content Ends here ----------->
-
-
 
 <!---------- Body ends -------------------->
 <?php include "footer.phtml" ?>

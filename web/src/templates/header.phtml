@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--Includes necessary functionality-->
     <meta charset="UTF-8">
     <title>Recruitment Portal Ltd</title>
     <link rel="shortcut icon" href="https://nuvo.vesta-central.com/wp-content/uploads/2017/11/square_lg.jpg">
@@ -44,6 +45,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
                 <?php
+                //Displays personalised navbar dependant on the type of user
                 use bjz\portal\controller\Controller;
                 if($_SESSION["loginStatus"] == Controller::GUEST){
                     echo "<li><a href=\"".$linkTo('home')."\"> Login </a></li>";

@@ -11,6 +11,7 @@ include "header.phtml"
         <div class="info">
 
     		<div class="partition large-box-format">
+                <!--Displays the candidates Information-->
                 <div class="title">
                     <h2 class="text-center">Page of <?= $candidateInfo->getGName()." ".$candidateInfo->getFName() ?>.</h2>
                 </div>
@@ -49,6 +50,7 @@ include "header.phtml"
         <div id="work-experience " class ="partition large-box-format">
             <h2 class="text-center">Work Experience</h2>
             <?php $workExperience = $candidateInfo->getWorkExperience();
+            //Displays each work experience
             foreach ($workExperience as $work){
                 echo "<div class=\"row center\">";
                 echo "<div class=\"partition col-sm-3 interior-box-format zebra\">";
@@ -64,6 +66,7 @@ include "header.phtml"
         <div id="qualifications " class ="partition large-box-format">
             <h2 class="text-center">Qualifications</h2>
             <?php $qualifications = $candidateInfo->getQualifications();
+            //Displays each qualification
             foreach ($qualifications as $qual){
                 echo "<div class=\"row center\">";
                 echo "<div class=\"partition col-sm-3 interior-box-format zebra\">";
@@ -80,6 +83,7 @@ include "header.phtml"
         <div id="skills" class ="partition large-box-format">
             <h2 class="text-center">Skills</h2>
             <?php $skills = $candidateInfo->getSkills();
+            //Displays each skill
             foreach ($skills as $skill){
                 echo "<div class=\"row center\">";
                 echo "<div class=\"partition col-sm-3 interior-box-format zebra\">";
@@ -93,10 +97,7 @@ include "header.phtml"
         </div>
 	</div>
 
-	</div>
 	<!--- Content Ends here ----------->
-
-
 
 <!---------- Body ends -------------------->
 <?php include "footer.phtml" ?>

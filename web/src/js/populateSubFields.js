@@ -1,8 +1,12 @@
+/***
+ * Function to update the subfields based off of the option the user has selected
+ * @param button, the dropdown the user selects the main field. The users selection triggers this function
+ */
 function updateFields(button)
 {
 
     var subFieldString = "sub-field";
-    var index = button.id;
+    var index = button.id;  //Get the users selection
 
     subFieldString = subFieldString.concat(index[5]);
 
@@ -12,7 +16,11 @@ function updateFields(button)
         return false;
 }
 
-
+/***
+ * Function to call the php function to populate the subfields based upon the input given
+ * @param button, the dropdown the user selects the main field. The users selection triggers this function
+ * @param callback, a function that describes what to do with the data retrieved
+ */
 function get2(button, callback) {
 
     var fieldString = "field";

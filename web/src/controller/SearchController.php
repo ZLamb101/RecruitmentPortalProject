@@ -14,7 +14,7 @@ session_start();
 /**
  * Class SearchController
  *
- * Class controls all actions relevant to the candidateCollection Model
+ * Class controls all actions relevant to the searching
  *
  * @package bjz\portal\controller
  */
