@@ -289,6 +289,7 @@ class ShortListController extends Controller
      * Get's the ID of the shortlist being sent to from the GET array
      */
     public function writeEmailAction(){
+        $page_from = $_GET["from"];
         $shortlistId = $_GET["list_id"];
         $shortlist = new ShortListModel();
         $shortlist->load($shortlistId);
@@ -297,6 +298,19 @@ class ShortListController extends Controller
         $employer = new EmployerModel();
         $employerLoadId = $employer->findLoadId($employerId);
         $employer->load($employerLoadId);
+
+        // Check if employer has no calendar linked.
+        // If true, cannot proceed.
+
+        if($employer->getCalendarLink() == "NULL"){
+            $_SESSION['alert'] = "You cannot send an email without first linking a calendar to your account";
+            if($page_from == "search"){
+                $this->redirect('searchPage');
+            } else if ($page_from == "home"){
+                $this->redirect('employerHomePage');
+            }
+            return;
+        }
 
         $view = new View('writeEmail');
         $view->addData('employer', $employer);

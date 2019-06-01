@@ -12,6 +12,12 @@ include "header.phtml"
     <div class="container-fluid from-top " id = "page2">
         <?php
 
+        if ($_SESSION['alert'] != ""){
+            echo "<div class=\"\ small-box-format center alert alert-warning\">";
+            echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
+            echo "</div>";
+        }
+
         if ($employerInfo->getCalendarLink() == "NULL"){
 
             echo "<div class=\"\ small-box-format center alert alert-danger\">";
@@ -63,7 +69,7 @@ include "header.phtml"
                     if($list->isHasInvited()) {
                         echo "<input class =\"btn btn-success button-grouping col-sm-2\" type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
                     }else{
-                        echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
+                        echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."&from=home\">Send Invite Email</a></p>";
                     }
                     echo "</div>";
                     echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
@@ -106,7 +112,7 @@ include "header.phtml"
                     $i++;
                 }
                 if($shortlistCount==0){
-                    echo "<div class=\"partition center   interior-box-format\">";
+                    echo "<div class=\"partition center zebra interior-box-format\">";
                     echo "<p>Looks like you have no shortlists. Click below to create one and start searching! </p>";
                     echo "</div>";
                 }

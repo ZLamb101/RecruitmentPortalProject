@@ -38,9 +38,6 @@ class ShortListModel extends Model
      */
     private $hasInvited;
 
-
-
-
     /**
      * Informs whether a shortlist has sent invites before.
      * @return bool
