@@ -2,7 +2,7 @@
  * Processes a search request and generates the output
  */
 function showResult() {
-    document.getElementById("livesearch").innerHTML = "<p>Searching...</p>"; // Placeholder for spinner
+    document.getElementById("livesearch").innerHTML = "<p>Searching...</p>";
     var str = document.getElementById("skill-search").value;
     var field = document.getElementById("field0").value;
     var sub_field = document.getElementById("sub-field0").value;
@@ -55,6 +55,10 @@ function showResult() {
 
 }
 
+/***
+ * Function to Add a single candidate to the selected shortlist
+ * @param candId, the ID of the candidate being added
+ */
 function addToShortlist(candId){
     var short_id = document.getElementById("shortlist0").value;
     xmlhttp = new XMLHttpRequest();
@@ -72,7 +76,7 @@ function addToShortlist(candId){
 }
 
 /***
- *
+ * Function to add all candidates to the selected shortlist
  * @param candidates, all candidates to  be added
  */
 function addAllToShortlist(candidates){
@@ -92,8 +96,10 @@ function addAllToShortlist(candidates){
 }
 
 /***
+ * Function to view more information on the corresponding candidate
  *
- * @param candidates, all candidates to  be added
+ * @param url, the url to be opened
+ * @param candidatId, the ID of the candidate who's information is to be displayed
  */
 function displayCandidate(url, candidateId){
 
@@ -103,13 +109,16 @@ function displayCandidate(url, candidateId){
 
     }, candidateId)
     return false;
-
-
 }
 
+/***
+ * Function calls a php function retrieve the candidates information
+ *
+ * @param callback, a function that describes what to do with the data retrieved
+ * @param candidateId, the ID of the candidate being displayed
+ */
 function getDisplay(callback, candidateId) {
     xmlhttp = new XMLHttpRequest();
-
 
     xmlhttp.open("GET","selectCandidateToView.php?q="+candidateId ,true);
     xmlhttp.onreadystatechange = function () {
