@@ -1,6 +1,7 @@
 
 /**
- * Compares passwords to make sure they match. Call a php function to search rdb for duplicates of username. 
+ * calls a function with a callback passed through
+ * that either enables or disables the send invite button dependent on the output.
  *
  * @return {Boolean}      Whether validation fails or passes
  */
@@ -21,6 +22,13 @@ function updateShortList()
     return false;
 }
 
+/**
+* Creates an XML request to displayShortList.php
+* Sends XML request,
+* apply callback.
+* 
+* @param callback, the function to be called
+**/
 function getCandidates(callback) {
     xmlhttp = new XMLHttpRequest();
 
@@ -40,22 +48,16 @@ function getCandidates(callback) {
 }
 
 /**
- * Sends Invites to all Candidates in the selected Shortlist
+ * Creates an XML request to sendInvites.php
+ * Sends xml request which Sends the shortlist invites.
+ *
+ * @param shortlist, a list of candidates that are to be sent invites.
  */
 function sendInvite(shortlist){
     var submitButton = document.getElementById('submit-handle');
     var emailContent = document.getElementById('content').value;
 
     xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // defensive check
-            if (typeof callback === "function") {
-
-            }
-        }
-    };
 
     xmlhttp.open("GET", "sendInvites.php?q=" + shortlist + "&content="+emailContent, true);
     submitButton.click();
@@ -65,6 +67,9 @@ function sendInvite(shortlist){
 
 /***
  * Deletes a shortlist from the database
+ *
+ * @param titleID,  The ID of the title.
+ * @param listID, The ID ofthe list to be deleted.
  */
 function deleteShortList(titleID, listId){
     if(!confirm("Deleting this short list is permanent. Are you sure you want to delete?")){
@@ -98,7 +103,6 @@ function deleteShortList(titleID, listId){
 /***
  * Directs an employer to the write email page
  */
-
 function writeEmail(){
     listId = document.getElementById('shortlist0').value;
     window.location.assign("writeEmail.php?list_id="+listId);
