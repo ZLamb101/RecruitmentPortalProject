@@ -252,7 +252,6 @@ class EmployerModel extends UserModel
      */
     public function save()
     {
-        //SHORT LIST SAVE NOT WRITTEN
         $uid = $this->user_id ?? "NULL";
         $uid = $this->db->real_escape_string($uid);
 
