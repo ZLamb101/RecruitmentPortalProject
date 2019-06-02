@@ -379,7 +379,7 @@ class CandidateController extends UserController
      * Function to delete a candidates work experience from the database
      */
     public function deleteWorkExperienceAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new WorkExperienceModel();
             $model->delete($id);
@@ -394,7 +394,7 @@ class CandidateController extends UserController
      * Function to delete a candidates skill from the database
      */
     public function deleteSkillAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new SkillModel();
             $model->delete($id);
@@ -409,7 +409,7 @@ class CandidateController extends UserController
      * Function to delete a candidates qualification from the database
      */
     public function deleteQualificationAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new QualificationModel();
             $model->delete($id);

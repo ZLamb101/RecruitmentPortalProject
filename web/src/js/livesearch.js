@@ -124,7 +124,7 @@ function displayCandidate(url, candidateId){
 function getDisplay(callback, candidateId) {
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET","selectCandidateToView.php?q="+candidateId ,true);
+    xmlhttp.open("GET","selectCandidateToView.php?id="+candidateId ,true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
