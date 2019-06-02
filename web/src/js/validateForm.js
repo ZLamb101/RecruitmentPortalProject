@@ -1,4 +1,3 @@
-
 /**
  * Call a js function to check if passwords match
  * Call a php function to search rdb for duplicates of username.
