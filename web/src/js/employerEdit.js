@@ -67,11 +67,6 @@ function deleteFromShortList(listID, candidateID, divID, i) {
       //  document.getElementById(("candidates"+i)).innerHTML = "";
         document.getElementById(("candidates"+i)).innerHTML = this.responseText;
     })
-    // var str = "cand" + divID;
-    // document.getElementById(str).innerHTML = "";
-    // var buttonElement = "deleteCandidate"+divID;
-    // var elem = document.getElementById(buttonElement);
-    // elem.parentNode.removeChild(elem);
 }
 
 /**
@@ -100,6 +95,15 @@ function get(listID, candidateID, i, callback) {
     xmlhttp.send();
 }
 
+/**
+ * Creates a prompt to get the new shortlists Name.
+ * if name is input, Creates prompt for description.
+ * Calls a function which Creates a new shortlist, and In its callback adds the html.
+ * Increments the number of shortlists on the page.
+ * 
+ * @param ID, the ID of the candidate, that the shortlist will belong too.
+ * @param i, the iteration of the shortlist assigned to the candiate.
+ */
 function newShortList(ID,i) {
     var name = prompt("Please enter the new name: ", "");
 

@@ -1,6 +1,8 @@
 
 /**
- * Create a <div> node with input fields "year" and "name"
+ * if the max number of skills has yet to be reached
+ * Create a <div> node with input fields "year" ,"level", "name" and "major".
+ * Call a php function to search rdb and inserts qualification level data.
  * increment the names of the inputs for each invocation.
  * append new <div> to qualification in phtml
  */
@@ -170,6 +172,7 @@ function addQualification(){
 
 
 /**
+ * if the max number of skills has yet to be reached
  * Create a <div> node with input fields "role","duration" and "employer"
  * increment the names of the inputs for each invokation.
  * append new <div> to work experience in phtml
@@ -312,7 +315,13 @@ function addWorkExperience(){
 }
 
 
-
+/**
+ * if the max number of skills has yet to be reached
+ * Create a <div> node with input fields "field","sub-field" and "contents" for a skill
+ * Call a php function to search rdb to fill the skill field with data.
+ * increment the names of the inputs for each invokation.
+ * append new <div> to skill in phtml
+ */
 function addSkill(){
 	var count = document.getElementById("skill-count");
 	var it = count.getAttribute("value");
@@ -456,7 +465,12 @@ function addSkill(){
 }
 
 
-
+/**
+* Creates an XML request to populatefields.php
+* Sends XML request,
+* apply callback.
+* @param callback, the function to be called
+**/
 function getFields(callback) {
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", "populateFields.php?q=" , true);
@@ -472,7 +486,11 @@ function getFields(callback) {
     xmlhttp.send();
 }
 
-
+/**
+* Aslong as a level is selected
+* calls a function, on callback sets all of the type element's inner Html with the response text.
+* @param {Object}      button, Contains what Qualification level is Selected.
+**/
 function updateTypes(button)
 {
 	if(button.value != "all") {
@@ -480,7 +498,6 @@ function updateTypes(button)
 		var index = button.id;
 
 		typeString = typeString.concat(index[5]);
-		// subFieldString = subFieldString.concat(count.toString(10));
 
 		getTypes(button, function () {
 			document.getElementById(typeString).innerHTML = this.responseText;
@@ -489,6 +506,13 @@ function updateTypes(button)
     return false;
 }
 
+/**
+* Creates an XML request to populateTypes.php
+* Sends XML request,
+* apply callback.
+* 
+* @param callback, the function to be called
+**/
 function getTypes(button, callback) {
 
 		xmlhttp = new XMLHttpRequest();
@@ -508,6 +532,13 @@ function getTypes(button, callback) {
 
 }
 
+
+/**
+* Creates an XML request to populateLevels.php
+* Sends XML request,
+* apply callback.
+* @param callback, the function to be called
+**/
 function getLevels(callback) {
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET", "populateLevels.php?q=" , true);
@@ -523,6 +554,11 @@ function getLevels(callback) {
 	xmlhttp.send();
 }
 
+/**
+ * Create a <div> node 
+ * Creates an alert and attaches it to the div node
+ * append new <div> to candidate page
+ */
 function missingInfoAlert() {
     var alertBox = document.createElement("div");
     alertBox.setAttribute("class","small-box-format center alert alert-danger");
