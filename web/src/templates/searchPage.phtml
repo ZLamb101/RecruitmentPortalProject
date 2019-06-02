@@ -9,6 +9,18 @@ include "header.phtml"
 	<!--- Content Start -->
 	<div class= "container-fluid from-top" id="page2">
 
+        <?php
+
+        if ($_SESSION['alert'] != ""){
+            echo "<div class=\"\ small-box-format center alert alert-warning\">";
+            echo "<p>".$_SESSION['alert'].",  Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> to attach one</p>";
+            echo "</div>";
+        }
+
+        $_SESSION['alert'] = "";
+
+        ?>
+
         <div class="partition large-box-format" id="search-params">
             <form class="horizontal">
                 <div class="row center">

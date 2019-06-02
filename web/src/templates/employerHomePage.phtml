@@ -14,15 +14,17 @@ include "header.phtml"
 
         if ($_SESSION['alert'] != ""){
             echo "<div class=\"\ small-box-format center alert alert-warning\">";
-            echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
+            echo "<p>".$_SESSION['alert'].",  Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> to attach one</p>";
             echo "</div>";
         }
+
+        $_SESSION['alert'] = "";
 
         //Alerts the employer if their calendar link is missing
         if ($employerInfo->getCalendarLink() == "NULL"){
 
             echo "<div class=\"\ small-box-format center alert alert-danger\">";
-            echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> or go to edit info to attach one</p>";
+            echo "<p> You do not have a google calender attached, Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> to attach one</p>";
             echo "</div>";
         }
 
