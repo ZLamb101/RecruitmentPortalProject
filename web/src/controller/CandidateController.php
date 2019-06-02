@@ -269,6 +269,7 @@ class CandidateController extends UserController
 
                 $workExperience->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             if($isPreferred){

@@ -219,10 +219,15 @@ class ShortListController extends Controller
     {
         $candId = $_GET['candId'];
         $shortId = $_GET['shortId'];
-        $short_list = new ShortListModel();
-        $short_list->load($shortId);
-        $short_list->addCandidate($candId);
-        $short_list->save();
+        try {
+            $short_list = new ShortListModel();
+            $short_list->load($shortId);
+            $short_list->addCandidate($candId);
+            $short_list->save();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
     /**
@@ -234,13 +239,18 @@ class ShortListController extends Controller
     {
         $candIDs = $_GET['candidates'];
         $shortId = $_GET['shortId'];
-        $ids = explode(",",$candIDs);
-        $short_list = new ShortListModel();
-        $short_list->load($shortId);
-        foreach ($ids as $id) {
-            $short_list->addCandidate($id);
+        try {
+            $ids = explode(",", $candIDs);
+            $short_list = new ShortListModel();
+            $short_list->load($shortId);
+            foreach ($ids as $id) {
+                $short_list->addCandidate($id);
+            }
+            $short_list->save();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
-        $short_list->save();
     }
 
     /**
@@ -251,9 +261,14 @@ class ShortListController extends Controller
     public function deleteShortListAction()
     {
         $listId = $_GET['listId'];
-        $short_list = new ShortListModel();
-        $short_list->load($listId);
-        $short_list->delete();
+        try {
+            $short_list = new ShortListModel();
+            $short_list->load($listId);
+            $short_list->delete();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 
     /**
@@ -264,23 +279,27 @@ class ShortListController extends Controller
     public function sendInviteAllAction(){
 
         $shortListId = $_GET["q"];
-        $shortlist = new ShortListModel();
-        $shortlist->load($shortListId);
-
         $content = $_GET['content'];
 
-        $employerId = $shortlist->getOwnerId();
-        $employer = new EmployerModel();
-        $employerLoadId = $employer->findLoadId($employerId);
-        $employer->load($employerLoadId);
+        try {
+            $shortlist = new ShortListModel();
+            $shortlist->load($shortListId);
 
-        $candidates = $shortlist->getCandidates();
-        foreach ($candidates as $candidate) {
-            $shortlist->sendInviteEmail($candidate, $content, $employer);
+            $employerId = $shortlist->getOwnerId();
+            $employer = new EmployerModel();
+            $employerLoadId = $employer->findLoadId($employerId);
+            $employer->load($employerLoadId);
+
+            $candidates = $shortlist->getCandidates();
+            foreach ($candidates as $candidate) {
+                $shortlist->sendInviteEmail($candidate, $content, $employer);
+            }
+            $shortlist->setHasInvited(1);
+            $shortlist->save();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
-        $shortlist->setHasInvited(1);
-        $shortlist->save();
-
     }
 
     /**
@@ -291,29 +310,35 @@ class ShortListController extends Controller
     public function writeEmailAction(){
         $page_from = $_GET["from"];
         $shortlistId = $_GET["list_id"];
-        $shortlist = new ShortListModel();
-        $shortlist->load($shortlistId);
 
-        $employerId = $shortlist->getOwnerId();
-        $employer = new EmployerModel();
-        $employerLoadId = $employer->findLoadId($employerId);
-        $employer->load($employerLoadId);
+        try {
+            $shortlist = new ShortListModel();
+            $shortlist->load($shortlistId);
 
-        // Check if employer has no calendar linked.
-        // If true, cannot proceed.
+            $employerId = $shortlist->getOwnerId();
+            $employer = new EmployerModel();
+            $employerLoadId = $employer->findLoadId($employerId);
+            $employer->load($employerLoadId);
 
-        if($employer->getCalendarLink() == "NULL"){
-            $_SESSION['alert'] = "You cannot send an email without first linking a calendar to your account";
-            if($page_from == "search"){
-                $this->redirect('searchPage');
-            } else if ($page_from == "home"){
-                $this->redirect('employerHomePage');
+            // Check if employer has no calendar linked.
+            // If true, cannot proceed.
+
+            if ($employer->getCalendarLink() == "NULL") {
+                $_SESSION['alert'] = "You cannot send an email without first linking a calendar to your account";
+                if ($page_from == "search") {
+                    $this->redirect('searchPage');
+                } else if ($page_from == "home") {
+                    $this->redirect('employerHomePage');
+                }
+                return;
             }
-            return;
-        }
 
-        $view = new View('writeEmail');
-        $view->addData('employer', $employer);
-        echo $view->addData('shortlist', $shortlist)->render();
+            $view = new View('writeEmail');
+            $view->addData('employer', $employer);
+            echo $view->addData('shortlist', $shortlist)->render();
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
+        }
     }
 }
