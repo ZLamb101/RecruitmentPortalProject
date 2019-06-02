@@ -19,7 +19,7 @@ function deleteWorkExperience(number, id){
             xmlhttp = new XMLHttpRequest();
 
 
-            xmlhttp.open("GET", "deleteWorkExperience.php?q=" + id, true);
+            xmlhttp.open("GET", "deleteWorkExperience.php?id=" + id, true);
 
             xmlhttp.send();
         }
@@ -75,7 +75,7 @@ function deleteSkill(number,id){
         if(id >= 0) {
             xmlhttp = new XMLHttpRequest();
 
-            xmlhttp.open("GET", "deleteSkill.php?q=" + id, true);
+            xmlhttp.open("GET", "deleteSkill.php?id=" + id, true);
 
             xmlhttp.send();
         }
@@ -130,7 +130,7 @@ function deleteQualification(number, id){
         if(id >= 0) {
             xmlhttp = new XMLHttpRequest();
 
-            xmlhttp.open("GET", "deleteQualification.php?q=" + id, true);
+            xmlhttp.open("GET", "deleteQualification.php?id=" + id, true);
 
             xmlhttp.send();
         }
@@ -138,7 +138,7 @@ function deleteQualification(number, id){
         var elem = document.getElementById(divToDelete);
         elem.parentNode.removeChild(elem);
 
-        var numOfExperience = document.getElementById("qualification-count").value
+        var numOfExperience = document.getElementById("qualification-count").value;
         for (var i = (number + 1); i < numOfExperience; i++) {
             var elementId = "year" + i;
             var newElementId = "year" + (i - 1);

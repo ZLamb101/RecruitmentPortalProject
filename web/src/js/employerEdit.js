@@ -16,7 +16,7 @@ function renameList(divID, id){
     } else {
         xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.open("GET", "renameShortList.php?q=" + id+ "&name=" +name, true);
+        xmlhttp.open("GET", "renameShortList.php?id=" + id+ "&name=" +name, true);
 
         xmlhttp.send();
         var nameChanged = "shortList"+divID;
@@ -72,7 +72,6 @@ function changeDescription(divID, id){
 function deleteFromShortList(listID, candidateID, divID, i) {
     //Checks to see if it's the final member of the shortList being deleted. If it is, then delete the title from the PHTML
     get(listID, candidateID, i, function () {
-      //  document.getElementById(("candidates"+i)).innerHTML = "";
         document.getElementById(("candidates"+i)).innerHTML = this.responseText;
     })
 }
@@ -142,7 +141,7 @@ function newShortList(ID,i) {
  **/
 function getCreateNewShortlist(name,ID,description,callback) {
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "newShortList.php?q=" + name +"&id=" + ID+"&description=" + description,true);
+    xmlhttp.open("GET", "newShortList.php?name=" + name +"&id=" + ID+"&description=" + description,true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
