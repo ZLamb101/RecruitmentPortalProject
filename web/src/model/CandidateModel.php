@@ -52,6 +52,7 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the ID of the candidate
+     *
      * @return int $this->id, the ID of the candidate
      */
     public function getId()
@@ -60,6 +61,7 @@ class CandidateModel extends UserModel
     }
     /**
      * Sets the ID of the candidate
+     *
      * @param int $id, the new ID of the candidate
      */
     public function setId($id)
@@ -69,6 +71,7 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the id of the user tied to this candidate
+     *
      * @return int $this->user_id, the id of the user tied to this candidate
      */
     public function getUserId()
@@ -77,6 +80,7 @@ class CandidateModel extends UserModel
     }
     /**
      * Sets the id of the user tied to this candidate
+     *
      * @param $uid, the new user id tied to this candidate
      */
     public function setUserId($uid)
@@ -85,6 +89,7 @@ class CandidateModel extends UserModel
     }
     /**
      * Returns the given name of the candidate
+     *
      * @return string $this->g_name, the given name of the candidate
      */
     public function getGName()
@@ -93,6 +98,7 @@ class CandidateModel extends UserModel
     }
     /**
      * Sets the given name of the candidate
+     *
      * @param string $g_name, the new given name of the candidate
      */
     public function setGName($g_name)
@@ -101,6 +107,7 @@ class CandidateModel extends UserModel
     }
     /**
      * Returns the family name of the candidate
+     *
      * @return string $this->f_name, the family name of the candidate
      */
     public function getFName()
@@ -110,6 +117,7 @@ class CandidateModel extends UserModel
 
     /**
      * Sets the family name of the candidate
+     *
      * @param string $f_name, the new family name of the candidate
      */
     public function setFName($f_name)
@@ -119,6 +127,7 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the suburb the candidate lives in
+     *
      * @return string $this->location, the suburb the candidate lives in
      */
     public function getLocation()
@@ -128,6 +137,7 @@ class CandidateModel extends UserModel
 
     /**
      * Sets the suburb the candidate lives in
+     *
      * @param string $location, the new suburb the candidate lives in
      */
     public function setLocation($location)
@@ -137,6 +147,7 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the availability of the candidate to work
+     *
      * @return string $this->availability, the availability of the candidate to work
      */
     public function getAvailability()
@@ -146,6 +157,7 @@ class CandidateModel extends UserModel
 
     /**
      * Sets the availability of the candidate to work
+     *
      * @param string $availability, the new availability of the candidate to work
      */
     public function setAvailability($availability)
@@ -155,14 +167,17 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the candidates skills
+     *
      * @return string, the candidates skills
      */
-    public function getSkills(){
+    public function getSkills()
+    {
         return $this->skills;
     }
 
     /**
      * Sets the candidates skills
+     *
      * @param string $skills, the new set of skills of the candidate
      */
     public function setSkills($skills)
@@ -172,14 +187,17 @@ class CandidateModel extends UserModel
 
     /**
      * Returns the candidates work experience instances
+     *
      * @return array $this->workExperiences, the array of the candidates work experience instances
      */
-    public function getWorkExperience(){
+    public function getWorkExperience()
+    {
         return $this->workExperiences;
     }
 
     /**
      * Sets the work experience of the candidate.
+     *
      * @param array $workExperiences, the new set of work experience of the candidate.
      */
     public function setWorkExperiences($workExperiences)
@@ -189,6 +207,7 @@ class CandidateModel extends UserModel
 
     /**
      * Returns a candidates qualifications
+     *
      * @return array $this->qualifications, the array of a candidates qualifications
      */
     public function getQualifications()
@@ -198,6 +217,7 @@ class CandidateModel extends UserModel
 
     /**
      * Sets a candidates qualifications
+     *
      * @param array $qualifications, the new array of candidate qualifications
      */
     public function setQualifications($qualifications)
@@ -245,7 +265,8 @@ class CandidateModel extends UserModel
      *
      * @return $this CandidateModel
      */
-    public function save(){      
+    public function save()
+    {
         $uid = $this->user_id ?? "NULL";
         $given = $this->g_name ?? "NULL";
         $given = $this->db->real_escape_string($given);
@@ -255,16 +276,19 @@ class CandidateModel extends UserModel
         $location = $this->db->real_escape_string($location);
         $avail = $this->availability ?? "NULL";
         $avail = $this->db->real_escape_string($avail);
-        if(!isset($this->id)){
+        if (!isset($this->id)) {
             // new candidate
-            if(!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail');")){
+            if (!$result = $this->db->query("INSERT INTO `candidate` VALUES (NULL, '$uid', '$family', '$given', '$location', '$avail');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
             // existing candidate, update information
-            if (!$result = $this->db->query("UPDATE `candidate` SET `user_id` = '$uid', `f_name` = '$family', `g_name` = '$given', 
-                                              `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id;")) {
+            if (!$result = $this->db->query(
+                "UPDATE `candidate` SET `user_id` = '$uid', `f_name` = '$family', `g_name` = '$given', 
+                                              `location` = '$location', `availability` = '$avail' WHERE `id` = $this->id;"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candSaveExisting");
             }
         }
@@ -273,13 +297,17 @@ class CandidateModel extends UserModel
 
     /**
      * Collects the candidates preferred work experience id
+     *
      * @return int, the id of the preferred work experience
      */
     public function getPreferredWorkExperience()
     {
-        if(!$result = $this->db->query("SELECT `work_experience`.`id` FROM `work_experience` 
+        if (!$result = $this->db->query(
+            "SELECT `work_experience`.`id` FROM `work_experience` 
                                         LEFT JOIN `preferences` ON `preferences`.`preferred_workEx_id` = `work_experience`.`id` 
-                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+                                        WHERE `preferences`.`owner_id` = '$this->id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefworkexp");
         }
         $result = $result->fetch_assoc();
@@ -288,13 +316,17 @@ class CandidateModel extends UserModel
 
     /**
      * Collects the candidates preferred qualification id
+     *
      * @return int, the id of the preferred qualification
      */
     public function getPreferredQualification()
     {
-        if(!$result = $this->db->query("SELECT `qualification`.`id` FROM `qualification` 
+        if (!$result = $this->db->query(
+            "SELECT `qualification`.`id` FROM `qualification` 
                                         LEFT JOIN `preferences` ON `preferences`.`preferred_qual_id` = `qualification`.`id` 
-                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+                                        WHERE `preferences`.`owner_id` = '$this->id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefqual");
         }
         $result = $result->fetch_assoc();
@@ -303,13 +335,17 @@ class CandidateModel extends UserModel
 
     /**
      * Collects the candidates preferred skill id
+     *
      * @return int, the id of the preferred skill
      */
     public function getPreferredSkill()
     {
-        if(!$result = $this->db->query("SELECT `skill`.`id` FROM `skill` 
+        if (!$result = $this->db->query(
+            "SELECT `skill`.`id` FROM `skill` 
                                         LEFT JOIN `preferences` ON `preferences`.`preferred_skill_id` = `skill`.`id` 
-                                        WHERE `preferences`.`owner_id` = '$this->id';")){
+                                        WHERE `preferences`.`owner_id` = '$this->id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: getprefskill");
         }
         $result = $result->fetch_assoc();
@@ -318,26 +354,30 @@ class CandidateModel extends UserModel
 
     /***
      * Saves the candidates selected preferences to the database
+     *
      * @param $pref_qual, the id of the candidates preferred qualification
      * @param $pref_work, the id of the candidates preferred work experience
      * @param $pref_skill, the id of the candidates preferred skill
      */
     public function savePreferences($pref_qual, $pref_work, $pref_skill)
     {
-        if(!$result = $this->db->query("SELECT * FROM `preferences` WHERE `owner_id` = '$this->id';")){
+        if (!$result = $this->db->query("SELECT * FROM `preferences` WHERE `owner_id` = '$this->id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefprecheck");
         }
 
-        if($result->num_rows == 0){
-            if(!$result = $this->db->query("INSERT INTO `preferences` VALUES (NULL, '$this->id', '$pref_qual', '$pref_work', '$pref_skill');")){
+        if ($result->num_rows == 0) {
+            if (!$result = $this->db->query("INSERT INTO `preferences` VALUES (NULL, '$this->id', '$pref_qual', '$pref_work', '$pref_skill');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefNEW");
             }
         } else {
             $result = $result->fetch_assoc();
             $pref_id = $result['id'];
-            if(!$result = $this->db->query("UPDATE `preferences` SET `owner_id` = '$this->id', `preferred_qual_id` = '$pref_qual', 
+            if (!$result = $this->db->query(
+                "UPDATE `preferences` SET `owner_id` = '$this->id', `preferred_qual_id` = '$pref_qual', 
                                             `preferred_workEx_id` = '$pref_work', `preferred_skill_id` = '$pref_skill'
-                                            WHERE `id` = '$pref_id';")){
+                                            WHERE `id` = '$pref_id';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: saveprefUPDATE");
             }
         }
@@ -345,21 +385,25 @@ class CandidateModel extends UserModel
 
     /**
      * Retrieves the candidates preferred qualification
+     *
      * @return string, the correct display output of the preferred qualification
      */
     public function displayPreferredQualification()
     {
-        if(!$result = $this->db->query("SELECT `preferred_qual_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+        if (!$result = $this->db->query("SELECT `preferred_qual_id` FROM `preferences` WHERE `owner_id` = '$this->id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefQual1");
         }
 
-        if($result->num_rows != 0){
+        if ($result->num_rows != 0) {
             $result = $result->fetch_assoc();
             $prefID = $result['preferred_qual_id'];
-            if(!$result = $this->db->query("SELECT `level`, `type`, `year`, `major` FROM `qualification`
+            if (!$result = $this->db->query(
+                "SELECT `level`, `type`, `year`, `major` FROM `qualification`
                                             LEFT JOIN `qual_level` ON `qualification`.`level_id` = `qual_level`.`id` 
                                             LEFT JOIN `qual_type` ON `qualification`.`type_id` = `qual_type`.`id`
-                                            WHERE `qualification`.`id` = '$prefID';")){
+                                            WHERE `qualification`.`id` = '$prefID';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefQual2");
             }
             $result = $result->fetch_assoc();
@@ -371,19 +415,23 @@ class CandidateModel extends UserModel
 
     /**
      * Retrieves the candidates preferred work experience
+     *
      * @return string, the correct display output of the preferred work experience
      */
     public function displayPreferredWorkExperience()
     {
-        if(!$result = $this->db->query("SELECT `preferred_workEx_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+        if (!$result = $this->db->query("SELECT `preferred_workEx_id` FROM `preferences` WHERE `owner_id` = '$this->id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefWork1");
         }
 
-        if($result->num_rows != 0){
+        if ($result->num_rows != 0) {
             $result = $result->fetch_assoc();
             $prefID = $result['preferred_workEx_id'];
-            if(!$result = $this->db->query("SELECT `role`, `employer`, `duration` FROM `work_experience`
-                                            WHERE `work_experience`.`id` = '$prefID';")){
+            if (!$result = $this->db->query(
+                "SELECT `role`, `employer`, `duration` FROM `work_experience`
+                                            WHERE `work_experience`.`id` = '$prefID';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefWork2");
             }
             $result = $result->fetch_assoc();
@@ -395,21 +443,25 @@ class CandidateModel extends UserModel
 
     /**
      * Retrieves the candidates preferred skill
+     *
      * @return string, the correct display output of the preferred skill
      */
     public function displayPreferredSkill()
     {
-        if(!$result = $this->db->query("SELECT `preferred_skill_id` FROM `preferences` WHERE `owner_id` = '$this->id';")){
+        if (!$result = $this->db->query("SELECT `preferred_skill_id` FROM `preferences` WHERE `owner_id` = '$this->id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefSkill1");
         }
 
-        if($result->num_rows != 0){
+        if ($result->num_rows != 0) {
             $result = $result->fetch_assoc();
             $prefID = $result['preferred_skill_id'];
-            if(!$result = $this->db->query("SELECT field, sub_field, contents FROM skill 
+            if (!$result = $this->db->query(
+                "SELECT field, sub_field, contents FROM skill 
                                          LEFT JOIN field ON skill.`field_id` = field.`id`
                                          LEFT JOIN sub_field ON skill.`sub_field_id` = sub_field.`id`
-                                         WHERE skill.`id` = '$prefID';")){
+                                         WHERE skill.`id` = '$prefID';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: displayPrefSkill2");
             }
             $result = $result->fetch_assoc();
@@ -421,44 +473,37 @@ class CandidateModel extends UserModel
 
     /**
      * Converts the numeric duration of a candidates work experience to a display format
-     * @param int duration, the duration (in months) of a work experience instance.
+     *
+     * @param  int duration, the duration (in months) of a work experience instance.
      * @return string, the string output in either year-month format or just months
      */
     public function convertDuration($duration)
     {
-        if($duration > 12){
+        if ($duration > 12) {
             $years = intdiv($duration, 12);
             $months = $duration % 12;
-            if($months != 0){
-                return $years . " Year". $this->isOne($years). ", ". $months . " Month" . $this->isOne($months);
-            } else{
-                return $years . " Year". $this->isOne($years);
+            if ($months != 0) {
+                return $years . " Year" . $this->isOne($years) . ", " . $months . " Month" . $this->isOne($months);
+            } else {
+                return $years . " Year" . $this->isOne($years);
             }
         } else {
-            return $duration . " Month". $this->isOne($duration);
+            return $duration . " Month" . $this->isOne($duration);
         }
     }
 
     /***
      * Determines if a word needs to be pluralised based on the numerical value associated with it
-     * @param $value, the value to be checked for a 1
+     *
+     * @param  $value, the value to be checked for a 1
      * @return string, the correct plural/non plural for the word
      */
     public function isOne($value)
     {
-        if($value == 1){
+        if ($value == 1) {
             return "";
-        } else{
+        } else {
             return "s";
         }
     }
-
-
-
-
-
-
-
-
-
 }

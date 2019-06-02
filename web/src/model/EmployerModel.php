@@ -45,6 +45,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the employers ID
+     *
      * @return int $this->id, the id of the employer profile
      */
     public function getId()
@@ -54,6 +55,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the employers ID
+     *
      * @param int $id, the new id of the employer profile
      */
     public function setId($id)
@@ -63,6 +65,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the user associated with an employer
+     *
      * @return int $this->user_id, the id of the employer's user profile
      */
     public function getUserId()
@@ -72,6 +75,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the user associated with an employer
+     *
      * @param int $user_id, the new id of the employer's user profile
      */
     public function setUserId($user_id)
@@ -81,6 +85,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the company name of the employer
+     *
      * @return string $this->company_name, the name of the company the employer is representing
      */
     public function getCompanyName()
@@ -90,6 +95,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the company name of the employer
+     *
      * @param string $company_name, the new name of the company the employer is representing
      */
     public function setCompanyName($company_name)
@@ -99,6 +105,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the company URL
+     *
      * @return string $this->url, the URL of the company's website
      */
     public function getUrl()
@@ -108,6 +115,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the company URL
+     *
      * @param string $url, the new URL of the company's website
      */
     public function setUrl($url)
@@ -117,6 +125,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the name of the company contact
+     *
      * @return string $this->contact_name, the name of the contact person for the employer
      */
     public function getContactName()
@@ -126,6 +135,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the name of the company contact
+     *
      * @param string $contact_name, the new name of the contact person for the employer
      */
     public function setContactName($contact_name)
@@ -135,6 +145,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the company address
+     *
      * @return string $this->address, the physical location of the company's offices.
      */
     public function getAddress()
@@ -144,6 +155,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the company address
+     *
      * @param string $address, the new physical location of the company's offices.
      */
     public function setAddress($address)
@@ -153,6 +165,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the shortlists belonging to the employer
+     *
      * @return array $this->short_lists, the short lists of candidates a company has
      */
     public function getShortLists()
@@ -162,6 +175,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the shortlists belonging to the employer
+     *
      * @param array $short_lists, the new short lists of candidates a company has
      */
     public function setShortLists($short_lists)
@@ -171,6 +185,7 @@ class EmployerModel extends UserModel
 
     /**
      * Returns the G-Suite calendar linked to the employer
+     *
      * @return string, a link to the employer's calendar application
      */
     public function getCalendarLink()
@@ -180,6 +195,7 @@ class EmployerModel extends UserModel
 
     /**
      * Sets the G-Suite calendar linked to the employer
+     *
      * @param string $calendar_link, the new link to the employers calendar application
      */
     public function setCalendarLink($calendar_link)
@@ -219,11 +235,13 @@ class EmployerModel extends UserModel
     /***
      * Uses the employer id used by other parts of the system to find the correct user_id
      * to load the employer with.
-     * @param int $id, the employer id used by other parts of the system
+     *
+     * @param  int $id, the employer id used by other parts of the system
      * @return int, the user id associated with the employer id
      */
-    public function findLoadId($id){
-        if(!$result = $this->db->query("SELECT `user_id` FROM `employer` WHERE `id` = '$id'")){
+    public function findLoadId($id)
+    {
+        if (!$result = $this->db->query("SELECT `user_id` FROM `employer` WHERE `id` = '$id'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: employerFindLoadId");
         }
         $result = $result->fetch_assoc();
@@ -235,8 +253,9 @@ class EmployerModel extends UserModel
      *
      * @return string, description of if calendar is linked
      */
-    public function isCalendarAdded(){
-        if($this->calendar_link == NULL){
+    public function isCalendarAdded()
+    {
+        if ($this->calendar_link == null) {
             return "No calendar added";
         } else {
             return "Calendar is added";
@@ -269,17 +288,19 @@ class EmployerModel extends UserModel
         $calendar = $this->calendar_link ?? "NULL";
         $calendar = $this->db->real_escape_string($calendar);
 
-        if(!isset($this->id)){
+        if (!isset($this->id)) {
             // new employer
-            if(!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url', '$calendar');")){
+            if (!$result = $this->db->query("INSERT INTO `employer` VALUES(NULL, '$uid', '$address', '$comp_name', '$contact_name', '$url', '$calendar');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-
             // existing employer, update information
-            if (!$result = $this->db->query("UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
-                                              `contact_name` = '$contact_name', `url` = '$url', `calendar` = '$calendar' WHERE `id` = '$this->id';")) {
+            if (!$result = $this->db->query(
+                "UPDATE `employer` SET `user_id` = '$uid', `address` = '$address', `company_name` = '$comp_name', 
+                                              `contact_name` = '$contact_name', `url` = '$url', `calendar` = '$calendar' WHERE `id` = '$this->id';"
+            )
+            ) {
                 error_log("throw");
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: empSaveExisting");
             }

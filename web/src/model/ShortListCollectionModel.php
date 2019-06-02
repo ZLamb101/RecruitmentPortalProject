@@ -33,6 +33,7 @@ class ShortListCollectionModel extends Model
      * Constructor
      *
      * Collects the shortlists belonging to an employer
+     *
      * @param id, the id of the employer collecting the short lists
      *
      * @throws mysqli_sql_exception if the SQL query fails
@@ -40,9 +41,12 @@ class ShortListCollectionModel extends Model
     public function __construct($id)
     {
         parent::__construct();
-        if (!$result = $this->db->query("SELECT * FROM `short_list` LEFT JOIN `employer`
+        if (!$result = $this->db->query(
+            "SELECT * FROM `short_list` LEFT JOIN `employer`
                                          ON `short_list`.`owner_id` = `employer`.`id`
-                                         WHERE `short_list`.`owner_id` = '$id';")){
+                                         WHERE `short_list`.`owner_id` = '$id';"
+        )
+        ) {
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListCollectConstruct");
         }
             $this->shortlist_ids = array_column($result->fetch_all(), 0);
@@ -52,6 +56,7 @@ class ShortListCollectionModel extends Model
     /**
      * Get short list collection
      * Get the short lists in the collection
+     *
      * @return \Generator|ShortListModel[]
      */
     public function getShortLists()

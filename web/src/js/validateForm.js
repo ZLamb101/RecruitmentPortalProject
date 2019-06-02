@@ -11,18 +11,21 @@ function validateForm()
         return false;
     }
 
-        getValidate(function () {
-            myVar = this.responseText;
-            if (myVar === 'true') {
-                submitButton.click();
-            } else {
-                alert("Username already exists");
+        getValidate(
+            function () {
+                myVar = this.responseText;
+                if (myVar === 'true') {
+                    submitButton.click();
+                } else {
+                    alert("Username already exists");
+                }
             }
-        })
+        )
         return false;
 }
 
-function getValidate(callback) {
+function getValidate(callback)
+{
     xmlhttp = new XMLHttpRequest();
 
     var username = document.forms["registration"]["username"].value;
@@ -45,7 +48,8 @@ function getValidate(callback) {
  *
  * @return {Boolean} returns false if passwords don't match, true if they do
  */
-function validatePassword(){
+function validatePassword()
+{
 
     var password = document.forms["registration"]["password"].value;
     var password_confirm = document.forms["registration"]["password_confirm"].value;

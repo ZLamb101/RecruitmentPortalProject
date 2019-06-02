@@ -23,6 +23,7 @@ class WorkExperienceCollectionModel extends Model
 
     /**
      * Returns the number of work experiences collected
+     *
      * @return int, the number of instances collected
      */
     public function getN()
@@ -34,6 +35,7 @@ class WorkExperienceCollectionModel extends Model
      * Constructor
      *
      * Collects the work experience instances belonging to a candidate
+     *
      * @param id, the id of the candidate
      *
      * @throws mysqli_sql_exception if the SQL query fails
@@ -41,9 +43,12 @@ class WorkExperienceCollectionModel extends Model
     public function __construct($id)
     {
         parent::__construct();
-        if (!$result = $this->db->query("SELECT * FROM `work_experience` LEFT JOIN `candidate`
+        if (!$result = $this->db->query(
+            "SELECT * FROM `work_experience` LEFT JOIN `candidate`
                                          ON `work_experience`.`owner_id` = `candidate`.`id`
-                                         WHERE `work_experience`.`owner_id` = '$id';")){
+                                         WHERE `work_experience`.`owner_id` = '$id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpCollectConstruct");
         }
         $this->instance_ids = array_column($result->fetch_all(), 0);
@@ -53,6 +58,7 @@ class WorkExperienceCollectionModel extends Model
     /**
      * Get work experience instance collection
      * Get the instances in the collection
+     *
      * @return \Generator|WorkExperienceModel[]
      */
     public function getWorkExperiences()

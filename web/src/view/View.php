@@ -33,7 +33,7 @@ class View
             if (file_exists($file)) {
                 $this->template = $file;
             } else {
-//                throw new customException('Template ' . $template . ' not found!');
+                //                throw new customException('Template ' . $template . ' not found!');
             }
         } catch (customException $e) {
             echo $e->errorMessage();
@@ -68,7 +68,7 @@ class View
         };
         extract($this->data);
         ob_start();
-        include($this->template);
+        include $this->template;
         $content = ob_get_contents();
         ob_end_clean();
         return $content;

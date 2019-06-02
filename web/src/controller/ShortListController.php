@@ -78,13 +78,13 @@ class ShortListController extends Controller
             echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
             echo "<div class=\"row\">";
             foreach ($candidates as $candidate) {
-                if($count == 4){
+                if ($count == 4) {
                     echo "</div><div class=\"row\">";
                     $count = 0;
                 }
                 $candID = "cand" . $candCount;
-                if($candidate->getGName() != NULL) {
-                    echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
+                if ($candidate->getGName() != null) {
+                    echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate'," . $candidate->getUserId() . ")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", " . $i . ")\"></p>";
                     $candCount++;
                 }
 
@@ -92,7 +92,6 @@ class ShortListController extends Controller
             }
             echo "</div>";
             echo "</div>";
-
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
@@ -109,18 +108,18 @@ class ShortListController extends Controller
     {
         try {
             $listID = $_GET["listID"];
-            if($listID != "all") {
+            if ($listID != "all") {
                 $list = new ShortListModel();
                 $list->load($listID);
                 $candidates = $list->getCandidates();
-                if($list->isHasInvited()){
+                if ($list->isHasInvited()) {
                     echo "<p>Shortlist has been invited previously</p>";
                 } else {
                     foreach ($candidates as $candidate) {
                         echo "<p>" . $candidate->getGName() . " " . $candidate->getFName() . "</p>";
                     }
                 }
-            }else{
+            } else {
                 echo "Do not display";
             }
         } catch (\Exception $e) {
@@ -153,47 +152,43 @@ class ShortListController extends Controller
             $shortLists = $employerInfo->getShortLists();
             $i = 0;
             $candCount = 0;
-            foreach ($shortLists as $list){
-
-
-                echo "<div class=\"partition zebra shortlist-format\" id=\"shortlist".$i."\">";
+            foreach ($shortLists as $list) {
+                echo "<div class=\"partition zebra shortlist-format\" id=\"shortlist" . $i . "\">";
                 echo "<div class=\"row\">";
-                echo "<h3 id = \"shortList".$i."\" class=\"col-sm-3 font-weight-bold\"><u>".$list->getName()."</u></h3>";
-                echo "<input class=\"col-sm-2 btn button-grouping btn-danger\" type=\"button\" id=\"delete".$i."\" value = \"Delete\" onclick = \"deleteShortList(".$i.", ".$list->getId().")\">";
-                echo "<input class=\"col-sm-2 btn button-grouping btn-warning\" type=\"button\" id=\"re-name".$i."\" value = \"Re-name\" onclick=\"renameList(".$i.", ".$list->getId().")\">";
-                echo "<input class=\"col-sm-2 btn button-grouping btn-info\" type=\"button\" id=\"change-description".$i."\" value = \"Change Description\" onclick=\"changeDescription(".$i.", ".$list->getId().")\">";
-                if($list->isHasInvited()) {
+                echo "<h3 id = \"shortList" . $i . "\" class=\"col-sm-3 font-weight-bold\"><u>" . $list->getName() . "</u></h3>";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-danger\" type=\"button\" id=\"delete" . $i . "\" value = \"Delete\" onclick = \"deleteShortList(" . $i . ", " . $list->getId() . ")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-warning\" type=\"button\" id=\"re-name" . $i . "\" value = \"Re-name\" onclick=\"renameList(" . $i . ", " . $list->getId() . ")\">";
+                echo "<input class=\"col-sm-2 btn button-grouping btn-info\" type=\"button\" id=\"change-description" . $i . "\" value = \"Change Description\" onclick=\"changeDescription(" . $i . ", " . $list->getId() . ")\">";
+                if ($list->isHasInvited()) {
                     echo "<input type=\"button\" value=\"Invites sent\" name=\"sendInvites\" disabled   >";
-                }else{
-                    echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=".$list->getId()."\">Send Invite Email</a></p>";
+                } else {
+                    echo "<p><a  class=\"btn btn-success button-grouping col-sm-2\" id=\"send-invite-btn\" href=\"writeEmail.php?list_id=" . $list->getId() . "\">Send Invite Email</a></p>";
                 }
                 echo "</div>";
-                echo "<input type=\"hidden\" id=\"shortlist".$i."\" value=\"".$list->getId()."\" >";
-                echo "<input type=\"hidden\" id=\"num".$i."\" value=\"".$candCount."\" >";
+                echo "<input type=\"hidden\" id=\"shortlist" . $i . "\" value=\"" . $list->getId() . "\" >";
+                echo "<input type=\"hidden\" id=\"num" . $i . "\" value=\"" . $candCount . "\" >";
                 echo "<h4>Description</h4>";
-                echo "<textarea class = 'form-control' disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription".$i."\">".$list->getDescription()."</textarea>";
+                echo "<textarea class = 'form-control' disabled rows=\"3\" cols=\"50\"   size = \"512\" id = \"shortListDescription" . $i . "\">" . $list->getDescription() . "</textarea>";
                 $candidates = $list->getCandidates();
 
                 $count = 0;
-                echo "<div class=\"partition small-box-format\" id=\"candidates".$i."\">";
+                echo "<div class=\"partition small-box-format\" id=\"candidates" . $i . "\">";
                 echo "<h4 class=\"font-weight-bold\"> Candidates: </h4>";
                 echo "<div class=\"row\">";
                 foreach ($candidates as $candidate) {
-                    if($count == 4){
+                    if ($count == 4) {
                         echo "</div><div class=\"row\">";
                         $count = 0;
                     }
                     $candID = "cand" . $candCount;
-                    if($candidate->getGName() != NULL) {
-
-                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", ".$i.")\"></p>";
+                    if ($candidate->getGName() != null) {
+                        echo "<p id = \"" . $candID . "\" class=\"col-sm-3\"><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate'," . $candidate->getUserId() . ")\">" . $candidate->getGName() . "</a> " . $candidate->getFName() . "<input class='btn btn-sm pull-right' type=\"button\" id=\"deleteCandidate" . $candCount . "\" value = \"-\" onclick=\"deleteFromShortList(" . $list->getId() . ", " . $candidate->getUserId() . ", " . $candCount . ", " . $i . ")\"></p>";
                         $count++;
                         $candCount++;
                     }
-
                 }
 
-                if($count == 0) {
+                if ($count == 0) {
                     echo "<div class=\"center\">";
                     echo "<p>Looks like you have no candidates, Click <a href=\"Search\">Here</a> to start searching!</p>";
                     echo "</div>";
@@ -203,7 +198,6 @@ class ShortListController extends Controller
                 echo "</div>";
                 $i++;
             }
-
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect("errorPage");
@@ -224,7 +218,7 @@ class ShortListController extends Controller
             $short_list->load($shortId);
             $short_list->addCandidate($candId);
             $short_list->save();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -247,7 +241,7 @@ class ShortListController extends Controller
                 $short_list->addCandidate($id);
             }
             $short_list->save();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -265,7 +259,7 @@ class ShortListController extends Controller
             $short_list = new ShortListModel();
             $short_list->load($listId);
             $short_list->delete();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -276,7 +270,8 @@ class ShortListController extends Controller
      *
      * Get's the shortlist ID from the GET array
      */
-    public function sendInviteAllAction(){
+    public function sendInviteAllAction()
+    {
 
         $shortListId = $_GET["listID"];
         $content = $_GET['content'];
@@ -296,7 +291,7 @@ class ShortListController extends Controller
             }
             $shortlist->setHasInvited(1);
             $shortlist->save();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -307,7 +302,8 @@ class ShortListController extends Controller
      *
      * Get's the ID of the shortlist being sent to from the GET array
      */
-    public function writeEmailAction(){
+    public function writeEmailAction()
+    {
         $page_from = $_GET["from"];
         $shortlistId = $_GET["list_id"];
 
@@ -327,7 +323,7 @@ class ShortListController extends Controller
                 $_SESSION['alert'] = "You cannot send an email without first linking a calendar to your account";
                 if ($page_from == "search") {
                     $this->redirect('searchPage');
-                } else if ($page_from == "home") {
+                } elseif ($page_from == "home") {
                     $this->redirect('employerHomePage');
                 }
                 return;
@@ -336,7 +332,7 @@ class ShortListController extends Controller
             $view = new View('writeEmail');
             $view->addData('employer', $employer);
             echo $view->addData('shortlist', $shortlist)->render();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }

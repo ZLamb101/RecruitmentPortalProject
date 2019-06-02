@@ -33,6 +33,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Returns the ID of the work experience
+     *
      * @return int, the ID of the instance
      */
     public function getId()
@@ -42,6 +43,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Sets the ID of the instance
+     *
      * @param int $id, the new ID of the instance
      */
     public function setId($id)
@@ -51,6 +53,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Returns the ID of the candidate that owns the work experience
+     *
      * @return int, the ID of the candidate the instance belongs to
      */
     public function getOwnerId()
@@ -60,6 +63,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Sets the owner of the work experience based on their ID
+     *
      * @param int $owner_id, the new ID of the candidate the instance belongs to
      */
     public function setOwnerId($owner_id)
@@ -69,6 +73,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Returns the role of the candidate for the work experience
+     *
      * @return string, the role the candidate had during the instance
      */
     public function getRole()
@@ -78,6 +83,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Sets the role of the candidate for the work experience
+     *
      * @param string $role, the new role the candidate had during the instance
      */
     public function setRole($role)
@@ -87,6 +93,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Returns the name of the company the candidate was employed by
+     *
      * @return string, company the candidate was employed by
      */
     public function getEmployer()
@@ -96,6 +103,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Sets the name of the company the candidate was employed by
+     *
      * @param string $employer, the new company the candidate was employed by
      */
     public function setEmployer($employer)
@@ -105,6 +113,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Returns the duration of the work experience
+     *
      * @return int, the length of time a candidate was employed in this position, in months
      */
     public function getDuration()
@@ -114,6 +123,7 @@ class WorkExperienceModel extends Model
 
     /**
      * Sets the duration of the work experience
+     *
      * @param int $duration, the new length of time a candidate was employed in this position, in months
      */
     public function setDuration($duration)
@@ -133,7 +143,7 @@ class WorkExperienceModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `work_experience` WHERE `id` = '$id';")){
+        if (!$result = $this->db->query("SELECT * FROM `work_experience` WHERE `id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExperienceLoad");
         }
         $result = $result->fetch_assoc();
@@ -163,13 +173,16 @@ class WorkExperienceModel extends Model
         $duration = $this->duration ?? "NULL";
         $duration = $this->db->real_escape_string($duration);
         if (!isset($this->id)) {
-            if (!$result = $this->db->query("INSERT INTO `work_experience` VALUES (NULL, '$owner_id', '$role', '$employer', '$duration');")){
+            if (!$result = $this->db->query("INSERT INTO `work_experience` VALUES (NULL, '$owner_id', '$role', '$employer', '$duration');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer', 
-                                              `duration` = '$duration' WHERE `id` = $this->id;")){
+            if (!$result = $this->db->query(
+                "UPDATE `work_experience` SET `owner_id` = '$owner_id', `role` = '$role', `employer` = '$employer', 
+                                              `duration` = '$duration' WHERE `id` = $this->id;"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpSaveExisting");
             }
         }
@@ -178,10 +191,12 @@ class WorkExperienceModel extends Model
 
     /**
      * Deletes the work experience from the database
+     *
      * @param $id int, the ID of the work experience to be deleted.
      */
-    public function delete($id){
-        if(!$result = $this->db->query("DELETE from `work_experience` WHERE `id` = '$id'")){
+    public function delete($id)
+    {
+        if (!$result = $this->db->query("DELETE from `work_experience` WHERE `id` = '$id'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: workExpDelete");
         }
     }

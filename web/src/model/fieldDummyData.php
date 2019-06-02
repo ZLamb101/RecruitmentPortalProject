@@ -25,5 +25,3 @@ $fieldDummy = "(NULL, 'Accounting'),
                                                     (NULL, 'Trades & services'),
                                                     (NULL, 'Transport & logistics')
                                                     ;";
-
-?>

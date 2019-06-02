@@ -45,6 +45,7 @@ class SkillModel extends Model
 
     /**
      * Return the ID of the skill
+     *
      * @return int, the ID of the skill
      */
     public function getId()
@@ -54,6 +55,7 @@ class SkillModel extends Model
 
     /**
      * Sets the ID of the skill
+     *
      * @param int $id, the new ID of the skill
      */
     public function setId($id)
@@ -63,6 +65,7 @@ class SkillModel extends Model
 
     /**
      * Return the ID of the candidate who owns the skill
+     *
      * @return int, the ID of the candidate the skill belongs to
      */
     public function getOwnerId()
@@ -72,6 +75,7 @@ class SkillModel extends Model
 
     /**
      * Sets the owner of the skill based on their ID
+     *
      * @param int $owner_id, the new ID of the candidate the skill belongs to
      */
     public function setOwnerId($owner_id)
@@ -81,6 +85,7 @@ class SkillModel extends Model
 
     /**
      * Returns the field the skill is associated with
+     *
      * @return string, the name of the field the sub-field and skill is associated with
      */
     public function getField()
@@ -91,6 +96,7 @@ class SkillModel extends Model
 
     /**
      * Sets the field the skill is associated with
+     *
      * @param string $field, the new name field the sub-field and skill is associated with
      */
     public function setField($field)
@@ -100,6 +106,7 @@ class SkillModel extends Model
 
     /**
      * Returns the subfield the skill is associated with
+     *
      * @return string, the name of the sub-field the skill is associated with
      */
     public function getSubField()
@@ -109,6 +116,7 @@ class SkillModel extends Model
 
     /**
      * Sets the subfield the skill is associated with
+     *
      * @param string $sub_field, the new name of the sub-field the skill is associated with
      */
     public function setSubField($sub_field)
@@ -118,6 +126,7 @@ class SkillModel extends Model
 
     /**
      * Returns the users description of the skill
+     *
      * @return string, the message explaining their skill in certain sub-field
      */
     public function getContents()
@@ -127,6 +136,7 @@ class SkillModel extends Model
 
     /**
      * Sets the users description of the skill
+     *
      * @param string $contents, the new message explaining their skill in certain sub-field
      */
     public function setContents($contents)
@@ -146,11 +156,14 @@ class SkillModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT field, sub_field, contents FROM skill 
+        if (!$result = $this->db->query(
+            "SELECT field, sub_field, contents FROM skill 
                                          LEFT JOIN field ON skill.`field_id` = field.`id`
                                          LEFT JOIN sub_field ON skill.`sub_field_id` = sub_field.`id`
                                          LEFT JOIN candidate ON skill.`owner_id` = candidate.`id`
-                                         WHERE skill.`id` = '$id';")){
+                                         WHERE skill.`id` = '$id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
         }
 
@@ -181,13 +194,16 @@ class SkillModel extends Model
         $contents = $this->db->real_escape_string($contents);
 
         if (!isset($this->id)) {
-            if (!$result = $this->db->query("INSERT INTO `skill` VALUES (NULL, '$owner_id', '$field', '$sub_field', '$contents');")){
+            if (!$result = $this->db->query("INSERT INTO `skill` VALUES (NULL, '$owner_id', '$field', '$sub_field', '$contents');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `skill` SET `owner_id` = '$owner_id', `field_id` = '$field', `sub_field_id` = '$sub_field', `contents` = '$contents' 
-                                              WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query(
+                "UPDATE `skill` SET `owner_id` = '$owner_id', `field_id` = '$field', `sub_field_id` = '$sub_field', `contents` = '$contents' 
+                                              WHERE `id` = '$this->id';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillSaveExisting");
             }
         }
@@ -201,8 +217,9 @@ class SkillModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function getFieldID($name){
-        if(!$result = $this->db->query("SELECT `id` FROM `field` WHERE `field` = '$name';")){
+    public function getFieldID($name)
+    {
+        if (!$result = $this->db->query("SELECT `id` FROM `field` WHERE `field` = '$name';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
         }
         $result = $result->fetch_assoc();
@@ -216,8 +233,9 @@ class SkillModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function getSubFieldID($name){
-        if(!$result = $this->db->query("SELECT `id` FROM `sub_field` WHERE `sub_field` = '$name';")){
+    public function getSubFieldID($name)
+    {
+        if (!$result = $this->db->query("SELECT `id` FROM `sub_field` WHERE `sub_field` = '$name';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
         }
         $result = $result->fetch_assoc();
@@ -231,8 +249,9 @@ class SkillModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function getFields(){
-        if(!$result = $this->db->query("SELECT * FROM `field`;")){
+    public function getFields()
+    {
+        if (!$result = $this->db->query("SELECT * FROM `field`;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetFields");
         }
         return $result;
@@ -243,11 +262,12 @@ class SkillModel extends Model
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
-     * @param $id the id of the parent field
+     * @param  $id the id of the parent field
      * @return bool|\mysqli_result all sub-fields of the specified field
      */
-    public function getSubFields($id){
-        if(!$result = $this->db->query("SELECT * FROM `sub_field` WHERE `field_id` = '$id';")){
+    public function getSubFields($id)
+    {
+        if (!$result = $this->db->query("SELECT * FROM `sub_field` WHERE `field_id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetSubFields");
         }
         return $result;
@@ -260,8 +280,9 @@ class SkillModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function findField($id){
-        if(!$result = $this->db->query("SELECT `field` FROM `field` WHERE `id` = '$id';")){
+    public function findField($id)
+    {
+        if (!$result = $this->db->query("SELECT `field` FROM `field` WHERE `id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetField");
         }
         $result = $result->fetch_assoc();
@@ -274,13 +295,13 @@ class SkillModel extends Model
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
-     * @param $id the id of the parent field
+     * @param  $id the id of the parent field
      * @return bool|\mysqli_result all sub-fields of the specified field
      */
-    public function findSubField($id){
-        if(!$result = $this->db->query("SELECT `sub_field` FROM `sub_field` WHERE `field_id` = '$id';")){
+    public function findSubField($id)
+    {
+        if (!$result = $this->db->query("SELECT `sub_field` FROM `sub_field` WHERE `field_id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillGetSubField");
-
         }
         $result = $result->fetch_assoc();
         $result = $result['sub_field'];
@@ -289,12 +310,13 @@ class SkillModel extends Model
 
     /**
      * Deletes a skill from the database
+     *
      * @param $id, the ID of the skill to be deleted
      */
-    public function delete($id){
-        if(!$result = $this->db->query("DELETE from `skill` WHERE `id` = '$id'")){
+    public function delete($id)
+    {
+        if (!$result = $this->db->query("DELETE from `skill` WHERE `id` = '$id'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillDelete");
         }
     }
-
 }

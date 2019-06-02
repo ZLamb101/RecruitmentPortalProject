@@ -5,5 +5,3 @@ $qualLevelDummy = "(NULL, 'Certificate'),
                                                     (NULL, 'Bachelors'),
                                                     (NULL, 'Masters'),
                                                     (NULL, 'Doctorates');";
-
-?>

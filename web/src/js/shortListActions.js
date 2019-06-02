@@ -7,29 +7,32 @@
  */
 function updateShortList()
 {
-    getCandidates(function () {
-        if(this.responseText == "<p>Shortlist has been invited previously</p>"){
-            document.getElementById('send0').disabled = true;
-            document.getElementById('shortlist-candidates').innerHTML = this.responseText;
-        } else if(this.responseText == "Do not display"){
-			document.getElementById('send0').disabled = true;
-			document.getElementById('shortlist-candidates').innerHTML = "";
-        }else {
-            document.getElementById('send0').disabled = false;
-            document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+    getCandidates(
+        function () {
+            if (this.responseText == "<p>Shortlist has been invited previously</p>") {
+                document.getElementById('send0').disabled = true;
+                document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+            } else if (this.responseText == "Do not display") {
+                document.getElementById('send0').disabled = true;
+                document.getElementById('shortlist-candidates').innerHTML = "";
+            } else {
+                document.getElementById('send0').disabled = false;
+                document.getElementById('shortlist-candidates').innerHTML = this.responseText;
+            }
         }
-    })
+    )
     return false;
 }
 
 /**
-* Creates an XML request to displayShortList.php
-* Sends XML request,
-* apply callback.
-* 
-* @param callback, the function to be called
-**/
-function getCandidates(callback) {
+ * Creates an XML request to displayShortList.php
+ * Sends XML request,
+ * apply callback.
+ *
+ * @param callback, the function to be called
+ **/
+function getCandidates(callback)
+{
     xmlhttp = new XMLHttpRequest();
 
     var shortlist = document.getElementById('shortlist0').value;
@@ -53,13 +56,14 @@ function getCandidates(callback) {
  *
  * @param shortlist, a list of candidates that are to be sent invites.
  */
-function sendInvite(shortlist){
+function sendInvite(shortlist)
+{
     var submitButton = document.getElementById('submit-handle');
     var emailContent = document.getElementById('content').value;
 
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "sendInvites.php?listID=" + shortlist + "&content="+emailContent, true);
+    xmlhttp.open("GET", "sendInvites.php?listID=" + shortlist + "&content=" + emailContent, true);
     submitButton.click();
     xmlhttp.send();
 
@@ -71,18 +75,19 @@ function sendInvite(shortlist){
  * @param titleID,  The ID of the title.
  * @param listId, The ID ofthe list to be deleted.
  */
-function deleteShortList(titleID, listId){
-    if(!confirm("Deleting this short list is permanent. Are you sure you want to delete?")){
+function deleteShortList(titleID, listId)
+{
+    if (!confirm("Deleting this short list is permanent. Are you sure you want to delete?")) {
         return;
     }
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4 && this.status==200) {
-             var list = document.getElementById("shortlist"+titleID);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+             var list = document.getElementById("shortlist" + titleID);
              list.parentNode.removeChild(list);
             document.getElementById("short-list-number").value = document.getElementById("short-list-number").value - 1;
-            if(document.getElementById("short-list-number").value == 0){
+            if (document.getElementById("short-list-number").value == 0) {
                 var promptDiv = document.createElement("div");
                 promptDiv.setAttribute("class", "partition center   interior-box-format");
                 var shortlistPrompt = document.createElement("p");
@@ -91,11 +96,10 @@ function deleteShortList(titleID, listId){
                 promptDiv.appendChild(shortlistPrompt);
                 document.getElementById("short-lists").appendChild(promptDiv);
             }
-
         }
     }
 
-    xmlhttp.open("GET","deleteShortList.php?listId="+listId,true);
+    xmlhttp.open("GET","deleteShortList.php?listId=" + listId,true);
 
     xmlhttp.send();
 }
@@ -103,26 +107,29 @@ function deleteShortList(titleID, listId){
 /***
  * Directs an employer to the write email page
  */
-function writeEmail(){
+function writeEmail()
+{
     listId = document.getElementById('shortlist0').value;
-    window.location.assign("writeEmail.php?list_id="+listId+"&from=search");
+    window.location.assign("writeEmail.php?list_id=" + listId + "&from=search");
 }
 
 /***
  * Function to Add a single candidate to the selected shortlist
+ *
  * @param candId, the ID of the candidate being added
  */
-function addToShortlist(candId){
+function addToShortlist(candId)
+{
     var short_id = document.getElementById("shortlist0").value;
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4 && this.status==200) {
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             updateShortList();
         }
     }
 
-    xmlhttp.open("GET","addToShortList.php?candId="+candId+"&shortId="+short_id,true);
+    xmlhttp.open("GET","addToShortList.php?candId=" + candId + "&shortId=" + short_id,true);
 
     xmlhttp.send();
 
@@ -130,20 +137,22 @@ function addToShortlist(candId){
 
 /***
  * Function to add all candidates to the selected shortlist
+ *
  * @param candidates, all candidates to  be added
  */
-function addAllToShortlist(candidates){
+function addAllToShortlist(candidates)
+{
     var candidates = document.getElementById("cand-ids").value;
     var short_id = document.getElementById("shortlist0").value;
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4 && this.status==200) {
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             updateShortList();
         }
     }
 
-    xmlhttp.open("GET","addAllToShortList.php?candidates="+candidates+"&shortId="+short_id,true);
+    xmlhttp.open("GET","addAllToShortList.php?candidates=" + candidates + "&shortId=" + short_id,true);
 
     xmlhttp.send();
 }
@@ -158,7 +167,8 @@ function addAllToShortlist(candidates){
  * @param divID, the short list div number that will be modified
  * @param id, the id of the shortlist to be modified
  */
-function renameList(divID, id){
+function renameList(divID, id)
+{
     var name = prompt("Please enter the new name", "");
 
     if (name == null || name == "") {
@@ -166,10 +176,10 @@ function renameList(divID, id){
     } else {
         xmlhttp = new XMLHttpRequest();
 
-        xmlhttp.open("GET", "renameShortList.php?id=" + id+ "&name=" +name, true);
+        xmlhttp.open("GET", "renameShortList.php?id=" + id + "&name=" + name, true);
 
         xmlhttp.send();
-        var nameChanged = "shortList"+divID;
+        var nameChanged = "shortList" + divID;
         document.getElementById(nameChanged).innerText = name;
     }
 }
@@ -179,17 +189,19 @@ function renameList(divID, id){
  * Creates an XML request to changeDescriptionShortlist.php
  * Sends XML request,
  * apply callback.
+ *
  * @param divID, the short list div number that will be modified
  * @param id, the id of the shortlist to be modified
  */
-function changeDescription(divID, id){
+function changeDescription(divID, id)
+{
     // var description = prompt("Please enter the new description", "");
-    var descriptionChanged = "shortListDescription"+divID;
-    var button = document.getElementById("change-description"+divID);
-    if(button.value == "Change Description"){
+    var descriptionChanged = "shortListDescription" + divID;
+    var button = document.getElementById("change-description" + divID);
+    if (button.value == "Change Description") {
         button.value = "Save Description";
         document.getElementById(descriptionChanged).disabled = false;
-    }else{
+    } else {
         button.value = "Change Description";
 
         xmlhttp = new XMLHttpRequest();
@@ -219,11 +231,17 @@ function changeDescription(divID, id){
  * @param divID, the short list div number that will be modified
  * @param i, the corresponding shortList title number that will be changed
  */
-function deleteFromShortList(listID, candidateID, divID, i) {
+function deleteFromShortList(listID, candidateID, divID, i)
+{
     //Checks to see if it's the final member of the shortList being deleted. If it is, then delete the title from the PHTML
-    get(listID, candidateID, i, function () {
-        document.getElementById(("candidates"+i)).innerHTML = this.responseText;
-    })
+    get(
+        listID,
+        candidateID,
+        i,
+        function () {
+            document.getElementById(("candidates" + i)).innerHTML = this.responseText;
+        }
+    )
 }
 
 /**
@@ -237,11 +255,12 @@ function deleteFromShortList(listID, candidateID, divID, i) {
  * @param i, the short list div number that will be modified
  * @param callback, the function to be called
  */
-function get(listID, candidateID, i, callback) {
+function get(listID, candidateID, i, callback)
+{
     temp = 'num' + i;
     candCount = document.getElementById(temp).value;
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "deleteFromShortList.php?listID=" + listID + "&candidateID=" +candidateID + "&candCount=" + candCount +"&divID=" + i, true);
+    xmlhttp.open("GET", "deleteFromShortList.php?listID=" + listID + "&candidateID=" + candidateID + "&candCount=" + candCount + "&divID=" + i, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
@@ -264,17 +283,23 @@ function get(listID, candidateID, i, callback) {
  * @param ID, the ID of the candidate, that the shortlist will belong too.
  * @param i, the iteration of the shortlist assigned to the candiate.
  */
-function newShortList(ID,i) {
+function newShortList(ID,i)
+{
     var name = prompt("Please enter the new name: ", "");
 
     if (name == null || name == "") {
         alert("User cancelled the prompt.");
     } else {
         var description = prompt("Please enter a description: ", "");
-        getCreateNewShortlist(name,ID,description, function () {
-            document.getElementById("short-lists").innerHTML = this.responseText;
-            document.getElementById("short-list-number").value = document.getElementById("short-list-number").value + 1;
-        })
+        getCreateNewShortlist(
+            name,
+            ID,
+            description,
+            function () {
+                document.getElementById("short-lists").innerHTML = this.responseText;
+                document.getElementById("short-list-number").value = document.getElementById("short-list-number").value + 1;
+            }
+        )
         return false;
     }
 }
@@ -289,9 +314,10 @@ function newShortList(ID,i) {
  * @param description, a string which holds the description created for a shortlist
  * @param callback, the function to be called
  **/
-function getCreateNewShortlist(name,ID,description,callback) {
+function getCreateNewShortlist(name,ID,description,callback)
+{
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "newShortList.php?name=" + name +"&id=" + ID+"&description=" + description,true);
+    xmlhttp.open("GET", "newShortList.php?name=" + name + "&id=" + ID + "&description=" + description,true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

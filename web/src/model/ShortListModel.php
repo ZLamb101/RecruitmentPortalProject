@@ -40,6 +40,7 @@ class ShortListModel extends Model
 
     /**
      * Informs whether a shortlist has sent invites before.
+     *
      * @return bool
      */
     public function isHasInvited()
@@ -49,6 +50,7 @@ class ShortListModel extends Model
 
     /**
      * Changes the state of a shortlists invite sent status
+     *
      * @param bool $hasInvited
      */
     public function setHasInvited($hasInvited)
@@ -58,6 +60,7 @@ class ShortListModel extends Model
 
     /**
      * Returns the description of the short list
+     *
      * @return string, Gets the description of the short list
      */
     public function getDescription()
@@ -67,6 +70,7 @@ class ShortListModel extends Model
 
     /**
      * Modifies the description of the shortlist
+     *
      * @param string $description, Sets the description of the short list
      */
     public function setDescription($description)
@@ -76,6 +80,7 @@ class ShortListModel extends Model
 
     /**
      * Returns the ID of the short list
+     *
      * @return int $this->id, the ID of the Short List
      */
     public function getId()
@@ -85,6 +90,7 @@ class ShortListModel extends Model
 
     /**
      * Sets the ID of the short list
+     *
      * @param int $id, the new ID of the Short List
      */
     public function setId($id)
@@ -95,6 +101,7 @@ class ShortListModel extends Model
 
     /**
      * Returns the ID of the employer who owns the short list
+     *
      * @return int $this->owner_id, the ID of the employer the Short List belongs to
      */
     public function getOwnerId()
@@ -104,6 +111,7 @@ class ShortListModel extends Model
 
     /**
      * Sets the owner of the short list to the employer's ID
+     *
      * @param int $owner_id, the new ID of the employer the Short List belongs to
      */
     public function setOwnerId($owner_id)
@@ -113,6 +121,7 @@ class ShortListModel extends Model
 
     /**
      * Returns the name of the short list
+     *
      * @return string $this->name, the name of the Short List
      */
     public function getName()
@@ -122,6 +131,7 @@ class ShortListModel extends Model
 
     /**
      * Sets the name of the shortlist
+     *
      * @param string $name, the new name of the Short List
      */
     public function setName($name)
@@ -141,7 +151,7 @@ class ShortListModel extends Model
     public function load($id)
     {
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$id';")){
+        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$id';")) {
             throw new mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListLoad");
         }
         $result = $result->fetch_assoc();
@@ -173,14 +183,12 @@ class ShortListModel extends Model
         $cand = implode(",", $this->candidates);
         $cand = $this->db->real_escape_string($cand);
         if (!isset($this->id)) {
-
-            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand', '$description', 0);")){
+            if (!$result = $this->db->query("INSERT INTO `short_list` VALUES (NULL, '$owner_id', '$name', '$cand', '$description', 0);")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-
-            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand', `description` = '$description', `hasInvited` = '$this->hasInvited' WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query("UPDATE `short_list` SET `owner_id` = '$owner_id', `name` = '$name', `candidates` = '$cand', `description` = '$description', `hasInvited` = '$this->hasInvited' WHERE `id` = '$this->id';")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: shortListSaveExisting");
             }
         }
@@ -189,6 +197,7 @@ class ShortListModel extends Model
 
     /**
      * Converts the candidate ID's from the database into CandidateModels as required.
+     *
      * @return \Generator|CandidateModel[]
      */
     public function getCandidates()
@@ -203,15 +212,16 @@ class ShortListModel extends Model
 
     /**
      * Adds a candidate to the short list
+     *
      * @param $candId, the ID of the candidate to add
      */
     public function addCandidate($candId)
     {
         // Check if candidate is already in the short list
-        if(in_array($candId, $this->candidates)){
+        if (in_array($candId, $this->candidates)) {
             return;
         }
-        if($this->candidates[0] == "NULL"){
+        if ($this->candidates[0] == "NULL") {
             $this->candidates[0] = $candId;
         } else {
             $str = implode(",", $this->candidates);
@@ -223,42 +233,48 @@ class ShortListModel extends Model
 
     /**
      * Renames the shortList as desired
+     *
      * @param $shortListID, the ID of the shortlist to rename
      * @param $name, the desired new name
      */
-    public function renameShortList($shortListID, $name){
-        if(!$result = $this->db->query("UPDATE `short_list` SET `name` = '$name' WHERE `id` = '$shortListID'")){
+    public function renameShortList($shortListID, $name)
+    {
+        if (!$result = $this->db->query("UPDATE `short_list` SET `name` = '$name' WHERE `id` = '$shortListID'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListRename");
         }
     }
 
     /**
      * Changes the shortList description as desired
+     *
      * @param $shortListID, the ID of the shortlist to rename
      * @param $description, the desired new description
      */
-    public function changeDescription($shortListID, $description){
-        if(!$result = $this->db->query("UPDATE `short_list` SET `description` = '$description' WHERE `id` = '$shortListID'")){
+    public function changeDescription($shortListID, $description)
+    {
+        if (!$result = $this->db->query("UPDATE `short_list` SET `description` = '$description' WHERE `id` = '$shortListID'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListChangeDescription");
         }
     }
 
     /**
      * Deletes a specified candidate from a shortlist
+     *
      * @param $shortListID, the ID of the shortList to delete the candidate from
      * @param $idToDelete, the ID of the Candidate being deleted
      */
-    public function deleteFromShortList($shortListID, $idToDelete){
-        if(!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$shortListID'")){
+    public function deleteFromShortList($shortListID, $idToDelete)
+    {
+        if (!$result = $this->db->query("SELECT * FROM `short_list` WHERE `id` = '$shortListID'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListRemoveCandidate");
         }
         $result = $result->fetch_assoc();
         $str = $result['candidates'];
         $strToReplace = explode(",", $str);
-        $index = array_search($idToDelete,$strToReplace);
+        $index = array_search($idToDelete, $strToReplace);
         unset($strToReplace[$index]);
         $newCandidateList = implode(",", $strToReplace);
-        if($newCandidateList == "") {
+        if ($newCandidateList == "") {
             $newCandidateList = "NULL";
         }
         if (!$result = $this->db->query("UPDATE `short_list` SET `candidates` = '$newCandidateList' WHERE `id` = '$shortListID'")) {
@@ -281,22 +297,26 @@ class ShortListModel extends Model
 
     /**
      * Creates the shortList as desired
+     *
      * @param $shortListName, the name of the new shortList
      * @param $ownerID, the ID of the user the shortList belongs to
      * @param $description, the description of the shortList
      */
-    public function newShortList($shortListName, $ownerID, $description){
+    public function newShortList($shortListName, $ownerID, $description)
+    {
 
-        if(!$result = $this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`, `hasInvited`) VALUES 
-                                                    (NULL, '$ownerID', '$shortListName', 'NULL', '$description',0);")){
-
-
+        if (!$result = $this->db->query(
+            "INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`, `hasInvited`) VALUES 
+                                                    (NULL, '$ownerID', '$shortListName', 'NULL', '$description',0);"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: ShortListNew");
         }
     }
 
     /**
      * This function sends a email when an employer is inviting a shortlist of candidates
+     *
      * @param $candidate CandidateModel, an object representing the candidate the email is being sent to
      * @param $content string, the extra information an employer is adding to an email
      * @param $employer EmployerModel, an object representing the employer on behalf of whom the email is being sent
@@ -324,36 +344,35 @@ class ShortListModel extends Model
         //Content
 
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Vesta Recruitment - Invite from '.$employer->getCompanyName();
+        $mail->Subject = 'Vesta Recruitment - Invite from ' . $employer->getCompanyName();
 
-        $emailString=$this->getEmailBody($candidate, $content, $employer);
+        $emailString = $this->getEmailBody($candidate, $content, $employer);
 
         $mail->Body = $emailString;
         $mail->AltBody = $emailString;
 
         $mail->send();
         // echo 'Message has been sent';
-
     }
 
     /***
      * Helper function to generate the email to send to the candidate
-     * @param $candidate CandidateModel, an object representing the candidate the email is being sent to
-     * @param $content string, the extra information an employer is adding to an email
-     * @param $employer EmployerModel, an object representing the employer on behalf of whom the email is being sent
+     *
+     * @param  $candidate CandidateModel, an object representing the candidate the email is being sent to
+     * @param  $content string, the extra information an employer is adding to an email
+     * @param  $employer EmployerModel, an object representing the employer on behalf of whom the email is being sent
      * @return string $body, the full body of the email to send to each candidate
      */
     public function getEmailBody($candidate, $content, $employer)
     {
         $body = "";
-        $body.="Dear ".$candidate->getGName().",<br>You are invited to meet with ".$employer->getContactName()." from ".$employer->getCompanyName()."<br><br>";
-        $body.="They would like you to book a time for an interview that suits you, by following the following link<br>";
-        $body.="<a href=".$employer->getCalendarLink().">".$employer->getCalendarLink()."</a><br><br>";
-        if($content != "") {
+        $body .= "Dear " . $candidate->getGName() . ",<br>You are invited to meet with " . $employer->getContactName() . " from " . $employer->getCompanyName() . "<br><br>";
+        $body .= "They would like you to book a time for an interview that suits you, by following the following link<br>";
+        $body .= "<a href=" . $employer->getCalendarLink() . ">" . $employer->getCalendarLink() . "</a><br><br>";
+        if ($content != "") {
             $body .= $content . "<br><br>";
         }
-        $body.="Kind Regards,<br>Vesta Recruitment";
+        $body .= "Kind Regards,<br>Vesta Recruitment";
         return $body;
-
     }
 }

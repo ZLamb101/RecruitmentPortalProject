@@ -5,17 +5,18 @@
  * @param number, the position of the work experience as displayed on the page
  * @param id, the id of the work experience as in the database
  */
-function deleteWorkExperience(number, id){
-    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+function deleteWorkExperience(number, id)
+{
+    if (!confirm("Deleting this card is permanent. Are you sure you want to delete?")) {
         return;
     }
-    if((document.getElementById("work-experience-existing-count").value > 0 && id >= 0) || (document.getElementById("work-experience-count").value > 0 && id < 0)) {
-        var prefferedCheck = document.getElementById("work-experience-preference"+number);
-        if(prefferedCheck.checked){
+    if ((document.getElementById("work-experience-existing-count").value > 0 && id >= 0) || (document.getElementById("work-experience-count").value > 0 && id < 0)) {
+        var prefferedCheck = document.getElementById("work-experience-preference" + number);
+        if (prefferedCheck.checked) {
             alert("You cannot delete your preferred work experience");
             return;
         }
-        if(id >= 0) {
+        if (id >= 0) {
             xmlhttp = new XMLHttpRequest();
 
 
@@ -47,10 +48,10 @@ function deleteWorkExperience(number, id){
             document.getElementById(elementId).id = newElementId;
         }
         document.getElementById("work-experience-count").value = (numOfExperience - 1);
-        if(id >= 0) {
+        if (id >= 0) {
             document.getElementById("work-experience-existing-count").value = (document.getElementById("work-experience-existing-count").value - 1);
         }
-    }else{
+    } else {
         alert("You cannot delete your last work experience");
     }
 }
@@ -58,21 +59,22 @@ function deleteWorkExperience(number, id){
 /**
  * Deletes the corresponding selected skill and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
+ *
  * @param number, the position of the skill as displayed on the page
  * @param id, the id of the skill as in the database
  */
-function deleteSkill(number,id){
-    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+function deleteSkill(number,id)
+{
+    if (!confirm("Deleting this card is permanent. Are you sure you want to delete?")) {
         return;
     }
-    if((document.getElementById("skill-existing-count").value > 0 && id >= 0) || (document.getElementById("skill-count").value > 0 && id < 0)) {
-
-        var prefferedCheck = document.getElementById("skill-preference"+number);
-        if(prefferedCheck.checked){
+    if ((document.getElementById("skill-existing-count").value > 0 && id >= 0) || (document.getElementById("skill-count").value > 0 && id < 0)) {
+        var prefferedCheck = document.getElementById("skill-preference" + number);
+        if (prefferedCheck.checked) {
             alert("You cannot delete your preferred skill");
             return;
         }
-        if(id >= 0) {
+        if (id >= 0) {
             xmlhttp = new XMLHttpRequest();
 
             xmlhttp.open("GET", "deleteSkill.php?id=" + id, true);
@@ -102,11 +104,11 @@ function deleteSkill(number,id){
             newElementId = "skillId" + (i - 1);
             document.getElementById(elementId).id = newElementId;
         }
-        if(id >= 0) {
+        if (id >= 0) {
             document.getElementById("skill-existing-count").value = document.getElementById("skill-existing-count").value - 1;
         }
         document.getElementById("skill-count").value = (numOfExperience - 1);
-    }else{
+    } else {
         alert("You cannot delete your last qualification");
     }
 }
@@ -114,20 +116,22 @@ function deleteSkill(number,id){
 /**
  * Deletes the corresponding selected qualification and then clears the HTML of where it was displayed
  * Decreases all the IDs of elements after this one such that the save will still work
+ *
  * @param number, the position of the qualification as displayed on the page
  * @param id, the id of the qualification as in the database
  */
-function deleteQualification(number, id){
-    if(!confirm("Deleting this card is permanent. Are you sure you want to delete?")){
+function deleteQualification(number, id)
+{
+    if (!confirm("Deleting this card is permanent. Are you sure you want to delete?")) {
         return;
     }
-    if((document.getElementById("qualification-existing-count").value > 0 && id >= 0) || (document.getElementById("qualification-count").value > 0 && id < 0)) {
-        var prefferedCheck = document.getElementById("qualification-preference"+number);
-        if(prefferedCheck.checked){
+    if ((document.getElementById("qualification-existing-count").value > 0 && id >= 0) || (document.getElementById("qualification-count").value > 0 && id < 0)) {
+        var prefferedCheck = document.getElementById("qualification-preference" + number);
+        if (prefferedCheck.checked) {
             alert("You cannot delete your preferred qualification");
             return;
         }
-        if(id >= 0) {
+        if (id >= 0) {
             xmlhttp = new XMLHttpRequest();
 
             xmlhttp.open("GET", "deleteQualification.php?id=" + id, true);
@@ -156,11 +160,11 @@ function deleteQualification(number, id){
             newElementId = "qualId" + (i - 1);
             document.getElementById(elementId).id = newElementId;
         }
-        if(id >= 0) {
+        if (id >= 0) {
             document.getElementById("qualification-existing-count").value = document.getElementById("qualification-existing-count").value - 1;
         }
         document.getElementById("qualification-count").value = (numOfExperience - 1);
-    }else{
+    } else {
         alert("You cannot delete your last work experience");
     }
 }
@@ -172,10 +176,11 @@ function deleteQualification(number, id){
  * increment the names of the inputs for each invocation.
  * append new <div> to qualification in phtml
  */
-function addQualification(){
+function addQualification()
+{
     var count = document.getElementById("qualification-count");
     var it = count.getAttribute("value");
-    if(it >= 8){
+    if (it >= 8) {
         alert("You have reached maximum number of qualifications");
         return;
     }
@@ -186,20 +191,20 @@ function addQualification(){
 
     var qual = document.createElement("div");                       // Create outer <div> node
     qual.setAttribute("class","edit-box partition interior-box-format");
-    var divString = "qualification"+it;
+    var divString = "qualification" + it;
     qual.setAttribute("id",divString);
 
-    var deleteButton = document.createElement("input");				//Create delete button
+    var deleteButton = document.createElement("input");                //Create delete button
     deleteButton.setAttribute("type", "button");
     deleteButton.setAttribute("class", "btn btn-danger");
-    var deleteQualificationNum = "delete-qualification"+it;
+    var deleteQualificationNum = "delete-qualification" + it;
     deleteButton.setAttribute("id", deleteQualificationNum);
     deleteButton.setAttribute("value", "Delete");
-    var functionName = "deleteQualification("+it+",-1)";
+    var functionName = "deleteQualification(" + it + ",-1)";
     deleteButton.setAttribute("onclick", functionName);
     qual.appendChild(deleteButton);
 
-    var qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    var qualChild = document.createElement("div");                        // Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","sm-pad form-group");
 
 
@@ -221,30 +226,30 @@ function addQualification(){
     var pref = document.createElement("input");
     pref.setAttribute("class", "pull-right");
     pref.setAttribute("type", "radio");
-    var qualID = "qualification-preference"+ it;
+    var qualID = "qualification-preference" + it;
     prefP.setAttribute("for", qualID);
     pref.setAttribute("name", "qualification-preference");
     pref.setAttribute("id", qualID);
     pref.setAttribute("value", it);
-    if(mainDiv.childNodes.length == 6){
+    if (mainDiv.childNodes.length == 6) {
         pref.checked = true;
     }
 
     prefP.appendChild(toolTip);
     prefP.appendChild(prefLabel);
 
-    qualChild.appendChild(prefP);										//Append Label and input into Child Div
+    qualChild.appendChild(prefP);                                        //Append Label and input into Child Div
     qualChild.appendChild(pref);
 
-    qual.appendChild(qualChild);										//Append child div to parent div
+    qual.appendChild(qualChild);                                        //Append child div to parent div
 
-    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild = document.createElement("div");                        // Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","form-group");
 
     var levelP = document.createElement("label");
     var levelLabel = document.createTextNode("Level: ");
     var level = document.createElement("select");
-    var levelString = "level"+it;
+    var levelString = "level" + it;
     levelP.setAttribute("for", levelString);
     level.setAttribute("name", levelString);
     level.setAttribute("class", "form-control");
@@ -254,15 +259,15 @@ function addQualification(){
     qualChild.appendChild(levelP);
     qualChild.appendChild(level);
 
-    qual.appendChild(qualChild);										//Append child div to parent div
+    qual.appendChild(qualChild);                                        //Append child div to parent div
 
-    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild = document.createElement("div");                        // Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","form-group");
 
     var typeP = document.createElement("label");
     var typeLabel = document.createTextNode("Field: ");
     var type = document.createElement("select");
-    var typeString = "type"+it;
+    var typeString = "type" + it;
     typeP.setAttribute("for", typeString);
     type.setAttribute("name", typeString);
     type.setAttribute("id", typeString);
@@ -278,15 +283,15 @@ function addQualification(){
     qualChild.appendChild(typeP);
     qualChild.appendChild(type);
 
-    qual.appendChild(qualChild);										//Append child div to parent div
+    qual.appendChild(qualChild);                                        //Append child div to parent div
 
-    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild = document.createElement("div");                        // Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","form-group");
 
     var yearP = document.createElement("label");
     var yearLabel = document.createTextNode("Year: ");
     var year = document.createElement("input");
-    var yearString = "year"+it;
+    var yearString = "year" + it;
     yearP.setAttribute("for",yearString);
     year.setAttribute("name",yearString);
     year.setAttribute("id",yearString);
@@ -301,15 +306,15 @@ function addQualification(){
     qualChild.appendChild(yearP);
     qualChild.appendChild(year);
 
-    qual.appendChild(qualChild);										//Append child div to parent div
+    qual.appendChild(qualChild);                                        //Append child div to parent div
 
-    qualChild = document.createElement("div");						// Create child <div> node (to put label input pairs within)
+    qualChild = document.createElement("div");                        // Create child <div> node (to put label input pairs within)
     qualChild.setAttribute("class","form-group");
 
     var majorP = document.createElement("label");
     var majorLabel = document.createTextNode("Major:");
     var major = document.createElement("input");
-    var majorString = "major"+it;
+    var majorString = "major" + it;
     majorP.setAttribute("for", majorString);
     major.setAttribute("name", majorString);
     major.setAttribute("id", majorString);
@@ -321,14 +326,16 @@ function addQualification(){
     qualChild.appendChild(majorP);
     qualChild.appendChild(major);
 
-    qual.appendChild(qualChild);										//Append child div to parent div
+    qual.appendChild(qualChild);                                        //Append child div to parent div
 
     mainDiv.appendChild(qual);           // Append <p> to <div> with id="myDIV"
 
 
-    getLevels(function () {
-        document.getElementById(levelString).innerHTML = this.responseText;
-    })
+    getLevels(
+        function () {
+            document.getElementById(levelString).innerHTML = this.responseText;
+        }
+    )
 
 
     return false;
@@ -343,10 +350,11 @@ function addQualification(){
  * increment the names of the inputs for each invocation.
  * append new <div> to work experience in phtml
  */
-function addWorkExperience(){
+function addWorkExperience()
+{
     var count = document.getElementById("work-experience-count");
     var it = count.getAttribute("value");
-    if(it >= 8){
+    if (it >= 8) {
         alert("You have reached maximum number of work-experiences");
         return;
     }
@@ -355,18 +363,18 @@ function addWorkExperience(){
 
     var mainDiv = document.getElementById("work-experience");
 
-    var workex = document.createElement("div");              		         // Create outer <div> node
+    var workex = document.createElement("div");                               // Create outer <div> node
     workex.setAttribute("class","edit-box partition interior-box-format");
     var divName = "workExperience" + it;
     workex.setAttribute("id",divName);
 
-    var deleteButton = document.createElement("input");						//Create delete button
+    var deleteButton = document.createElement("input");                        //Create delete button
     deleteButton.setAttribute("type", "button");
-    var deleteWorkNum = "delete-work-experience"+it;
+    var deleteWorkNum = "delete-work-experience" + it;
     deleteButton.setAttribute("id", deleteWorkNum);
     deleteButton.setAttribute("value", "Delete");
     deleteButton.setAttribute("class", "btn btn-danger");
-    var functionName = "deleteWorkExperience("+it+",-1)";
+    var functionName = "deleteWorkExperience(" + it + ",-1)";
     deleteButton.setAttribute("onclick", functionName);
     workex.appendChild(deleteButton);
 
@@ -391,10 +399,10 @@ function addWorkExperience(){
     var pref = document.createElement("input");
     pref.setAttribute("type", "radio");
     pref.setAttribute("class", "pull-right");
-    if(mainDiv.childNodes.length == 6){
+    if (mainDiv.childNodes.length == 6) {
         pref.checked = true;
     }
-    var radID = "work-experience-preference"+it;
+    var radID = "work-experience-preference" + it;
     pref.setAttribute("id", radID);
     pref.setAttribute("name", "work-experience-preference");
     pref.setAttribute("value", it);
@@ -404,15 +412,15 @@ function addWorkExperience(){
     workexChild.appendChild(prefP);
     workexChild.appendChild(pref);
 
-    workex.appendChild(workexChild);									//Append Child div to inner div
+    workex.appendChild(workexChild);                                    //Append Child div to inner div
 
     workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
     workexChild.setAttribute("class","form-group");
 
     var roleP = document.createElement("label");
-    var roleString = "role"+it;
+    var roleString = "role" + it;
     roleP.setAttribute("for", roleString);
-    var roleLabel = document.createTextNode("Role.");     		 // Create a text node
+    var roleLabel = document.createTextNode("Role.");              // Create a text node
     var role = document.createElement("input");
     role.setAttribute("name", roleString);
     role.setAttribute("id", roleString);
@@ -427,7 +435,7 @@ function addWorkExperience(){
     workexChild.appendChild(roleP);
     workexChild.appendChild(role);
 
-    workex.appendChild(workexChild);									//Append Child div to inner div
+    workex.appendChild(workexChild);                                    //Append Child div to inner div
 
     workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
     workexChild.setAttribute("class","form-group");
@@ -435,7 +443,7 @@ function addWorkExperience(){
     var durationP = document.createElement("label");
     var durationLabel = document.createTextNode("Duration.");      // Create a text node
     var duration = document.createElement("input");
-    var durationString = "duration"+it;
+    var durationString = "duration" + it;
     durationP.setAttribute("for", durationString)
     duration.setAttribute("name", durationString);
     duration.setAttribute("id", durationString);
@@ -450,7 +458,7 @@ function addWorkExperience(){
     workexChild.appendChild(durationP);
     workexChild.appendChild(duration);
 
-    workex.appendChild(workexChild);									//Append Child div to inner div
+    workex.appendChild(workexChild);                                    //Append Child div to inner div
 
     workexChild = document.createElement("div");                       // Create child <div> node (to put label input pairs within)
     workexChild.setAttribute("class","form-group");
@@ -458,7 +466,7 @@ function addWorkExperience(){
     var employerP = document.createElement("label");
     var employerLabel = document.createTextNode("Employer.");      // Create a text node
     var employer = document.createElement("input");
-    var employerString = "employer"+it;
+    var employerString = "employer" + it;
     employerP.setAttribute("for", employerString);
     employer.setAttribute("name", employerString);
     employer.setAttribute("id", employerString);
@@ -473,7 +481,7 @@ function addWorkExperience(){
     workexChild.appendChild(employerP);
     workexChild.appendChild(employer);
 
-    workex.appendChild(workexChild);									//Append Child div to inner div
+    workex.appendChild(workexChild);                                    //Append Child div to inner div
 
     mainDiv.appendChild(workex);
 
@@ -488,10 +496,11 @@ function addWorkExperience(){
  * increment the names of the inputs for each invocation.
  * append new <div> to skill in phtml
  */
-function addSkill(){
+function addSkill()
+{
     var count = document.getElementById("skill-count");
     var it = count.getAttribute("value");
-    if(it >= 8){
+    if (it >= 8) {
         alert("You have reached maximum number of skills");
         return;
     }
@@ -506,11 +515,11 @@ function addSkill(){
 
     var deleteButton = document.createElement("input");
     deleteButton.setAttribute("type", "button");
-    var deleteSkillNum = "delete-skill"+it;
+    var deleteSkillNum = "delete-skill" + it;
     deleteButton.setAttribute("id", deleteSkillNum);
     deleteButton.setAttribute("value", "Delete");
     deleteButton.setAttribute("class", "btn btn-danger")
-    var functionName = "deleteSkill("+it+",-1)";
+    var functionName = "deleteSkill(" + it + ",-1)";
     deleteButton.setAttribute("onclick", functionName);
     skill.appendChild(deleteButton);
 
@@ -535,12 +544,12 @@ function addSkill(){
     var pref = document.createElement("input");
     pref.setAttribute("type", "radio");
     pref.setAttribute("class", "pull-right");
-    var skillID = "skill-preference"+it;
+    var skillID = "skill-preference" + it;
     prefP.setAttribute("for", skillID);
     pref.setAttribute("id", skillID);
     pref.setAttribute("name", "skill-preference");
     pref.setAttribute("value", it);
-    if(mainDiv.childNodes.length == 6){
+    if (mainDiv.childNodes.length == 6) {
         pref.checked = true;
     }
     prefP.appendChild(toolTip);
@@ -623,9 +632,11 @@ function addSkill(){
 
     mainDiv.appendChild(skill);
 
-    getFields(function () {
-        document.getElementById(fieldString).innerHTML = this.responseText;
-    })
+    getFields(
+        function () {
+            document.getElementById(fieldString).innerHTML = this.responseText;
+        }
+    )
     return false;
 
 }
@@ -635,7 +646,8 @@ function addSkill(){
  * Creates an alert and attaches it to the div node
  * append new <div> to candidate page
  */
-function missingInfoAlert() {
+function missingInfoAlert()
+{
     var alertBox = document.createElement("div");
     alertBox.setAttribute("class","small-box-format center alert alert-danger");
 

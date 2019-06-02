@@ -1,6 +1,6 @@
 <?php
 
-$qualDummy ="(NULL, '4', '1', '9', '1986', 'SampleMajor'), 
+$qualDummy = "(NULL, '4', '1', '9', '1986', 'SampleMajor'), 
 (NULL, '5', '5', '5', '2016', 'SampleMajor'), 
 (NULL, '6', '5', '5', '1993', 'SampleMajor'), 
 (NULL, '7', '1', '3', '2011', 'SampleMajor'), 
@@ -2001,5 +2001,3 @@ $qualDummy ="(NULL, '4', '1', '9', '1986', 'SampleMajor'),
 (NULL, '2002', '4', '3', '2013', 'SampleMajor'), 
 (NULL, '2003', '4', '14', '2007', 'SampleMajor')
 ";
-
-?>

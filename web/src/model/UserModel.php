@@ -42,6 +42,7 @@ class UserModel extends Model
     }
     /**
      * Gets the user's username
+     *
      * @return string $this->username, the username of the user
      */
     public function getUsername()
@@ -50,6 +51,7 @@ class UserModel extends Model
     }
     /**
      * Sets the user's username
+     *
      * @param string $username, the username of the user
      */
     public function setUsername($username)
@@ -58,6 +60,7 @@ class UserModel extends Model
     }
     /**
      * Returns the password of the user
+     *
      * @return string $this->password, the password of the user
      */
     public function getPassword()
@@ -66,6 +69,7 @@ class UserModel extends Model
     }
     /**
      * Sets the password of the user
+     *
      * @param string $password, the password of the user
      */
     public function setPassword($password)
@@ -74,6 +78,7 @@ class UserModel extends Model
     }
     /**
      * Return the email address of the user
+     *
      * @return string $this->email, the email address of the user
      */
     public function getEmail()
@@ -82,13 +87,16 @@ class UserModel extends Model
     }
     /**
      * Sets the email address of the user
+     *
      * @param string $email, the new email address of the user
      */
-    public function setEmail($email){
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
     /**
      * Returns the phone number of the user
+     *
      * @return string $this->phone_number, the phone number of the user
      */
     public function getPhoneNumber()
@@ -97,9 +105,11 @@ class UserModel extends Model
     }
     /**
      * Gets the phone number of the user
+     *
      * @param string $phone_number, the new phone number for the user
      */
-    public function setPhoneNumber($phone_number){
+    public function setPhoneNumber($phone_number)
+    {
         $this->phone_number = $phone_number;
     }
     /**
@@ -151,8 +161,11 @@ class UserModel extends Model
             $this->id = $this->db->insert_id;
         } else {
             // saving existing user - perform UPDATE
-            if (!$result = $this->db->query("UPDATE `user` SET `username` = '$username', `password` = '$password', 
-                                              `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;")) {
+            if (!$result = $this->db->query(
+                "UPDATE `user` SET `username` = '$username', `password` = '$password', 
+                                              `email` = '$email', `phone_number` = '$phone' WHERE `id` = $this->id;"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userSaveExisting");
             }
         }
@@ -184,16 +197,17 @@ class UserModel extends Model
      *
      * @return $result['id'] the ID of the successfully validated user
      */
-    public function validateLogin($username, $password){
-        if(!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")){
+    public function validateLogin($username, $password)
+    {
+        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `username` = '$username';")) {
             throw new \mysqli_sql_exception("An account with that username doesn't exist");
         }
         $result = $result->fetch_assoc();
-        if(!$result){
+        if (!$result) {
             throw new \mysqli_sql_exception("Failed");
         }
         $resultPassword = $result['password'];
-        if(password_verify($password, $resultPassword)){
+        if (password_verify($password, $resultPassword)) {
             return $result['id'];
         } else {
             throw new \mysqli_sql_exception("Password doesn't match");
@@ -207,9 +221,10 @@ class UserModel extends Model
      *
      * @return int either 1 or 2 corresponding to the type of user being logged in
      */
-    public function determineType($userID){
+    public function determineType($userID)
+    {
         $result = $this->db->query("SELECT * FROM `employer` WHERE `user_id` = '$userID'");
-        if($result->num_rows == 1){
+        if ($result->num_rows == 1) {
             return 2;       //2 represents employer
         } else {
             return 1;       //1 represents candidate
@@ -217,15 +232,15 @@ class UserModel extends Model
     }
 
      /***
-     * Checks whether an account with the submitted username already exists.
-     *
-     * @param $username string, the username to look for in the database
-     * @return string, really a boolean, but read as a string for use in Javascript, Returns true
-     *         if there are no existing accounts with the submitted username meaning a user can register
-     *         that name.
-     *
-     * @throws \mysqli_sql_exception, if the SQL query fails
-     */
+      * Checks whether an account with the submitted username already exists.
+      *
+      * @param  $username string, the username to look for in the database
+      * @return string, really a boolean, but read as a string for use in Javascript, Returns true
+      *         if there are no existing accounts with the submitted username meaning a user can register
+      *         that name.
+      *
+      * @throws \mysqli_sql_exception, if the SQL query fails
+      */
     public function findName($username)
     {
 
@@ -242,29 +257,30 @@ class UserModel extends Model
 
 
      /***
-     * Searches for the user_id of an explicit username
-     *
-     * @param $username string, the username to look for in the database
-     * @return string, the user_id for the associated username
-     *
-     * @throws \mysqli_sql_exception, if the SQL query fails
-     */
-    public function findID($username){
-         if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
+      * Searches for the user_id of an explicit username
+      *
+      * @param  $username string, the username to look for in the database
+      * @return string, the user_id for the associated username
+      *
+      * @throws \mysqli_sql_exception, if the SQL query fails
+      */
+    public function findID($username)
+    {
+        if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
             throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
       
         $result = $result->fetch_assoc();
-        if(!$result){
+        if (!$result) {
             throw new \mysqli_sql_exception("Failed");
         }
         return $result['id'];
-
     }
 
 
     /**
      * This function sends a confirmation to users email when account has been created.
+     *
      * @param $email string, the email address to send the email to
      * @param $username string, the username of the user
      */
@@ -301,6 +317,7 @@ class UserModel extends Model
 
     /**
      * This function sends a email when a user is recovering their password
+     *
      * @param $uuid string, the universally unique identifier assigned to account to reset the password of that account
      */
     public function sendPasswordRecoveryEmail($uuid)
@@ -327,50 +344,25 @@ class UserModel extends Model
 
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Vesta Recruit Password Recovery';
-        $mail->Body = 'To reset your password, please click <a href="http://localhost:8000/Verify/?id='.$uuid.'">here</a>.';
+        $mail->Body = 'To reset your password, please click <a href="http://localhost:8000/Verify/?id=' . $uuid . '">here</a>.';
         $mail->AltBody = 'Reset your password';
 
         $mail->send();
         // echo 'Message has been sent';
-
-    }
-
-    /**
-     * Generates a unique identifier for password recovery
-     * @return string, a unique identifier to send in an email link
-     */
-    function gen_uuid() {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            // 32 bits for "time_low"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-
-            // 16 bits for "time_mid"
-            mt_rand( 0, 0xffff ),
-
-            // 16 bits for "time_hi_and_version",
-            // four most significant bits holds version number 4
-            mt_rand( 0, 0x0fff ) | 0x4000,
-
-            // 16 bits, 8 bits for "clk_seq_hi_res",
-            // 8 bits for "clk_seq_low",
-            // two most significant bits holds zero and one for variant DCE1.1
-            mt_rand( 0, 0x3fff ) | 0x8000,
-
-            // 48 bits for "node"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-        );
     }
 
     /**
      * Checks that a uuid is valid
-     * @param $str, the uuid used to access the Verify webpage
+     *
+     * @param  $str, the uuid used to access the Verify webpage
      * @return bool, returns true if the uuid exists
      */
-    function check_uuid($str){
+    public function checkUuid($str)
+    {
         if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$str';")) {
             throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
-        if($result->num_rows == 0){
+        if ($result->num_rows == 0) {
             return false;
         }
         return true;

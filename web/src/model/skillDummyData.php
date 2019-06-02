@@ -4001,5 +4001,3 @@ $skillDummy = "(NULL, 4, 16, '114', 'Adaptability, UX UI Design, Statistical Ana
 (NULL, 2003, 4, '18', 'Planning, Baking, Analytical'), 
 (NULL, 2003, 4, '18', 'Adaptability, Self motivation, Analytical')
 ";
-
-?>

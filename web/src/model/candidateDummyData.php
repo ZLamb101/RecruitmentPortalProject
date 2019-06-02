@@ -1,6 +1,6 @@
 <?php
 
-$candidateDummy ="(NULL, '5', 'Garcia', 'Michael', 'Random Location', '10'), 
+$candidateDummy = "(NULL, '5', 'Garcia', 'Michael', 'Random Location', '10'), 
 (NULL, '6', 'Anderson', 'Logan', 'Random Location', '12'), 
 (NULL, '7', 'Brown', 'Sofia', 'Random Location', '1'), 
 (NULL, '8', 'Martinez', 'Isabella', 'Random Location', '2'), 
@@ -2001,5 +2001,3 @@ $candidateDummy ="(NULL, '5', 'Garcia', 'Michael', 'Random Location', '10'),
 (NULL, '2003', 'Lewis', 'Ava', 'Random Location', '8'), 
 (NULL, '2004', 'Thompson', 'Olivia', 'Random Location', '3')
 ";
-
-?>

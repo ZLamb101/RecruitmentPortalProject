@@ -26,8 +26,8 @@ class SearchController extends Controller
      */
     public function indexAction()
     {
-        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            try{
+        if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            try {
                 $skill = new SkillModel();
                 $fields = $skill->getFields();
                 $qual = new QualificationModel();
@@ -38,11 +38,11 @@ class SearchController extends Controller
                 $view->addData('employerInfo', $account);
                 $view->addData('Quals', $types);
                 echo $view->addData('Fields', $fields)->render();
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');
@@ -70,7 +70,7 @@ class SearchController extends Controller
                 echo $result;
                 return;
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -80,23 +80,24 @@ class SearchController extends Controller
 
     /**
      * Formats the search results to be displayed in HTML
-     * @param $candidates, the list of candidates who were found in the search query
+     *
+     * @param  $candidates, the list of candidates who were found in the search query
      * @return string, the formatted HTML Table element displaying the search results.
      */
-    public function formatSearch($candidates){
-        $candidateIDs = NULL;
+    public function formatSearch($candidates)
+    {
+        $candidateIDs = null;
         $response = "<table class=\"table-condensed table-striped\"><tr><th>First Name</th><th>Last Name</th><th>Qualification</th><th>Previous Experience</th><th>Skills</th><th>Add to Shortlist?</th></tr>";
-        foreach($candidates as $candidate){
-
-            if($candidateIDs == NULL){
+        foreach ($candidates as $candidate) {
+            if ($candidateIDs == null) {
                 $candidateIDs = $candidate->getUserID();
             } else {
                 $candidateIDs = $candidateIDs . ',' . $candidate->getUserID();
             }
 
-            $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate',".$candidate->getUserId().")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
-                            $candidate->displayPreferredQualification() . "</td><td>". $candidate->displayPreferredWorkExperience()
-                            ."</td><td>". $candidate->displayPreferredSkill() ."</td><td class=\"center\"><input type='button' id='add-to-shortlist".$candidate->getUserId()."' value='+' onclick='addToShortlist(".$candidate->getUserId().")'></td></tr>";
+            $response .= "<tr><td><a href=\"View-Candidate\" onclick=\"return displayCandidate('View-Candidate'," . $candidate->getUserId() . ")\">" . $candidate->getGName() . "</a></td><td>" . $candidate->getFName() . "</td><td>" .
+                            $candidate->displayPreferredQualification() . "</td><td>" . $candidate->displayPreferredWorkExperience()
+                            . "</td><td>" . $candidate->displayPreferredSkill() . "</td><td class=\"center\"><input type='button' id='add-to-shortlist" . $candidate->getUserId() . "' value='+' onclick='addToShortlist(" . $candidate->getUserId() . ")'></td></tr>";
         }
         $response = $response . '</table>';
         $response = $response . "<input type=\"hidden\" id= \"cand-ids\" value=\"$candidateIDs\">";
@@ -106,15 +107,15 @@ class SearchController extends Controller
 
     /**
      * Echo's out the entire list of skill categories
-     *
      */
-    public function updateFieldsAction(){
+    public function updateFieldsAction()
+    {
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getFields();
             echo"<option value=\"all\">All Categories</option>";
-            foreach ($toConvert as $item){
-                echo "<option value=\"".$item['id']."\">".$item['field']."</option>";
+            foreach ($toConvert as $item) {
+                echo "<option value=\"" . $item['id'] . "\">" . $item['field'] . "</option>";
             }
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -126,14 +127,15 @@ class SearchController extends Controller
      * Echo's out the entire list of skill sub-categories
      * corresponding to specified ID received from get request
      */
-    public function updateSubFieldsAction(){
+    public function updateSubFieldsAction()
+    {
         $id = $_GET["id"];
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);
             echo"<option value=\"all\">All Sub-Categories</option>";
-            foreach ($toConvert as $item){
-                echo "<option value=\"".$item['id']."\">".$item['sub_field']."</option>";
+            foreach ($toConvert as $item) {
+                echo "<option value=\"" . $item['id'] . "\">" . $item['sub_field'] . "</option>";
             }
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -144,7 +146,8 @@ class SearchController extends Controller
     /**
      * Gets candidate Id from get request, saves it in session.
      */
-    public function selectCandidateToViewAction(){
+    public function selectCandidateToViewAction()
+    {
         $id = $_GET["id"];
         $_SESSION['candidateToView'] = $id;
     }

@@ -33,6 +33,7 @@ class GuidModel extends Model
 
     /**
      * Returns the ID of the guid
+     *
      * @return int
      */
     public function getId()
@@ -42,6 +43,7 @@ class GuidModel extends Model
 
     /**
      * Sets the ID of the guid
+     *
      * @param int $id
      */
     public function setId($id)
@@ -51,6 +53,7 @@ class GuidModel extends Model
 
     /**
      * Returns the ID of the user the guid is associated to.
+     *
      * @return string
      */
     public function getUserId()
@@ -60,6 +63,7 @@ class GuidModel extends Model
 
     /**
      * Sets the user associated with the guid, based on their ID
+     *
      * @param string $user_id
      */
     public function setUserId($user_id)
@@ -69,6 +73,7 @@ class GuidModel extends Model
 
     /**
      * Gets the guid
+     *
      * @return string
      */
     public function getUuid()
@@ -78,6 +83,7 @@ class GuidModel extends Model
 
     /**
      * Sets the guid
+     *
      * @param string $uuid
      */
     public function setUuid($uuid)
@@ -87,6 +93,7 @@ class GuidModel extends Model
 
     /**
      * Returns the time the guid is set to expire
+     *
      * @return string
      */
     public function getExpiredTime()
@@ -96,6 +103,7 @@ class GuidModel extends Model
 
     /**
      * Sets the time the guid will expire
+     *
      * @param string $expiredTime
      */
     public function setExpiredTime($expiredTime)
@@ -126,38 +134,14 @@ class GuidModel extends Model
     }
 
     /**
-     * Saves guid information to the database
-     *
-     * @throws mysqli_sql_exception if the SQL query fails
-     *
-     * @return $this GuidModel
-     */
-    public function GuidModel($username)
-    {
-        $this->uuid = $this->gen_uuid();
-
-        $username = $this->db->real_escape_string($username);
-        $this->user_id = $this->findID($username);
-
-        $this->expireTime = date('Y-m-d H:i:s');
-
-        // New user - Perform INSERT
-        if (!$result = $this->db->query("INSERT INTO `passwordguids` VALUES (NULL,'$this->user_id','$this->uuid', '$this->expireTime');")) {
-            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
-        }
-        $this->id = $this->db->insert_id;
-
-        return $this;
-    }
-
-    /**
      * Deletes guid from the database
      *
      * @throws mysqli_sql_exception if the SQL query fails
      *
      * @return $this GuidModel
      */
-    function deleteGuid(){
+    public function deleteGuid()
+    {
         if (!$result = $this->db->query(" DELETE FROM `passwordguids` WHERE `guid` = '$this->uuid' ;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
         }
@@ -166,11 +150,13 @@ class GuidModel extends Model
 
     /***
      * Generates a new uuid and returns it for use in a verification link
+     *
      * @return string, the uuid generated
      */
-    function createVerificationLink(){
+    public function createVerificationLink()
+    {
 
-        $this->uuid = $this->gen_uuid();
+        $this->uuid = $this->genUuid();
         $expireTime = date('Y-m-d H:i:s');
 
         // New user - Perform INSERT
@@ -184,35 +170,29 @@ class GuidModel extends Model
 
     /**
      * Generates a unique identifier for password recovery
+     *
      * @return string, a unique identifier to send in an email link
      */
-    function gen_uuid() {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+    public function genUuid()
+    {
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
             // 16 bits for "time_mid"
-            mt_rand( 0, 0xffff ),
-
+            mt_rand(0, 0xffff),
             // 16 bits for "time_hi_and_version",
             // four most significant bits holds version number 4
-            mt_rand( 0, 0x0fff ) | 0x4000,
-
+            mt_rand(0, 0x0fff) | 0x4000,
             // 16 bits, 8 bits for "clk_seq_hi_res",
             // 8 bits for "clk_seq_low",
             // two most significant bits holds zero and one for variant DCE1.1
-            mt_rand( 0, 0x3fff ) | 0x8000,
-
+            mt_rand(0, 0x3fff) | 0x8000,
             // 48 bits for "node"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff)
         );
     }
-
-
-
-
-
-
-
-
 }

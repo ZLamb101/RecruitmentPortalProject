@@ -33,6 +33,7 @@ class SkillCollectionModel extends Model
      * Constructor
      *
      * Collects the skills belonging to a candidate
+     *
      * @param id, the id of the candidate
      *
      * @throws mysqli_sql_exception if the SQL query fails
@@ -40,9 +41,12 @@ class SkillCollectionModel extends Model
     public function __construct($id)
     {
         parent::__construct();
-        if (!$result = $this->db->query("SELECT * FROM `skill` LEFT JOIN `candidate`
+        if (!$result = $this->db->query(
+            "SELECT * FROM `skill` LEFT JOIN `candidate`
                                          ON `skill`.`owner_id` = `candidate`.`id`
-                                         WHERE `skill`.`owner_id` = '$id';")){
+                                         WHERE `skill`.`owner_id` = '$id';"
+        )
+        ) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: skillCollectConstruct");
         }
         $this->skill_ids = array_column($result->fetch_all(), 0);
@@ -52,6 +56,7 @@ class SkillCollectionModel extends Model
     /**
      * Get skill collection
      * Get the skills in the collection
+     *
      * @return \Generator|SkillModel[]
      */
     public function getSkills()

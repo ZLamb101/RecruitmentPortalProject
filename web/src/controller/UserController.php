@@ -28,7 +28,7 @@ class UserController extends Controller
     /**
      * Manages a request to register a user, checks if the username already exists in the database.
      * Gets the username from the GET array
-    */
+     */
     public function validateUsernameAction()
     {
         $username = $_GET["name"];
@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     public function loginAction()
     {
-        try{
+        try {
             $user = new UserModel();
             $userID = $user->validateLogin($_POST['username_input'], $_POST['password_input']);
 
@@ -55,7 +55,7 @@ class UserController extends Controller
             $_SESSION["loginStatus"] = $userType;
             $_SESSION["UserID"] = $userID;
 
-            if($userType == 1) {
+            if ($userType == 1) {
                 $this->redirect("candidateHomePage");
             } else {
                 $this->redirect("employerHomePage");
@@ -74,7 +74,8 @@ class UserController extends Controller
      * Takes the inputs from post request and loads a User account
      * Then updates any changed data
      */
-    public function updateAccountAction(){
+    public function updateAccountAction()
+    {
         try {
             $account = new UserModel();
             $account->load($_SESSION['UserID']);
@@ -122,7 +123,7 @@ class UserController extends Controller
         try {
             $account = new UserModel();
             $username = $_POST['username'];
-            if($account->findName($username)){
+            if ($account->findName($username)) {
                 $id = $account->findId($username);
                 $account->load($id);
                 $guid = new GuidModel();
@@ -140,7 +141,8 @@ class UserController extends Controller
     /**
      * Function send update password after resetting
      */
-    public function updatePassword(){
+    public function updatePassword()
+    {
         $password = $_POST['password'];
         $confirmPassword = $_POST['password_confirm'];
         $uuid = $_POST['uuid'];
@@ -160,7 +162,7 @@ class UserController extends Controller
                 $this->redirect('updatePasswordConfirmation');
                 $guid->deleteGuid();
             }
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }

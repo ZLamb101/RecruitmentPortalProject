@@ -149,7 +149,7 @@ class QualificationModel extends Model
     {
 
         $id = $this->db->real_escape_string($id);
-        if (!$result = $this->db->query("SELECT * FROM `qualification` WHERE `id` = '$id';")){
+        if (!$result = $this->db->query("SELECT * FROM `qualification` WHERE `id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualificationLoad");
         }
         $result = $result->fetch_assoc();
@@ -185,13 +185,16 @@ class QualificationModel extends Model
         $major = $this->db->real_escape_string($major);
 
         if (!isset($this->id)) {
-            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year', '$major');")){
+            if (!$result = $this->db->query("INSERT INTO `qualification` VALUES (NULL, '$owner_id', '$level_id','$type_id', '$year', '$major');")) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveNew");
             }
             $this->id = $this->db->insert_id;
         } else {
-            if (!$result = $this->db->query("UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year', 
-                                              `major` = '$major' WHERE `id` = '$this->id';")){
+            if (!$result = $this->db->query(
+                "UPDATE `qualification` SET `owner_id` = '$owner_id', `level_id` = '$level_id', `type_id` = '$type_id', `year` = '$year', 
+                                              `major` = '$major' WHERE `id` = '$this->id';"
+            )
+            ) {
                 throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualSaveExisting");
             }
         }
@@ -203,8 +206,9 @@ class QualificationModel extends Model
      *
      * @param int $id, the id of the qualification to delete
      ***/
-    public function delete($id){
-        if(!$result = $this->db->query("DELETE from `qualification` WHERE `id` = '$id'")){
+    public function delete($id)
+    {
+        if (!$result = $this->db->query("DELETE from `qualification` WHERE `id` = '$id'")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualDelete");
         }
     }
@@ -217,8 +221,9 @@ class QualificationModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function getLevels(){
-        if(!$result = $this->db->query("SELECT * FROM `qual_level`;")){
+    public function getLevels()
+    {
+        if (!$result = $this->db->query("SELECT * FROM `qual_level`;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetLevels");
         }
         return $result;
@@ -231,8 +236,9 @@ class QualificationModel extends Model
      *
      * @return bool|\mysqli_result all sub-fields of the specified field
      */
-    public function getTypes(){
-        if(!$result = $this->db->query("SELECT * FROM `qual_type` ;")){
+    public function getTypes()
+    {
+        if (!$result = $this->db->query("SELECT * FROM `qual_type` ;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetTypes");
         }
         return $result;
@@ -245,14 +251,14 @@ class QualificationModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function findLevel($id){
-        if(!$result = $this->db->query("SELECT `level` FROM `qual_level` WHERE `id` = '$id';")){
+    public function findLevel($id)
+    {
+        if (!$result = $this->db->query("SELECT `level` FROM `qual_level` WHERE `id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetLevel");
         }
         $result = $result->fetch_assoc();
         $result = $result['level'];
         return $result;
-
     }
 
     /**
@@ -262,14 +268,13 @@ class QualificationModel extends Model
      *
      * @return bool|\mysqli_result all the fields and corresponding id's
      */
-    public function findType($id){
-        if(!$result = $this->db->query("SELECT `type` FROM `qual_type` WHERE `id` = '$id';")){
+    public function findType($id)
+    {
+        if (!$result = $this->db->query("SELECT `type` FROM `qual_type` WHERE `id` = '$id';")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: qualGetType");
         }
         $result = $result->fetch_assoc();
         $result = $result['type'];
         return $result;
-
     }
-
 }

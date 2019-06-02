@@ -180,5 +180,3 @@ $subFieldDummy = "(NULL, 1, 'Accountancy'),
                                                     (NULL, 25, 'Supply chain & planning'),
                                                     (NULL, 25, 'Warehouse & distribution')                                              
                                                     ;";
-
-?>

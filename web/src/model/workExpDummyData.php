@@ -1,6 +1,6 @@
 <?php
 
-$workExpDummy ="(NULL, '4', 'Recruiter', 'Spark', '39'),
+$workExpDummy = "(NULL, '4', 'Recruiter', 'Spark', '39'),
 (NULL, '5', 'Drone', 'ASB', '6'),
 (NULL, '6', 'Clerk', 'Bioware', '37'),
 (NULL, '7', 'Advisor', 'Fonterra', '16'),
@@ -2001,5 +2001,3 @@ $workExpDummy ="(NULL, '4', 'Recruiter', 'Spark', '39'),
 (NULL, '2002', 'Consultant', 'Fonterra', '6'),
 (NULL, '2003', 'Nurse', 'Activision', '33')
 ";
-
-?>

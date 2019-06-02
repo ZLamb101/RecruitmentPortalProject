@@ -37,7 +37,7 @@ class HomeController extends Controller
     {
         try {
             new Model();
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -51,12 +51,12 @@ class HomeController extends Controller
      */
     public function preRegisterPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
             $view = new View('preRegisterPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -66,12 +66,12 @@ class HomeController extends Controller
      */
     public function employerRegisterPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
             $view = new View('employerRegisterPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -82,19 +82,19 @@ class HomeController extends Controller
      */
     public function candidateRegisterPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
-            try{
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
+            try {
                 $skill = new SkillModel();
                 $fields = $skill->getFields();
                 $view = new View('candidateRegisterPage');
                 echo $view->addData('Fields', $fields)->render();
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -104,12 +104,12 @@ class HomeController extends Controller
      */
     public function registrationConfirmationPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
             $view = new View('registrationConfirmationPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -119,12 +119,12 @@ class HomeController extends Controller
      */
     public function passwordRecoveryPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
             $view = new View('passwordRecoveryPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -133,12 +133,12 @@ class HomeController extends Controller
      */
     public function passwordRecoveryConfirmationPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::GUEST) {
+        if ($_SESSION["loginStatus"] == Controller::GUEST) {
             $view = new View('passwordRecoveryConfirmationPage');
             echo $view->render();
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE) {
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
-        } else if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+        } elseif ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             $this->redirect('employerHomePage');
         }
     }
@@ -146,16 +146,17 @@ class HomeController extends Controller
     /**
      * Checks if the guid is valid , and if so allows access to a reset page
      */
-    public function verifyAction(){
+    public function verifyAction()
+    {
         $uuid = $_GET['id'];
         try {
             $account = new UserModel();
-            if ($account->check_uuid($uuid)) {
+            if ($account->checkUuid($uuid)) {
                 $view = new View('resetPasswordPage');
                 echo $view->addData('uuid', $uuid)->render();
             }
             throw new \Exception("Invalid uuid");
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');
         }
@@ -175,7 +176,8 @@ class HomeController extends Controller
     /**
      * Action to load updatePasswordConfirmationPage
      */
-    public function updatePasswordConfirmationIndex(){
+    public function updatePasswordConfirmationIndex()
+    {
         $view = new View('resetPasswordConfirmationPage');
         echo $view->render();
     }

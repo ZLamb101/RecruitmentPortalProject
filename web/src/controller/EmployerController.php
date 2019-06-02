@@ -22,17 +22,17 @@ class EmployerController extends UserController
      */
     public function indexAction()
     {
-        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            try{
+        if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            try {
                 $account = new EmployerModel();
                 $account->load($_SESSION["UserID"]);
                 $view = new View('employerHomePage');
                 echo $view->addData('employerInfo', $account)->render();
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');
@@ -46,17 +46,17 @@ class EmployerController extends UserController
      */
     public function editInfoPageAction()
     {
-        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
-            try{
+        if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+            try {
                 $account = new EmployerModel();
                 $account->load($_SESSION['UserID']);
                 $view = new View('employerEditInfoPage');
                 echo $view->addData('employerInfo', $account)->render();
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
-        } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
+        } elseif ($_SESSION["loginStatus"] == Controller::CANDIDATE) {
             $this->redirect('candidateHomePage');
         } else {
             $this->redirect('home');
@@ -68,8 +68,9 @@ class EmployerController extends UserController
      * Takes the inputs from post request and loads an Employer account
      * Then updates any changed data
      */
-    public function updateAccountAction(){
-        if($_SESSION["loginStatus"] == Controller::EMPLOYER) {
+    public function updateAccountAction()
+    {
+        if ($_SESSION["loginStatus"] == Controller::EMPLOYER) {
             parent::updateAccountAction();
             try {
                 $account = new EmployerModel();
@@ -106,7 +107,7 @@ class EmployerController extends UserController
             $account->save();
             $view = new View('registrationConfirmationPage');
             echo $view->render();
-            $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
+            $account->sendConfirmationEmail($_POST['email'], $_POST['username']);
         } catch (\Exception $e) {
             error_log($e->getMessage());
             $this->redirect('errorPage');

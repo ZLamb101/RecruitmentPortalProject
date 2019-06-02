@@ -83,7 +83,8 @@ class Model
                                           `email` varchar(256) DEFAULT NULL,
                                           `phone_number` varchar (256) NOT NULL,
                                           PRIMARY KEY (`id`) 
-                                          );");
+                                          );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create user table");
@@ -94,11 +95,14 @@ class Model
             $pw3 = password_hash("Zlamb987", PASSWORD_BCRYPT);
             $pw4 = password_hash("Tharris11", PASSWORD_BCRYPT);
 
-            if(!$this->db->query("INSERT INTO `user` (`id`, `username`, `password`, `email`, `phone_number`) VALUES
+            if (!$this->db->query(
+                "INSERT INTO `user` (`id`, `username`, `password`, `email`, `phone_number`) VALUES
                                                     (1, 'jdrumm', '$pw1', 'jordan.b.drumm@gmail.com', '0210220342'),
                                                     (2, 'bupton', '$pw2', 'bupton@hotmail.co.nz', '0220413672'),
                                                     (3, 'zlamb', '$pw3', 'zanelamb@live.com', '0274929473'),
-                                                    (4, 'tharris', '$pw4', 'tim@gmail.com', '0210867283'), ". $userDummy .";")){
+                                                    (4, 'tharris', '$pw4', 'tim@gmail.com', '0210867283'), " . $userDummy . ";"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy user data.", $this->db->errno);
             }
@@ -122,14 +126,18 @@ class Model
                                                 `calendar` varchar (256) DEFAULT NULL,
                                                 PRIMARY KEY (`id`),
                                                 FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
-                                                );");
+                                                );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create employer table");
             }
 
-            if(!$this->db->query("INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`, `calendar`) VALUES 
-                                                    (1, '4', 'Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com', 'https://calendar.google.com/calendar/selfsched?sstoken=UUY1TVNrb0FSMVVCfGRlZmF1bHR8YWIyYTE2MWFlZDk0MjNjOGZiMGY3MjQyNTk0Njk2Yzc');")){
+            if (!$this->db->query(
+                "INSERT INTO `employer` (`id`, `user_id`, `address`, `company_name`, `contact_name`, `url`, `calendar`) VALUES 
+                                                    (1, '4', 'Albany', 'Vesta Central', 'Tim Harris', 'vesta-central.com', 'https://calendar.google.com/calendar/selfsched?sstoken=UUY1TVNrb0FSMVVCfGRlZmF1bHR8YWIyYTE2MWFlZDk0MjNjOGZiMGY3MjQyNTk0Njk2Yzc');"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy employer data.", $this->db->errno);
             }
@@ -153,16 +161,20 @@ class Model
                                                 `availability` int(8) DEFAULT NULL,
                                                 PRIMARY KEY (`id`),
                                                 FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
-                                                );");
+                                                );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create candidate table");
             }
 
-            if(!$this->db->query("INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`) VALUES 
+            if (!$this->db->query(
+                "INSERT INTO `candidate` (`id`, `user_id`, `f_name`, `g_name`, `location`, `availability`) VALUES 
                                                     ('1', '1', 'Drumm', 'Jordan', 'Torbay', '1'), 
                                                     ('2', '2', 'Upton', 'Benjamin', 'Glenfield','3'),
-                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7')," . $candidateDummy .";")){
+                                                    ('3', '3', 'Lamb', 'Zane', 'Albany', '7')," . $candidateDummy . ";"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy candidate data.", $this->db->errno);
             }
@@ -184,12 +196,12 @@ class Model
                   
                                                 PRIMARY KEY (`id`),
                                                 FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
-                                                );");
+                                                );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create passwordguids table");
             }
-
         }
     }
 
@@ -209,18 +221,22 @@ class Model
                                                     `duration` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`),
                                                     FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create work_experience table");
             }
 
-            if(!$this->db->query("INSERT INTO `work_experience` (`id`, `owner_id`, `role`, `employer`, `duration`) VALUES 
+            if (!$this->db->query(
+                "INSERT INTO `work_experience` (`id`, `owner_id`, `role`, `employer`, `duration`) VALUES 
                                                     (NULL, '1', 'Senior Developer', 'Google', '16'), 
                                                     (NULL, '1', 'Junior Developer', 'TradeMe', '6'),
                                                     (NULL, '2', 'Garbage Man', 'E-Waste', '15'),
                                                     (NULL, '3', 'Physio', 'Torbay Physio', '8'),
-                                                    (NULL, '3', 'Stock Broker', 'Easy Cash', '12')," . $workExpDummy .";")){
+                                                    (NULL, '3', 'Stock Broker', 'Easy Cash', '12')," . $workExpDummy . ";"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy work_experience data.", $this->db->errno);
             }
@@ -243,15 +259,19 @@ class Model
                                                     `hasInvited` int(8) NOT NULL,
                                                     PRIMARY KEY (`id`),
                                                     FOREIGN KEY (`owner_id`) REFERENCES `employer`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create short_list table");
             }
 
-            if(!$this->db->query("INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`, `hasInvited`) VALUES 
+            if (!$this->db->query(
+                "INSERT INTO `short_list` (`id`, `owner_id`, `name`, `candidates`, `description`, `hasInvited`) VALUES 
                                                     (NULL, '1', 'Junior Developer', '1,2,3', 'Jr. C# developer',0),
-                                                    (NULL, '1', 'Tester', '3,2', 'Ideally undergrad', 0);")){
+                                                    (NULL, '1', 'Tester', '3,2', 'Ideally undergrad', 0);"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy short_list data.", $this->db->errno);
             }
@@ -270,14 +290,18 @@ class Model
                                                     `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
                                                     `type` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create qual_type table");
             }
 
-            if(!$this->db->query("INSERT INTO `qual_type` (`id`, `type`) VALUES 
-                                                    ".$qualTypeDummy)){
+            if (!$this->db->query(
+                "INSERT INTO `qual_type` (`id`, `type`) VALUES 
+                                                    " . $qualTypeDummy
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy qual_type data.", $this->db->errno);
             }
@@ -296,14 +320,18 @@ class Model
                                                     `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
                                                     `level` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create qual_level table");
             }
 
-            if(!$this->db->query("INSERT INTO `qual_level` (`id`, `level`) VALUES 
-                                                    ".$qualLevelDummy)){
+            if (!$this->db->query(
+                "INSERT INTO `qual_level` (`id`, `level`) VALUES 
+                                                    " . $qualLevelDummy
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy qual_level data.", $this->db->errno);
             }
@@ -329,17 +357,21 @@ class Model
                                                     FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`),
                                                     FOREIGN KEY (`level_id`) REFERENCES `qual_level`(`id`),
                                                     FOREIGN KEY (`type_id`) REFERENCES `qual_type`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create qualification table");
             }
 
-            if(!$this->db->query("INSERT INTO `qualification` (`id`, `owner_id`, `level_id`,`type_id`, `year`, `major`) VALUES 
+            if (!$this->db->query(
+                "INSERT INTO `qualification` (`id`, `owner_id`, `level_id`,`type_id`, `year`, `major`) VALUES 
                                                     (NULL, '1', '3','4', '2019', 'Computer Science'),
                                                     (NULL, '1', '2','6', '2024', 'Healthy Eating'),
                                                     (NULL, '2', '1','3', '1804', 'Jump Jam'),
-                                                    (NULL, '3', '2','1', '2020', 'Exercise Physiology')," . $qualDummy . ";")){
+                                                    (NULL, '3', '2','1', '2020', 'Exercise Physiology')," . $qualDummy . ";"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy qualification data.", $this->db->errno);
             }
@@ -359,14 +391,18 @@ class Model
                                                     `id` int(8) unsigned NOT NULL AUTO_INCREMENT UNIQUE,
                                                     `field` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create field table");
             }
 
-            if(!$this->db->query("INSERT INTO `field` (`id`, `field`) VALUES 
-                                                    ".$fieldDummy)){
+            if (!$this->db->query(
+                "INSERT INTO `field` (`id`, `field`) VALUES 
+                                                    " . $fieldDummy
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy field data.", $this->db->errno);
             }
@@ -388,14 +424,18 @@ class Model
                                                     `sub_field` varchar(256) DEFAULT NULL,
                                                     PRIMARY KEY (`id`),
                                                     FOREIGN KEY (`field_id`) REFERENCES `field`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create sub_field table");
             }
 
-            if(!$this->db->query("INSERT INTO `sub_field` (`id`, `field_id`, `sub_field`) VALUES
-                                                    ".$subFieldDummy)){
+            if (!$this->db->query(
+                "INSERT INTO `sub_field` (`id`, `field_id`, `sub_field`) VALUES
+                                                    " . $subFieldDummy
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy sub_field data.", $this->db->errno);
             }
@@ -421,18 +461,22 @@ class Model
                                                     FOREIGN KEY (`owner_id`) REFERENCES `candidate`(`id`),
                                                     FOREIGN KEY (`field_id`) REFERENCES `field`(`id`),
                                                     FOREIGN KEY (`sub_field_id`) REFERENCES `sub_field`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create skill table");
             }
 
-            if (!$this->db->query("INSERT INTO `skill` (`id`, `owner_id`, `field_id`, `sub_field_id`, `contents`) VALUES
+            if (!$this->db->query(
+                "INSERT INTO `skill` (`id`, `owner_id`, `field_id`, `sub_field_id`, `contents`) VALUES
                                                     (NULL, 1, 1, 1, 'Counting money'),
                                                     (NULL, 1, 1, 2, 'Doing the books'),
                                                     (NULL, 2, 1, 3, 'Being Cool'),
-                                                    (NULL, 3, 1, 4, 'Being lame')," . $skillDummy ."
-                                                    ;")) {
+                                                    (NULL, 3, 1, 4, 'Being lame')," . $skillDummy . "
+                                                    ;"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy skill data.", $this->db->errno);
             }
@@ -459,17 +503,21 @@ class Model
                                                     FOREIGN KEY (`preferred_qual_id`) REFERENCES `qualification`(`id`),
                                                     FOREIGN KEY (`preferred_workEx_id`) REFERENCES `work_experience`(`id`),
                                                     FOREIGN KEY (`preferred_skill_id`) REFERENCES `skill`(`id`)
-                                                    );");
+                                                    );"
+            );
 
             if (!$result) {
                 throw new \mysqli_sql_exception("Failed to create preference table");
             }
 
-            if (!$this->db->query("INSERT INTO `preferences` (`id`, `owner_id`, `preferred_qual_id`, `preferred_workEx_id`, `preferred_skill_id`) VALUES
+            if (!$this->db->query(
+                "INSERT INTO `preferences` (`id`, `owner_id`, `preferred_qual_id`, `preferred_workEx_id`, `preferred_skill_id`) VALUES
                                                     (NULL, 1, 1, 1, 1),
                                                     (NULL, 2, 3, 3, 3),
-                                                    (NULL, 3, 4, 4, 4), ". $prefDummy."
-                                                    ;")) {
+                                                    (NULL, 3, 4, 4, 4), " . $prefDummy . "
+                                                    ;"
+            )
+            ) {
                 // handle appropriately
                 throw new \mysqli_sql_exception("Failed to create dummy preference data.", $this->db->errno);
             }
@@ -479,7 +527,8 @@ class Model
     /**
      * Generates the database and inserts dummy data.
      */
-    public function generateDatabase(){
+    public function generateDatabase()
+    {
         $this->generateUserTable();
         $this->generateEmployerTable();
         $this->generateCandidateTable();

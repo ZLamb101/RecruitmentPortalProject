@@ -26,5 +26,3 @@ $qualTypeDummy = "(NULL, 'Accountancy'),
                                                      (NULL, 'Sport Management'), 
                                                      (NULL, 'Veterinary Science'), 
                                                      (NULL, 'Veterinary Technology');";
-
-?>
