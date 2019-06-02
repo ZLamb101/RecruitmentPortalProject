@@ -111,6 +111,7 @@ class CandidateController extends UserController
             try {
                 $account->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             $candidateID = $account->getId();
@@ -121,6 +122,7 @@ class CandidateController extends UserController
                 $account->savePreferences($pref_qual, $pref_work, $pref_skill);
             } catch (\Exception $e){
                 error_log($e->getMessage());
+                $this->redirect('errorPage');
             }
             $this->redirect('candidateHomePage');
         }
@@ -141,6 +143,7 @@ class CandidateController extends UserController
             $accountId = $account->findID($_POST['username']);
             
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
 
@@ -210,6 +213,7 @@ class CandidateController extends UserController
 
                 $qualification->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             if($isPreferred){
