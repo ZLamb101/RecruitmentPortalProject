@@ -253,27 +253,21 @@ class EmployerModel extends UserModel
     public function save()
     {
         $uid = $this->user_id ?? "NULL";
-        $uid = $this->db->real_escape_string($uid);
 
         $address = $this->address ?? "NULL";
         $address = $this->db->real_escape_string($address);
 
-
         $comp_name = $this->company_name ?? "NULL";
         $comp_name = $this->db->real_escape_string($comp_name);
-
 
         $contact_name = $this->contact_name ?? "NULL";
         $contact_name = $this->db->real_escape_string($contact_name);
 
-
         $url = $this->url ?? "NULL";
         $url = $this->db->real_escape_string($url);
 
-
         $calendar = $this->calendar_link ?? "NULL";
         $calendar = $this->db->real_escape_string($calendar);
-
 
         if(!isset($this->id)){
             // new employer
