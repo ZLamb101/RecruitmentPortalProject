@@ -1,5 +1,0 @@
-USER: VestaRecruit
-PASS: DTH36HHH67
-
-Dummy Gmail:
-bbagginsvesta@gmail.com
