@@ -168,7 +168,6 @@ class UserModel extends Model
      */
     public function delete()
     {
-        //Not sure if this should be allowed. Will not currently delete children?
         if (!$result = $this->db->query("DELETE FROM `user` WHERE `user`.`id` = $this->id;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: userDelete");
         }
@@ -371,7 +370,6 @@ class UserModel extends Model
         if (!$result = $this->db->query("SELECT * FROM `passwordguids` WHERE `guid` = '$str';")) {
             throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
         }
-       // $result = $result->fetch_assoc();
         if($result->num_rows == 0){
             return false;
         }

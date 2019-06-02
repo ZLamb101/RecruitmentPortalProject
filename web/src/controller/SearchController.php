@@ -127,7 +127,7 @@ class SearchController extends Controller
      * corresponding to specified ID received from get request
      */
     public function updateSubFieldsAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);
@@ -145,7 +145,7 @@ class SearchController extends Controller
      * Gets candidate Id from get request, saves it in session.
      */
     public function selectCandidateToViewAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         $_SESSION['candidateToView'] = $id;
     }
 }

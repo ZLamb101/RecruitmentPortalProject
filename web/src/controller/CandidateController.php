@@ -111,6 +111,7 @@ class CandidateController extends UserController
             try {
                 $account->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             $candidateID = $account->getId();
@@ -121,6 +122,7 @@ class CandidateController extends UserController
                 $account->savePreferences($pref_qual, $pref_work, $pref_skill);
             } catch (\Exception $e){
                 error_log($e->getMessage());
+                $this->redirect('errorPage');
             }
             $this->redirect('candidateHomePage');
         }
@@ -141,6 +143,7 @@ class CandidateController extends UserController
             $accountId = $account->findID($_POST['username']);
             
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
 
@@ -210,6 +213,7 @@ class CandidateController extends UserController
 
                 $qualification->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             if($isPreferred){
@@ -265,6 +269,7 @@ class CandidateController extends UserController
 
                 $workExperience->save();
             } catch (\Exception $e) {
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
             if($isPreferred){
@@ -374,7 +379,7 @@ class CandidateController extends UserController
      * Function to delete a candidates work experience from the database
      */
     public function deleteWorkExperienceAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new WorkExperienceModel();
             $model->delete($id);
@@ -389,7 +394,7 @@ class CandidateController extends UserController
      * Function to delete a candidates skill from the database
      */
     public function deleteSkillAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new SkillModel();
             $model->delete($id);
@@ -404,7 +409,7 @@ class CandidateController extends UserController
      * Function to delete a candidates qualification from the database
      */
     public function deleteQualificationAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $model = new QualificationModel();
             $model->delete($id);

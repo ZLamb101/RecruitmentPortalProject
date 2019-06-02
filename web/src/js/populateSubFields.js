@@ -10,7 +10,7 @@ function updateFields(button)
 
     subFieldString = subFieldString.concat(index[5]);
 
-        get2(button , function () {
+        getSubFields(button , function () {
             document.getElementById(subFieldString).innerHTML = this.responseText;
         })
         return false;
@@ -21,7 +21,7 @@ function updateFields(button)
  * @param button, the dropdown the user selects the main field. The users selection triggers this function
  * @param callback, a function that describes what to do with the data retrieved
  */
-function get2(button, callback) {
+function getSubFields(button, callback) {
 
     var fieldString = "field";
     var temp = button.id;
@@ -30,7 +30,7 @@ function get2(button, callback) {
 
     xmlhttp = new XMLHttpRequest();
     var id = document.getElementById(fieldString).value;
-    xmlhttp.open("GET", "populateSubFields.php?q=" + id, true);
+    xmlhttp.open("GET", "populateSubFields.php?id=" + id, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

@@ -29,6 +29,7 @@ class EmployerController extends UserController
                 $view = new View('employerHomePage');
                 echo $view->addData('employerInfo', $account)->render();
             } catch (\Exception $e){
+                error_log($e->getMessage());
                 $this->redirect('errorPage');
             }
         } else if($_SESSION["loginStatus"] == Controller::CANDIDATE){
@@ -73,16 +74,11 @@ class EmployerController extends UserController
             try {
                 $account = new EmployerModel();
                 $account->load($_SESSION['UserID']);
-            }catch(\Exception $e){
-                error_log($e->getMessage());
-                $this->redirect('errorPage');
-            }
-            $account->setCompanyName($_POST['company-name']);
-            $account->setUrl($_POST['url']);
-            $account->setContactName($_POST['contact-name']);
-            $account->setAddress($_POST['address']);
-            $account->setCalendarLink($_POST['calendar-link']);
-            try {
+                $account->setCompanyName($_POST['company-name']);
+                $account->setUrl($_POST['url']);
+                $account->setContactName($_POST['contact-name']);
+                $account->setAddress($_POST['address']);
+                $account->setCalendarLink($_POST['calendar-link']);
                 $account->save();
             } catch (\Exception $e) {
                 error_log($e->getMessage());
@@ -102,20 +98,17 @@ class EmployerController extends UserController
         try {
             $account = new EmployerModel();
             $accountId = $account->findID($_POST['username']);
-        } catch (\Exception $e) {
-            $this->redirect('errorPage');
-        }
-        $account->setUserId($accountId);
-        $account->setCompanyName($_POST['company-name']);
-        $account->setUrl($_POST['url']);
-        $account->setContactName($_POST['contact-name']);
-        $account->setAddress($_POST['address']);
-        try {
+            $account->setUserId($accountId);
+            $account->setCompanyName($_POST['company-name']);
+            $account->setUrl($_POST['url']);
+            $account->setContactName($_POST['contact-name']);
+            $account->setAddress($_POST['address']);
             $account->save();
             $view = new View('registrationConfirmationPage');
             echo $view->render();
             $account->sendConfirmationEmail($_POST['email'],$_POST['username']);
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
     }

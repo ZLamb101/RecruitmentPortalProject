@@ -157,35 +157,12 @@ class GuidModel extends Model
      *
      * @return $this GuidModel
      */
-    public function delete()
-    {
-        //Not sure if this should be allowed. Will not currently delete children?
-        if (!$result = $this->db->query("DELETE FROM `user` WHERE `user`.`id` = $this->id;")) {
-            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidDelete");
+    function deleteGuid(){
+        if (!$result = $this->db->query(" DELETE FROM `passwordguids` WHERE `guid` = '$this->uuid' ;")) {
+            throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
         }
-        return $this;
     }
 
-     /***
-     * Searches for the user_id of an explicit username
-     *
-     * @param $username string, the username to look for in the database
-     * @return string, the user_id for the associated username
-     *
-     * @throws \mysqli_sql_exception, if the SQL query fails
-     */
-    public function findID($username){
-         if (!$result = $this->db->query("SELECT * FROM `user` WHERE `user`.`username` = '$username';")) {
-            throw new \mysqli_sql_exception($this->db->error, $this->db->errno);
-        }
-      
-        $result = $result->fetch_assoc();
-        if(!$result){
-            throw new \mysqli_sql_exception("Failed");
-        }
-        return $result['id'];
-
-    }
 
     /***
      * Generates a new uuid and returns it for use in a verification link
@@ -231,14 +208,6 @@ class GuidModel extends Model
         );
     }
 
-    /**
-     * Deletes the guid from the database
-     */
-    function deleteGuid(){
-         if (!$result = $this->db->query(" DELETE FROM `passwordguids` WHERE `guid` = '$this->uuid' ;")) {
-             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: guidSaveNew");
-         }
-    }
 
 
 

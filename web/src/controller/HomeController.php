@@ -14,6 +14,8 @@ use bjz\portal\model\ShortListCollectionModel;
 use bjz\portal\model\ShortListModel;
 use bjz\portal\model\SkillModel;
 use bjz\portal\view\View;
+use Couchbase\Exception;
+
 session_start();
 
 
@@ -37,6 +39,7 @@ class HomeController extends Controller
             new Model();
         } catch (\Exception $e){
             error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
         $view = new View('frontPage');
         echo $view->render();
@@ -145,13 +148,17 @@ class HomeController extends Controller
      */
     public function verifyAction(){
         $uuid = $_GET['id'];
-        $account = new UserModel();
-        if($account->check_uuid($uuid)){
-            $view = new View('resetPasswordPage');
-            echo $view->addData('uuid',$uuid)->render();
+        try {
+            $account = new UserModel();
+            if ($account->check_uuid($uuid)) {
+                $view = new View('resetPasswordPage');
+                echo $view->addData('uuid', $uuid)->render();
+            }
+            throw new \Exception("Invalid uuid");
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
-        $view = new View('errorPage');
-        echo $view->render();
     }
 
 
@@ -169,7 +176,6 @@ class HomeController extends Controller
      * Action to load updatePasswordConfirmationPage
      */
     public function updatePasswordConfirmationIndex(){
-        error_log("i tried");
         $view = new View('resetPasswordConfirmationPage');
         echo $view->render();
     }

@@ -156,7 +156,6 @@ class SkillModel extends Model
 
         $result = $result->fetch_assoc();
         $this->id = $id;
-        //$this->owner_id = $result['owner_id'];
         $this->field = $result['field'];
         $this->sub_field = $result['sub_field'];
         $this->contents = $result['contents'];

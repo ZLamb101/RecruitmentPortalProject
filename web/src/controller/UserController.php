@@ -31,7 +31,7 @@ class UserController extends Controller
     */
     public function validateUsernameAction()
     {
-        $username = $_GET["q"];
+        $username = $_GET["name"];
         try {
             $a = new UserModel();
             echo $a->findName($username);
@@ -78,14 +78,10 @@ class UserController extends Controller
         try {
             $account = new UserModel();
             $account->load($_SESSION['UserID']);
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-            $this->redirect('errorPage');
-        }
-        $account->setPhoneNumber($_POST['phone-number']);
-        $account->setEmail($_POST['email']);
 
-        try {
+            $account->setPhoneNumber($_POST['phone-number']);
+            $account->setEmail($_POST['email']);
+
             $account->save();
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -101,18 +97,15 @@ class UserController extends Controller
     {
         try {
             $account = new UserModel();
-        } catch (\Exception $e) {
-            error_log($e->getMessage());
-            $this->redirect('errorPage');
-        }
-        $account->setUsername($_POST['username']);
-        $account->setEmail($_POST['email']);
-        $account->setPassword($_POST['password']);
-        $account->setPhoneNumber($_POST['phone-number']);
-       
-        try {
+
+            $account->setUsername($_POST['username']);
+            $account->setEmail($_POST['email']);
+            $account->setPassword($_POST['password']);
+            $account->setPhoneNumber($_POST['phone-number']);
+
             $account->save();
         } catch (\Exception $e) {
+            error_log($e->getMessage());
             $this->redirect('errorPage');
         }
     }
@@ -151,20 +144,25 @@ class UserController extends Controller
         $password = $_POST['password'];
         $confirmPassword = $_POST['password_confirm'];
         $uuid = $_POST['uuid'];
-        $guid = new GuidModel();
-        $guid->load($uuid);
+        try {
+            $guid = new GuidModel();
+            $guid->load($uuid);
 
-        if($password != $confirmPassword){
-            $this->redirect('updatePassword');
-        }else{
-            $account = new UserModel();
-            $account->load($guid->getUserId());
-            $password = password_hash($password, PASSWORD_BCRYPT);
-            $account->setPassword($password);
+            if ($password != $confirmPassword) {
+                $this->redirect('updatePassword');
+            } else {
+                $account = new UserModel();
+                $account->load($guid->getUserId());
+                $password = password_hash($password, PASSWORD_BCRYPT);
+                $account->setPassword($password);
 
-            $account->save();
-            $this->redirect('updatePasswordConfirmation');
-            $guid->deleteGuid();
+                $account->save();
+                $this->redirect('updatePasswordConfirmation');
+                $guid->deleteGuid();
+            }
+        } catch (\Exception $e){
+            error_log($e->getMessage());
+            $this->redirect('errorPage');
         }
     }
 }

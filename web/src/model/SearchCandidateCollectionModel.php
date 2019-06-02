@@ -139,7 +139,6 @@ class SearchCandidateCollectionModel extends Model
             }
         } else if( ($sub_field_id != "all") && (strlen($query) == 0) ){
             // Case for searching a subfield without a specific string
-            error_log("Trying to search a subfield without a string");
             if (!$result = $this->db->query("SELECT DISTINCT `user_id`
                                          FROM `candidate` 
                                          LEFT JOIN `skill` ON `skill`.`owner_id` = `candidate`.`id`

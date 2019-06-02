@@ -245,12 +245,8 @@ class CandidateModel extends UserModel
      *
      * @return $this CandidateModel
      */
-    public function save(){
-        // DOES NOT CURRENTLY SAVE W.E.
-        // DOES NOT CURRENTLY SAVE QUALIFICATIONS
-        
+    public function save(){      
         $uid = $this->user_id ?? "NULL";
-        $uid = $this->db->real_escape_string($uid);
         $given = $this->g_name ?? "NULL";
         $given = $this->db->real_escape_string($given);
         $family = $this->f_name ?? "NULL";
@@ -339,10 +335,6 @@ class CandidateModel extends UserModel
         } else {
             $result = $result->fetch_assoc();
             $pref_id = $result['id'];
-            error_log($pref_qual);
-            error_log($pref_work);
-            error_log($pref_skill);
-            error_log("UPDATE: PREF ID FOUND IS : ".$pref_id);
             if(!$result = $this->db->query("UPDATE `preferences` SET `owner_id` = '$this->id', `preferred_qual_id` = '$pref_qual', 
                                             `preferred_workEx_id` = '$pref_work', `preferred_skill_id` = '$pref_skill'
                                             WHERE `id` = '$pref_id';")){

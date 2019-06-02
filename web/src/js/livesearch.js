@@ -1,5 +1,9 @@
 /***
  * Processes a search request and generates the output
+ * displays a "Searching..." prompt.
+ * Gathers all relevant data entered into the search fields.
+ * Creates an XML request to livesearch.php to get all the data for the search results.
+ * Displays all the results in search InnerHtml
  */
 function showResult() {
     document.getElementById("livesearch").innerHTML = "<p>Searching...</p>";
@@ -120,7 +124,7 @@ function displayCandidate(url, candidateId){
 function getDisplay(callback, candidateId) {
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET","selectCandidateToView.php?q="+candidateId ,true);
+    xmlhttp.open("GET","selectCandidateToView.php?id="+candidateId ,true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

@@ -28,7 +28,7 @@ include "header.phtml"
                             <label for="last-name">Last Name: </label>
                             <input class="form-control"  type="text" placeholder="Smith" id="last-name" name="last-name" size="40" title="Alphabetic, '-' characters and spaces only" value="<?= $candidateInfo->getFName() ?>">
                         </div>
-                        <input hidden type="text" placeholder="Username"  name="username" size="40" required title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
+                        <input hidden type="text" placeholder="Username"  name="username" size="40" title="Alphanumeric, '-', and '_' characters only" value="<?= $candidateInfo->getUserName() ?>">
                         <div class="form-group">
                             <label for="email">Email: </label>
                             <input class="form-control"  type="text" placeholder="example@gmail.com" id="email" name="email" size="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Please enter a valid email address e.g: example@gmail.com" value="<?= $candidateInfo->getEmail() ?>">
