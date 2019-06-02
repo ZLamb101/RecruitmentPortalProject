@@ -9,8 +9,19 @@ include "header.phtml"
 	<!--- Content Start -->
 	<div class= "container-fluid from-top" id="page2">
 
-        <div class="partition large-box-format" id="search-params">
+        <?php
 
+        if ($_SESSION['alert'] != ""){
+            echo "<div class=\"\ small-box-format center alert alert-warning\">";
+            echo "<p>".$_SESSION['alert'].",  Click <a class=\"alert-link\" href='edit-employer-information')>Here</a> to attach one</p>";
+            echo "</div>";
+        }
+
+        $_SESSION['alert'] = "";
+
+        ?>
+
+        <div class="partition large-box-format" id="search-params">
             <form class="horizontal">
                 <div class="row center">
                     <div class="col-sm-6 form-group">
@@ -82,8 +93,6 @@ include "header.phtml"
                         <input class="center-block btn btn-info" id="submit-search" type="button" value="Search" onclick="showResult()">
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>

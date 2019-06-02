@@ -105,5 +105,5 @@ function deleteShortList(titleID, listId){
  */
 function writeEmail(){
     listId = document.getElementById('shortlist0').value;
-    window.location.assign("writeEmail.php?list_id="+listId);
+    window.location.assign("writeEmail.php?list_id="+listId+"&from=search");
 }
