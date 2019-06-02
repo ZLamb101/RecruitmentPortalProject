@@ -216,7 +216,7 @@ class CandidateModel extends UserModel
      */
     public function load($id)
     {
-        parent::load($this->user_id);
+
         $id = $this->db->real_escape_string($id);
         if (!$result = $this->db->query("SELECT * FROM `candidate` WHERE `user_id` = $id;")) {
             throw new \mysqli_sql_exception("Oops! Something has gone wrong on our end. Error Code: candidateLoad");
@@ -234,7 +234,7 @@ class CandidateModel extends UserModel
         $skills = new SkillCollectionModel($result['id']);
         $this->skills = $skills->getSkills();
         $this->id = $result['id'];
-        
+        parent::load($this->user_id);
         return $this;
     }
 
