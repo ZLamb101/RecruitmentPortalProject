@@ -1,7 +1,7 @@
 version: '2.1'
 services:
     php:
-        image: agnz/339php #check this again later
+        image: agnz/339php
         container_name: php
         working_dir: /web
         restart: always
