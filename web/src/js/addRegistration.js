@@ -1,6 +1,6 @@
 
 /**
- * if the max number of skills has yet to be reached
+ * if the max number of skills is yet to be reached
  * Create a <div> node with input fields "year" ,"level", "name" and "major".
  * Call a php function to search rdb and inserts qualification level data.
  * increment the names of the inputs for each invocation.
@@ -174,7 +174,7 @@ function addQualification(){
 /**
  * if the max number of skills has yet to be reached
  * Create a <div> node with input fields "role","duration" and "employer"
- * increment the names of the inputs for each invokation.
+ * increment the names of the inputs for each invocation.
  * append new <div> to work experience in phtml
  */
 function addWorkExperience(){
@@ -319,7 +319,7 @@ function addWorkExperience(){
  * if the max number of skills has yet to be reached
  * Create a <div> node with input fields "field","sub-field" and "contents" for a skill
  * Call a php function to search rdb to fill the skill field with data.
- * increment the names of the inputs for each invokation.
+ * increment the names of the inputs for each invocation.
  * append new <div> to skill in phtml
  */
 function addSkill(){

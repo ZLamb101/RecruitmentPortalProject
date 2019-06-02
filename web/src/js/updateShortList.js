@@ -69,7 +69,7 @@ function sendInvite(shortlist){
  * Deletes a shortlist from the database
  *
  * @param titleID,  The ID of the title.
- * @param listID, The ID ofthe list to be deleted.
+ * @param listId, The ID ofthe list to be deleted.
  */
 function deleteShortList(titleID, listId){
     if(!confirm("Deleting this short list is permanent. Are you sure you want to delete?")){
