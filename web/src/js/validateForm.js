@@ -28,7 +28,7 @@ function getValidate(callback) {
 
     var username = document.forms["registration"]["username"].value;
 
-    xmlhttp.open("GET", "registrationValidation.php?q=" + username, true);
+    xmlhttp.open("GET", "registrationValidation.php?name=" + username, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check

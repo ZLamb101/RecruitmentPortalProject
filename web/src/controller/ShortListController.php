@@ -108,7 +108,7 @@ class ShortListController extends Controller
     public function displayShortListAction()
     {
         try {
-            $listID = $_GET["q"];
+            $listID = $_GET["listID"];
             if($listID != "all") {
                 $list = new ShortListModel();
                 $list->load($listID);
@@ -278,7 +278,7 @@ class ShortListController extends Controller
      */
     public function sendInviteAllAction(){
 
-        $shortListId = $_GET["q"];
+        $shortListId = $_GET["listID"];
         $content = $_GET['content'];
 
         try {

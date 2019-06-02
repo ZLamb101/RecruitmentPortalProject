@@ -31,7 +31,7 @@ class UserController extends Controller
     */
     public function validateUsernameAction()
     {
-        $username = $_GET["q"];
+        $username = $_GET["name"];
         try {
             $a = new UserModel();
             echo $a->findName($username);

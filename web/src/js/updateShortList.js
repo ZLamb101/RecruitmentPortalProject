@@ -34,7 +34,7 @@ function getCandidates(callback) {
 
     var shortlist = document.getElementById('shortlist0').value;
 
-    xmlhttp.open("GET", "displayShortList.php?q=" + shortlist, true);
+    xmlhttp.open("GET", "displayShortList.php?listID=" + shortlist, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
@@ -59,7 +59,7 @@ function sendInvite(shortlist){
 
     xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open("GET", "sendInvites.php?q=" + shortlist + "&content="+emailContent, true);
+    xmlhttp.open("GET", "sendInvites.php?listID=" + shortlist + "&content="+emailContent, true);
     submitButton.click();
     xmlhttp.send();
 

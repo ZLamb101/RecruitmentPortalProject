@@ -127,7 +127,7 @@ class SearchController extends Controller
      * corresponding to specified ID received from get request
      */
     public function updateSubFieldsAction(){
-        $id = $_GET["q"];
+        $id = $_GET["id"];
         try {
             $skill = new SkillModel();
             $toConvert = $skill->getSubFields($id);

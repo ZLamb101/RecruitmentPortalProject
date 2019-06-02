@@ -30,7 +30,7 @@ function getSubFields(button, callback) {
 
     xmlhttp = new XMLHttpRequest();
     var id = document.getElementById(fieldString).value;
-    xmlhttp.open("GET", "populateSubFields.php?q=" + id, true);
+    xmlhttp.open("GET", "populateSubFields.php?id=" + id, true);
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             // defensive check
